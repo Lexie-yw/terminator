@@ -1,1890 +1,2526 @@
 [
-   {
-      "pk": 10, 
-      "model": "auth.user", 
-      "fields": {
-         "username": "usuario", 
-         "first_name": "", 
-         "last_name": "", 
-         "is_active": true, 
-         "is_superuser": true, 
-         "is_staff": true, 
-         "last_login": "2011-06-16 16:33:45+0000", 
-         "groups": [], 
-         "user_permissions": [], 
-         "password": "sha1$b7a7a$388aceebbbb532a0e70a184b24240b0177c05618", 
-         "email": "unho_fic@hotmail.com", 
-         "date_joined": "2011-06-16 16:33:45+0000"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "auth.user", 
-      "fields": {
-         "username": "a", 
-         "first_name": "", 
-         "last_name": "", 
-         "is_active": true, 
-         "is_superuser": false, 
-         "is_staff": true, 
-         "last_login": "2011-06-24 21:24:26+0000", 
-         "groups": [], 
-         "user_permissions": [], 
-         "password": "sha1$b4cc4$678c3563e6f4cb4c31737c44c6b804ebf153db7c", 
-         "email": "", 
-         "date_joined": "2011-06-24 21:24:26+0000"
-      }
-   },
-   {
-      "pk": 3, 
-      "model": "auth.user", 
-      "fields": {
-         "username": "b", 
-         "first_name": "", 
-         "last_name": "", 
-         "is_active": true, 
-         "is_superuser": false, 
-         "is_staff": false, 
-         "last_login": "2011-06-24 21:25:26+0000", 
-         "groups": [], 
-         "user_permissions": [], 
-         "password": "sha1$42cb2$5284ca23d9077f8c58f65d299a9cde40ea4445db", 
-         "email": "b@b.es", 
-         "date_joined": "2011-06-24 21:25:26+0000"
-      }
-   },
-   {
-      "pk": 4, 
-      "model": "auth.user", 
-      "fields": {
-         "username": "lexi", 
-         "first_name": "", 
-         "last_name": "", 
-         "is_active": true, 
-         "is_superuser": false, 
-         "is_staff": true, 
-         "last_login": "2011-08-09 18:43:19+0000", 
-         "groups": [], 
-         "user_permissions": [
-            [
-               "add_concept", 
-               "terminator", 
-               "concept"
-            ], 
-            [
-               "change_concept", 
-               "terminator", 
-               "concept"
-            ], 
-            [
-               "delete_concept", 
-               "terminator", 
-               "concept"
-            ], 
-            [
-               "add_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "change_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "delete_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "add_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "change_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "delete_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "add_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "change_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "delete_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "add_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "change_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "delete_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "change_proposal", 
-               "terminator", 
-               "proposal"
-            ], 
-            [
-               "delete_proposal", 
-               "terminator", 
-               "proposal"
-            ], 
-            [
-               "add_translation", 
-               "terminator", 
-               "translation"
-            ], 
-            [
-               "change_translation", 
-               "terminator", 
-               "translation"
-            ], 
-            [
-               "delete_translation", 
-               "terminator", 
-               "translation"
-            ]
-         ], 
-         "password": "sha1$f3840$8701c3bc2a93ecd26a70304b9690e6f8d9fd37f9", 
-         "email": "lexi@lexi.org", 
-         "date_joined": "2011-08-09 18:43:19+0000"
-      }
-   }, 
-   {
-      "pk": 5, 
-      "model": "auth.user", 
-      "fields": {
-         "username": "dono", 
-         "first_name": "", 
-         "last_name": "", 
-         "is_active": true, 
-         "is_superuser": false, 
-         "is_staff": true, 
-         "last_login": "2011-08-23 20:49:23+0000", 
-         "groups": [], 
-         "user_permissions": [
-            [
-               "change_collaborationrequest", 
-               "terminator", 
-               "collaborationrequest"
-            ], 
-            [
-               "delete_collaborationrequest", 
-               "terminator", 
-               "collaborationrequest"
-            ], 
-            [
-               "add_concept", 
-               "terminator", 
-               "concept"
-            ], 
-            [
-               "change_concept", 
-               "terminator", 
-               "concept"
-            ], 
-            [
-               "delete_concept", 
-               "terminator", 
-               "concept"
-            ], 
-            [
-               "add_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "change_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "delete_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "add_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "change_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "delete_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "add_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "change_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "delete_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "add_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "change_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "delete_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "change_glossary", 
-               "terminator", 
-               "glossary"
-            ], 
-            [
-               "delete_glossary", 
-               "terminator", 
-               "glossary"
-            ], 
-            [
-               "change_proposal", 
-               "terminator", 
-               "proposal"
-            ], 
-            [
-               "delete_proposal", 
-               "terminator", 
-               "proposal"
-            ], 
-            [
-               "add_translation", 
-               "terminator", 
-               "translation"
-            ], 
-            [
-               "change_translation", 
-               "terminator", 
-               "translation"
-            ], 
-            [
-               "delete_translation", 
-               "terminator", 
-               "translation"
-            ]
-         ], 
-         "password": "sha1$725da$32261ec675d565b2f05f0981a8631b691253ad0c", 
-         "email": "dono@dono.es", 
-         "date_joined": "2011-08-09 18:43:27+0000"
-      }
-   }, 
-   {
-      "pk": 6, 
-      "model": "auth.user", 
-      "fields": {
-         "username": "term", 
-         "first_name": "", 
-         "last_name": "", 
-         "is_active": true, 
-         "is_superuser": false, 
-         "is_staff": true, 
-         "last_login": "2011-08-09 18:43:34+0000", 
-         "groups": [], 
-         "user_permissions": [
-            [
-               "add_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "change_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "delete_contextsentence", 
-               "terminator", 
-               "contextsentence"
-            ], 
-            [
-               "add_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "change_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "delete_corpusexample", 
-               "terminator", 
-               "corpusexample"
-            ], 
-            [
-               "add_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "change_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "delete_definition", 
-               "terminator", 
-               "definition"
-            ], 
-            [
-               "add_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "change_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "delete_externalresource", 
-               "terminator", 
-               "externalresource"
-            ], 
-            [
-               "add_translation", 
-               "terminator", 
-               "translation"
-            ], 
-            [
-               "change_translation", 
-               "terminator", 
-               "translation"
-            ], 
-            [
-               "delete_translation", 
-               "terminator", 
-               "translation"
-            ]
-         ], 
-         "password": "sha1$5446f$9ece5f162339c6b2e88ed217d1b90b9085f1a865", 
-         "email": "term@term.net", 
-         "date_joined": "2011-08-09 18:43:34+0000"
-      }
-   }, 
-   {
-      "pk": 7, 
-      "model": "auth.user", 
-      "fields": {
-         "username": "senpermisos", 
-         "first_name": "", 
-         "last_name": "", 
-         "is_active": true, 
-         "is_superuser": false, 
-         "is_staff": false, 
-         "last_login": "2011-08-09 18:43:50+0000", 
-         "groups": [], 
-         "user_permissions": [], 
-         "password": "sha1$808ac$25d84b4f46fe1107eb0e09141eda3d2154280ee2", 
-         "email": "senpermisos@senpermisos.net", 
-         "date_joined": "2011-08-09 18:43:39+0000"
-      }
-   }, 
-   {
-      "pk": "aa68542b7e565cd9577e963cb7d5f037", 
-      "model": "sessions.session", 
-      "fields": {
-         "expire_date": "2011-06-30 16:39:25+0000", 
-         "session_data": "ZjNlN2E5YjYwODg3OTk0MGRmMzZkNWMzNWIzM2IzNDA3ZjI5MjdjYTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQRLAXUu\n"
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.partofspeech", 
-      "fields": {
-         "tbx_representation": "verb", 
-         "name": "Verb", 
-         "description": ""
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.partofspeech", 
-      "fields": {
-         "tbx_representation": "noun", 
-         "name": "Noun", 
-         "description": ""
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.partofspeech", 
-      "fields": {
-         "tbx_representation": "adjective", 
-         "name": "Adjective", 
-         "description": ""
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "terminator.partofspeech", 
-      "fields": {
-         "tbx_representation": "preposition", 
-         "name": "Preposition", 
-         "description": ""
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.grammaticalgender", 
-      "fields": {
-         "tbx_representation": "feminine", 
-         "name": "feminine", 
-         "description": "feminine gender"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.grammaticalgender", 
-      "fields": {
-         "tbx_representation": "masculine", 
-         "name": "masculine", 
-         "description": "masculine gender"
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.grammaticalgender", 
-      "fields": {
-         "tbx_representation": "neuter", 
-         "name": "neuter", 
-         "description": "neuter gender"
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.grammaticalnumber", 
-      "fields": {
-         "tbx_representation": "singular", 
-         "name": "singular", 
-         "description": "singular grammatical number"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.grammaticalnumber", 
-      "fields": {
-         "tbx_representation": "plural", 
-         "name": "plural", 
-         "description": "plural grammatical number"
-      }
-   }, 
-   {
-      "pk": "gl", 
-      "model": "terminator.language", 
-      "fields": {
-         "grammatical_numbers": [
-            1, 
-            2
-         ], 
-         "grammatical_genders": [
-            1, 
-            2
-         ], 
-         "name": "Galician", 
-         "description": "Galician language spoken mainly in the northwest of iberian peninsula."
-      }
-   }, 
-   {
-      "pk": "es", 
-      "model": "terminator.language", 
-      "fields": {
-         "grammatical_numbers": [], 
-         "grammatical_genders": [], 
-         "name": "Spanish", 
-         "description": "Spanish language spoken in central and south America and in Spain."
-      }
-   }, 
-   {
-      "pk": "pt_BR", 
-      "model": "terminator.language", 
-      "fields": {
-         "grammatical_numbers": [
-            1, 
-            2
-         ], 
-         "grammatical_genders": [
-            1
-         ], 
-         "name": "Brazilian portuguese", 
-         "description": "Brazilian portuguese is a portuguese dialect spoken in Brazil."
-      }
-   }, 
-   {
-      "pk": "en", 
-      "model": "terminator.language", 
-      "fields": {
-         "grammatical_numbers": [
-            1
-         ], 
-         "grammatical_genders": [
-            1
-         ], 
-         "name": "English", 
-         "description": "English language spoken in the US, UK, Australia and a lot of countries."
-      }
-   }, 
-   {
-      "pk": "ast", 
-      "model": "terminator.language", 
-      "fields": {
-         "grammatical_numbers": [], 
-         "grammatical_genders": [], 
-         "name": "Asturian", 
-         "description": "Language spoken in Asturias. It is also called Bable."
-      }
-   }, 
-   {
-      "pk": "zh", 
-      "model": "terminator.language", 
-      "fields": {
-         "grammatical_numbers": [
-            1
-         ], 
-         "grammatical_genders": [
-            1, 
-            2
-         ], 
-         "name": "Chinese", 
-         "description": "Galician language spoken mainly in China."
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.glossary", 
-      "fields": {
-         "name": "Glosario inicial", 
-         "subject_fields": [], 
-         "subscribers": [
-            4, 
-            5, 
-            6
-         ], 
-         "description": "Glosario inicial para ir facendo probas"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.glossary", 
-      "fields": {
-         "name": "Glosario de proba", 
-         "subject_fields": [], 
-         "subscribers": [], 
-         "description": "Glosario para facer probas"
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.glossary", 
-      "fields": {
-         "name": "glosario extra", 
-         "subject_fields": [], 
-         "subscribers": [], 
-         "description": "glosario extra"
-      }
-   }, 
-   {
-      "pk": 5, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 1, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 7, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 2, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 8, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 1, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 1, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 1, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 1, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 2, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 9, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 3, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 10, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 3, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 11, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 3, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 12, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 3, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 13, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 3, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 14, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 3, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 15, 
-      "model": "terminator.concept", 
-      "fields": {
-         "glossary": 3, 
-         "subject_field": null, 
-         "related_concepts": [], 
-         "broader_concept": null
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.summarymessage", 
-      "fields": {
-         "date": "2011-11-23 21:23:08+0000", 
-         "text": "Despois de considerar todas as posibilidades discutidas no f\u00edo de discusi\u00f3n para o galego relativo a este concepto chegouse \u00e1 seguinte conclusi\u00f3n:\r\n\r\nlapela \u00e9 a \u00fanica opci\u00f3n v\u00e1lida dado que as demais non se poden aplicar a este concepto, ou a que sendo aplicables (caso de separador) o seu emprego pode dar a confusi\u00f3n.", 
-         "concept": 3, 
-         "language": "gl", 
-         "is_finalized": false
-      }
-   },
-   {
-      "pk": "preferredTerm-admn-sts", 
-      "model": "terminator.administrativestatus", 
-      "fields": {
-         "name": "Preferred", 
-         "description": "This administrative status is used to indicate that the tagged translation is the preferred one for this particular translation's concept and language.", 
-         "allows_administrative_status_reason" : false
-      }
-   }, 
-   {
-      "pk": "admittedTerm-admn-sts", 
-      "model": "terminator.administrativestatus", 
-      "fields": {
-         "name": "Admitted", 
-         "description": "This administrative status is used to indicate that the tagged translation is an admitted one for this particular translation's concept and language despite the fact that can exist another translation which is the preferred one.", 
-         "allows_administrative_status_reason" : false
-      }
-   }, 
-   {
-      "pk": "deprecatedTerm-admn-sts", 
-      "model": "terminator.administrativestatus", 
-      "fields": {
-         "name": "Not recommended", 
-         "description": "This administrative status is used to indicate that the tagged translation shouldn't be used for this particular translation's concept and language.", 
-         "allows_administrative_status_reason" : true
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.administrativestatusreason", 
-      "fields": {
-         "languages": [
-            "gl"
-         ], 
-         "name": "Castelanismo", 
-         "description": "Word influenced by spanish language."
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.administrativestatusreason", 
-      "fields": {
-         "languages": [
-            "gl", 
-            "es", 
-            "en"
-         ], 
-         "name": "Lusism", 
-         "description": "Word influenced by portuguese language."
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.administrativestatusreason", 
-      "fields": {
-         "languages": [
-            "gl", 
-            "es", 
-            "pt_BR"
-         ], 
-         "name": "Anglicism", 
-         "description": "Word influenced by english language."
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "terminator.administrativestatusreason", 
-      "fields": {
-         "languages": [
-            "gl", 
-            "en"
-         ], 
-         "name": "Galicism", 
-         "description": "Word influenced by french language."
-      }
-   }, 
-   {
-      "pk": 9, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 1, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": 1, 
-         "note": "", 
-         "translation_text": "search", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 8, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 1, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": 1, 
-         "note": "", 
-         "translation_text": "buscar", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 2, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "window", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 2, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "xanela", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 2, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "fiestra", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 2, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": "deprecatedTerm-admn-sts", 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "vent\u00e1", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 6, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 3, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "tab", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 12, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 3, 
-         "grammatical_number": null, 
-         "language": "es", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "solapa", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 7, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 3, 
-         "grammatical_number": null, 
-         "language": "es", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "pesta\u00f1a", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 13, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 3, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": "deprecatedTerm-admn-sts", 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "aba", 
-         "process_status": false, 
-         "administrative_status_reason": 2
-      }
-   }, 
-   {
-      "pk": 5, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 3, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": 2, 
-         "note": "Breve exemplo de nota sobre un concepto.", 
-         "translation_text": "lapela", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 11, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 3, 
-         "grammatical_number": 1, 
-         "language": "gl", 
-         "grammatical_gender": 1, 
-         "administrative_status": "deprecatedTerm-admn-sts", 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "pestana", 
-         "process_status": true, 
-         "administrative_status_reason": 1
-      }
-   }, 
-   {
-      "pk": 16, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 3, 
-         "grammatical_number": 1, 
-         "language": "pt_BR", 
-         "grammatical_gender": 1, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "aba", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 104, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 5, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "search", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 15, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 5, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "busca", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 105, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 7, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "editable", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 107, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 7, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "edit\u00e1bel", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 106, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 7, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "editable", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 109, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 8, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "edit", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 108, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 8, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "editar", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 111, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 9, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "table", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 112, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 9, 
-         "grammatical_number": null, 
-         "language": "es", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "tabla", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 110, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 9, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "t\u00e1boa", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 115, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 14, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "tab", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 116, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 14, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": 1, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "tabulaci\u00f3n", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 117, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 15, 
-         "grammatical_number": null, 
-         "language": "en", 
-         "grammatical_gender": null, 
-         "administrative_status": null, 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "tab", 
-         "process_status": false, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 118, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 15, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": 2, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": 2, 
-         "note": "", 
-         "translation_text": "tabulador", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 119, 
-      "model": "terminator.translation", 
-      "fields": {
-         "concept": 15, 
-         "grammatical_number": null, 
-         "language": "gl", 
-         "grammatical_gender": null, 
-         "administrative_status": "preferredTerm-admn-sts", 
-         "part_of_speech": null, 
-         "note": "", 
-         "translation_text": "TAB", 
-         "process_status": true, 
-         "administrative_status_reason": null
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "", 
-         "concept": 2, 
-         "definition_text": "In computing, a window is a visual area containing some kind of user interface. It usually has a rectangular shape that can overlap with the area of other windows. It displays the output of and may allow input to one or more processes.\r\n\r\nWindows are primarily associated with graphical displays, where they can be manipulated with a mouse cursor.\r\n\r\nA graphical user interface (GUI) using windows as one of its main \"metaphors\" is called a windowing system.", 
-         "language": "en", 
-         "is_finalized": true
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "", 
-         "concept": 2, 
-         "definition_text": "\u00c1rea visual que cont\u00e9n alg\u00fan tipo de interface de usuario. Normalmente ten unha forma rectangular e poden conter outros elementos como bot\u00f3ns, listas...", 
-         "language": "gl", 
-         "is_finalized": false
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "", 
-         "concept": 3, 
-         "definition_text": "Unha lapela ou separador \u00e9 un implemento gr\u00e1fico que en aplicaci\u00f3ns inform\u00e1ticas permite lembrar outras opci\u00f3ns \u00e1 parte da que est\u00e1 en uso. Isto pode referirse \u00e1s lapelas tanto de p\u00e1xinas web como \u00e1s dos propios navegadores ou outro tipo de programas (son moi com\u00fans en follas de c\u00e1lculo).\r\nNa traduci\u00f3n ao galego do OpenOffice en 2006 e de Windows Vista en 2007-2008 (produto elaborado por Imaxin Software e revisado por Termigal) usouse separador, a\u00ednda que esta \u00e9 a denominaci\u00f3n para un produto comercial e iso non incl\u00fae necesariamente a s\u00faa preferencia xen\u00e9rica.", 
-         "language": "gl", 
-         "is_finalized": true
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "http://en.wikipedia.org/wiki/Tab_(GUI)", 
-         "concept": 3, 
-         "definition_text": "In the area of graphical user interfaces (GUI), a tabbed document interface (TDI) is one that allows multiple documents to be contained within a single window, using tabs as a navigational widget for switching between sets of documents. It is an interface style most commonly associated with web browsers, web applications, text editors and preference panes.", 
-         "language": "en", 
-         "is_finalized": true
-      }
-   }, 
-   {
-      "pk": 70, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "", 
-         "concept": 14, 
-         "definition_text": "The act and result of pressing the \"Tab\" key.", 
-         "language": "en", 
-         "is_finalized": true
-      }
-   }, 
-   {
-      "pk": 71, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "", 
-         "concept": 14, 
-         "definition_text": "Acci\u00f3n e resultado de premer a tecla \u00abtabulador\u00bb.", 
-         "language": "gl", 
-         "is_finalized": true
-      }
-   }, 
-   {
-      "pk": 72, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "", 
-         "concept": 15, 
-         "definition_text": "Tab key (abbreviation of tabulator key) on a keyboard is used to advance the cursor to the next tab stop.", 
-         "language": "en", 
-         "is_finalized": true
-      }
-   }, 
-   {
-      "pk": 73, 
-      "model": "terminator.definition", 
-      "fields": {
-         "source": "", 
-         "concept": 15, 
-         "definition_text": "Tecla do teclado situada normalmente enriba da tecla \u00abMai\u00fasculas\u00bb que insire caracteres de \u00abtabulaci\u00f3n\u00bb.", 
-         "language": "gl", 
-         "is_finalized": true
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.proposal", 
-      "fields": {
-         "sent_date": "2011-05-14 10:08:04+0000",
-         "definition": "An email attachment is a computer file sent along with an email message. One or more files can be attached to any email message, and be sent along with it to the recipient. This is typically used as a simple method to share documents and images. A paper clip image is the standard image for an attachment in an email client.", 
-         "word": "attachment", 
-         "language": "en",
-         "user": 10,
-         "for_glossary" : 1
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.proposal", 
-      "fields": {
-         "sent_date": "2011-06-24 20:08:04+0000",
-         "definition": "In computer (software) technology, a wildcard character can be used to substitute for any other character or characters in a string.", 
-         "word": "wildcard", 
-         "language": "en",
-         "user": 2,
-         "for_glossary" : 2
-      }
-   }, 
-   {
-      "pk": "externalCrossReference", 
-      "model": "terminator.externallinktype", 
-      "fields": {
-         "name": "External cross reference", 
-         "description": "Pointer to an external reference information or explanatory text about the concept. For example a link to a Wikipedia article."
-      }
-   }, 
-   {
-      "pk": "xGraphic", 
-      "model": "terminator.externallinktype", 
-      "fields": {
-         "name": "Image", 
-         "description": "Reference (URI, URL, or local file path) to a graphic file that depicts or explains the concept."
-      }
-   }, 
-   {
-      "pk": "xMathML", 
-      "model": "terminator.externallinktype", 
-      "fields": {
-         "name": "MathML", 
-         "description": "Link to a MathML representantion of the concept or some other resource that may help understanding the actual concept."
-      }
-   }, 
-   {
-      "pk": "xAudio", 
-      "model": "terminator.externallinktype", 
-      "fields": {
-         "name": "Audio", 
-         "description": "Link to external audio file that may help understanding the actual concept."
-      }
-   }, 
-   {
-      "pk": "xVideo", 
-      "model": "terminator.externallinktype", 
-      "fields": {
-         "name": "Video", 
-         "description": "Link to external video file that may help understanding the actual concept."
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.externalresource", 
-      "fields": {
-         "description": "English Wikipedia page for this particular concept.", 
-         "concept": 3, 
-         "link_type": "externalCrossReference", 
-         "language": "en", 
-         "address": "http://en.wikipedia.org/wiki/Tab_(GUI)"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.externalresource", 
-      "fields": {
-         "description": "P\u00e1xina da Galipedia sobre este concepto.", 
-         "concept": 3, 
-         "link_type": "externalCrossReference", 
-         "language": "gl", 
-         "address": "http://gl.wikipedia.org/wiki/Lapela_(inform%C3%A1tica)"
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.externalresource", 
-      "fields": {
-         "description": "Imaxe da Galipedia que ilustra este concepto.", 
-         "concept": 3, 
-         "link_type": "xGraphic", 
-         "language": "gl", 
-         "address": "http://upload.wikimedia.org/wikipedia/commons/d/d6/screenshot_lapela.svg"
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.contextsentence", 
-      "fields": {
-         "text": "As lapelas empr\u00e9ganse a mi\u00fado para dividir as opci\u00f3ns por categor\u00edas.", 
-         "translation": 5
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.contextsentence", 
-      "fields": {
-         "text": "Todos os navegadores web actuais permiten a navegaci\u00f3n con lapelas.", 
-         "translation": 5
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.partofspeechforlanguage", 
-      "fields": {
-         "allows_grammatical_number": false, 
-         "part_of_speech": 1, 
-         "allows_grammatical_gender": false, 
-         "language": "gl"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.partofspeechforlanguage", 
-      "fields": {
-         "allows_grammatical_number": true, 
-         "part_of_speech": 2, 
-         "allows_grammatical_gender": true, 
-         "language": "gl"
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.partofspeechforlanguage", 
-      "fields": {
-         "allows_grammatical_number": true, 
-         "part_of_speech": 3, 
-         "allows_grammatical_gender": true, 
-         "language": "gl"
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "terminator.partofspeechforlanguage", 
-      "fields": {
-         "allows_grammatical_number": false, 
-         "part_of_speech": 1, 
-         "allows_grammatical_gender": false, 
-         "language": "en"
-      }
-   }, 
-   {
-      "pk": 5, 
-      "model": "terminator.partofspeechforlanguage", 
-      "fields": {
-         "allows_grammatical_number": true, 
-         "part_of_speech": 3, 
-         "allows_grammatical_gender": false, 
-         "language": "en"
-      }
-   }, 
-   {
-      "pk": 6, 
-      "model": "terminator.partofspeechforlanguage", 
-      "fields": {
-         "allows_grammatical_number": true, 
-         "part_of_speech": 2, 
-         "allows_grammatical_gender": true, 
-         "language": "es"
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator.corpusexample", 
-      "fields": {
-         "description": "Open-tran search for the galician translation of this english word.", 
-         "translation": 1, 
-         "address": "http://en.gl.open-tran.eu/suggest/window"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator.corpusexample", 
-      "fields": {
-         "description": "Open-tran search for the galician translation of this english word.", 
-         "translation": 5, 
-         "address": "http://en.gl.open-tran.eu/suggest/tab"
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator.corpusexample", 
-      "fields": {
-         "description": "Exemplos de uso no corpus Xestermos de Mancomún.", 
-         "translation": 5, 
-         "address": "http://corpus.mancomun.org/xestermos.php?word=tab"
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "guardian.userobjectpermission", 
-      "fields": {
-         "object_pk": "1", 
-         "user": 5, 
-         "content_type": [
-            "terminator", 
-            "glossary"
-         ], 
-         "permission": [
-            "is_lexicographer_in_this_glossary", 
-            "terminator", 
-            "glossary"
-         ]
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "guardian.userobjectpermission", 
-      "fields": {
-         "object_pk": "1", 
-         "user": 5, 
-         "content_type": [
-            "terminator", 
-            "glossary"
-         ], 
-         "permission": [
-            "is_owner_for_this_glossary", 
-            "terminator", 
-            "glossary"
-         ]
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "guardian.userobjectpermission", 
-      "fields": {
-         "object_pk": "1", 
-         "user": 5, 
-         "content_type": [
-            "terminator", 
-            "glossary"
-         ], 
-         "permission": [
-            "is_terminologist_in_this_glossary", 
-            "terminator", 
-            "glossary"
-         ]
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "guardian.userobjectpermission", 
-      "fields": {
-         "object_pk": "1", 
-         "user": 4, 
-         "content_type": [
-            "terminator", 
-            "glossary"
-         ], 
-         "permission": [
-            "is_lexicographer_in_this_glossary", 
-            "terminator", 
-            "glossary"
-         ]
-      }
-   }, 
-   {
-      "pk": 5, 
-      "model": "guardian.userobjectpermission", 
-      "fields": {
-         "object_pk": "1", 
-         "user": 4, 
-         "content_type": [
-            "terminator", 
-            "glossary"
-         ], 
-         "permission": [
-            "is_terminologist_in_this_glossary", 
-            "terminator", 
-            "glossary"
-         ]
-      }
-   }, 
-   {
-      "pk": 6, 
-      "model": "guardian.userobjectpermission", 
-      "fields": {
-         "object_pk": "1", 
-         "user": 6, 
-         "content_type": [
-            "terminator", 
-            "glossary"
-         ], 
-         "permission": [
-            "is_terminologist_in_this_glossary", 
-            "terminator", 
-            "glossary"
-         ]
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "django_comments.comment", 
-      "fields": {
-         "comment": "Primeiro comentario de proba", 
-         "user_url": "", 
-         "submit_date": "2011-08-23 23:26:26+0000", 
-         "ip_address": "127.0.0.1", 
-         "object_pk": "1", 
-         "site": 1, 
-         "is_removed": false, 
-         "user": 10, 
-         "content_type": [
-            "terminator", 
-            "conceptlanguagecommentsthread"
-         ], 
-         "is_public": true, 
-         "user_name": "usuario", 
-         "user_email": "unho_fic@hotmail.com"
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "django_comments.comment", 
-      "fields": {
-         "comment": "Engadindo un novo comentario, por parte do usuario \u00abusuario\u00bb, esta vez con m\u00faltiples li\u00f1as e par\u00e1grafos para comprobar que realmente se ve ben.\r\n\r\nLorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam massa turpis, nonummy et, consectetuer id, placerat ac, ante. In commodo, dolor quis fermentum ullamcorper, urna massa volutpat massa, vitae mattis purus arcu nec nulla. Suspendisse lectus. Curabitur nunc ante, ullamcorper vel, auctor a, aliquam at, tortor. Aliquam justo lectus, iaculis a, auctor sed, congue in, nisl. Vestibulum non arcu a ante feugiat vestibulum. Curabitur tincidunt tellus nec purus. Fusce venenatis ligula in pede. Proin diam augue, semper vitae, varius et, viverra id, felis. Suspendisse viverra placerat tortor. Etiam non neque ac mi vestibulum placerat. Ut eu metus id lectus vestibulum ultrices. Quisque facilisis, urna sit amet pulvinar mollis, purus arcu adipiscing velit, non condimentum diam purus eu massa. \r\n\r\nEtiam fermentum. Vivamus quis mi. Vivamus quis mi. Praesent a eros. Aliquam vel nibh. Proin lectus orci, venenatis pharetra, egestas id, tincidunt vel, eros. Phasellus magna sem, vulputate eget, ornare sed, dignissim sit amet, pede. Integer risus velit, facilisis eget, viverra et, venenatis id, leo. Mauris tempus diam. Etiam pharetra lacus sed velit imperdiet bibendum. In hac habitasse platea dictumst. Vestibulum viverra varius enim. Vivamus feugiat. Duis sem velit, ultrices et, fermentum auctor, rhoncus ut, ligula. Morbi pulvinar nulla sit amet nisl. Donec ut urna. Fusce venenatis ligula in pede. Integer accumsan. Sed at turpis vitae velit euismod aliquet. Aliquam imperdiet lobortis metus. \r\n\r\nDonec ut urna. Quisque malesuada nulla sed pede volutpat pulvinar. Sed non ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque sit amet dui vel justo gravida auctor. Aenean id purus. Aenean scelerisque metus eget sem. Integer accumsan. Nulla sagittis condimentum ligula. Donec diam eros, tristique sit amet, pretium vel, pellentesque ut, neque. Proin dolor sapien, adipiscing id, sagittis eu, molestie viverra, mauris. Aenean id purus. Quisque pretium rutrum ligula. Phasellus auctor enim eget sem. Quisque arcu ante, cursus in, ornare quis, viverra ut, justo. \r\n\r\nPellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque ac turpis. Proin lectus orci, venenatis pharetra, egestas id, tincidunt vel, eros. Suspendisse viverra placerat tortor. Pellentesque tempor. Nullam sapien mauris, venenatis at, fermentum at, tempus eu, urna. Pellentesque et arcu. Integer tempus malesuada pede. Fusce consectetuer tellus ut nisl. Pellentesque convallis dolor vel libero. Pellentesque tempor. Suspendisse lectus. Mauris sed nulla quis nisi interdum tempor.\r\n\r\nDeica", 
-         "user_url": "", 
-         "submit_date": "2011-08-23 23:26:41+0000", 
-         "ip_address": "127.0.0.1", 
-         "object_pk": "1", 
-         "site": 1, 
-         "is_removed": false, 
-         "user": 10, 
-         "content_type": [
-            "terminator", 
-            "conceptlanguagecommentsthread"
-         ], 
-         "is_public": true, 
-         "user_name": "usuario", 
-         "user_email": "unho_fic@hotmail.com"
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "django_comments.comment", 
-      "fields": {
-         "comment": "Outro comentario m\u00e1is para encher", 
-         "user_url": "", 
-         "submit_date": "2011-08-23 23:26:53+0000", 
-         "ip_address": "127.0.0.1", 
-         "object_pk": "1", 
-         "site": 1, 
-         "is_removed": false, 
-         "user": 10, 
-         "content_type": [
-            "terminator", 
-            "conceptlanguagecommentsthread"
-         ], 
-         "is_public": true, 
-         "user_name": "usuario", 
-         "user_email": "unho_fic@hotmail.com"
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "django_comments.comment", 
-      "fields": {
-         "comment": "Comentario realizado por parte do dono do glosario.\r\n\r\nA ver se as\u00ed isto toma corpo. Hai que lembrarse de po\u00f1er comentarios nos fixtures.", 
-         "user_url": "", 
-         "submit_date": "2011-08-23 23:27:49+0000", 
-         "ip_address": "127.0.0.1", 
-         "object_pk": "1", 
-         "site": 1, 
-         "is_removed": false, 
-         "user": 5, 
-         "content_type": [
-            "terminator", 
-            "conceptlanguagecommentsthread"
-         ], 
-         "is_public": true, 
-         "user_name": "dono", 
-         "user_email": "dono@dono.es"
-      }
-   }, 
-   {
-      "pk": 5, 
-      "model": "django_comments.comment", 
-      "fields": {
-         "comment": "Primeiro comentario realizado para o galego.", 
-         "user_url": "", 
-         "submit_date": "2011-08-23 23:29:09+0000", 
-         "ip_address": "127.0.0.1", 
-         "object_pk": "2", 
-         "site": 1, 
-         "is_removed": false, 
-         "user": 5, 
-         "content_type": [
-            "terminator", 
-            "conceptlanguagecommentsthread"
-         ], 
-         "is_public": true, 
-         "user_name": "dono", 
-         "user_email": "dono@dono.es"
-      }
-   }, 
-   {
-      "pk": 6, 
-      "model": "django_comments.comment", 
-      "fields": {
-         "comment": "Unha lapela ou separador \u00e9 un implemento gr\u00e1fico que en aplicaci\u00f3ns inform\u00e1ticas permite lembrar outras opci\u00f3ns \u00e1 parte da que est\u00e1 en uso. Isto pode referirse \u00e1s lapelas tanto de p\u00e1xinas web como \u00e1s dos propios navegadores ou outro tipo de programas (son moi com\u00fans en follas de c\u00e1lculo).\r\n\r\nNa traduci\u00f3n ao galego do OpenOffice en 2006 e de Windows Vista en 2007-2008 (produto elaborado por Imaxin Software e revisado por Termigal) usouse separador, a\u00ednda que esta \u00e9 a denominaci\u00f3n para un produto comercial e iso non incl\u00fae necesariamente a s\u00faa preferencia xen\u00e9rica.", 
-         "user_url": "", 
-         "submit_date": "2011-08-23 23:29:46+0000", 
-         "ip_address": "127.0.0.1", 
-         "object_pk": "2", 
-         "site": 1, 
-         "is_removed": false, 
-         "user": 4, 
-         "content_type": [
-            "terminator", 
-            "conceptlanguagecommentsthread"
-         ], 
-         "is_public": true, 
-         "user_name": "lexi", 
-         "user_email": "lexi@lexi.org"
-      }
-   }, 
-   {
-      "pk": 7, 
-      "model": "django_comments.comment", 
-      "fields": {
-         "comment": "Non quero respostas.\r\n\r\nDeica", 
-         "user_url": "", 
-         "submit_date": "2011-08-23 23:32:23+0000", 
-         "ip_address": "127.0.0.1", 
-         "object_pk": "2", 
-         "site": 1, 
-         "is_removed": false, 
-         "user": 4, 
-         "content_type": [
-            "terminator", 
-            "conceptlanguagecommentsthread"
-         ], 
-         "is_public": true, 
-         "user_name": "lexi", 
-         "user_email": "lexi@lexi.org"
-      }
-   }, 
-   {
-      "pk": 1, 
-      "model": "terminator_comments_app.terminatorcomment", 
-      "fields": {
-         "mail_me": true
-      }
-   }, 
-   {
-      "pk": 2, 
-      "model": "terminator_comments_app.terminatorcomment", 
-      "fields": {
-         "mail_me": true
-      }
-   }, 
-   {
-      "pk": 3, 
-      "model": "terminator_comments_app.terminatorcomment", 
-      "fields": {
-         "mail_me": true
-      }
-   }, 
-   {
-      "pk": 4, 
-      "model": "terminator_comments_app.terminatorcomment", 
-      "fields": {
-         "mail_me": true
-      }
-   }, 
-   {
-      "pk": 5, 
-      "model": "terminator_comments_app.terminatorcomment", 
-      "fields": {
-         "mail_me": true
-      }
-   }, 
-   {
-      "pk": 6, 
-      "model": "terminator_comments_app.terminatorcomment", 
-      "fields": {
-         "mail_me": true
-      }
-   }, 
-   {
-      "pk": 7, 
-      "model": "terminator_comments_app.terminatorcomment", 
-      "fields": {
-         "mail_me": false
-      }
+{
+   "model": "auth.permission",
+   "pk": 1,
+   "fields": {
+      "name": "Can add group",
+      "content_type": 1,
+      "codename": "add_group"
    }
+},
+{
+   "model": "auth.permission",
+   "pk": 2,
+   "fields": {
+      "name": "Can change group",
+      "content_type": 1,
+      "codename": "change_group"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 3,
+   "fields": {
+      "name": "Can delete group",
+      "content_type": 1,
+      "codename": "delete_group"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 4,
+   "fields": {
+      "name": "Can add user",
+      "content_type": 2,
+      "codename": "add_user"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 5,
+   "fields": {
+      "name": "Can change user",
+      "content_type": 2,
+      "codename": "change_user"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 6,
+   "fields": {
+      "name": "Can delete user",
+      "content_type": 2,
+      "codename": "delete_user"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 7,
+   "fields": {
+      "name": "Can add permission",
+      "content_type": 3,
+      "codename": "add_permission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 8,
+   "fields": {
+      "name": "Can change permission",
+      "content_type": 3,
+      "codename": "change_permission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 9,
+   "fields": {
+      "name": "Can delete permission",
+      "content_type": 3,
+      "codename": "delete_permission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 10,
+   "fields": {
+      "name": "Can add content type",
+      "content_type": 4,
+      "codename": "add_contenttype"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 11,
+   "fields": {
+      "name": "Can change content type",
+      "content_type": 4,
+      "codename": "change_contenttype"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 12,
+   "fields": {
+      "name": "Can delete content type",
+      "content_type": 4,
+      "codename": "delete_contenttype"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 13,
+   "fields": {
+      "name": "Can add session",
+      "content_type": 5,
+      "codename": "add_session"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 14,
+   "fields": {
+      "name": "Can change session",
+      "content_type": 5,
+      "codename": "change_session"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 15,
+   "fields": {
+      "name": "Can delete session",
+      "content_type": 5,
+      "codename": "delete_session"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 16,
+   "fields": {
+      "name": "Can add site",
+      "content_type": 6,
+      "codename": "add_site"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 17,
+   "fields": {
+      "name": "Can change site",
+      "content_type": 6,
+      "codename": "change_site"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 18,
+   "fields": {
+      "name": "Can delete site",
+      "content_type": 6,
+      "codename": "delete_site"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 19,
+   "fields": {
+      "name": "Can add log entry",
+      "content_type": 7,
+      "codename": "add_logentry"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 20,
+   "fields": {
+      "name": "Can change log entry",
+      "content_type": 7,
+      "codename": "change_logentry"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 21,
+   "fields": {
+      "name": "Can delete log entry",
+      "content_type": 7,
+      "codename": "delete_logentry"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 22,
+   "fields": {
+      "name": "Can add comment flag",
+      "content_type": 8,
+      "codename": "add_commentflag"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 23,
+   "fields": {
+      "name": "Can change comment flag",
+      "content_type": 8,
+      "codename": "change_commentflag"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 24,
+   "fields": {
+      "name": "Can delete comment flag",
+      "content_type": 8,
+      "codename": "delete_commentflag"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 25,
+   "fields": {
+      "name": "Can add comment",
+      "content_type": 9,
+      "codename": "add_comment"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 26,
+   "fields": {
+      "name": "Can change comment",
+      "content_type": 9,
+      "codename": "change_comment"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 27,
+   "fields": {
+      "name": "Can delete comment",
+      "content_type": 9,
+      "codename": "delete_comment"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 28,
+   "fields": {
+      "name": "Can moderate comments",
+      "content_type": 9,
+      "codename": "can_moderate"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 29,
+   "fields": {
+      "name": "Can add comment",
+      "content_type": 10,
+      "codename": "add_terminatorcomment"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 30,
+   "fields": {
+      "name": "Can change comment",
+      "content_type": 10,
+      "codename": "change_terminatorcomment"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 31,
+   "fields": {
+      "name": "Can delete comment",
+      "content_type": 10,
+      "codename": "delete_terminatorcomment"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 32,
+   "fields": {
+      "name": "Can moderate comments",
+      "content_type": 10,
+      "codename": "can_moderate"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 33,
+   "fields": {
+      "name": "Can add group object permission",
+      "content_type": 11,
+      "codename": "add_groupobjectpermission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 34,
+   "fields": {
+      "name": "Can change group object permission",
+      "content_type": 11,
+      "codename": "change_groupobjectpermission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 35,
+   "fields": {
+      "name": "Can delete group object permission",
+      "content_type": 11,
+      "codename": "delete_groupobjectpermission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 36,
+   "fields": {
+      "name": "Can add user object permission",
+      "content_type": 12,
+      "codename": "add_userobjectpermission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 37,
+   "fields": {
+      "name": "Can change user object permission",
+      "content_type": 12,
+      "codename": "change_userobjectpermission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 38,
+   "fields": {
+      "name": "Can delete user object permission",
+      "content_type": 12,
+      "codename": "delete_userobjectpermission"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 39,
+   "fields": {
+      "name": "Can add registration profile",
+      "content_type": 13,
+      "codename": "add_registrationprofile"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 40,
+   "fields": {
+      "name": "Can change registration profile",
+      "content_type": 13,
+      "codename": "change_registrationprofile"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 41,
+   "fields": {
+      "name": "Can delete registration profile",
+      "content_type": 13,
+      "codename": "delete_registrationprofile"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 42,
+   "fields": {
+      "name": "Can add concept language comments thread",
+      "content_type": 14,
+      "codename": "add_conceptlanguagecommentsthread"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 43,
+   "fields": {
+      "name": "Can change concept language comments thread",
+      "content_type": 14,
+      "codename": "change_conceptlanguagecommentsthread"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 44,
+   "fields": {
+      "name": "Can delete concept language comments thread",
+      "content_type": 14,
+      "codename": "delete_conceptlanguagecommentsthread"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 45,
+   "fields": {
+      "name": "Can add translation",
+      "content_type": 15,
+      "codename": "add_translation"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 46,
+   "fields": {
+      "name": "Can change translation",
+      "content_type": 15,
+      "codename": "change_translation"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 47,
+   "fields": {
+      "name": "Can delete translation",
+      "content_type": 15,
+      "codename": "delete_translation"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 48,
+   "fields": {
+      "name": "Can add administrative status reason",
+      "content_type": 16,
+      "codename": "add_administrativestatusreason"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 49,
+   "fields": {
+      "name": "Can change administrative status reason",
+      "content_type": 16,
+      "codename": "change_administrativestatusreason"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 50,
+   "fields": {
+      "name": "Can delete administrative status reason",
+      "content_type": 16,
+      "codename": "delete_administrativestatusreason"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 51,
+   "fields": {
+      "name": "Can add definition",
+      "content_type": 17,
+      "codename": "add_definition"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 52,
+   "fields": {
+      "name": "Can change definition",
+      "content_type": 17,
+      "codename": "change_definition"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 53,
+   "fields": {
+      "name": "Can delete definition",
+      "content_type": 17,
+      "codename": "delete_definition"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 54,
+   "fields": {
+      "name": "Can add glossary",
+      "content_type": 18,
+      "codename": "add_glossary"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 55,
+   "fields": {
+      "name": "Can change glossary",
+      "content_type": 18,
+      "codename": "change_glossary"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 56,
+   "fields": {
+      "name": "Can delete glossary",
+      "content_type": 18,
+      "codename": "delete_glossary"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 57,
+   "fields": {
+      "name": "Is terminologist in this glossary",
+      "content_type": 18,
+      "codename": "is_terminologist_in_this_glossary"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 58,
+   "fields": {
+      "name": "Is lexicographer in this glossary",
+      "content_type": 18,
+      "codename": "is_lexicographer_in_this_glossary"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 59,
+   "fields": {
+      "name": "Is owner for this glossary",
+      "content_type": 18,
+      "codename": "is_owner_for_this_glossary"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 60,
+   "fields": {
+      "name": "Can add context sentence",
+      "content_type": 19,
+      "codename": "add_contextsentence"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 61,
+   "fields": {
+      "name": "Can change context sentence",
+      "content_type": 19,
+      "codename": "change_contextsentence"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 62,
+   "fields": {
+      "name": "Can delete context sentence",
+      "content_type": 19,
+      "codename": "delete_contextsentence"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 63,
+   "fields": {
+      "name": "Can add administrative status",
+      "content_type": 20,
+      "codename": "add_administrativestatus"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 64,
+   "fields": {
+      "name": "Can change administrative status",
+      "content_type": 20,
+      "codename": "change_administrativestatus"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 65,
+   "fields": {
+      "name": "Can delete administrative status",
+      "content_type": 20,
+      "codename": "delete_administrativestatus"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 66,
+   "fields": {
+      "name": "Can add part of speech",
+      "content_type": 21,
+      "codename": "add_partofspeech"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 67,
+   "fields": {
+      "name": "Can change part of speech",
+      "content_type": 21,
+      "codename": "change_partofspeech"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 68,
+   "fields": {
+      "name": "Can delete part of speech",
+      "content_type": 21,
+      "codename": "delete_partofspeech"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 69,
+   "fields": {
+      "name": "Can add grammatical number",
+      "content_type": 22,
+      "codename": "add_grammaticalnumber"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 70,
+   "fields": {
+      "name": "Can change grammatical number",
+      "content_type": 22,
+      "codename": "change_grammaticalnumber"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 71,
+   "fields": {
+      "name": "Can delete grammatical number",
+      "content_type": 22,
+      "codename": "delete_grammaticalnumber"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 72,
+   "fields": {
+      "name": "Can add grammatical gender",
+      "content_type": 23,
+      "codename": "add_grammaticalgender"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 73,
+   "fields": {
+      "name": "Can change grammatical gender",
+      "content_type": 23,
+      "codename": "change_grammaticalgender"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 74,
+   "fields": {
+      "name": "Can delete grammatical gender",
+      "content_type": 23,
+      "codename": "delete_grammaticalgender"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 75,
+   "fields": {
+      "name": "Can add external resource",
+      "content_type": 24,
+      "codename": "add_externalresource"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 76,
+   "fields": {
+      "name": "Can change external resource",
+      "content_type": 24,
+      "codename": "change_externalresource"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 77,
+   "fields": {
+      "name": "Can delete external resource",
+      "content_type": 24,
+      "codename": "delete_externalresource"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 78,
+   "fields": {
+      "name": "Can add summary message",
+      "content_type": 25,
+      "codename": "add_summarymessage"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 79,
+   "fields": {
+      "name": "Can change summary message",
+      "content_type": 25,
+      "codename": "change_summarymessage"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 80,
+   "fields": {
+      "name": "Can delete summary message",
+      "content_type": 25,
+      "codename": "delete_summarymessage"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 81,
+   "fields": {
+      "name": "Can add collaboration request",
+      "content_type": 26,
+      "codename": "add_collaborationrequest"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 82,
+   "fields": {
+      "name": "Can change collaboration request",
+      "content_type": 26,
+      "codename": "change_collaborationrequest"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 83,
+   "fields": {
+      "name": "Can delete collaboration request",
+      "content_type": 26,
+      "codename": "delete_collaborationrequest"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 84,
+   "fields": {
+      "name": "Can add corpus example",
+      "content_type": 27,
+      "codename": "add_corpusexample"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 85,
+   "fields": {
+      "name": "Can change corpus example",
+      "content_type": 27,
+      "codename": "change_corpusexample"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 86,
+   "fields": {
+      "name": "Can delete corpus example",
+      "content_type": 27,
+      "codename": "delete_corpusexample"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 87,
+   "fields": {
+      "name": "Can add proposal",
+      "content_type": 28,
+      "codename": "add_proposal"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 88,
+   "fields": {
+      "name": "Can change proposal",
+      "content_type": 28,
+      "codename": "change_proposal"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 89,
+   "fields": {
+      "name": "Can delete proposal",
+      "content_type": 28,
+      "codename": "delete_proposal"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 90,
+   "fields": {
+      "name": "Can add concept",
+      "content_type": 29,
+      "codename": "add_concept"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 91,
+   "fields": {
+      "name": "Can change concept",
+      "content_type": 29,
+      "codename": "change_concept"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 92,
+   "fields": {
+      "name": "Can delete concept",
+      "content_type": 29,
+      "codename": "delete_concept"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 93,
+   "fields": {
+      "name": "Can add part of speech for language",
+      "content_type": 30,
+      "codename": "add_partofspeechforlanguage"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 94,
+   "fields": {
+      "name": "Can change part of speech for language",
+      "content_type": 30,
+      "codename": "change_partofspeechforlanguage"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 95,
+   "fields": {
+      "name": "Can delete part of speech for language",
+      "content_type": 30,
+      "codename": "delete_partofspeechforlanguage"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 96,
+   "fields": {
+      "name": "Can add external link type",
+      "content_type": 31,
+      "codename": "add_externallinktype"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 97,
+   "fields": {
+      "name": "Can change external link type",
+      "content_type": 31,
+      "codename": "change_externallinktype"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 98,
+   "fields": {
+      "name": "Can delete external link type",
+      "content_type": 31,
+      "codename": "delete_externallinktype"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 99,
+   "fields": {
+      "name": "Can add language",
+      "content_type": 32,
+      "codename": "add_language"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 100,
+   "fields": {
+      "name": "Can change language",
+      "content_type": 32,
+      "codename": "change_language"
+   }
+},
+{
+   "model": "auth.permission",
+   "pk": 101,
+   "fields": {
+      "name": "Can delete language",
+      "content_type": 32,
+      "codename": "delete_language"
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 1,
+   "fields": {
+      "password": "!8mtLI2B0nHDtv6DUCU9jCzZRaGEiijFrsI2fWvT7",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "AnonymousUser",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2017-09-14T09:20:26.921Z",
+      "groups": [],
+      "user_permissions": []
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 2,
+   "fields": {
+      "password": "pbkdf2_sha256$36000$b4cc4$9V/1ximrvhVDN0nrqmdtoCb0r5HKmKZWy56MEqK+qjg=",
+      "last_login": "2011-06-24T21:24:26Z",
+      "is_superuser": false,
+      "username": "a",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2011-06-24T21:24:26Z",
+      "groups": [],
+      "user_permissions": []
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 3,
+   "fields": {
+      "password": "pbkdf2_sha256$36000$42cb2$jmS8ySQmwJOyx+Ydb9PDr+3/Xem4M2hcYCRr8nsguMo=",
+      "last_login": "2011-06-24T21:25:26Z",
+      "is_superuser": false,
+      "username": "b",
+      "first_name": "",
+      "last_name": "",
+      "email": "b@b.es",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2011-06-24T21:25:26Z",
+      "groups": [],
+      "user_permissions": []
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 4,
+   "fields": {
+      "password": "pbkdf2_sha256$36000$f3840$I9O1MaWqMifJp4/I9iTy38oza0Tgoc7Ljyfo4vge2Eg=",
+      "last_login": "2011-08-09T18:43:19Z",
+      "is_superuser": false,
+      "username": "lexi",
+      "first_name": "",
+      "last_name": "",
+      "email": "lexi@lexi.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2011-08-09T18:43:19Z",
+      "groups": [],
+      "user_permissions": [
+         90,
+         91,
+         92,
+         60,
+         61,
+         62,
+         84,
+         85,
+         86,
+         51,
+         52,
+         53,
+         75,
+         76,
+         77,
+         88,
+         89,
+         45,
+         46,
+         47
+      ]
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 5,
+   "fields": {
+      "password": "pbkdf2_sha256$36000$725da$931dj2bknzSPKsi8xciHELMzJ2pkG4DoTHX9HtABT6Q=",
+      "last_login": "2011-08-23T20:49:23Z",
+      "is_superuser": false,
+      "username": "dono",
+      "first_name": "",
+      "last_name": "",
+      "email": "dono@dono.es",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2011-08-09T18:43:27Z",
+      "groups": [],
+      "user_permissions": [
+         82,
+         83,
+         90,
+         91,
+         92,
+         60,
+         61,
+         62,
+         84,
+         85,
+         86,
+         51,
+         52,
+         53,
+         75,
+         76,
+         77,
+         55,
+         56,
+         88,
+         89,
+         45,
+         46,
+         47
+      ]
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 6,
+   "fields": {
+      "password": "pbkdf2_sha256$36000$5446f$J81aNW4Y1/zBwhCyFGCoutpAH7vblf5zdYpYS3P5nCU=",
+      "last_login": "2011-08-09T18:43:34Z",
+      "is_superuser": false,
+      "username": "term",
+      "first_name": "",
+      "last_name": "",
+      "email": "term@term.net",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2011-08-09T18:43:34Z",
+      "groups": [],
+      "user_permissions": [
+         60,
+         61,
+         62,
+         84,
+         85,
+         86,
+         51,
+         52,
+         53,
+         75,
+         76,
+         77,
+         45,
+         46,
+         47
+      ]
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 7,
+   "fields": {
+      "password": "pbkdf2_sha256$36000$808ac$YMNGU0jrnvPV5abv3mE5ay9DcFvuY9MPllAnS8er4FY=",
+      "last_login": "2017-09-14T09:43:55.538Z",
+      "is_superuser": false,
+      "username": "senpermisos",
+      "first_name": "",
+      "last_name": "",
+      "email": "senpermisos@senpermisos.net",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2011-08-09T18:43:39Z",
+      "groups": [],
+      "user_permissions": []
+   }
+},
+{
+   "model": "auth.user",
+   "pk": 10,
+   "fields": {
+      "password": "pbkdf2_sha256$36000$b7a7a$4O4sAEnd4TpqMArhUa3GkhsZx+0a8bB3E6t+lJzobQs=",
+      "last_login": "2017-09-14T10:38:12.890Z",
+      "is_superuser": true,
+      "username": "usuario",
+      "first_name": "",
+      "last_name": "",
+      "email": "unho_fic@hotmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2011-06-16T16:33:45Z",
+      "groups": [],
+      "user_permissions": []
+   }
+},
+{
+   "model": "sessions.session",
+   "pk": "aa68542b7e565cd9577e963cb7d5f037",
+   "fields": {
+      "session_data": "ZjNlN2E5YjYwODg3OTk0MGRmMzZkNWMzNWIzM2IzNDA3ZjI5MjdjYTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQRLAXUu\n",
+      "expire_date": "2011-06-30T16:39:25Z"
+   }
+},
+{
+   "model": "sessions.session",
+   "pk": "utxswx4seg45kgzjefzno7136wqxe5jn",
+   "fields": {
+      "session_data": "Yjg2NjBjNDZmZDE0YjY1YjEzN2M4Mjg2ZjRhMmY1ZGRiYmU1MTkxMDp7Il9hdXRoX3VzZXJfaGFzaCI6ImFjNTFmMDAyZWE5MjkxMTEzNzY2YmVhMGFhZTZiNmYyN2IzMTk4ODQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxMCJ9",
+      "expire_date": "2017-09-28T10:38:12.972Z"
+   }
+},
+{
+   "model": "terminator.partofspeech",
+   "pk": 1,
+   "fields": {
+      "name": "Verb",
+      "tbx_representation": "verb",
+      "description": ""
+   }
+},
+{
+   "model": "terminator.partofspeech",
+   "pk": 2,
+   "fields": {
+      "name": "Noun",
+      "tbx_representation": "noun",
+      "description": ""
+   }
+},
+{
+   "model": "terminator.partofspeech",
+   "pk": 3,
+   "fields": {
+      "name": "Adjective",
+      "tbx_representation": "adjective",
+      "description": ""
+   }
+},
+{
+   "model": "terminator.partofspeech",
+   "pk": 4,
+   "fields": {
+      "name": "Preposition",
+      "tbx_representation": "preposition",
+      "description": ""
+   }
+},
+{
+   "model": "terminator.grammaticalgender",
+   "pk": 1,
+   "fields": {
+      "name": "feminine",
+      "tbx_representation": "feminine",
+      "description": "feminine gender"
+   }
+},
+{
+   "model": "terminator.grammaticalgender",
+   "pk": 2,
+   "fields": {
+      "name": "masculine",
+      "tbx_representation": "masculine",
+      "description": "masculine gender"
+   }
+},
+{
+   "model": "terminator.grammaticalgender",
+   "pk": 3,
+   "fields": {
+      "name": "neuter",
+      "tbx_representation": "neuter",
+      "description": "neuter gender"
+   }
+},
+{
+   "model": "terminator.grammaticalnumber",
+   "pk": 1,
+   "fields": {
+      "name": "singular",
+      "tbx_representation": "singular",
+      "description": "singular grammatical number"
+   }
+},
+{
+   "model": "terminator.grammaticalnumber",
+   "pk": 2,
+   "fields": {
+      "name": "plural",
+      "tbx_representation": "plural",
+      "description": "plural grammatical number"
+   }
+},
+{
+   "model": "terminator.language",
+   "pk": "ast",
+   "fields": {
+      "name": "Asturian",
+      "description": "Language spoken in Asturias. It is also called Bable.",
+      "grammatical_genders": [],
+      "grammatical_numbers": []
+   }
+},
+{
+   "model": "terminator.language",
+   "pk": "en",
+   "fields": {
+      "name": "English",
+      "description": "English language spoken in the US, UK, Australia and a lot of countries.",
+      "grammatical_genders": [
+         1
+      ],
+      "grammatical_numbers": [
+         1
+      ]
+   }
+},
+{
+   "model": "terminator.language",
+   "pk": "es",
+   "fields": {
+      "name": "Spanish",
+      "description": "Spanish language spoken in central and south America and in Spain.",
+      "grammatical_genders": [],
+      "grammatical_numbers": []
+   }
+},
+{
+   "model": "terminator.language",
+   "pk": "gl",
+   "fields": {
+      "name": "Galician",
+      "description": "Galician language spoken mainly in the northwest of iberian peninsula.",
+      "grammatical_genders": [
+         1,
+         2
+      ],
+      "grammatical_numbers": [
+         1,
+         2
+      ]
+   }
+},
+{
+   "model": "terminator.language",
+   "pk": "pt_BR",
+   "fields": {
+      "name": "Brazilian portuguese",
+      "description": "Brazilian portuguese is a portuguese dialect spoken in Brazil.",
+      "grammatical_genders": [
+         1
+      ],
+      "grammatical_numbers": [
+         1,
+         2
+      ]
+   }
+},
+{
+   "model": "terminator.language",
+   "pk": "zh",
+   "fields": {
+      "name": "Chinese",
+      "description": "Galician language spoken mainly in China.",
+      "grammatical_genders": [
+         1,
+         2
+      ],
+      "grammatical_numbers": [
+         1
+      ]
+   }
+},
+{
+   "model": "terminator.partofspeechforlanguage",
+   "pk": 1,
+   "fields": {
+      "language": "gl",
+      "part_of_speech": 1,
+      "allows_grammatical_gender": false,
+      "allows_grammatical_number": false
+   }
+},
+{
+   "model": "terminator.partofspeechforlanguage",
+   "pk": 2,
+   "fields": {
+      "language": "gl",
+      "part_of_speech": 2,
+      "allows_grammatical_gender": true,
+      "allows_grammatical_number": true
+   }
+},
+{
+   "model": "terminator.partofspeechforlanguage",
+   "pk": 3,
+   "fields": {
+      "language": "gl",
+      "part_of_speech": 3,
+      "allows_grammatical_gender": true,
+      "allows_grammatical_number": true
+   }
+},
+{
+   "model": "terminator.partofspeechforlanguage",
+   "pk": 4,
+   "fields": {
+      "language": "en",
+      "part_of_speech": 1,
+      "allows_grammatical_gender": false,
+      "allows_grammatical_number": false
+   }
+},
+{
+   "model": "terminator.partofspeechforlanguage",
+   "pk": 5,
+   "fields": {
+      "language": "en",
+      "part_of_speech": 3,
+      "allows_grammatical_gender": false,
+      "allows_grammatical_number": true
+   }
+},
+{
+   "model": "terminator.partofspeechforlanguage",
+   "pk": 6,
+   "fields": {
+      "language": "es",
+      "part_of_speech": 2,
+      "allows_grammatical_gender": true,
+      "allows_grammatical_number": true
+   }
+},
+{
+   "model": "terminator.administrativestatus",
+   "pk": "admittedTerm-admn-sts",
+   "fields": {
+      "name": "Admitted",
+      "description": "This administrative status is used to indicate that the tagged translation is an admitted one for this particular translation's concept and language despite the fact that can exist another translation which is the preferred one.",
+      "allows_administrative_status_reason": false
+   }
+},
+{
+   "model": "terminator.administrativestatus",
+   "pk": "deprecatedTerm-admn-sts",
+   "fields": {
+      "name": "Not recommended",
+      "description": "This administrative status is used to indicate that the tagged translation shouldn't be used for this particular translation's concept and language.",
+      "allows_administrative_status_reason": true
+   }
+},
+{
+   "model": "terminator.administrativestatus",
+   "pk": "preferredTerm-admn-sts",
+   "fields": {
+      "name": "Preferred",
+      "description": "This administrative status is used to indicate that the tagged translation is the preferred one for this particular translation's concept and language.",
+      "allows_administrative_status_reason": false
+   }
+},
+{
+   "model": "terminator.administrativestatusreason",
+   "pk": 1,
+   "fields": {
+      "name": "Castelanismo",
+      "description": "Word influenced by spanish language.",
+      "languages": [
+         "gl"
+      ]
+   }
+},
+{
+   "model": "terminator.administrativestatusreason",
+   "pk": 2,
+   "fields": {
+      "name": "Lusism",
+      "description": "Word influenced by portuguese language.",
+      "languages": [
+         "en",
+         "es",
+         "gl"
+      ]
+   }
+},
+{
+   "model": "terminator.administrativestatusreason",
+   "pk": 3,
+   "fields": {
+      "name": "Anglicism",
+      "description": "Word influenced by english language.",
+      "languages": [
+         "es",
+         "gl",
+         "pt_BR"
+      ]
+   }
+},
+{
+   "model": "terminator.administrativestatusreason",
+   "pk": 4,
+   "fields": {
+      "name": "Galicism",
+      "description": "Word influenced by french language.",
+      "languages": [
+         "en",
+         "gl"
+      ]
+   }
+},
+{
+   "model": "terminator.externallinktype",
+   "pk": "externalCrossReference",
+   "fields": {
+      "name": "External cross reference",
+      "description": "Pointer to an external reference information or explanatory text about the concept. For example a link to a Wikipedia article."
+   }
+},
+{
+   "model": "terminator.externallinktype",
+   "pk": "xAudio",
+   "fields": {
+      "name": "Audio",
+      "description": "Link to external audio file that may help understanding the actual concept."
+   }
+},
+{
+   "model": "terminator.externallinktype",
+   "pk": "xGraphic",
+   "fields": {
+      "name": "Image",
+      "description": "Reference (URI, URL, or local file path) to a graphic file that depicts or explains the concept."
+   }
+},
+{
+   "model": "terminator.externallinktype",
+   "pk": "xMathML",
+   "fields": {
+      "name": "MathML",
+      "description": "Link to a MathML representantion of the concept or some other resource that may help understanding the actual concept."
+   }
+},
+{
+   "model": "terminator.externallinktype",
+   "pk": "xVideo",
+   "fields": {
+      "name": "Video",
+      "description": "Link to external video file that may help understanding the actual concept."
+   }
+},
+{
+   "model": "terminator.glossary",
+   "pk": 1,
+   "fields": {
+      "name": "Glosario inicial",
+      "description": "Glosario inicial para ir facendo probas",
+      "subscribers": [
+         4,
+         5,
+         6
+      ],
+      "subject_fields": []
+   }
+},
+{
+   "model": "terminator.glossary",
+   "pk": 2,
+   "fields": {
+      "name": "Glosario de proba",
+      "description": "Glosario para facer probas",
+      "subscribers": [],
+      "subject_fields": []
+   }
+},
+{
+   "model": "terminator.glossary",
+   "pk": 3,
+   "fields": {
+      "name": "glosario extra",
+      "description": "glosario extra",
+      "subscribers": [],
+      "subject_fields": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 1,
+   "fields": {
+      "glossary": 1,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 2,
+   "fields": {
+      "glossary": 1,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 3,
+   "fields": {
+      "glossary": 1,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 4,
+   "fields": {
+      "glossary": 2,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 5,
+   "fields": {
+      "glossary": 1,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 7,
+   "fields": {
+      "glossary": 2,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 8,
+   "fields": {
+      "glossary": 1,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 9,
+   "fields": {
+      "glossary": 3,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 10,
+   "fields": {
+      "glossary": 3,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 11,
+   "fields": {
+      "glossary": 3,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 12,
+   "fields": {
+      "glossary": 3,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 13,
+   "fields": {
+      "glossary": 3,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 14,
+   "fields": {
+      "glossary": 3,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.concept",
+   "pk": 15,
+   "fields": {
+      "glossary": 3,
+      "subject_field": null,
+      "broader_concept": null,
+      "related_concepts": []
+   }
+},
+{
+   "model": "terminator.summarymessage",
+   "pk": 1,
+   "fields": {
+      "concept": 3,
+      "language": "gl",
+      "text": "Despois de considerar todas as posibilidades discutidas no f\u00edo de discusi\u00f3n para o galego relativo a este concepto chegouse \u00e1 seguinte conclusi\u00f3n:\r\n\r\nlapela \u00e9 a \u00fanica opci\u00f3n v\u00e1lida dado que as demais non se poden aplicar a este concepto, ou a que sendo aplicables (caso de separador) o seu emprego pode dar a confusi\u00f3n.",
+      "is_finalized": false,
+      "date": "2011-11-23T21:23:08Z"
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 1,
+   "fields": {
+      "concept": 2,
+      "language": "gl",
+      "translation_text": "xanela",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 2,
+   "fields": {
+      "concept": 2,
+      "language": "en",
+      "translation_text": "window",
+      "process_status": true,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 3,
+   "fields": {
+      "concept": 2,
+      "language": "gl",
+      "translation_text": "fiestra",
+      "process_status": true,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 4,
+   "fields": {
+      "concept": 2,
+      "language": "gl",
+      "translation_text": "vent\u00e1",
+      "process_status": true,
+      "administrative_status": "deprecatedTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 5,
+   "fields": {
+      "concept": 3,
+      "language": "gl",
+      "translation_text": "lapela",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": "Breve exemplo de nota sobre un concepto."
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 6,
+   "fields": {
+      "concept": 3,
+      "language": "en",
+      "translation_text": "tab",
+      "process_status": true,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 7,
+   "fields": {
+      "concept": 3,
+      "language": "es",
+      "translation_text": "pesta\u00f1a",
+      "process_status": true,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 8,
+   "fields": {
+      "concept": 1,
+      "language": "gl",
+      "translation_text": "buscar",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 1,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 9,
+   "fields": {
+      "concept": 1,
+      "language": "en",
+      "translation_text": "search",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 1,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 11,
+   "fields": {
+      "concept": 3,
+      "language": "gl",
+      "translation_text": "pestana",
+      "process_status": true,
+      "administrative_status": "deprecatedTerm-admn-sts",
+      "administrative_status_reason": 1,
+      "part_of_speech": 2,
+      "grammatical_gender": 1,
+      "grammatical_number": 1,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 12,
+   "fields": {
+      "concept": 3,
+      "language": "es",
+      "translation_text": "solapa",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 13,
+   "fields": {
+      "concept": 3,
+      "language": "gl",
+      "translation_text": "aba",
+      "process_status": false,
+      "administrative_status": "deprecatedTerm-admn-sts",
+      "administrative_status_reason": 2,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 15,
+   "fields": {
+      "concept": 5,
+      "language": "gl",
+      "translation_text": "busca",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 16,
+   "fields": {
+      "concept": 3,
+      "language": "pt_BR",
+      "translation_text": "aba",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": 1,
+      "grammatical_number": 1,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 104,
+   "fields": {
+      "concept": 5,
+      "language": "en",
+      "translation_text": "search",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 105,
+   "fields": {
+      "concept": 7,
+      "language": "en",
+      "translation_text": "editable",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 106,
+   "fields": {
+      "concept": 7,
+      "language": "gl",
+      "translation_text": "editable",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 107,
+   "fields": {
+      "concept": 7,
+      "language": "gl",
+      "translation_text": "edit\u00e1bel",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 108,
+   "fields": {
+      "concept": 8,
+      "language": "gl",
+      "translation_text": "editar",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 109,
+   "fields": {
+      "concept": 8,
+      "language": "en",
+      "translation_text": "edit",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 110,
+   "fields": {
+      "concept": 9,
+      "language": "gl",
+      "translation_text": "t\u00e1boa",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 111,
+   "fields": {
+      "concept": 9,
+      "language": "en",
+      "translation_text": "table",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 112,
+   "fields": {
+      "concept": 9,
+      "language": "es",
+      "translation_text": "tabla",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 115,
+   "fields": {
+      "concept": 14,
+      "language": "en",
+      "translation_text": "tab",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 116,
+   "fields": {
+      "concept": 14,
+      "language": "gl",
+      "translation_text": "tabulaci\u00f3n",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": 1,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 117,
+   "fields": {
+      "concept": 15,
+      "language": "en",
+      "translation_text": "tab",
+      "process_status": false,
+      "administrative_status": null,
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 118,
+   "fields": {
+      "concept": 15,
+      "language": "gl",
+      "translation_text": "tabulador",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": 2,
+      "grammatical_gender": 2,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.translation",
+   "pk": 119,
+   "fields": {
+      "concept": 15,
+      "language": "gl",
+      "translation_text": "TAB",
+      "process_status": true,
+      "administrative_status": "preferredTerm-admn-sts",
+      "administrative_status_reason": null,
+      "part_of_speech": null,
+      "grammatical_gender": null,
+      "grammatical_number": null,
+      "note": ""
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 1,
+   "fields": {
+      "concept": 2,
+      "language": "en",
+      "definition_text": "In computing, a window is a visual area containing some kind of user interface. It usually has a rectangular shape that can overlap with the area of other windows. It displays the output of and may allow input to one or more processes.\r\n\r\nWindows are primarily associated with graphical displays, where they can be manipulated with a mouse cursor.\r\n\r\nA graphical user interface (GUI) using windows as one of its main \"metaphors\" is called a windowing system.",
+      "is_finalized": true,
+      "source": ""
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 2,
+   "fields": {
+      "concept": 2,
+      "language": "gl",
+      "definition_text": "\u00c1rea visual que cont\u00e9n alg\u00fan tipo de interface de usuario. Normalmente ten unha forma rectangular e poden conter outros elementos como bot\u00f3ns, listas...",
+      "is_finalized": false,
+      "source": ""
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 3,
+   "fields": {
+      "concept": 3,
+      "language": "gl",
+      "definition_text": "Unha lapela ou separador \u00e9 un implemento gr\u00e1fico que en aplicaci\u00f3ns inform\u00e1ticas permite lembrar outras opci\u00f3ns \u00e1 parte da que est\u00e1 en uso. Isto pode referirse \u00e1s lapelas tanto de p\u00e1xinas web como \u00e1s dos propios navegadores ou outro tipo de programas (son moi com\u00fans en follas de c\u00e1lculo).\r\nNa traduci\u00f3n ao galego do OpenOffice en 2006 e de Windows Vista en 2007-2008 (produto elaborado por Imaxin Software e revisado por Termigal) usouse separador, a\u00ednda que esta \u00e9 a denominaci\u00f3n para un produto comercial e iso non incl\u00fae necesariamente a s\u00faa preferencia xen\u00e9rica.",
+      "is_finalized": true,
+      "source": ""
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 4,
+   "fields": {
+      "concept": 3,
+      "language": "en",
+      "definition_text": "In the area of graphical user interfaces (GUI), a tabbed document interface (TDI) is one that allows multiple documents to be contained within a single window, using tabs as a navigational widget for switching between sets of documents. It is an interface style most commonly associated with web browsers, web applications, text editors and preference panes.",
+      "is_finalized": true,
+      "source": "http://en.wikipedia.org/wiki/Tab_(GUI)"
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 70,
+   "fields": {
+      "concept": 14,
+      "language": "en",
+      "definition_text": "The act and result of pressing the \"Tab\" key.",
+      "is_finalized": true,
+      "source": ""
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 71,
+   "fields": {
+      "concept": 14,
+      "language": "gl",
+      "definition_text": "Acci\u00f3n e resultado de premer a tecla \u00abtabulador\u00bb.",
+      "is_finalized": true,
+      "source": ""
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 72,
+   "fields": {
+      "concept": 15,
+      "language": "en",
+      "definition_text": "Tab key (abbreviation of tabulator key) on a keyboard is used to advance the cursor to the next tab stop.",
+      "is_finalized": true,
+      "source": ""
+   }
+},
+{
+   "model": "terminator.definition",
+   "pk": 73,
+   "fields": {
+      "concept": 15,
+      "language": "gl",
+      "definition_text": "Tecla do teclado situada normalmente enriba da tecla \u00abMai\u00fasculas\u00bb que insire caracteres de \u00abtabulaci\u00f3n\u00bb.",
+      "is_finalized": true,
+      "source": ""
+   }
+},
+{
+   "model": "terminator.externalresource",
+   "pk": 1,
+   "fields": {
+      "concept": 3,
+      "language": "en",
+      "address": "http://en.wikipedia.org/wiki/Tab_(GUI)",
+      "link_type": "externalCrossReference",
+      "description": "English Wikipedia page for this particular concept."
+   }
+},
+{
+   "model": "terminator.externalresource",
+   "pk": 2,
+   "fields": {
+      "concept": 3,
+      "language": "gl",
+      "address": "http://gl.wikipedia.org/wiki/Lapela_(inform%C3%A1tica)",
+      "link_type": "externalCrossReference",
+      "description": "P\u00e1xina da Galipedia sobre este concepto."
+   }
+},
+{
+   "model": "terminator.externalresource",
+   "pk": 3,
+   "fields": {
+      "concept": 3,
+      "language": "gl",
+      "address": "http://upload.wikimedia.org/wikipedia/commons/d/d6/screenshot_lapela.svg",
+      "link_type": "xGraphic",
+      "description": "Imaxe da Galipedia que ilustra este concepto."
+   }
+},
+{
+   "model": "terminator.proposal",
+   "pk": 1,
+   "fields": {
+      "language": "en",
+      "word": "attachment",
+      "definition": "An email attachment is a computer file sent along with an email message. One or more files can be attached to any email message, and be sent along with it to the recipient. This is typically used as a simple method to share documents and images. A paper clip image is the standard image for an attachment in an email client.",
+      "user": 10,
+      "sent_date": "2011-05-14T10:08:04Z",
+      "for_glossary": 1
+   }
+},
+{
+   "model": "terminator.proposal",
+   "pk": 2,
+   "fields": {
+      "language": "en",
+      "word": "wildcard",
+      "definition": "In computer (software) technology, a wildcard character can be used to substitute for any other character or characters in a string.",
+      "user": 2,
+      "sent_date": "2011-06-24T20:08:04Z",
+      "for_glossary": 2
+   }
+},
+{
+   "model": "terminator.contextsentence",
+   "pk": 1,
+   "fields": {
+      "translation": 5,
+      "text": "As lapelas empr\u00e9ganse a mi\u00fado para dividir as opci\u00f3ns por categor\u00edas."
+   }
+},
+{
+   "model": "terminator.contextsentence",
+   "pk": 2,
+   "fields": {
+      "translation": 5,
+      "text": "Todos os navegadores web actuais permiten a navegaci\u00f3n con lapelas."
+   }
+},
+{
+   "model": "terminator.corpusexample",
+   "pk": 1,
+   "fields": {
+      "translation": 1,
+      "address": "http://en.gl.open-tran.eu/suggest/window",
+      "description": "Open-tran search for the galician translation of this english word."
+   }
+},
+{
+   "model": "terminator.corpusexample",
+   "pk": 2,
+   "fields": {
+      "translation": 5,
+      "address": "http://en.gl.open-tran.eu/suggest/tab",
+      "description": "Open-tran search for the galician translation of this english word."
+   }
+},
+{
+   "model": "terminator.corpusexample",
+   "pk": 3,
+   "fields": {
+      "translation": 5,
+      "address": "http://corpus.mancomun.org/xestermos.php?word=tab",
+      "description": "Exemplos de uso no corpus Xestermos de Mancom\u00fan."
+   }
+},
+{
+   "model": "guardian.userobjectpermission",
+   "pk": 1,
+   "fields": {
+      "permission": 58,
+      "content_type": 18,
+      "object_pk": "1",
+      "user": 5
+   }
+},
+{
+   "model": "guardian.userobjectpermission",
+   "pk": 2,
+   "fields": {
+      "permission": 59,
+      "content_type": 18,
+      "object_pk": "1",
+      "user": 5
+   }
+},
+{
+   "model": "guardian.userobjectpermission",
+   "pk": 3,
+   "fields": {
+      "permission": 57,
+      "content_type": 18,
+      "object_pk": "1",
+      "user": 5
+   }
+},
+{
+   "model": "guardian.userobjectpermission",
+   "pk": 4,
+   "fields": {
+      "permission": 58,
+      "content_type": 18,
+      "object_pk": "1",
+      "user": 4
+   }
+},
+{
+   "model": "guardian.userobjectpermission",
+   "pk": 5,
+   "fields": {
+      "permission": 57,
+      "content_type": 18,
+      "object_pk": "1",
+      "user": 4
+   }
+},
+{
+   "model": "guardian.userobjectpermission",
+   "pk": 6,
+   "fields": {
+      "permission": 57,
+      "content_type": 18,
+      "object_pk": "1",
+      "user": 6
+   }
+},
+{
+   "model": "django_comments.comment",
+   "pk": 1,
+   "fields": {
+      "content_type": 14,
+      "object_pk": "1",
+      "site": 1,
+      "user": 10,
+      "user_name": "usuario",
+      "user_email": "unho_fic@hotmail.com",
+      "user_url": "",
+      "comment": "Primeiro comentario de proba",
+      "submit_date": "2011-08-23T23:26:26Z",
+      "ip_address": "127.0.0.1",
+      "is_public": true,
+      "is_removed": false
+   }
+},
+{
+   "model": "django_comments.comment",
+   "pk": 2,
+   "fields": {
+      "content_type": 14,
+      "object_pk": "1",
+      "site": 1,
+      "user": 10,
+      "user_name": "usuario",
+      "user_email": "unho_fic@hotmail.com",
+      "user_url": "",
+      "comment": "Engadindo un novo comentario, por parte do usuario \u00abusuario\u00bb, esta vez con m\u00faltiples li\u00f1as e par\u00e1grafos para comprobar que realmente se ve ben.\r\n\r\nLorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam massa turpis, nonummy et, consectetuer id, placerat ac, ante. In commodo, dolor quis fermentum ullamcorper, urna massa volutpat massa, vitae mattis purus arcu nec nulla. Suspendisse lectus. Curabitur nunc ante, ullamcorper vel, auctor a, aliquam at, tortor. Aliquam justo lectus, iaculis a, auctor sed, congue in, nisl. Vestibulum non arcu a ante feugiat vestibulum. Curabitur tincidunt tellus nec purus. Fusce venenatis ligula in pede. Proin diam augue, semper vitae, varius et, viverra id, felis. Suspendisse viverra placerat tortor. Etiam non neque ac mi vestibulum placerat. Ut eu metus id lectus vestibulum ultrices. Quisque facilisis, urna sit amet pulvinar mollis, purus arcu adipiscing velit, non condimentum diam purus eu massa. \r\n\r\nEtiam fermentum. Vivamus quis mi. Vivamus quis mi. Praesent a eros. Aliquam vel nibh. Proin lectus orci, venenatis pharetra, egestas id, tincidunt vel, eros. Phasellus magna sem, vulputate eget, ornare sed, dignissim sit amet, pede. Integer risus velit, facilisis eget, viverra et, venenatis id, leo. Mauris tempus diam. Etiam pharetra lacus sed velit imperdiet bibendum. In hac habitasse platea dictumst. Vestibulum viverra varius enim. Vivamus feugiat. Duis sem velit, ultrices et, fermentum auctor, rhoncus ut, ligula. Morbi pulvinar nulla sit amet nisl. Donec ut urna. Fusce venenatis ligula in pede. Integer accumsan. Sed at turpis vitae velit euismod aliquet. Aliquam imperdiet lobortis metus. \r\n\r\nDonec ut urna. Quisque malesuada nulla sed pede volutpat pulvinar. Sed non ipsum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Pellentesque sit amet dui vel justo gravida auctor. Aenean id purus. Aenean scelerisque metus eget sem. Integer accumsan. Nulla sagittis condimentum ligula. Donec diam eros, tristique sit amet, pretium vel, pellentesque ut, neque. Proin dolor sapien, adipiscing id, sagittis eu, molestie viverra, mauris. Aenean id purus. Quisque pretium rutrum ligula. Phasellus auctor enim eget sem. Quisque arcu ante, cursus in, ornare quis, viverra ut, justo. \r\n\r\nPellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque ac turpis. Proin lectus orci, venenatis pharetra, egestas id, tincidunt vel, eros. Suspendisse viverra placerat tortor. Pellentesque tempor. Nullam sapien mauris, venenatis at, fermentum at, tempus eu, urna. Pellentesque et arcu. Integer tempus malesuada pede. Fusce consectetuer tellus ut nisl. Pellentesque convallis dolor vel libero. Pellentesque tempor. Suspendisse lectus. Mauris sed nulla quis nisi interdum tempor.\r\n\r\nDeica",
+      "submit_date": "2011-08-23T23:26:41Z",
+      "ip_address": "127.0.0.1",
+      "is_public": true,
+      "is_removed": false
+   }
+},
+{
+   "model": "django_comments.comment",
+   "pk": 3,
+   "fields": {
+      "content_type": 14,
+      "object_pk": "1",
+      "site": 1,
+      "user": 10,
+      "user_name": "usuario",
+      "user_email": "unho_fic@hotmail.com",
+      "user_url": "",
+      "comment": "Outro comentario m\u00e1is para encher",
+      "submit_date": "2011-08-23T23:26:53Z",
+      "ip_address": "127.0.0.1",
+      "is_public": true,
+      "is_removed": false
+   }
+},
+{
+   "model": "django_comments.comment",
+   "pk": 4,
+   "fields": {
+      "content_type": 14,
+      "object_pk": "1",
+      "site": 1,
+      "user": 5,
+      "user_name": "dono",
+      "user_email": "dono@dono.es",
+      "user_url": "",
+      "comment": "Comentario realizado por parte do dono do glosario.\r\n\r\nA ver se as\u00ed isto toma corpo. Hai que lembrarse de po\u00f1er comentarios nos fixtures.",
+      "submit_date": "2011-08-23T23:27:49Z",
+      "ip_address": "127.0.0.1",
+      "is_public": true,
+      "is_removed": false
+   }
+},
+{
+   "model": "django_comments.comment",
+   "pk": 5,
+   "fields": {
+      "content_type": 14,
+      "object_pk": "2",
+      "site": 1,
+      "user": 5,
+      "user_name": "dono",
+      "user_email": "dono@dono.es",
+      "user_url": "",
+      "comment": "Primeiro comentario realizado para o galego.",
+      "submit_date": "2011-08-23T23:29:09Z",
+      "ip_address": "127.0.0.1",
+      "is_public": true,
+      "is_removed": false
+   }
+},
+{
+   "model": "django_comments.comment",
+   "pk": 6,
+   "fields": {
+      "content_type": 14,
+      "object_pk": "2",
+      "site": 1,
+      "user": 4,
+      "user_name": "lexi",
+      "user_email": "lexi@lexi.org",
+      "user_url": "",
+      "comment": "Unha lapela ou separador \u00e9 un implemento gr\u00e1fico que en aplicaci\u00f3ns inform\u00e1ticas permite lembrar outras opci\u00f3ns \u00e1 parte da que est\u00e1 en uso. Isto pode referirse \u00e1s lapelas tanto de p\u00e1xinas web como \u00e1s dos propios navegadores ou outro tipo de programas (son moi com\u00fans en follas de c\u00e1lculo).\r\n\r\nNa traduci\u00f3n ao galego do OpenOffice en 2006 e de Windows Vista en 2007-2008 (produto elaborado por Imaxin Software e revisado por Termigal) usouse separador, a\u00ednda que esta \u00e9 a denominaci\u00f3n para un produto comercial e iso non incl\u00fae necesariamente a s\u00faa preferencia xen\u00e9rica.",
+      "submit_date": "2011-08-23T23:29:46Z",
+      "ip_address": "127.0.0.1",
+      "is_public": true,
+      "is_removed": false
+   }
+},
+{
+   "model": "django_comments.comment",
+   "pk": 7,
+   "fields": {
+      "content_type": 14,
+      "object_pk": "2",
+      "site": 1,
+      "user": 4,
+      "user_name": "lexi",
+      "user_email": "lexi@lexi.org",
+      "user_url": "",
+      "comment": "Non quero respostas.\r\n\r\nDeica",
+      "submit_date": "2011-08-23T23:32:23Z",
+      "ip_address": "127.0.0.1",
+      "is_public": true,
+      "is_removed": false
+   }
+},
+{
+   "model": "terminator_comments_app.terminatorcomment",
+   "pk": 1,
+   "fields": {
+      "mail_me": true
+   }
+},
+{
+   "model": "terminator_comments_app.terminatorcomment",
+   "pk": 2,
+   "fields": {
+      "mail_me": true
+   }
+},
+{
+   "model": "terminator_comments_app.terminatorcomment",
+   "pk": 3,
+   "fields": {
+      "mail_me": true
+   }
+},
+{
+   "model": "terminator_comments_app.terminatorcomment",
+   "pk": 4,
+   "fields": {
+      "mail_me": true
+   }
+},
+{
+   "model": "terminator_comments_app.terminatorcomment",
+   "pk": 5,
+   "fields": {
+      "mail_me": true
+   }
+},
+{
+   "model": "terminator_comments_app.terminatorcomment",
+   "pk": 6,
+   "fields": {
+      "mail_me": true
+   }
+},
+{
+   "model": "terminator_comments_app.terminatorcomment",
+   "pk": 7,
+   "fields": {
+      "mail_me": false
+   }
+}
 ]
