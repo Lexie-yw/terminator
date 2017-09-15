@@ -24,7 +24,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 <div class="language_link_list">
 {% for lang in available_languages %}
-    {% if not comments_thread.language or lang != comments_thread.language %}
+    {% if not comments_thread.language_id or lang.iso_code != comments_thread.language_id %}
         <a href="{% url "terminator_concept_detail_for_language" concept.pk lang.pk %}#comment_list" class="language_link">{{ lang.pk }}</a>
     {% else %}
         <span class="current_language">{{ lang.pk }}</span>
@@ -39,7 +39,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <div class="comment_list_header">
         <div class="comment_list_count"><b>{% blocktrans count count=comment_count %}{{ count }} comment{% plural %}{{ count }} comments{% endblocktrans %}</b></div>
         <div class="comment_list_feed">
-            <a href="{% url "terminator_feed_commentthread" concept_id=comments_thread.concept.pk language_id=comments_thread.language.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" />{% trans "RSS feed with latest comments" %}</a>
+            <a href="{% url "terminator_feed_commentthread" concept_id=comments_thread.concept.pk language_id=comments_thread.language_id %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" />{% trans "RSS feed with latest comments" %}</a>
         </div>
     </div>
     
