@@ -259,6 +259,7 @@ class URLs(TestCase):
         for field in [
                 "name",
                 "description",
+                "source_language",
                 "imported_file",
         ]:
             self.assertFormError(response, "import_form", field, "This field is required.")
@@ -273,6 +274,7 @@ class URLs(TestCase):
                 response = self.c.post('/import/', {
                     "name": "test name",
                     "description": "test description",
+                    "source_language": 'en',
                     'imported_file': f
                 })
             if "no Language with that code" in response.content:
@@ -290,12 +292,14 @@ class URLs(TestCase):
                 response = self.c.post('/import/', {
                     "name": "empty",
                     "description": "empty",
+                    "source_language": 'en',
                     'imported_file': f
                 })
                 f.seek(0)
                 response = self.c.post('/import/', {
                     "name": "empty",
                     "description": "empty",
+                    "source_language": 'en',
                     'imported_file': f
                 })
                 self.assertNotContains(response, "succesful")
@@ -326,6 +330,7 @@ class AdminFormTests(TestCase):
         form = TerminatorGlossaryAdminForm({
             "name": "test",
             "description": "description",
+            "source_language": "en",
         })
         self.assertTrue(form.is_valid())
 
@@ -402,10 +407,10 @@ class SharedTests(object):
         # some reusable models that are required by a few of the classes
         cls.user = User.objects.create_user(username="test", email="test@test.com", password="test")
         cls.user.save()
-        cls.glossary = Glossary(name="test glossaryx")
-        cls.glossary.save()
         cls.language = Language(iso_code='en')
         cls.language.save()
+        cls.glossary = Glossary(name="test glossaryx", source_language=cls.language)
+        cls.glossary.save()
         cls.concept = Concept(glossary=cls.glossary)
         cls.concept.save()
         cls.translation = Translation(concept=cls.concept, language=cls.language)
