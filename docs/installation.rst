@@ -8,7 +8,7 @@ and its requirements.
 
 Before proceeding, consider installing these first:
 
-- At least Python 2.6
+- Python 2.7
 - `python-pip <http://www.pip-installer.org/>`_ installer
 - `git <http://http://git-scm.com/>`_ distributed version control system
 - A database management system like PostgreSQL or MySQL
@@ -68,12 +68,12 @@ Setting Up the Database
 
 Before your run Terminator for the first time, you need to create the schema
 for the database and populate it with initial data. This is done by
-executing the `syncdb` management command:
+executing the `migrate` management command:
 
 .. code-block:: bash
 
     (env-name) $ cd project
-    (env-name) $ python manage.py syncdb --noinput
+    (env-name) $ python manage.py migrate
 
 
 .. _installation#running_terminator:
@@ -91,7 +91,12 @@ And the server will start listening on port 8000. This can be accessed from your
 web browser at ``http://localhost:8000/``.
 
 
-This default installation already provides several default user accounts with
+If you want some test data, you can import it with
+.. code-block:: bash
+    (env-name) $ python manage.py loaddata terminator/fixtures/test_data.json
+
+
+This minimal dataset provides several default user accounts with
 different roles:
 
 - User **usuario** with password *usuario* (has superuser role)
