@@ -615,7 +615,7 @@ h3 {
 /* Comments styles */
 .comment_block {
     padding: 0;
-    margin-bottom: 4em;
+    margin-bottom: 2em;
     background-color: #daf2f2;
 }
 
@@ -637,10 +637,10 @@ h3 {
 }
 
 .comment {
-    padding-right: 3em;
-    padding-left: 3em;
+    padding-right: 2em;
+    padding-left: 2em;
     padding-bottom: 0.1em;
-    padding-top: 1em;
+    padding-top: 0.5em;
 }
 
 .darker_comment {
@@ -652,7 +652,7 @@ h3 {
 }
 
 #comment_form {
-    padding: 2em 4em;
+    padding: 0em 2em 0.5em 2em;
 }
 
 #comment_form textarea {
