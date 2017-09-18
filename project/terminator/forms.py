@@ -17,6 +17,8 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 from django import forms
+from django.forms.widgets import TextInput
+from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from terminator.models import *
@@ -205,7 +207,20 @@ class TerminatorConceptAdminForm(forms.ModelForm):
         return cleaned_data
 
 
+class SimpleTranslationForm(forms.ModelForm):
+    """A simple form for editing only the text of a Translation."""
+    translation_text = forms.CharField(label="", widget=TextInput(
+                            attrs=dict(placeholder=_("Enter term...")))
+                       )
+
+TranslationFormSet = modelformset_factory(Translation,
+                        form=SimpleTranslationForm,
+                        fields=("translation_text",)
+                     )
+
+
 class TerminatorTranslationAdminForm(forms.ModelForm):
+    """A form for handling/validating the full Translation model."""
     class Meta:
         fields = '__all__'
         model = Translation

@@ -55,6 +55,12 @@ urlpatterns = [
             model=Concept,
         ),
         name='terminator_concept_detail_for_language'),
+    url(r'^concepts_source/(?P<pk>\d+)/$',
+        views.ConceptSourceView.as_view(
+            model=Concept,
+        ),
+        name='terminator_concept_source'),
+
 
     # Proposal URLs
     url(r'^proposals/$',

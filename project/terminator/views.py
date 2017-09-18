@@ -22,6 +22,7 @@ from xml.dom import minidom
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, InvalidPage, Paginator
 from django.db import transaction, DatabaseError
 from django.db.models import Q
@@ -41,7 +42,7 @@ from guardian.shortcuts import get_users_with_perms
 
 from terminator.forms import (AdvancedSearchForm, CollaborationRequestForm,
                               ExportForm, ImportForm, ProposalForm, SearchForm,
-                              SubscribeForm)
+                              SubscribeForm, TranslationFormSet)
 from terminator.models import *
 
 
@@ -152,6 +153,43 @@ class ConceptDetailView(TerminatorDetailView):
                 pass
             else:
                 context['summary_message'] = summary_message
+        return context
+
+
+class ConceptSourceView(TerminatorDetailView):
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    def get_template_names(self):
+        return "terminator/concept_source.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ConceptSourceView, self).get_context_data(**kwargs)
+        concept = context['concept']
+        language = concept.glossary.source_language_id
+        translations = Translation.objects.filter(concept=concept, language=language)
+        if self.request.method == 'POST':
+            user = self.request.user
+            if not (user.is_authenticated() and user.has_perm('is_terminologist_in_this_glossary', concept.glossary)):
+                raise PermissionDenied
+            formset = TranslationFormSet(self.request.POST, queryset=translations)
+            if formset.is_valid():
+                saved_translations = formset.save(commit=False)
+                for translation in formset.new_objects:
+                    translation.language_id = language
+                    translation.concept = concept
+                    translation.save()
+                for translation in formset.changed_objects:
+                    # translation is a tuple (translation, [changed_data])
+                    translation[0].save()
+
+        context['current_language'] = language
+        context['comments_thread'], created = ConceptLanguageCommentsThread.objects.get_or_create(concept=concept, language_id=language)
+        formset = TranslationFormSet(queryset=translations.all())
+        context['translation_form'] = formset
         return context
 
 
