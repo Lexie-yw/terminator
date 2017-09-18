@@ -222,6 +222,32 @@ class TranslationAdmin(admin.ModelAdmin):
 admin.site.register(Translation, TranslationAdmin)
 
 
+class TranslationOfConceptAdmin(TranslationAdmin):
+    """An simpler form for translations of a concept in a language."""
+    save_on_top = False
+    fields = None
+    fieldsets = (
+            (None, {
+                'fields': (('concept', 'language'), 'translation_text'),
+            }),
+            (_('Grammatical information'), {
+                'fields': ('part_of_speech', 'grammatical_gender',
+                    'grammatical_number')
+            }),
+            (_("Workflow status"), {
+                'fields': ('process_status', ('administrative_status', 'administrative_status_reason'), 'note'),
+            }),
+    )
+    readonly_fields = ('concept', 'language',)
+    list_display = ('translation_text', 'administrative_status', 'process_status',)
+    ordering = ('translation_text',)
+    list_filter = [
+        'process_status', 'administrative_status',
+    ]
+    inlines = [ContextSentenceInline, CorpusExampleInline]
+    show_full_result_count = False
+    actions_selection_counter = False
+
 myadmin = admin.AdminSite(name='myadmin')
 myadmin.register(Translation, TranslationOfConceptAdmin)
 
