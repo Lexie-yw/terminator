@@ -222,6 +222,10 @@ class TranslationAdmin(admin.ModelAdmin):
 admin.site.register(Translation, TranslationAdmin)
 
 
+myadmin = admin.AdminSite(name='myadmin')
+myadmin.register(Translation, TranslationOfConceptAdmin)
+
+
 class DefinitionAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('definition_text', 'concept', 'language', 'is_finalized')
