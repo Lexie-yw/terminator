@@ -230,6 +230,8 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
 
         cleaned_data = self.cleaned_data
         language = cleaned_data.get("language")
+        if language is None and self.instance is not None:
+            language = self.instance.language
         part_of_speech = cleaned_data.get("part_of_speech")
 
         # Check that the specified Part of Speech is allowed by the chosen
