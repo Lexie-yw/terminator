@@ -1007,60 +1007,57 @@ def search(request):
 
         if search_form.is_valid():
             search_results = []
-            try:
-                if "advanced" in request.path:
-                    queryset = Translation.objects.all()
-                    if search_form.cleaned_data['filter_by_glossary']:
-                        queryset = queryset.filter(concept__glossary=search_form.cleaned_data['filter_by_glossary'])
+            if "advanced" in request.path:
+                queryset = Translation.objects.all()
+                if search_form.cleaned_data['filter_by_glossary']:
+                    queryset = queryset.filter(concept__glossary=search_form.cleaned_data['filter_by_glossary'])
 
-                    if search_form.cleaned_data['filter_by_language']:
-                        queryset = queryset.filter(language=search_form.cleaned_data['filter_by_language'])
+                if search_form.cleaned_data['filter_by_language']:
+                    queryset = queryset.filter(language=search_form.cleaned_data['filter_by_language'])
 
-                    #TODO add filter by process status
+                #TODO add filter by process status
 
-                    if search_form.cleaned_data['filter_by_part_of_speech']:
-                        queryset = queryset.filter(part_of_speech=search_form.cleaned_data['filter_by_part_of_speech'])
+                if search_form.cleaned_data['filter_by_part_of_speech']:
+                    queryset = queryset.filter(part_of_speech=search_form.cleaned_data['filter_by_part_of_speech'])
 
-                    if search_form.cleaned_data['filter_by_administrative_status']:
-                        queryset = queryset.filter(administrative_status=search_form.cleaned_data['filter_by_administrative_status'])
+                if search_form.cleaned_data['filter_by_administrative_status']:
+                    queryset = queryset.filter(administrative_status=search_form.cleaned_data['filter_by_administrative_status'])
 
-                    if search_form.cleaned_data['also_show_partial_matches']:
-                        queryset = queryset.filter(translation_text__icontains=search_form.cleaned_data['search_string'])
-                    else:
-                        queryset = queryset.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
+                if search_form.cleaned_data['also_show_partial_matches']:
+                    queryset = queryset.filter(translation_text__icontains=search_form.cleaned_data['search_string'])
                 else:
-                    queryset = Translation.objects.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
+                    queryset = queryset.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
+            else:
+                queryset = Translation.objects.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
 
-                # Limit for better worst-case performance. Consider pager.
-                queryset = queryset.select_related('concept', 'concept__glossary')[:100]
+            # Limit for better worst-case performance. Consider pager.
+            queryset = queryset.select_related('concept', 'concept__glossary')[:100]
 
-                previous_concept = None
-                for trans in queryset:# All recovered translations are ordered by concept and then by language
+            previous_concept = None
+            for trans in queryset:# All recovered translations are ordered by concept and then by language
+                try:
+                    definition = Definition.objects.get(concept_id=trans.concept_id, language_id=trans.language_id)
+                except Definition.DoesNotExist:
+                    definition = None
+
+                # If this is the first translation for this concept
+                if previous_concept != trans.concept_id:
+                    is_first = True
+                    previous_concept = trans.concept_id
                     try:
-                        definition = Definition.objects.get(concept_id=trans.concept_id, language_id=trans.language_id)
-                    except Definition.DoesNotExist:
-                        definition = None
-
-                    # If this is the first translation for this concept
-                    if previous_concept != trans.concept_id:
-                        is_first = True
-                        previous_concept = trans.concept_id
-                        try:
-                            other_translations = Translation.objects.exclude(id=trans.pk).filter(concept_id=trans.concept_id)[:7]
-                        except Translation.DoesNotExist:
-                            other_translations = None
-                    else:
+                        other_translations = Translation.objects.exclude(id=trans.pk).filter(concept_id=trans.concept_id)[:7]
+                    except Translation.DoesNotExist:
                         other_translations = None
-                        is_first = False
+                else:
+                    other_translations = None
+                    is_first = False
 
-                    search_results.append({
-                        "translation": trans,
-                        "definition": definition,
-                        "other_translations": other_translations,
-                        "is_first": is_first,
-                    })
-            except Http404:
-                pass
+                search_results.append({
+                    "translation": trans,
+                    "definition": definition,
+                    "other_translations": other_translations,
+                    "is_first": is_first,
+                })
     elif "advanced" in request.path:
         search_form = AdvancedSearchForm()
     else:
