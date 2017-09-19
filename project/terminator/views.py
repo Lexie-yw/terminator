@@ -28,7 +28,7 @@ from django.db import transaction, DatabaseError
 from django.db.models import Q
 from django.db.models import prefetch_related_objects
 from django.http import HttpResponse
-from django.shortcuts import (get_list_or_404, get_object_or_404,
+from django.shortcuts import (get_object_or_404,
                               render_to_response, render, Http404)
 from django.template import loader
 from django.utils.encoding import force_unicode
@@ -1033,13 +1033,12 @@ def search(request):
 
                 # Limit for better worst-case performance. Consider pager.
                 queryset = queryset.select_related('concept', 'concept__glossary')[:100]
-                translation_list = get_list_or_404(queryset)
 
                 previous_concept = None
-                for trans in translation_list:# All recovered translations are ordered by concept and then by language
+                for trans in queryset:# All recovered translations are ordered by concept and then by language
                     try:
-                        definition = get_object_or_404(Definition, concept_id=trans.concept_id, language_id=trans.language_id)
-                    except Http404:
+                        definition = Definition.objects.get(concept_id=trans.concept_id, language_id=trans.language_id)
+                    except Definition.DoesNotExist:
                         definition = None
 
                     # If this is the first translation for this concept
@@ -1047,8 +1046,8 @@ def search(request):
                         is_first = True
                         previous_concept = trans.concept_id
                         try:
-                            other_translations = get_list_or_404(Translation.objects.exclude(id=trans.pk), concept_id=trans.concept_id)[:7]
-                        except Http404:
+                            other_translations = Translation.objects.exclude(id=trans.pk).filter(concept_id=trans.concept_id)[:7]
+                        except Translation.DoesNotExist:
                             other_translations = None
                     else:
                         other_translations = None
