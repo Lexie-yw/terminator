@@ -1025,25 +1025,29 @@ def search(request):
                         queryset = queryset.filter(administrative_status=search_form.cleaned_data['filter_by_administrative_status'])
 
                     if search_form.cleaned_data['also_show_partial_matches']:
-                        translation_list = get_list_or_404(queryset, translation_text__icontains=search_form.cleaned_data['search_string'])
+                        queryset = queryset.filter(translation_text__icontains=search_form.cleaned_data['search_string'])
                     else:
-                        translation_list = get_list_or_404(queryset, translation_text__iexact=search_form.cleaned_data['search_string'])
+                        queryset = queryset.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
                 else:
-                    translation_list = get_list_or_404(Translation, translation_text__iexact=search_form.cleaned_data['search_string'])
+                    queryset = Translation.objects.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
+
+                # Limit for better worst-case performance. Consider pager.
+                queryset = queryset.select_related('concept', 'concept__glossary')[:100]
+                translation_list = get_list_or_404(queryset)
 
                 previous_concept = None
                 for trans in translation_list:# All recovered translations are ordered by concept and then by language
                     try:
-                        definition = get_object_or_404(Definition, concept=trans.concept, language=trans.language)
+                        definition = get_object_or_404(Definition, concept_id=trans.concept_id, language_id=trans.language_id)
                     except Http404:
                         definition = None
 
                     # If this is the first translation for this concept
-                    if previous_concept != trans.concept.pk:
+                    if previous_concept != trans.concept_id:
                         is_first = True
-                        previous_concept = trans.concept.pk
+                        previous_concept = trans.concept_id
                         try:
-                            other_translations = get_list_or_404(Translation.objects.exclude(id=trans.pk), concept=trans.concept)[:7]
+                            other_translations = get_list_or_404(Translation.objects.exclude(id=trans.pk), concept_id=trans.concept_id)[:7]
                         except Http404:
                             other_translations = None
                     else:
