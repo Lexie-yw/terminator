@@ -390,27 +390,24 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
         def_index = 0
         summ_index = 0
         for language_code in used_languages_list:
-            #TODO Try to use the language code on the rest of this for loop
-            # instead of recovering the Language object and comparing objects.
-            language = Language.objects.get(pk=language_code)
 
             lang_translations = []
-            while trans_index < len(concept_translations) and concept_translations[trans_index].language == language:
+            while trans_index < len(concept_translations) and concept_translations[trans_index].language_id == language_code:
                 lang_translations.append(concept_translations[trans_index])
                 trans_index += 1
 
             lang_definition = None
-            if def_index < len(concept_definitions) and concept_definitions[def_index].language == language:
+            if def_index < len(concept_definitions) and concept_definitions[def_index].language_id == language_code:
                 lang_definition = concept_definitions[def_index]
                 def_index += 1
 
             lang_resources = []
-            while res_index < len(concept_external_resources) and concept_external_resources[res_index].language == language:
+            while res_index < len(concept_external_resources) and concept_external_resources[res_index].language_id == language_code:
                 lang_resources.append(concept_external_resources[res_index])
                 res_index += 1
 
             lang_summary_message = None
-            if summ_index < len(concept_summary_messages) and concept_summary_messages[summ_index].language == language:
+            if summ_index < len(concept_summary_messages) and concept_summary_messages[summ_index].language_id == language_code:
                 lang_summary_message = concept_summary_messages[summ_index].text
                 summ_index += 1
 
