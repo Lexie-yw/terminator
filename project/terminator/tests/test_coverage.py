@@ -183,9 +183,42 @@ class URLs(TestCase):
         self.assertContains(response, "Definition")
         self.assertContains(response, "External resources")
 
+    def test_concept_source(self):
+        response = self.c.get('/concepts_source/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "search")
+        self.assertNotContains(response, "buscar")
+        self.assertNotContains(response, "Finalise term information")
+        self.assertNotContains(response, "Submit")
+
+        self.login()
+        response = self.c.get('/concepts_source/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Finalise term information")
+
+        self.c.login(username='usuario', password='usuario')
+        response = self.c.get('/concepts_source/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Finalise term information")
+        self.assertContains(response, "Submit")
+
+        response = self.c.post('/concepts_source/1/', data={
+            "translation": "SEARCHxxx",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "search")
+        self.assertContains(response, "SEARCHxxx")
+
+
     def test_glossaries(self):
         response = self.c.get('/glossaries/1/')
         self.assertContains(response, "Concept list")
+
+#        response = self.c.post('/glossaries/1/', data={
+#            'collaboration_role': 'T', # Terminologist
+#        })
+#        self.assertNotContains(response, "You will receive a message")
+
         self.login()
         response = self.c.get('/glossaries/1/')
         self.assertContains(response, "Glossary collaborators")

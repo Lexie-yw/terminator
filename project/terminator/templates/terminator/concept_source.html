@@ -38,7 +38,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <div class="flexcol">
             <form method="post" action="">
                 {% csrf_token %}
-                {{ translation_form.as_p }}
+                {% for translation in translations %}
+                    <div class="translation">
+                        {{ translation.translation_text }}
+                    </div>
+                {% endfor %}
+                {{ form.translation }}
                 {% if "is_terminologist_in_this_glossary" in glossary_perms %}
                     <input type="Submit" value="Submit" />
                 {% endif %}

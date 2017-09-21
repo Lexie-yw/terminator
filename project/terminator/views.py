@@ -42,7 +42,7 @@ from guardian.shortcuts import get_users_with_perms
 
 from terminator.forms import (AdvancedSearchForm, CollaborationRequestForm,
                               ExportForm, ImportForm, ProposalForm, SearchForm,
-                              SubscribeForm, TranslationFormSet)
+                              SubscribeForm, ConceptInLanguageForm)
 from terminator.models import *
 
 
@@ -175,21 +175,21 @@ class ConceptSourceView(TerminatorDetailView):
             user = self.request.user
             if not (user.is_authenticated() and user.has_perm('is_terminologist_in_this_glossary', concept.glossary)):
                 raise PermissionDenied
-            formset = TranslationFormSet(self.request.POST, queryset=translations)
-            if formset.is_valid():
-                saved_translations = formset.save(commit=False)
-                for translation in formset.new_objects:
-                    translation.language_id = language
-                    translation.concept = concept
-                    translation.save()
-                for translation in formset.changed_objects:
-                    # translation is a tuple (translation, [changed_data])
-                    translation[0].save()
+            form = ConceptInLanguageForm(self.request.POST)
+            if form.is_valid() and form.has_changed():
+                cleaned_data = form.cleaned_data
+                for name in form.changed_data:
+                    value = cleaned_data.get(name)
+                    model = Translation(translation_text=value)
+                    model.language_id = language
+                    model.concept = concept
+                    model.save()
 
         context['current_language'] = language
+        context['translations'] = translations
         context['comments_thread'], created = ConceptLanguageCommentsThread.objects.get_or_create(concept=concept, language_id=language)
-        formset = TranslationFormSet(queryset=translations.all())
-        context['translation_form'] = formset
+        form = ConceptInLanguageForm()
+        context['form'] = form
         return context
 
 

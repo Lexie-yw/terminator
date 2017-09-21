@@ -207,16 +207,13 @@ class TerminatorConceptAdminForm(forms.ModelForm):
         return cleaned_data
 
 
-class SimpleTranslationForm(forms.ModelForm):
-    """A simple form for editing only the text of a Translation."""
-    translation_text = forms.CharField(label="", widget=TextInput(
-                            attrs=dict(placeholder=_("Enter term...")))
+class ConceptInLanguageForm(forms.Form):
+    translation = forms.CharField(label="", required=False, widget=TextInput(
+                            attrs={
+                                "placeholder": _("Enter alternative term..."),
+                                "class": "translation",
+                            })
                        )
-
-TranslationFormSet = modelformset_factory(Translation,
-                        form=SimpleTranslationForm,
-                        fields=("translation_text",)
-                     )
 
 
 class TerminatorTranslationAdminForm(forms.ModelForm):
