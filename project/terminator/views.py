@@ -381,7 +381,7 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
 
         if not export_all_definitions:
             concept_definitions = concept_definitions.filter(is_finalized=True)
-        concept_definitions = concept_definitions.order_by("language")
+        concept_definitions = concept_definitions.order_by("language", "-is_finalized")
 
         # Get the list of used languages in the filtered translations, external
         # resources and definitions.
@@ -409,8 +409,10 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
                 trans_index += 1
 
             lang_definition = None
-            if def_index < len(concept_definitions) and concept_definitions[def_index].language_id == language_code:
-                lang_definition = concept_definitions[def_index]
+            while def_index < len(concept_definitions) and concept_definitions[def_index].language_id == language_code:
+                if not lang_definition:
+                    #only take the first (we sort by -is_finalized above)
+                    lang_definition = concept_definitions[def_index]
                 def_index += 1
 
             lang_resources = []
@@ -1045,7 +1047,7 @@ def search(request):
             previous_concept = None
             for trans in queryset:# All recovered translations are ordered by concept and then by language
                 try:
-                    definition = Definition.objects.get(concept_id=trans.concept_id, language_id=trans.language_id)
+                    definition = Definition.objects.filter(concept_id=trans.concept_id, language_id=trans.language_id).latest()
                 except Definition.DoesNotExist:
                     definition = None
 

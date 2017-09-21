@@ -339,9 +339,11 @@ class Definition(models.Model):
     source = models.URLField(blank=True, verbose_name=_("source"))
 
     class Meta:
+        get_latest_by = "id"
         verbose_name = _("definition")
         verbose_name_plural = _("definitions")
-        unique_together = ("concept", "language")
+        # We allow multiple per (concept, language), but only as history. The
+        # latest (by .id) is considered the current definition.
 
     def __unicode__(self):
         trans_data = {
