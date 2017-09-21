@@ -44,6 +44,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
                 {% endfor %}
                 {{ form.translation }}
+
+                {% if "is_terminologist_in_this_glossary" in glossary_perms %}
+                <p>
+                  <a href="{% url "myadmin:terminator_translation_changelist" %}?concept__id__exact={{ concept.pk }}&language__iso_code__exact={{ current_language }}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise term information" %}</a>
+                </p>
+                {% endif %}
                 {% if "is_terminologist_in_this_glossary" in glossary_perms %}
                     <input type="Submit" value="Submit" />
                 {% endif %}
@@ -52,11 +58,14 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </div>
 
 
-    {% if "is_terminologist_in_this_glossary" in glossary_perms %}
     <p>
-      <a href="{% url "myadmin:terminator_translation_changelist" %}?concept__id__exact={{ concept.pk }}&language__iso_code__exact={{ current_language }}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise term information" %}</a>
-    </p>
+    {% if prev_concept %}
+      <a href="{% url "terminator_concept_source" pk=prev_concept.id %}">← Previous concept</a>
     {% endif %}
+    {% if next_concept %}
+      <a style="float: right;" href="{% url "terminator_concept_source" pk=next_concept.id %}">Next concept →</a>
+    {% endif %}
+    </p>
 
 
     {% include "terminator/mono_comments_snippet.html" %}
