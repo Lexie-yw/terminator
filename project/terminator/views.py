@@ -179,9 +179,12 @@ class ConceptSourceView(TerminatorDetailView):
             ).latest()
         except Definition.DoesNotExist:
             definition = None
+        may_edit = False
+        user = self.request.user
+        if user.is_authenticated() and user.has_perm('is_terminologist_in_this_glossary', concept.glossary):
+            may_edit = True
         if self.request.method == 'POST':
-            user = self.request.user
-            if not (user.is_authenticated() and user.has_perm('is_terminologist_in_this_glossary', concept.glossary)):
+            if not may_edit:
                 raise PermissionDenied
             if definition:
                 initial["definition"] = definition.definition_text
@@ -197,8 +200,9 @@ class ConceptSourceView(TerminatorDetailView):
                     if name == "translation":
                         model = Translation(translation_text=value)
                     elif name == "definition":
-                        definition.is_finalized = False
-                        definition.save()
+                        if definition:
+                            definition.is_finalized = False
+                            definition.save()
                         model = Definition(definition_text=value)
                         definition = model
                         # consider: definition.is_finalized = True
@@ -212,6 +216,12 @@ class ConceptSourceView(TerminatorDetailView):
         if definition:
             initial["definition"] = definition.definition_text
         form = ConceptInLanguageForm(initial=initial)
+        if not may_edit:
+            del form.fields['translation']
+            if definition:
+                form.fields['definition'].disabled = True
+            else:
+                del form.fields['definition']
         context['form'] = form
 
         prev_concept = Concept.objects.filter(

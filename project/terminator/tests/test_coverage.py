@@ -189,17 +189,21 @@ class URLs(TestCase):
         self.assertContains(response, "search")
         self.assertNotContains(response, "buscar")
         self.assertNotContains(response, "Finalise term information")
+        self.assertNotContains(response, "Enter alternative term")
         self.assertNotContains(response, "Submit")
 
         self.login()
         response = self.c.get('/concepts_source/1/')
         self.assertEqual(response.status_code, 200)
+        # This user has no rights for this Glossary
         self.assertNotContains(response, "Finalise term information")
+        self.assertNotContains(response, "Submit")
 
         self.c.login(username='usuario', password='usuario')
         response = self.c.get('/concepts_source/1/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Finalise term information")
+        self.assertContains(response, "Enter alternative term")
         self.assertContains(response, "Submit")
 
         response = self.c.post('/concepts_source/1/', data={
