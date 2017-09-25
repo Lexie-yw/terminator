@@ -269,6 +269,20 @@ class Concept(models.Model):
             english_translation = self.translation_set.filter(language=english, administrative_status=None)
         return english_translation
 
+    def prev_concept(self):
+        """The previous concept in the same glossary."""
+        return Concept.objects.filter(
+                glossary=self.glossary,
+                id__lt=self.id,
+        ).order_by('-id').first()
+
+    def next_concept(self):
+        """The previous concept in the same glossary."""
+        return Concept.objects.filter(
+                glossary=self.glossary,
+                id__gt=self.id,
+        ).order_by('id').first()
+
 
 class ConceptLanguageCommentsThread(models.Model):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE)

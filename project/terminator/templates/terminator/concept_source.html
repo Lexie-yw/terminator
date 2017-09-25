@@ -60,12 +60,16 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 
     <p>
-    {% if prev_concept %}
-      <a href="{% url "terminator_concept_source" pk=prev_concept.id %}">← Previous concept</a>
-    {% endif %}
-    {% if next_concept %}
-      <a style="float: right;" href="{% url "terminator_concept_source" pk=next_concept.id %}">Next concept →</a>
-    {% endif %}
+    {% with prev_concept=concept.prev_concept %}
+        {% if prev_concept %}
+          <a href="{% url "terminator_concept_source" pk=prev_concept.id %}">← Previous concept</a>
+        {% endif %}
+    {% endwith %}
+    {% with next_concept=concept.next_concept %}
+        {% if next_concept %}
+          <a style="float: right;" href="{% url "terminator_concept_source" pk=next_concept.id %}">Next concept →</a>
+        {% endif %}
+    {% endwith %}
     </p>
 
 

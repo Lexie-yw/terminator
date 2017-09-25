@@ -223,19 +223,6 @@ class ConceptSourceView(TerminatorDetailView):
             else:
                 del form.fields['definition']
         context['form'] = form
-
-        prev_concept = Concept.objects.filter(
-                glossary=concept.glossary,
-                id__lt=concept.id,
-        ).order_by('-id').first()
-
-        next_concept = Concept.objects.filter(
-                glossary=concept.glossary,
-                id__gt=concept.id,
-        ).order_by('id').first()
-
-        context['prev_concept'] = prev_concept
-        context['next_concept'] = next_concept
         return context
 
 
