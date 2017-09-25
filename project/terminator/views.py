@@ -83,7 +83,7 @@ def terminator_profile_detail(request, username):
         'search_form': SearchForm(),
         'next': request.get_full_path(),
     }
-    return render_to_response("profiles/profile_detail.html", context)
+    return render(request, "profiles/profile_detail.html", context)
 
 
 class ProfileListView(ListView):
@@ -515,7 +515,7 @@ def export(request):
         #'exporting_message': exporting_message,#TODO show export confirmation message
         'next': request.get_full_path(),
     }
-    return render_to_response('export.html', context)
+    return render(request, 'export.html', context)
 
 
 def import_uploaded_file(uploaded_file, imported_glossary):
@@ -1105,4 +1105,4 @@ def search(request):
     if "advanced" in request.path:
         template_name = 'advanced_search.html'
 
-    return render_to_response(template_name, context)
+    return render(request, template_name, context)
