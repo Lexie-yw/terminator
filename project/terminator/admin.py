@@ -122,6 +122,12 @@ class ConceptAdmin(admin.ModelAdmin):
     ordering = ('id',)
     list_filter = ['glossary']
     inlines = [DefinitionInline]
+    readonly_fields = ('glossary',)
+    fieldsets = (
+            (None, {
+                'fields': (('glossary', 'subject_field'), 'related_concepts',),
+            }),
+    )
 
     def get_queryset(self, request):
         qs = super(ConceptAdmin, self).get_queryset(request)
@@ -257,7 +263,13 @@ class DefinitionAdmin(admin.ModelAdmin):
     list_display = ('definition_text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
     list_filter = ['language', 'concept', 'is_finalized']
+    readonly_fields = ('concept', 'language',)
     search_fields = ['definition_text']
+    fieldsets = (
+            (None, {
+                'fields': (('concept', 'language'), 'definition_text', 'source', 'is_finalized'),
+            }),
+    )
 
     def get_queryset(self, request):
         qs = super(DefinitionAdmin, self).get_queryset(request)
