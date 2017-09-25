@@ -171,16 +171,37 @@ class ConceptSourceView(TerminatorDetailView):
         concept = context['concept']
         language = concept.glossary.source_language_id
         translations = Translation.objects.filter(concept=concept, language=language)
+        initial = {}
+        try:
+            definition = Definition.objects.filter(
+                    concept=concept,
+                    language=language,
+            ).latest()
+        except Definition.DoesNotExist:
+            definition = None
         if self.request.method == 'POST':
             user = self.request.user
             if not (user.is_authenticated() and user.has_perm('is_terminologist_in_this_glossary', concept.glossary)):
                 raise PermissionDenied
-            form = ConceptInLanguageForm(self.request.POST)
+            if definition:
+                initial["definition"] = definition.definition_text
+            form = ConceptInLanguageForm(self.request.POST, initial=initial)
             if form.is_valid() and form.has_changed():
                 cleaned_data = form.cleaned_data
                 for name in form.changed_data:
                     value = cleaned_data.get(name)
-                    model = Translation(translation_text=value)
+                    if not value:
+                        # no use in somebody setting the empty string
+                        continue
+                    # assume it is either "translation" or "definition"
+                    if name == "translation":
+                        model = Translation(translation_text=value)
+                    elif name == "definition":
+                        definition.is_finalized = False
+                        definition.save()
+                        model = Definition(definition_text=value)
+                        definition = model
+                        # consider: definition.is_finalized = True
                     model.language_id = language
                     model.concept = concept
                     model.save()
@@ -188,8 +209,11 @@ class ConceptSourceView(TerminatorDetailView):
         context['current_language'] = language
         context['translations'] = translations
         context['comments_thread'], created = ConceptLanguageCommentsThread.objects.get_or_create(concept=concept, language_id=language)
-        form = ConceptInLanguageForm()
+        if definition:
+            initial["definition"] = definition.definition_text
+        form = ConceptInLanguageForm(initial=initial)
         context['form'] = form
+
         prev_concept = Concept.objects.filter(
                 glossary=concept.glossary,
                 id__lt=concept.id,

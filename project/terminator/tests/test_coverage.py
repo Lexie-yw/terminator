@@ -209,6 +209,22 @@ class URLs(TestCase):
         self.assertContains(response, "search")
         self.assertContains(response, "SEARCHxxx")
 
+        response = self.c.post('/concepts_source/1/', data={
+            "translation": "SEARCHyyy",
+            "definition": "definizione uno",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "search")
+        self.assertContains(response, "SEARCHxxx")
+        self.assertContains(response, "SEARCHyyy")
+        self.assertContains(response, "definizione uno")
+
+        response = self.c.post('/concepts_source/1/', data={
+            "definition": "newer definition",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "newer definition")
+        self.assertNotContains(response, "definizione uno")
 
     def test_glossaries(self):
         response = self.c.get('/glossaries/1/')

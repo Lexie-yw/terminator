@@ -17,7 +17,7 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 from django import forms
-from django.forms.widgets import TextInput
+from django.forms.widgets import Textarea, TextInput
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
@@ -214,6 +214,15 @@ class ConceptInLanguageForm(forms.Form):
                                 "class": "translation",
                             })
                        )
+    definition = forms.CharField(label="", required=False, widget=Textarea(
+                            attrs={
+                                "placeholder": _("Enter a definition..."),
+                                "rows": 4,
+                                "cols": 50,
+                                "class": "definition",
+                            })
+                       )
+
 
 
 class TerminatorTranslationAdminForm(forms.ModelForm):
