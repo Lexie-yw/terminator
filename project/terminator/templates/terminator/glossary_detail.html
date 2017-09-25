@@ -45,7 +45,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <h3>{% blocktrans %}Glossary collaborators{% endblocktrans %}</h3>
         {% with glossary.get_collaborators as collaborators %}
             {% if collaborators %}
-                <ul class="iconlist">
+                <ul class="iconlist vertflexlist">
                 {% for collaborator in collaborators %}
                     <li class="useritem">
                         {% url "profiles_profile_detail" username=collaborator.user as profile_url %}
@@ -74,7 +74,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
     {% endif %}
     
-    <ul class="iconlist">
+    <ul class="iconlist vertflexlist">
     {% for concept in glossary.concept_set.all %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
     {% endfor %}
