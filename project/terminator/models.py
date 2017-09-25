@@ -24,7 +24,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from guardian.shortcuts import assign_perm
+from guardian.shortcuts import assign_perm, get_users_with_perms
 
 
 class PartOfSpeech(models.Model):
@@ -231,6 +231,21 @@ class Glossary(models.Model):
         # Assign permissions over collaboration requests
         assign_perm('terminator.change_collaborationrequest', user)
         assign_perm('terminator.delete_collaborationrequest', user)
+
+    def get_collaborators(self):
+        collaborators = []
+        # XXX: attach_perms=True makes this very slow with lots of users
+        # https://github.com/django-guardian/django-guardian/issues/494
+        user_dict = get_users_with_perms(self, attach_perms=True, with_superusers=True)
+        for user, perms in user_dict.items():
+            if u'is_owner_for_this_glossary' in perms:
+                collaborators.append({'user': user, 'role': _(u"Owner")})
+            elif u'is_lexicographer_in_this_glossary' in perms:
+                collaborators.append({'user': user, 'role': _(u"Lexicographer")})
+            elif u'is_terminologist_in_this_glossary' in perms:
+                collaborators.append({'user': user, 'role': _(u"Terminologist")})
+        collaborators.sort(key=lambda x: unicode(x['user']))
+        return collaborators
 
 
 class Concept(models.Model):

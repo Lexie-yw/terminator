@@ -277,17 +277,6 @@ class GlossaryDetailView(TerminatorDetailView):
         collaboration_form = collaboration_form or CollaborationRequestForm()
         context['subscribe_form'] = subscribe_form
         context['collaboration_request_form'] = collaboration_form
-        # Get the collaborators list and their roles
-        collaborators = []
-        user_dict = get_users_with_perms(self.object, attach_perms=True, with_superusers=True)
-        for user, perms in user_dict.iteritems():
-            if u'is_owner_for_this_glossary' in perms:
-                collaborators.append({'user': user, 'role': _(u"Owner")})
-            elif u'is_lexicographer_in_this_glossary' in perms:
-                collaborators.append({'user': user, 'role': _(u"Lexicographer")})
-            elif u'is_terminologist_in_this_glossary' in perms:
-                collaborators.append({'user': user, 'role': _(u"Terminologist")})
-        context['collaborators'] = collaborators
         return context
 
 
