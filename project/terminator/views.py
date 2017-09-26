@@ -271,8 +271,7 @@ class GlossaryDetailView(TerminatorDetailView):
                     self.object.subscribers.add(self.request.user)
                     context['subscribe_message'] = _("You have subscribed to "
                                                      "get email notifications "
-                                                     "when a comment is saved "
-                                                     "or modified.")
+                                                     "when a comment is made.")
                     subscribe_form = SubscribeForm()
         subscribe_form = subscribe_form or SubscribeForm()
         collaboration_form = collaboration_form or CollaborationRequestForm()

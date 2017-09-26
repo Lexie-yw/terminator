@@ -25,14 +25,14 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 {% block breadcrumbs %}
     » <a href="{% url "profiles_profile_list" %}">{% trans "Profiles" %}</a>
-    » <a href="{% url "profiles_profile_detail" username=thisuser %}">{% blocktrans with user=thisuser %}{{ user }} profile{% endblocktrans %}</a>
+    » <a href="{% url "profiles_profile_detail" username=thisuser %}">{{ user }}</a>
 {% endblock %}
 
 
 {% block content %}
-    <h1><img src="{{ STATIC_PREFIX }}images/icon_user_32.png" />{% blocktrans with user=thisuser %}{{ user }} profile{% endblocktrans %}</h1>
+    <h1><img src="{{ STATIC_PREFIX }}images/icon_user_32.png" />{% blocktrans with user=thisuser %}{{ user }}'s profile{% endblocktrans %}</h1>
     
-    <h3>{% blocktrans with user=thisuser %}Glossaries in which {{ user }} collaborates{% endblocktrans %}</h3>
+    <h3>{% blocktrans with user=thisuser %}Glossaries on which {{ user }} collaborates{% endblocktrans %}</h3>
     {% if glossaries %}
         <ul class="changelist">
         {% for glossary in glossaries %}
@@ -43,7 +43,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {% endfor %}
         </ul>
     {% else %}
-        <p>{% blocktrans with user=thisuser %}User {{ user }} does not collaborate in any glossary.{% endblocktrans %}</p>
+        <p>{% blocktrans with user=thisuser %}{{ user }} does not collaborate on any glossary.{% endblocktrans %}</p>
     {% endif %}
     
     
@@ -72,7 +72,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% endif %}
         </div>
     {% else %}
-        <p>{% blocktrans with user=thisuser %}User {{ user }} didn't posted any comment.{% endblocktrans %}</p>
+        <p>{% blocktrans with user=thisuser %}{{ user }} didn't post any comments.{% endblocktrans %}</p>
     {% endif %}
     
 {% endblock %}
