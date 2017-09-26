@@ -20,7 +20,9 @@ You should have received a copy of the GNU General Public License
 along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
-{% block title %}{% trans "Search" %}{% endblock %}
+{% block title %}
+{% blocktrans with query=search_form.search_string.value %}Search: {{ query }} — Terminator{% endblocktrans %}
+{% endblock %}
 
 {% block breadcrumbs_item %}<a href="{% url "terminator_search" %}">{% trans "Basic search" %}</a>{% endblock %}
 
