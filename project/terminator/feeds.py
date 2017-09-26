@@ -27,10 +27,10 @@ class LatestChangesGenericFeed(Feed):
 
     def __init__(self, model):
         self.model = model
-        self.title = _(u"Terminator latest %(model_name)s changes" %
+        self.title = (_(u"Terminator latest %(model_name)s changes") %
                        {'model_name': model._meta.verbose_name_plural})
-        self.description = _(u"Updates on %(model_name)s additions, changes "
-                             "and deletions to Terminator." %
+        self.description = (_(u"Updates on %(model_name)s additions, changes "
+                             "and deletions to Terminator.") %
                              {'model_name': model._meta.verbose_name_plural})
         self._ctype = None
 

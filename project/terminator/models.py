@@ -93,7 +93,7 @@ class Language(models.Model):
         verbose_name_plural = _("languages")
 
     def __unicode__(self):
-        return unicode(_(u"%(language_name)s (%(iso_code)s)" % {'language_name': self.name, 'iso_code': self.iso_code}))
+        return unicode(_(u"%(language_name)s (%(iso_code)s)") % {'language_name': self.name, 'iso_code': self.iso_code})
 
     def allows_part_of_speech(self, part_of_speech):
         return part_of_speech in self.parts_of_speech.all()
@@ -119,7 +119,7 @@ class PartOfSpeechForLanguage(models.Model):
         unique_together = ("language", "part_of_speech")
 
     def __unicode__(self):
-        return unicode(_(u"%(part_of_speech)s (%(language)s)" % {'part_of_speech': self.part_of_speech, 'language': self.language}))
+        return unicode(_(u"%(part_of_speech)s (%(language)s)") % {'part_of_speech': self.part_of_speech, 'language': self.language})
 
 
 class AdministrativeStatus(models.Model):
@@ -259,7 +259,7 @@ class Concept(models.Model):
         verbose_name_plural = _("concepts")
 
     def __unicode__(self):
-        return unicode(_(u"Concept #%(concept_id)d" % {'concept_id': self.id}))
+        return unicode(_(u"Concept #%(concept_id)d") % {'concept_id': self.id})
 
     def get_list_of_used_languages(self):
         language_set = set()
@@ -307,7 +307,7 @@ class ConceptLanguageCommentsThread(models.Model):
         unique_together = ("concept", "language")
 
     def __unicode__(self):
-        return unicode(_(u"%(language)s comment thread for %(concept)s" % {'language': self.language, 'concept': self.concept}))
+        return unicode(_(u"%(language)s comment thread for %(concept)s") % {'language': self.language, 'concept': self.concept})
 
     def get_absolute_url(self):
         return reverse('terminator_concept_detail_for_language', kwargs={'pk': unicode(self.concept.pk), 'lang': self.language.pk})
@@ -331,7 +331,7 @@ class SummaryMessage(models.Model):
             'concept': self.concept,
             'text': self.text[:200]
         }
-        return unicode(_(u"Summary message for %(language)s and %(concept)s: (%(text)s)" % trans_data))
+        return unicode(_(u"Summary message for %(language)s and %(concept)s: (%(text)s)") % trans_data)
 
 
 class Translation(models.Model):
@@ -357,7 +357,7 @@ class Translation(models.Model):
             'iso_code': self.language.iso_code,
             'concept': self.concept
         }
-        return unicode(_(u"%(translation)s (%(iso_code)s) for %(concept)s" % trans_data))
+        return unicode(_(u"%(translation)s (%(iso_code)s) for %(concept)s") % trans_data)
 
 
 class Definition(models.Model):
@@ -380,7 +380,7 @@ class Definition(models.Model):
             'concept': self.concept,
             'definition_text': self.definition_text[:200]
         }
-        return unicode(_(u"Definition in %(language)s for %(concept)s: (%(definition_text)s)" % trans_data))
+        return unicode(_(u"Definition in %(language)s for %(concept)s: (%(definition_text)s)") % trans_data)
 
 
 class ExternalResource(models.Model):
@@ -395,7 +395,7 @@ class ExternalResource(models.Model):
         verbose_name_plural = _("external resources")
 
     def __unicode__(self):
-        return unicode(_(u"%(address)s (%(language)s) for %(concept)s" % {'address': self.address, 'language': self.language, 'concept': self.concept}))
+        return unicode(_(u"%(address)s (%(language)s) for %(concept)s") % {'address': self.address, 'language': self.language, 'concept': self.concept})
 
 
 class Proposal(models.Model):
@@ -411,7 +411,7 @@ class Proposal(models.Model):
         verbose_name_plural = _("proposals")
 
     def __unicode__(self):
-        return unicode(_(u"%(proposed_word)s (%(language)s)" % {'proposed_word': self.word, 'language': self.language}))
+        return unicode(_(u"%(proposed_word)s (%(language)s)") % {'proposed_word': self.word, 'language': self.language})
 
 
 class ContextSentence(models.Model):
@@ -431,7 +431,7 @@ class ContextSentence(models.Model):
             'sentence': self.text,
             'translation': self.translation
         }
-        return unicode(_(u"%(sentence)s for translation %(translation)s" % trans_data))
+        return unicode(_(u"%(sentence)s for translation %(translation)s") % trans_data)
 
 
 class CorpusExample(models.Model):
@@ -446,7 +446,7 @@ class CorpusExample(models.Model):
 
     def __unicode__(self):
         trans_data = {'address': self.address[:80], 'translation': self.translation}
-        return unicode(_(u"%(address)s for translation %(translation)s" % trans_data))
+        return unicode(_(u"%(address)s for translation %(translation)s") % trans_data)
 
 
 class CollaborationRequest(models.Model):
@@ -471,4 +471,4 @@ class CollaborationRequest(models.Model):
             'role': self.get_collaboration_role_display(),
             'glossary': self.for_glossary
         }
-        return unicode(_(u"%(user)s requested %(role)s for %(glossary)s" % trans_data))
+        return unicode(_(u"%(user)s requested %(role)s for %(glossary)s") % trans_data)
