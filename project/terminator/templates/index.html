@@ -170,7 +170,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                     {% if change.data.is_deletion %}
                         {% trans "Deleted" %} <b>{{ change.data.object_repr }}</b>
                     {% else %} 
-                        {% if change.data.is_change %}{% trans "Modified" %}{% else %}{% trans "Added" %}{% endif %} <a href="{% url "terminator_concept_detail" pk=change.translation_concept_id %}">{{ change.data.object_repr }}</a>
+                        {% if change.data.is_change %}{% trans "Modified" %}{% else %}{% trans "Added" %}{% endif %}
+                        {% if change.translation_concept_id %}<a href="{% url "terminator_concept_detail" pk=change.translation_concept_id %}">{{ change.data.object_repr }}</a>{% endif %}
                     {% endif %}
                     <p class="change_ago">{% blocktrans with time_ago=change.data.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
                 </li>

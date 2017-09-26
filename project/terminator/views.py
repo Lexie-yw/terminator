@@ -314,11 +314,15 @@ def terminator_index(request):
     latest_translation_changes = LogEntry.objects.filter(content_type=translation_ctype).order_by("-action_time")[:8]
     translation_changes = []
     for logentry in latest_translation_changes:
-        translation_concept_id = logentry.object_repr.split("for Concept #")[1]
-        translation_changes.append({
-            "data": logentry,
-            "translation_concept_id": translation_concept_id,
-        })
+        try:
+            translation = Translation.objects.get(id=logentry.object_id)
+            translation_changes.append({
+                "data": logentry,
+                "translation_concept_id": translation.concept_id,
+            })
+        except Translation.DoesNotExist:
+            # Translation since deleted
+            translation_changes.append(change)
 
     context = {
         'search_form': SearchForm(),
