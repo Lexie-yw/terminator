@@ -22,7 +22,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% block breadcrumbs %}
-    » <a href="{% url "terminator_proposal_list" %}">{% trans "Proposal list" %}</a> » <a href="{% url "terminator_proposal_detail" pk=proposal.pk %}">{{ proposal }}</a>
+    » <a href="{% url "terminator_proposal_list" %}">{% trans "Proposal list" %}</a>
+    » <a href="{% url "terminator_proposal_detail" pk=proposal.pk %}">{{ proposal }}</a>
 {% endblock %}
 
 

@@ -23,7 +23,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 
 {% block breadcrumbs %}
-    » <a href="{% url "terminator_glossary_detail" pk=concept.glossary.pk %}">{{ concept.glossary }}</a> » <a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a> » <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=current_language %}">{{ concept.glossary.source_language }}</a>
+    » <a href="{% url "terminator_glossary_detail" pk=concept.glossary.pk %}">{{ concept.glossary }}</a>
+    » <a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a>
+    » <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=current_language %}">{{ concept.glossary.source_language }}</a>
 {% endblock %}
 
 
