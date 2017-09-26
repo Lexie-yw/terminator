@@ -253,14 +253,29 @@ class Concept(models.Model):
     subject_field = models.ForeignKey('self', related_name='concepts_in_subject_field', null=True, blank=True, on_delete=models.PROTECT, verbose_name=_("subject field"))
     broader_concept = models.ForeignKey('self', related_name='narrower_concepts', null=True, blank=True, on_delete=models.PROTECT, verbose_name=_("broader concept"))
     related_concepts = models.ManyToManyField('self', blank=True, verbose_name=_("related concepts"))
+    # This keeps a readable version cached in this table so that no joining
+    # with Translation is required for a human readable form.
+    repr_cache = models.CharField(max_length=200, editable=False, null=True, blank=True)
 
     class Meta:
         verbose_name = _("concept")
         verbose_name_plural = _("concepts")
 
     def __unicode__(self):
+        if self.repr_cache:
+            return self.repr_cache
         return unicode(_(u"Concept #%(concept_id)d") % {'concept_id': self.id})
 
+    def update_repr_cache(self):
+        src_translations = self.translation_set.filter(
+                language_id=self.glossary.source_language_id,
+        )
+        # TODO: prefer translations with certain attributes (e.g. preferred
+        # terms rather than deprecated terms)
+        repr_ = ', '.join(t.translation_text for t in src_translations)[:4]
+        if repr_:
+            self.repr_cache = "#%d: %s" % (self.id, repr_)
+            self.save(update_fields=['repr_cache'])
     def get_list_of_used_languages(self):
         language_set = set()
         for translation in self.translation_set.all():
@@ -358,6 +373,10 @@ class Translation(models.Model):
             'concept': self.concept
         }
         return unicode(_(u"%(translation)s (%(iso_code)s) for %(concept)s") % trans_data)
+
+    def save(self, *args, **kwargs):
+        super(Translation, self).save(*args, **kwargs)
+        self.concept.update_repr_cache()
 
 
 class Definition(models.Model):
