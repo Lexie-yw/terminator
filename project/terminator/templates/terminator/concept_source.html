@@ -23,14 +23,14 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 
 {% block breadcrumbs %}
-    » <a href="{% url "terminator_glossary_detail" pk=concept.glossary.pk %}">{{ concept.glossary }}</a> » <a href="{% url "terminator_concept_detail" pk=concept.pk %}">{% blocktrans with concept_id=concept.pk %}Concept #{{ concept_id }}{% endblocktrans %}</a>{% if current_language %} » <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=current_language %}">{{ current_language }}</a>{% endif %}
+    » <a href="{% url "terminator_glossary_detail" pk=concept.glossary.pk %}">{{ concept.glossary }}</a> » <a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a>{% if current_language %} » <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=current_language %}">{{ current_language }}</a>{% endif %}
 {% endblock %}
 
 
 {% block content %}
 
 
-    <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />Concept #{{ concept.pk }}</h1>
+    <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
 
     {% get_obj_perms user for concept.glossary as "glossary_perms" %}
 

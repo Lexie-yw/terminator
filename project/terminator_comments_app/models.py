@@ -66,11 +66,11 @@ class TerminatorComment(Comment):
                 subject_data = {
                     'changed_or_new': changed_or_new,
                     'language': thread.language.name,
-                    'concept': thread.concept.pk
+                    'concept': thread.concept
                 }
                 mail_subject = _('[Terminator] %(changed_or_new)s message in '
                                  '%(language)s thread for concept '
-                                 '#%(concept)s') % subject_data
+                                 '%(concept)s') % subject_data
                 email = EmailMessage(mail_subject, self.comment,
                                      'donotreply@donotreply.com',
                                      bcc=list(emails_to_notify_set))
