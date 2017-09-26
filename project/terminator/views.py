@@ -17,6 +17,7 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 from math import ceil
+import re
 from xml.dom import minidom
 
 from django.contrib.auth.decorators import login_required
@@ -321,7 +322,11 @@ def terminator_index(request):
                 "translation_concept_id": translation.concept_id,
             })
         except Translation.DoesNotExist:
-            # Translation since deleted
+            # Translation since deleted. Let's try to get the concept.
+            change = {"data": logentry}
+            match = re.search(r'#([\d]+)', logentry.object_repr)
+            if match and Concept.objects.filter(pk=int(match.group(1))).exists():
+                change["translation_concept_id"] = int(match.group(1))
             translation_changes.append(change)
 
     context = {
