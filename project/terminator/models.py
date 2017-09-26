@@ -272,7 +272,7 @@ class Concept(models.Model):
         )
         # TODO: prefer translations with certain attributes (e.g. preferred
         # terms rather than deprecated terms)
-        repr_ = ', '.join(t.translation_text for t in src_translations)[:4]
+        repr_ = ', '.join(t.translation_text for t in src_translations[:4])[:200]
         if repr_:
             self.repr_cache = "#%d: %s" % (self.id, repr_)
             self.save(update_fields=['repr_cache'])
