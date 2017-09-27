@@ -192,7 +192,8 @@ a:active {
 
 #content {
     float: left;
-    width: 770px;
+    max-width: 770px;
+    width: 97%;
     margin: 0px;
     margin-left: 2em;
     padding: 0em;
