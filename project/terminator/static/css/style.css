@@ -413,6 +413,55 @@ div.search_form input {
     text-align: left;
 }
 
+div.flex {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+div.flexcol {
+    width: 49%;
+    min-width: 25em;
+    flex: auto;
+}
+
+.translation, .definition {
+    font-family: serif;
+    font-weight: bold;
+    width: 85%;
+    padding: 8px;
+    margin: 4px 0;
+}
+
+.translation {
+    font-size: 20px;
+}
+
+.definition {
+    font-size: 105%;
+    /* consider reducing max-width if a second flexcol is introduced */
+    max-width: 35em;
+}
+
+div.translation, div.definition {
+    border: 1px solid black;
+}
+
+input[type="text"]:enabled, input[type="password"]:enabled, textarea:enabled {
+    outline: none;
+    border: 1px solid #DDDDDD;
+    box-shadow: inset 1px 1px 2px 0 #707070;
+}
+
+input:focus[type="text"], input:focus[type="password"],textarea:focus {
+    transition: box-shadow 0.25s ease-in-out;
+    box-shadow: 0 0 5px #09f, inset 1px 1px 2px 0 #707070;
+}
+
+input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
+    outline: 1px solid #09f;
+}
+
 .left_field {
     text-align: right;
     vertical-align: top;
