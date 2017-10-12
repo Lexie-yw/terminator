@@ -51,9 +51,13 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
     
     
+    {% if concept.subject_field %}
     <p><b>{% trans "Subject field:" %}</b> <a href="{% url "terminator_concept_detail" pk=concept.subject_field.pk %}">{{ concept.subject_field }}</a></p>
+    {% endif %}
     
+    {% if concept.broader_concept %}
     <p><b>{% trans "Broader concept:" %}</b><a href="{% url "terminator_concept_detail" pk=concept.broader_concept.pk %}">{{ concept.broader_concept }}</a></p>
+    {% endif %}
     
     
     <p><b>{% trans "Related concepts:" %}</b></p>
