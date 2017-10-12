@@ -21,7 +21,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 from django_comments.feeds import LatestCommentFeed
 
-from terminator.models import ConceptLanguageCommentsThread
 from terminator_comments_app.models import TerminatorComment
 
 
@@ -29,6 +28,7 @@ class CommentThreadFeed(LatestCommentFeed):
     """Feed of latest comments on a given concept comment thread."""
 
     def get_object(self, request, concept_id, language_id):
+        from terminator.models import ConceptLanguageCommentsThread
         return get_object_or_404(ConceptLanguageCommentsThread,
                                  concept=concept_id, language=language_id)
 
