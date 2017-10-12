@@ -559,7 +559,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                       "tag in the TBX file."))
                 raise Exception(excp_msg)
             # The concept id should be unique on all the TBX file.
-            if concept_pool.has_key(concept_id):
+            if concept_id in concept_pool:
                 excp_msg = (_("There is already another \"%s\" tag with an "
                               "\"%s\" attribute with the value \"%s\" in the "
                               "TBX file.") %
@@ -933,7 +933,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
             for concept_key in concept_pool.keys():
                 # Use a variable in order to reduce the following lines length.
                 current = concept_pool[concept_key]
-                if current.has_key("subject"):
+                if "subject" in current:
                     try:
                         current["object"].subject_field = concept_pool[current["subject"]]["object"]
                     except:
@@ -945,7 +945,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         excp_msg += unicode(_("\n\nIf you want to import this "
                                               "TBX file you must fix this."))
                         raise Exception(excp_msg)
-                if current.has_key("broader"):
+                if "broader" in current:
                     try:
                         current["object"].broader_concept = concept_pool[current["broader"]]["object"]
                     except:
@@ -957,7 +957,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         excp_msg += unicode(_("\n\nIf you want to import this "
                                               "TBX file you must fix this."))
                         raise Exception(excp_msg)
-                if current.has_key("related"):
+                if "related" in current:
                     for related_key in current["related"]:
                         try:
                             current["object"].related_concepts.add(concept_pool[related_key]["object"])
