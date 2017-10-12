@@ -307,7 +307,7 @@ class Concept(models.Model):
         ).order_by('-id').first()
 
     def next_concept(self):
-        """The previous concept in the same glossary."""
+        """The next concept in the same glossary."""
         return Concept.objects.filter(
                 glossary=self.glossary,
                 id__gt=self.id,
