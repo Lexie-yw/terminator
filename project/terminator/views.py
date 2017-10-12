@@ -29,8 +29,7 @@ from django.db import transaction, DatabaseError
 from django.db.models import Q
 from django.db.models import prefetch_related_objects
 from django.http import HttpResponse
-from django.shortcuts import (get_object_or_404,
-                              render_to_response, render, Http404)
+from django.shortcuts import (get_object_or_404, render, Http404)
 from django.template import loader
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
