@@ -146,7 +146,7 @@ class ConceptDetailView(TerminatorDetailView):
             pass
         else:
             context['current_language'] = language
-            context['comments_thread'], created = ConceptLanguageCommentsThread.objects.get_or_create(concept=context['concept'], language=language)
+            context['comments_thread'], created = ConceptInLanguage.objects.get_or_create(concept=context['concept'], language=language)
             try:
                 summary_message = SummaryMessage.objects.get(concept=context['concept'], language=language)
             except SummaryMessage.DoesNotExist:
@@ -212,7 +212,7 @@ class ConceptSourceView(TerminatorDetailView):
 
         context['current_language'] = language
         context['translations'] = translations
-        context['comments_thread'], created = ConceptLanguageCommentsThread.objects.get_or_create(concept=concept, language_id=language)
+        context['comments_thread'], created = ConceptInLanguage.objects.get_or_create(concept=concept, language_id=language)
         if definition:
             initial["definition"] = definition.definition_text
         form = ConceptInLanguageForm(initial=initial)

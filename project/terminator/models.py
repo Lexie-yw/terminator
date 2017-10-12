@@ -168,7 +168,7 @@ class Glossary(models.Model):
     source_language = models.ForeignKey(Language, on_delete=models.PROTECT, default='en', verbose_name=_("source language"))
     subscribers = models.ManyToManyField(User, blank=True, verbose_name=_("subscribers"))
     #main_language #TODO this should be the main language of the glossary. This language is used when exporting the glossary and is also the language in which the glossary name and description are written.
-    #accepted_languages #TODO this should be a list of languages that can be used in the glossary. If this is finally used should be restricted for translations, definitions, external resources, proposals, ConceptLanguageCommentsThread,... in the Glossary.
+    #accepted_languages #TODO this should be a list of languages that can be used in the glossary. If this is finally used should be restricted for translations, definitions, external resources, proposals, ConceptInLanguage,... in the Glossary.
     #TODO In the subject_fields field, when trying to remove a concept from the
     # subject_fields of a Glossary make sure before that it is not used as
     # subject field for any of the Glossary concepts.
@@ -314,7 +314,7 @@ class Concept(models.Model):
         ).order_by('id').first()
 
 
-class ConceptLanguageCommentsThread(models.Model):
+class ConceptInLanguage(models.Model):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.PROTECT)
 

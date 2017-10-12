@@ -562,11 +562,11 @@ class ConceptTest(SharedTests, TestCase):
         self.model.get_list_of_used_languages()
         self.model.get_english_translation()
 
-class ConceptLanguageCommentsThreadTest(SharedTests, TestCase):
-    klass = ConceptLanguageCommentsThread
+class ConceptInLanguage(SharedTests, TestCase):
+    klass = ConceptInLanguage
     @classmethod
     def setUpClass(cls):
-        super(ConceptLanguageCommentsThreadTest, cls).setUpClass()
+        super(ConceptInLanguage, cls).setUpClass()
         cls.model.language = cls.language
         cls.model.concept = cls.concept
 

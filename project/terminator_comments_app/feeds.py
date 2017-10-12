@@ -28,8 +28,8 @@ class CommentThreadFeed(LatestCommentFeed):
     """Feed of latest comments on a given concept comment thread."""
 
     def get_object(self, request, concept_id, language_id):
-        from terminator.models import ConceptLanguageCommentsThread
-        return get_object_or_404(ConceptLanguageCommentsThread,
+        from terminator.models import ConceptInLanguage
+        return get_object_or_404(ConceptInLanguage,
                                  concept=concept_id, language=language_id)
 
     def items(self, obj):

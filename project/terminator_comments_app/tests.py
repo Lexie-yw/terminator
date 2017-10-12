@@ -59,7 +59,7 @@ class TestComments(TestCase):
 
         concept = Concept.objects.get(pk=1)
         language = Language.objects.get(pk='en')
-        thread = ConceptLanguageCommentsThread.objects.create(concept=concept, language=language)
+        thread = ConceptInLanguage.objects.create(concept=concept, language=language)
         response = self.client.get(reverse("terminator_feed_commentthread", kwargs={
             "concept_id": 1,
             "language_id": 'en'
