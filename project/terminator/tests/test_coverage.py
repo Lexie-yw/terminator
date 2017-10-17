@@ -13,7 +13,7 @@ from terminator.forms import *
 # an attempt to test interaction with the Django components, primarily. This
 # should still be improved to test correctness more.
 
-class URLs(TestCase):
+class URLsA(TestCase):
 
     fixtures = ['test_data']
 
@@ -24,11 +24,6 @@ class URLs(TestCase):
 
     def login(self):
         self.c.login(username='test', password='test')
-
-    def is_tbx(self, response):
-        assert "attachment;" in response['Content-Disposition']
-        assert "tbx" in response['Content-Disposition']
-        self.assertContains(response, '<martif type="TBX"')
 
     #TODO: consider using reverse(<viewname>) instead of hardcoding urls
     def test_plain_200_urls(self):
@@ -110,6 +105,18 @@ class URLs(TestCase):
 #        ]:
 #            response = self.c.get(url)
 #            self.assertEqual(response.status_code, 302)
+
+class URLsB(TestCase):
+
+    fixtures = ['test_data']
+
+    def setUp(self):
+        self.c = Client()
+        self.user = User.objects.create_user(username="test", email="test@test.com", password="test")
+        self.user.save()
+
+    def login(self):
+        self.c.login(username='test', password='test')
 
     def test_simple_post(self):
         for url in [
@@ -264,6 +271,41 @@ class URLs(TestCase):
         response = self.c.post('/glossaries/1/', data={}) # empty form
         self.assertEqual(response.status_code, 200)
 
+    def test_guardian_admin(self):
+        self.c.login(username='usuario', password='usuario')
+        response = self.c.get('/admin/terminator/glossary/1/permissions/')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Log in")
+        self.assertNotContains(response, "Password")
+
+#    def test_glossary_admin(self):
+#        self.admin = User.objects.create_superuser(username="test2", email="test2@test.com", password="ẗest2")
+#        self.c.login(username='test2', password='test2')
+#        response = self.c.post('/admin/terminator/glossary/add/', data={
+#            "name": "test",
+#            "description": "description",
+#        })
+#        print response.content
+#        self.assertContains(response, "success")
+
+
+class TBXURLs(TestCase):
+
+    fixtures = ['test_data']
+
+    def setUp(self):
+        self.c = Client()
+        self.user = User.objects.create_user(username="test", email="test@test.com", password="test")
+        self.user.save()
+
+    def login(self):
+        self.c.login(username='test', password='test')
+
+    def is_tbx(self, response):
+        assert "attachment;" in response['Content-Disposition']
+        assert "tbx" in response['Content-Disposition']
+        self.assertContains(response, '<martif type="TBX"')
+
     def test_autoterm(self):
         response = self.c.get('/autoterm/gl/', data={})
         self.is_tbx(response)
@@ -357,23 +399,6 @@ class URLs(TestCase):
                 })
                 self.assertNotContains(response, "succesful")
                 self.assertContains(response, "Already exists a glossary with the given name. You should provide another one.")
-
-    def test_guardian_admin(self):
-        self.c.login(username='usuario', password='usuario')
-        response = self.c.get('/admin/terminator/glossary/1/permissions/')
-        self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, "Log in")
-        self.assertNotContains(response, "Password")
-
-#    def test_glossary_admin(self):
-#        self.admin = User.objects.create_superuser(username="test2", email="test2@test.com", password="ẗest2")
-#        self.c.login(username='test2', password='test2')
-#        response = self.c.post('/admin/terminator/glossary/add/', data={
-#            "name": "test",
-#            "description": "description",
-#        })
-#        print response.content
-#        self.assertContains(response, "success")
 
 
 class AdminFormTests(TestCase):
