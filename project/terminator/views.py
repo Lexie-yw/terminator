@@ -459,11 +459,11 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
             }
             concept_data['languages'].append(lang_data)
 
-        # Only append concept data if at least has information for a language
+        # Only append data if we have information for at least one language
         if concept_data['languages']:
             data['concepts'].append(concept_data)
 
-    # Raise Http404 if in the resulting glossary there is no concepts
+    # Raise Http404 if there are no concepts in the resulting glossary
     if not data['concepts']:
         raise Http404
 
