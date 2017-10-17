@@ -562,13 +562,12 @@ class ConceptTest(SharedTests, TestCase):
         self.model.get_list_of_used_languages()
         self.model.get_english_translation()
 
-class ConceptInLanguage(SharedTests, TestCase):
+class ConceptInLanguageTest(SharedTests, TestCase):
     klass = ConceptInLanguage
     @classmethod
     def setUpClass(cls):
-        super(ConceptInLanguage, cls).setUpClass()
-        cls.model.language = cls.language
-        cls.model.concept = cls.concept
+        super(ConceptInLanguageTest, cls).setUpClass()
+        cls.model = ConceptInLanguage(concept=cls.concept, language=cls.language)
 
     def test_extra_methods(self):
         self.model.get_absolute_url()
