@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
+import itertools
 from math import ceil
 import re
 from xml.dom import minidom
@@ -371,76 +372,78 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
     not_recommended = AdministrativeStatus.objects.get(name="Not recommended")
 
     concept_list = Concept.objects.filter(glossary__in=glossaries).order_by("glossary", "id")
+
+    translation_filter = Q()
+    if not export_all_translations:
+        translation_filter |= Q(administrative_status=preferred)
+        if export_admitted:
+            translation_filter |= Q(administrative_status=admitted)
+        elif export_not_recommended:
+            translation_filter |= Q(administrative_status=admitted)
+            translation_filter |= Q(administrative_status=not_recommended)
+
+    # Only the finished summary messages are exported
+    summary_filter = Q(is_finalized=True)
+    definition_filter = Q()
+    if not export_all_definitions:
+        definition_filter &= Q(is_finalized=True)
+
+    # Assume that there is at least a term or a definition for a used language.
+    glossary_filter = Q(concept__glossary__in=glossaries)
+    translations = Translation.objects.filter(glossary_filter & translation_filter)
+    definitions = Definition.objects.filter(glossary_filter & definition_filter)
+    used_languages = set(translations.values_list('language', flat=True).distinct())
+    used_languages.update(definitions.values_list('language', flat=True).distinct())
+    used_languages.difference_update(set(desired_languages))
+    used_languages = sorted(used_languages)
+
+    def key_func(obj):
+        return (obj.concept_id, obj.language_id)
+
+    def query_lookup_dict(qs):
+        qs = qs.order_by("concept", "language")
+        results = {}
+        for key, group in itertools.groupby(qs, key_func):
+            results[key] = list(group)
+        return results
+
+    translations = translations.select_related(
+            'part_of_speech',
+            'grammatical_number',
+            'grammatical_gender',
+            'administrative_status',
+            'administrative_status_reason',
+    )
+    tr_dict = query_lookup_dict(translations)
+    def_dict = query_lookup_dict(definitions)
+
+    resources = ExternalResource.objects.filter(glossary_filter)
+    resource_dict = query_lookup_dict(resources)
+
+    summaries = SummaryMessage.objects.filter(glossary_filter & summary_filter)
+    summary_dict = query_lookup_dict(summaries)
+
     for concept in concept_list:
         concept_data = {'concept': concept, 'languages': []}
 
-        if desired_languages:
-            concept_translations = concept.translation_set.filter(language__in=desired_languages)
-            concept_external_resources = concept.externalresource_set.filter(language__in=desired_languages).order_by("language")
-            concept_definitions = concept.definition_set.filter(language__in=desired_languages)
-            # Only the finished summary messages are exported
-            concept_summary_messages = concept.summarymessage_set.filter(language__in=desired_languages).filter(is_finalized=True)
-        else:
-            concept_translations = concept.translation_set.all()
-            concept_external_resources = concept.externalresource_set.order_by("language")
-            concept_definitions = concept.definition_set.all()
-            # Only the finished summary messages are exported
-            concept_summary_messages = concept.summarymessage_set.filter(is_finalized=True)
+        for language_code in used_languages:
+            key = (concept.id, language_code)
 
-        if not export_all_translations:
-            if export_not_recommended:
-                concept_translations = concept_translations.filter(Q(administrative_status=preferred) | Q(administrative_status=admitted) | Q(administrative_status=not_recommended))
-            elif export_admitted:
-                concept_translations = concept_translations.filter(Q(administrative_status=preferred) | Q(administrative_status=admitted))
-            else:
-                concept_translations = concept_translations.filter(administrative_status=preferred)
-        concept_translations = concept_translations.order_by("language")
+            lang_translations = tr_dict.get(key, [])
+            lang_resources = resource_dict.get(key, [])
 
-        if not export_all_definitions:
-            concept_definitions = concept_definitions.filter(is_finalized=True)
-        concept_definitions = concept_definitions.order_by("language", "-is_finalized")
+            lang_summary_message = summary_dict.get(key, None)
+            if lang_summary_message:
+                lang_summary_message = lang_summary_message.text
 
-        # Get the list of used languages in the filtered translations, external
-        # resources and definitions.
-        language_set = set()
-        for translation in concept_translations:
-            language_set.add(translation.language_id)
-        for definition in concept_definitions:
-            language_set.add(definition.language_id)
-        for external_resource in concept_external_resources:
-            language_set.add(external_resource.language_id)
-        for summary_message in concept_summary_messages:
-            language_set.add(summary_message.language_id)
-        used_languages_list = list(language_set)
-        used_languages_list.sort()
-
-        trans_index = 0
-        res_index = 0
-        def_index = 0
-        summ_index = 0
-        for language_code in used_languages_list:
-
-            lang_translations = []
-            while trans_index < len(concept_translations) and concept_translations[trans_index].language_id == language_code:
-                lang_translations.append(concept_translations[trans_index])
-                trans_index += 1
-
+            # Get the last definition by id
+            #python 3:
+            #lang_definition = max(def_dict.get(key, []), None, lambda x: x.id)
+            #python 2:
             lang_definition = None
-            while def_index < len(concept_definitions) and concept_definitions[def_index].language_id == language_code:
-                if not lang_definition:
-                    #only take the first (we sort by -is_finalized above)
-                    lang_definition = concept_definitions[def_index]
-                def_index += 1
-
-            lang_resources = []
-            while res_index < len(concept_external_resources) and concept_external_resources[res_index].language_id == language_code:
-                lang_resources.append(concept_external_resources[res_index])
-                res_index += 1
-
-            lang_summary_message = None
-            if summ_index < len(concept_summary_messages) and concept_summary_messages[summ_index].language_id == language_code:
-                lang_summary_message = concept_summary_messages[summ_index].text
-                summ_index += 1
+            lang_definitions = def_dict.get(key, None)
+            if lang_definitions:
+                lang_definition = max(lang_definitions, key=lambda x: x.id)
 
             lang_data = {
                 'iso_code': language_code,
