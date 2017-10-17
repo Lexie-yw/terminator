@@ -41,8 +41,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                     <ref type="crossReference" target="cid-{{ concept.concept.subject_field.pk }}">{# subject concept  <!-- TODO Put a subject_field concept translation for the TBX file main language -->#}</ref>
                 </descripGrp>{% endif %}{% if concept.concept.broader_concept %}
                 <descrip type="broaderConceptGeneric" target="cid-{{ concept.concept.broader_concept.pk }}">{# broader concept  <!-- TODO Put a broader concept translation for the TBX file main language -->#}</descrip>{% endif %}{% for related in concept.concept.related_concepts.all %}
-                <ref type="crossReference" target="cid-{{ related.pk }}">{# related concept  <!-- TODO Put a related concept translation for the TBX file main language -->#}</ref>{% endfor %}{% if concept.concept.subject_field or concept.concept.broader_concept or concept.concept.related_concepts.all %}
-                {% endif %}{% for language in concept.languages %}
+                <ref type="crossReference" target="cid-{{ related.pk }}">{# related concept  <!-- TODO Put a related concept translation for the TBX file main language -->#}</ref>{% endfor %}{% for language in concept.languages %}
                 <langSet xml:lang="{{ language.iso_code }}">{% if language.definition %}{% if not language.definition.source %}
                     <descrip type="definition">{{ language.definition.definition_text }}</descrip>{% else %}
                     <descripGrp>
