@@ -373,6 +373,11 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
 
     concept_list = Concept.objects.filter(glossary__in=glossaries).order_by("glossary", "id")
 
+    #Give template an indication of whether any related concepts are used:
+    data["use_related_concepts"] = Concept.objects.filter(
+            related_concepts__id__in=concept_list,
+    ).exists()
+
     translation_filter = Q()
     if not export_all_translations:
         translation_filter |= Q(administrative_status=preferred)
