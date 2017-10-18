@@ -171,9 +171,11 @@ class TerminatorConceptAdminForm(forms.ModelForm):
             # only provide concepts from the glossary's subject_fields
             self.fields['subject_field'].queryset = self.instance.glossary.subject_fields
             # only provide concepts in this glossary
-            self.fields['related_concepts'].queryset = Concept.objects.filter(
+            concepts = Concept.objects.filter(
                     glossary_id=self.instance.glossary_id,
             )
+            self.fields['related_concepts'].queryset = concepts
+            self.fields['broader_concept'].queryset = concepts
 
     def clean(self):
         super(forms.ModelForm, self).clean()

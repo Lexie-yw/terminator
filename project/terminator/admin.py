@@ -131,7 +131,7 @@ class ConceptAdmin(admin.ModelAdmin):
     readonly_fields = ('glossary',)
     fieldsets = (
             (None, {
-                'fields': (('glossary', 'subject_field'), 'related_concepts',),
+                'fields': (('glossary', 'subject_field'), 'related_concepts', 'broader_concept'),
             }),
     )
 
