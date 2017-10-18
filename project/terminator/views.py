@@ -210,6 +210,14 @@ class ConceptSourceView(TerminatorDetailView):
                     model.language_id = language
                     model.concept = concept
                     model.save()
+                    # Log the addition using LogEntry from admin contrib app
+                    LogEntry.objects.log_action(
+                        user_id=self.request.user.pk,
+                        content_type_id=ContentType.objects.get_for_model(model).pk,
+                        object_id=model.pk,
+                        object_repr=force_unicode(model),
+                        action_flag=ADDITION,
+                    )
 
         context['current_language'] = language
         context['translations'] = translations
