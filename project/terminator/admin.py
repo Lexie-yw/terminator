@@ -200,6 +200,7 @@ class TranslationAdmin(admin.ModelAdmin):
     ]
     search_fields = ['translation_text']
     inlines = [ContextSentenceInline, CorpusExampleInline]
+    list_select_related = ('language', 'concept', 'part_of_speech', 'administrative_status')
 
     def get_queryset(self, request):
         qs = super(TranslationAdmin, self).get_queryset(request)
