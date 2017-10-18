@@ -357,6 +357,11 @@ class ExternalResourceAdmin(admin.ModelAdmin):
     list_filter = ['language', 'concept__glossary', 'link_type']
     search_fields = ['description', 'address']
     readonly_fields = ('concept', 'language')
+    fieldsets = (
+            (None, {
+                'fields': (('concept', 'language'), 'address', 'link_type', 'description'),
+            }),
+    )
 
     def get_queryset(self, request):
         qs = super(ExternalResourceAdmin, self).get_queryset(request)
