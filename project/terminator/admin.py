@@ -192,6 +192,7 @@ class TranslationAdmin(admin.ModelAdmin):
         'grammatical_gender', 'grammatical_number', 'process_status',
         'administrative_status', 'administrative_status_reason', 'note'
     ]
+    readonly_fields = ('concept', 'language')
     list_display = ('translation_text', 'language', 'concept', 'part_of_speech', 'administrative_status', 'process_status',)
     ordering = ('concept',)
     list_filter = [
@@ -355,6 +356,7 @@ class ExternalResourceAdmin(admin.ModelAdmin):
     ordering = ('concept',)
     list_filter = ['language', 'concept__glossary', 'link_type']
     search_fields = ['description', 'address']
+    readonly_fields = ('concept', 'language')
 
     def get_queryset(self, request):
         qs = super(ExternalResourceAdmin, self).get_queryset(request)
