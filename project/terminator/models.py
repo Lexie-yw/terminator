@@ -314,7 +314,14 @@ class Concept(models.Model):
         ).order_by('id').first()
 
 
-class ConceptInLanguage(models.Model):
+class ConceptLangUrlMixin(object):
+    def get_absolute_url(self):
+        if self.concept.glossary.source_language_id == self.language_id:
+            return reverse("terminator_concept_source", kwargs={'pk': self.concept.pk})
+        return reverse('terminator_concept_detail_for_language', kwargs={'pk': unicode(self.concept.pk), 'lang': self.language.pk})
+
+
+class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.PROTECT)
 
@@ -323,9 +330,6 @@ class ConceptInLanguage(models.Model):
 
     def __unicode__(self):
         return unicode(_(u"%(language)s comment thread for %(concept)s") % {'language': self.language, 'concept': self.concept})
-
-    def get_absolute_url(self):
-        return reverse('terminator_concept_detail_for_language', kwargs={'pk': unicode(self.concept.pk), 'lang': self.language.pk})
 
 
 class SummaryMessage(models.Model):
@@ -349,7 +353,7 @@ class SummaryMessage(models.Model):
         return unicode(_(u"Summary message for %(language)s and %(concept)s: (%(text)s)") % trans_data)
 
 
-class Translation(models.Model):
+class Translation(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
     translation_text = models.CharField(max_length=100, verbose_name=_("translation text"))
@@ -379,7 +383,7 @@ class Translation(models.Model):
         self.concept.update_repr_cache()
 
 
-class Definition(models.Model):
+class Definition(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
     definition_text = models.TextField(verbose_name=_("definition text"))
