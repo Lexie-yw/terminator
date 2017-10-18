@@ -160,7 +160,7 @@ class SummaryMessageAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
-    list_filter = ['language', 'concept', 'is_finalized']
+    list_filter = ['language', 'concept__glossary', 'is_finalized']
     search_fields = ['text']
 
     def get_queryset(self, request):
@@ -203,7 +203,7 @@ class TranslationAdmin(admin.ModelAdmin):
     list_display = ('translation_text', 'language', 'concept', 'part_of_speech', 'administrative_status', 'process_status',)
     ordering = ('concept',)
     list_filter = [
-        'language', 'concept', 'process_status', 'administrative_status',
+        'language', 'concept__glossary', 'process_status', 'administrative_status',
         'part_of_speech'
     ]
     search_fields = ['translation_text']
@@ -262,7 +262,7 @@ class DefinitionAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('definition_text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
-    list_filter = ['language', 'concept', 'is_finalized']
+    list_filter = ['language', 'concept__glossary', 'is_finalized']
     readonly_fields = ('concept', 'language',)
     search_fields = ['definition_text']
     fieldsets = (
@@ -354,7 +354,7 @@ class ExternalResourceAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('address', 'concept', 'language', 'link_type', 'description')
     ordering = ('concept',)
-    list_filter = ['language', 'concept', 'link_type']
+    list_filter = ['language', 'concept__glossary', 'link_type']
     search_fields = ['description', 'address']
 
     def get_queryset(self, request):
@@ -407,7 +407,7 @@ class ContextSentenceAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('text', 'translation')
     ordering = ('translation',)
-    list_filter = ['translation']
+    list_filter = ['translation__concept__glossary']
 
     def get_queryset(self, request):
         qs = super(ContextSentenceAdmin, self).get_queryset(request)
@@ -432,7 +432,7 @@ class CorpusExampleAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('translation', 'address', 'description')
     ordering = ('translation',)
-    list_filter = ['translation']
+    list_filter = ['translation__concept__glossary']
 
     def get_queryset(self, request):
         qs = super(CorpusExampleAdmin, self).get_queryset(request)
