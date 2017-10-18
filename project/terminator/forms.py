@@ -127,6 +127,14 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
         fields = '__all__'
         model = Glossary
 
+    def __init__(self, *args, **kwargs):
+        super(TerminatorGlossaryAdminForm, self).__init__(*args, **kwargs)
+        if self.instance.id:
+            # only provide concepts in this glossary
+            self.fields['subject_fields'].queryset = Concept.objects.filter(
+                    glossary=self.instance,
+            )
+
     def clean(self):
         super(forms.ModelForm, self).clean()
 
@@ -156,6 +164,16 @@ class TerminatorConceptAdminForm(forms.ModelForm):
     class Meta:
         fields = '__all__'
         model = Concept
+
+    def __init__(self, *args, **kwargs):
+        super(TerminatorConceptAdminForm, self).__init__(*args, **kwargs)
+        if self.instance.id:
+            # only provide concepts from the glossary's subject_fields
+            self.fields['subject_field'].queryset = self.instance.glossary.subject_fields
+            # only provide concepts in this glossary
+            self.fields['related_concepts'].queryset = Concept.objects.filter(
+                    glossary_id=self.instance.glossary_id,
+            )
 
     def clean(self):
         super(forms.ModelForm, self).clean()
