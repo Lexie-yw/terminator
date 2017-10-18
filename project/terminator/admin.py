@@ -19,6 +19,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy, ungettext, ugettext as _
 
@@ -244,6 +245,9 @@ class TranslationOfConceptAdmin(TranslationAdmin):
     inlines = [ContextSentenceInline, CorpusExampleInline]
     show_full_result_count = False
     actions_selection_counter = False
+    def response_change(self, request, obj):
+        return HttpResponseRedirect(obj.get_absolute_url())
+
 
 myadmin = admin.AdminSite(name='myadmin')
 myadmin.register(Translation, TranslationOfConceptAdmin)
@@ -276,6 +280,9 @@ class DefinitionAdmin(admin.ModelAdmin):
             inner_qs = get_objects_for_user(request.user, ['is_terminologist_in_this_glossary'], Glossary, False)
             kwargs["queryset"] = Concept.objects.filter(glossary__in=inner_qs)
         return super(DefinitionAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def response_change(self, request, obj):
+        return HttpResponseRedirect(obj.get_absolute_url())
 
 admin.site.register(Definition, DefinitionAdmin)
 
