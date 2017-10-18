@@ -91,6 +91,11 @@ class GlossaryAdmin(GuardedModelAdmin):
         return get_objects_for_user(request.user,
                                     ['is_owner_for_this_glossary'], qs, False)
 
+    def get_exclude(self, request, obj=None):
+        if not obj:
+            return ["subject_fields"]
+        return []
+
     def save_model(self, request, obj, form, change):
         super(GlossaryAdmin, self).save_model(request, obj, form, change)
 
