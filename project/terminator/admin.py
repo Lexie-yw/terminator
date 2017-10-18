@@ -405,6 +405,8 @@ class ContextSentenceAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('text', 'translation')
     ordering = ('translation',)
+    fields = ('translation', 'text')
+    readonly_fields = ('translation',)
     list_filter = ['translation__concept__glossary']
 
     def get_queryset(self, request):
@@ -430,6 +432,8 @@ class CorpusExampleAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('translation', 'address', 'description')
     ordering = ('translation',)
+    fields = ('translation', 'address', 'description')
+    readonly_fields = ('translation',)
     list_filter = ['translation__concept__glossary']
 
     def get_queryset(self, request):
