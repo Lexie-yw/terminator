@@ -152,8 +152,14 @@ class SummaryMessageAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
+    readonly_fields = ('concept', 'language',)
     list_filter = ['language', 'concept__glossary', 'is_finalized']
     search_fields = ['text']
+    fieldsets = (
+            (None, {
+                'fields': (('concept', 'language'), 'text', 'is_finalized'),
+            }),
+    )
 
     def get_queryset(self, request):
         qs = super(SummaryMessageAdmin, self).get_queryset(request)
@@ -163,12 +169,6 @@ class SummaryMessageAdmin(admin.ModelAdmin):
                                         ['is_lexicographer_in_this_glossary'],
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "concept":
-            inner_qs = get_objects_for_user(request.user, ['is_lexicographer_in_this_glossary'], Glossary, False)
-            kwargs["queryset"] = Concept.objects.filter(glossary__in=inner_qs)
-        return super(SummaryMessageAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 admin.site.register(SummaryMessage, SummaryMessageAdmin)
