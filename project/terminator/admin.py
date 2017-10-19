@@ -212,13 +212,6 @@ class TranslationAdmin(admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "concept":
-            inner_qs = get_objects_for_user(request.user, ['is_terminologist_in_this_glossary'], Glossary, False)
-            kwargs["queryset"] = Concept.objects.filter(glossary__in=inner_qs)
-        return super(TranslationAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-
-
 admin.site.register(Translation, TranslationAdmin)
 
 
@@ -276,12 +269,6 @@ class DefinitionAdmin(admin.ModelAdmin):
                                         ['is_terminologist_in_this_glossary'],
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "concept":
-            inner_qs = get_objects_for_user(request.user, ['is_terminologist_in_this_glossary'], Glossary, False)
-            kwargs["queryset"] = Concept.objects.filter(glossary__in=inner_qs)
-        return super(DefinitionAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
@@ -372,12 +359,6 @@ class ExternalResourceAdmin(admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "concept":
-            inner_qs = get_objects_for_user(request.user, ['is_terminologist_in_this_glossary'], Glossary, False)
-            kwargs["queryset"] = Concept.objects.filter(glossary__in=inner_qs)
-        return super(ExternalResourceAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-
 admin.site.register(ExternalResource, ExternalResourceAdmin)
 
 
@@ -426,12 +407,6 @@ class ContextSentenceAdmin(admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(translation__concept__glossary__in=inner_qs)
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "translation":
-            inner_qs = get_objects_for_user(request.user, ['is_terminologist_in_this_glossary'], Glossary, False)
-            kwargs["queryset"] = Translation.objects.filter(concept__glossary__in=inner_qs)
-        return super(ContextSentenceAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
-
 admin.site.register(ContextSentence, ContextSentenceAdmin)
 
 
@@ -452,12 +427,6 @@ class CorpusExampleAdmin(admin.ModelAdmin):
                                         ['is_terminologist_in_this_glossary'],
                                         Glossary, False)
         return qs.filter(translation__concept__glossary__in=inner_qs)
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        if db_field.name == "translation":
-            inner_qs = get_objects_for_user(request.user, ['is_terminologist_in_this_glossary'], Glossary, False)
-            kwargs["queryset"] = Translation.objects.filter(concept__glossary__in=inner_qs)
-        return super(CorpusExampleAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(CorpusExample, CorpusExampleAdmin)
 
