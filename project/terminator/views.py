@@ -183,9 +183,10 @@ class ConceptSourceView(TerminatorDetailView):
         may_edit = False
         user = self.request.user
         glossary_perms = get_perms(user, concept.glossary)
-        context['glossary_perms'] = glossary_perms
         if user.is_authenticated:
-            if 'is_terminologist_in_this_glossary' in glossary_perms:
+            if 'is_lexicographer_in_this_glossary' in glossary_perms or \
+                    ('is_terminologist_in_this_glossary' in glossary_perms and \
+                    not concept.source_language_finalized()):
                 may_edit = True
         if self.request.method == 'POST':
             if not may_edit:
@@ -222,6 +223,8 @@ class ConceptSourceView(TerminatorDetailView):
                         action_flag=ADDITION,
                     )
 
+        context['glossary_perms'] = glossary_perms
+        context['may_edit'] = may_edit
         context['current_language'] = language
         context['translations'] = translations
         context['definition'] = definition
@@ -234,12 +237,8 @@ class ConceptSourceView(TerminatorDetailView):
         form = ConceptInLanguageForm(initial=initial)
 
         # Customise fields a bit to suit permissions and workflow
-        if not may_edit:
-            del form.fields['translation']
-            if definition:
+        if not may_edit and definition:
                 form.fields['definition'].disabled = True
-            else:
-                del form.fields['definition']
         elif definition and definition.is_finalized:
             form.fields['definition'].disabled = True
 

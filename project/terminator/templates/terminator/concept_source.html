@@ -46,8 +46,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                         {{ translation.translation_text }}
                     </div>
                 {% endfor %}
-                {{ form.translation }}
 
+                {% if may_edit %}
+                  {{ form.translation }}
+                {% endif %}
                 {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
                 <p>
                   {% if translations|length > 1 %}
@@ -59,13 +61,15 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                   {% endif %}
                 </p>
                 {% endif %}
-                {{ form.definition }}
+                {% if definition or may_edit %}
+                  {{ form.definition }}
+                {% endif %}
                 {% if definition and "is_lexicographer_in_this_glossary" in glossary_perms %}
                   <p>
                     <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise definition" %}</a>
                   </p>
                 {% endif %}
-                {% if "is_terminologist_in_this_glossary" in glossary_perms %}
+                {% if may_edit %}
                 <div>
                     <input type="Submit" value="Submit" />
                 </div>
