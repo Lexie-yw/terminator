@@ -39,7 +39,7 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django_comments.models import Comment
 
 from guardian.core import ObjectPermissionChecker
-from guardian.shortcuts import get_users_with_perms
+from guardian.shortcuts import get_perms
 
 from terminator.forms import (AdvancedSearchForm, CollaborationRequestForm,
                               ExportForm, ImportForm, ProposalForm, SearchForm,
@@ -182,8 +182,11 @@ class ConceptSourceView(TerminatorDetailView):
             definition = None
         may_edit = False
         user = self.request.user
-        if user.is_authenticated() and user.has_perm('is_terminologist_in_this_glossary', concept.glossary):
-            may_edit = True
+        glossary_perms = get_perms(user, concept.glossary)
+        context['glossary_perms'] = glossary_perms
+        if user.is_authenticated:
+            if 'is_terminologist_in_this_glossary' in glossary_perms:
+                may_edit = True
         if self.request.method == 'POST':
             if not may_edit:
                 raise PermissionDenied
