@@ -62,6 +62,11 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 </p>
                 {% endif %}
                 {{ form.definition }}
+                {% if definition and "is_lexicographer_in_this_glossary" in glossary_perms %}
+                  <p>
+                    <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise definition" %}</a>
+                  </p>
+                {% endif %}
                 {% if "is_terminologist_in_this_glossary" in glossary_perms %}
                     <input type="Submit" value="Submit" />
                 {% endif %}
