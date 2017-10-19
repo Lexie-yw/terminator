@@ -170,7 +170,7 @@ class ConceptSourceView(TerminatorDetailView):
     def get_context_data(self, **kwargs):
         context = super(ConceptSourceView, self).get_context_data(**kwargs)
         concept = context['concept']
-        language = concept.glossary.source_language_id
+        language = concept.glossary.source_language
         translations = Translation.objects.filter(concept=concept, language=language)
         initial = {}
         try:
@@ -207,7 +207,7 @@ class ConceptSourceView(TerminatorDetailView):
                         model = Definition(definition_text=value)
                         definition = model
                         # consider: definition.is_finalized = True
-                    model.language_id = language
+                    model.language = language
                     model.concept = concept
                     model.save()
                     # Log the addition using LogEntry from admin contrib app
@@ -221,7 +221,10 @@ class ConceptSourceView(TerminatorDetailView):
 
         context['current_language'] = language
         context['translations'] = translations
-        context['comments_thread'], created = ConceptInLanguage.objects.get_or_create(concept=concept, language_id=language)
+        context['comments_thread'], _c = ConceptInLanguage.objects.get_or_create(
+                concept=concept,
+                language=language,
+        )
         if definition:
             initial["definition"] = definition.definition_text
         form = ConceptInLanguageForm(initial=initial)

@@ -28,7 +28,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block breadcrumbs %}
     » <a href="{% url "terminator_glossary_detail" pk=concept.glossary.pk %}">{{ concept.glossary }}</a>
     » <a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a>
-    » <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=current_language %}">{{ concept.glossary.source_language }}</a>
+    » <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=current_language.pk %}">{{ concept.glossary.source_language }}</a>
 {% endblock %}
 
 
@@ -53,7 +53,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
                 <p>
                   {% if translations|length > 1 %}
-                  <a href="{% url "myadmin:terminator_translation_changelist" %}?concept__id__exact={{ concept.pk }}&language__iso_code__exact={{ current_language }}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise term information" %}</a>
+                  <a href="{% url "myadmin:terminator_translation_changelist" %}?concept__id__exact={{ concept.pk }}&language__iso_code__exact={{ current_language.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise term information" %}</a>
                   {% elif translations|length == 1 %}
                   {% with translation=translations|first %}
                   <a href="{% url "myadmin:terminator_translation_change" translation.id %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise term information" %}</a>
