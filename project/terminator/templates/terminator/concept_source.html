@@ -50,7 +50,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% endfor %}
                 {{ form.translation }}
 
-                {% if "is_terminologist_in_this_glossary" in glossary_perms %}
+                {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
                 <p>
                   {% if translations|length > 1 %}
                   <a href="{% url "myadmin:terminator_translation_changelist" %}?concept__id__exact={{ concept.pk }}&language__iso_code__exact={{ current_language }}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise term information" %}</a>
