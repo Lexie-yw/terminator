@@ -18,7 +18,6 @@
 
 from django import forms
 from django.forms.widgets import Textarea, TextInput
-from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from terminator.models import *
