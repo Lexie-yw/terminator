@@ -437,6 +437,7 @@ class CollaborationRequestAdmin(admin.ModelAdmin):
     list_display = ('for_glossary', 'user', 'collaboration_role', 'sent_date')
     ordering = ('sent_date',)
     list_filter = ['collaboration_role', 'for_glossary', 'sent_date', 'user']
+    search_fields = ['user__username']
     actions = ['accept_collaboration_requests']
 
     def get_queryset(self, request):
