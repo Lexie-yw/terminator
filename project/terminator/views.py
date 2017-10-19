@@ -232,12 +232,17 @@ class ConceptSourceView(TerminatorDetailView):
         if definition:
             initial["definition"] = definition.definition_text
         form = ConceptInLanguageForm(initial=initial)
+
+        # Customise fields a bit to suit permissions and workflow
         if not may_edit:
             del form.fields['translation']
             if definition:
                 form.fields['definition'].disabled = True
             else:
                 del form.fields['definition']
+        elif definition and definition.is_finalized:
+            form.fields['definition'].disabled = True
+
         context['form'] = form
         return context
 
