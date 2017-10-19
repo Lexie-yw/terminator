@@ -221,6 +221,7 @@ class ConceptSourceView(TerminatorDetailView):
 
         context['current_language'] = language
         context['translations'] = translations
+        context['definition'] = definition
         context['comments_thread'], _c = ConceptInLanguage.objects.get_or_create(
                 concept=concept,
                 language=language,
