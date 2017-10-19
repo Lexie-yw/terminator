@@ -29,7 +29,8 @@ from guardian.utils import clean_orphan_obj_perms
 
 from terminator.forms import (TerminatorConceptAdminForm,
                               TerminatorGlossaryAdminForm,
-                              TerminatorTranslationAdminForm)
+                              TerminatorTranslationAdminForm,
+                              ConceptInLanguageAdminForm)
 from terminator.models import *
 
 
@@ -172,6 +173,24 @@ class SummaryMessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SummaryMessage, SummaryMessageAdmin)
+
+
+class ConceptInLanguageAdmin(admin.ModelAdmin):
+    form = ConceptInLanguageAdminForm
+    can_add = False
+    readonly_fields = ("concept", "language", "translations_html", "definition_html")
+    fields = (("concept", "language"), "translations_html", "definition_html", "summary_text", "is_finalized")
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def response_change(self, request, obj):
+        return HttpResponseRedirect(obj.get_absolute_url())
+
+admin.site.register(ConceptInLanguage, ConceptInLanguageAdmin)
 
 
 class ContextSentenceInline(admin.TabularInline):
