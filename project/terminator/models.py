@@ -22,6 +22,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils.html import format_html, mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from guardian.shortcuts import assign_perm, get_users_with_perms
@@ -330,6 +331,40 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
 
     def __unicode__(self):
         return unicode(_(u"%(language)s comment thread for %(concept)s") % {'language': self.language, 'concept': self.concept})
+
+    def translations_html(self):
+        translations = Translation.objects.filter(
+                concept=self.concept,
+                language=self.language,
+        ).order_by("process_status")
+        parts = []
+        for translation in translations:
+            if translation.process_status:
+                parts.append(translation.translation_text)
+            else:
+                parts.append(format_html(_(u"{} <em>(not finalized)</em>"),
+                                        translation.translation_text))
+        return mark_safe(("<br>").join(parts))
+    translations_html.short_description = _(u"Terms")
+
+    def definition_html(self):
+        try:
+            definition = Definition.objects.filter(
+                    concept=self.concept,
+                    language=self.language,
+            ).last()
+        except Definition.DoesNotExist:
+            return ""
+
+        if definition.is_finalized:
+            return definition.definition_text
+        else:
+            return format_html(
+                    _(u"{} <em>(not finalized)</em>"),
+                    definition.definition_text,
+            )
+            return _(u"%s (not finalized)") % definition.definition_text
+    definition_html.short_description = _(u"Definition")
 
 
 class SummaryMessage(models.Model):
