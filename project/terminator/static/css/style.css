@@ -338,19 +338,19 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
 
 .externalresourceitem {
     padding-left: 1.5em;
-    padding-bottom: 1em;
+    padding-bottom: 0.1em;
     background: url(../images/icon_external_resource_16.png) 0 0 no-repeat;
 }
 
 .contextsentenceitem {
     padding-left: 1.5em;
-    padding-bottom: 1em;
+    padding-bottom: 0.1em;
     background: url(../images/icon_context_sentence_16.png) 0 0 no-repeat;
 }
 
 .corpusexampleitem {
     padding-left: 1.5em;
-    padding-bottom: 1em;
+    padding-bottom: 0.1em;
     background: url(../images/icon_corpus_example_16.png) 0 0 no-repeat;
 }
 
@@ -517,7 +517,7 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
 }
 
 h2 {
-    margin-top: 2em;
+    margin-top: 0.5em;
 }
 
 
@@ -619,7 +619,7 @@ h3 {
 }
 
 .translation_entry {
-    padding-bottom: 2em;
+    padding-bottom: 1.5em;
     padding-left: 1.5em;
     background: url(../images/icon_translation_16.png) 0 0 no-repeat;
 }
@@ -669,10 +669,8 @@ h3 {
 
 /* Summary messages styles */
 .summary {
-    margin: 4em 4em;
     margin-top: 0;
     background-color: #eee;
-    padding: 1em 3em;
 }
 
 
