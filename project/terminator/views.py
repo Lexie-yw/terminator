@@ -168,15 +168,19 @@ class ConceptDetailView(TerminatorDetailView):
         )
 
         summary_message = None
+        finalized = False
         try:
             if not created:
                 summary_message = SummaryMessage.objects.get(
                         concept=context['concept'],
                         language=language,
                 )
+                finalized = summary_message.is_finalized
         except SummaryMessage.DoesNotExist:
             pass
         context['summary_message'] = summary_message
+        context['finalized'] = finalized
+
         return context
 
 

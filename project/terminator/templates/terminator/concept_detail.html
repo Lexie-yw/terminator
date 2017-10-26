@@ -38,6 +38,18 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
     
+
+    {% if concept.source_language_finalized %}
+      {% if finalized %}
+        {# TODO: implement terminator_concept_edit for any language #}
+        <p><a href="{% url "terminator_concept_source" pk=concept.pk %}">View work area for this language</a></p>
+      {% else %}
+        <p>{% blocktrans %}The entry for this language is still under development.{% endblocktrans %}</p>
+        {# TODO: implement terminator_concept_edit for any language #}
+        <h2><a href="{% url "terminator_concept_source" pk=concept.pk %}">Go to the work area for this language</a></h2>
+      {% endif %}
+
+    {# TODO: Emphasize to the user's preferred languages #}
     {% with used_languages=concept.get_list_of_used_languages %}
       {% if used_languages %}
         <div class="language_link_list align_left_list">
@@ -45,24 +57,25 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% if lang.pk != current_language.pk %}
                 <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=lang.pk %}" class="language_link">{{ lang }}</a>
             {% else %}
-                <span class="current_language">{{ lang }}</span>
+                {# TODO: implement terminator_concept_edit for any language #}
+                <span class="current_language"><a href="{% url "terminator_concept_source" pk=concept.pk %}">{{ lang }}</a></span>
             {% endif %}
         {% endfor %}
         </div>
       {% endif %}
     {% endwith %}
-    
-    
-    {% include "terminator/definitions_snippet.html" %}
-    
-    
+    {% else %}
+        <p>{% blocktrans %}The information in the source language has to be finalized before work can commence on the other languages.{% endblocktrans %}</p>
+        <h2><a href="{% url "terminator_concept_source" pk=concept.pk %}">Go to the work area for the source language</a></h2>
+    {% endif %}
+
+
+    {% if finalized %}
+      {% include "terminator/summary_message_snippet.html" %}
+      {% include "terminator/translations_snippet.html" %}
+      {% include "terminator/definitions_snippet.html" %}
+    {% endif %}
     {% include "terminator/external_resources_snippet.html" %}
-    
-    
-    {% include "terminator/translations_snippet.html" %}
-    
-    
-    {% include "terminator/summary_message_snippet.html" %}
     
     
     {% include "terminator/comments_snippet.html" %}
