@@ -277,6 +277,16 @@ class Concept(models.Model):
         if repr_:
             self.repr_cache = "#%d: %s" % (self.id, repr_)
             self.save(update_fields=['repr_cache'])
+
+    def source_language_finalized(self):
+        try:
+            return SummaryMessage.objects.get(
+                    concept=self,
+                    language=self.glossary.source_language_id,
+            ).is_finalized
+        except SummaryMessage.DoesNotExist:
+            return False
+
     def get_list_of_used_languages(self):
         language_set = set()
         for translation in self.translation_set.all():
