@@ -340,6 +340,12 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
     class Meta:
         unique_together = ("concept", "language")
 
+    def definition(self):
+        try:
+            return Definition.objects.filter(concept=self.concept_id, language=self.language_id).last()
+        except Definition.DoesNotExist:
+            return None
+
     def __unicode__(self):
         return unicode(_(u"%(language)s comment thread for %(concept)s") % {'language': self.language, 'concept': self.concept})
 

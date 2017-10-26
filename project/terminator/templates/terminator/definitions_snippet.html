@@ -19,37 +19,22 @@ You should have received a copy of the GNU General Public License
 along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
-<h2 id="definition_list">{% trans "Definitions" %}</h2>
-{% if "is_terminologist_in_this_glossary" in glossary_perms %}
-    <p><a href="{% url "admin:terminator_definition_add" %}?concept={{ concept.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new definition to this concept" %}</a></p>
-{% endif %}
+{% with definition=comments_thread.definition %}
+  {% if comments_thread.definition %}
+    <h2 id="definition_list">{% trans "Definition" %}</h2>
 
-<div class="language_link_list">
-{% for definition in concept.definition_set.all %}
-    {% if definition.language != current_language %}
-        <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=definition.language.pk %}#definition_list" class="language_link">{{ definition.language.pk }}</a>
-    {% else %}
-        <span class="current_language">{{ definition.language.pk }}</span>
-    {% endif %}
-{% endfor %}
-</div>
-
-<ul class="itemlist">
-{% for definition in concept.definition_set.all %}
-    {% if not current_language or current_language and definition.language == current_language %}
-        <li class="definitionitem"><p><b>{{ definition.language }}</b> &nbsp; {% if not definition.is_finalized %}<span class="not_finalized">{% trans "(Not finalized)" %}</span>{% endif %}
-        {% if "is_terminologist_in_this_glossary" in glossary_perms %}
-            &nbsp; &nbsp;
-            <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this definition" %}</a> &nbsp; &nbsp;
-            <a href="{% url "admin:terminator_definition_delete" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_delete_16.png" /> {% trans "delete this definition" %}</a>
-        {% endif %}
-        </p>
-        
+    <ul class="itemlist">
+        <li class="definitionitem">
         <p{% if not definition.is_finalized %} class="not_finalized_item"{% endif %}>
         {{ definition.definition_text|linebreaksbr }}
+        {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+            &nbsp; &nbsp; <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit" %}</a>
+        {% endif %}
         </p>
+        {% if not definition.is_finalized %}<p><span class="not_finalized">{% trans "(Not finalized)" %}</span></p>{% endif %}
+
         {% if definition.source %}<p class="gray_text"><b>{% trans "Source:" %}</b> <a href="{{ definition.source }}">{{ definition.source|truncatechars:70 }}</a></p>{% endif %}
         </li>
-    {% endif %}
-{% endfor %}
+  {% endif %}
+{% endwith %}
 </ul>
