@@ -156,18 +156,27 @@ class ConceptDetailView(TerminatorDetailView):
         # Add the comment thread for the given language, if given, to context
         context['available_languages'] = Language.objects.order_by("pk")
         try:
-            language = Language.objects.get(pk=self.kwargs.get('lang', None))
+            language = Language.objects.get(pk=self.kwargs.get('lang'))
         except Language.DoesNotExist:
+            raise Http404
+        context['current_language'] = language
+        context['translations'] = context['concept'].translation_set.filter(
+                language=language)
+        context['comments_thread'], created = ConceptInLanguage.objects.get_or_create(
+                concept=context['concept'],
+                language=language,
+        )
+
+        summary_message = None
+        try:
+            if not created:
+                summary_message = SummaryMessage.objects.get(
+                        concept=context['concept'],
+                        language=language,
+                )
+        except SummaryMessage.DoesNotExist:
             pass
-        else:
-            context['current_language'] = language
-            context['comments_thread'], created = ConceptInLanguage.objects.get_or_create(concept=context['concept'], language=language)
-            try:
-                summary_message = SummaryMessage.objects.get(concept=context['concept'], language=language)
-            except SummaryMessage.DoesNotExist:
-                pass
-            else:
-                context['summary_message'] = summary_message
+        context['summary_message'] = summary_message
         return context
 
 
