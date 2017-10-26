@@ -19,23 +19,18 @@ You should have received a copy of the GNU General Public License
 along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
+{% if translations %}
 <h2>{% trans "Translations" %}</h2>
-{% if "is_terminologist_in_this_glossary" in glossary_perms %}
-    <p><a href="{% url "admin:terminator_translation_add" %}?concept={{ concept.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new translation to this concept" %}</a></p>
-{% endif %}
-
 <ul class="itemlist">
-{% for translation in concept.translation_set.all %}
+  {% for translation in translations %}
     <li class="translation_entry">
     {% if not translation.process_status %}<span class="not_finalized_item">{% endif %}
-    <p>{{ translation.language }}: <b>{{ translation.translation_text }}</b>
+    <h3><b>{{ translation.translation_text }}</b>
     
-    {% if "is_terminologist_in_this_glossary" in glossary_perms %}
-        &nbsp; &nbsp; <a href="{% url "admin:terminator_translation_change" translation.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this translation" %}</a>
-        &nbsp; &nbsp;
-        <a href="{% url "admin:terminator_translation_delete" translation.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_delete_16.png" /> {% trans "delete this translation" %}</a>
+    {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+        &nbsp; &nbsp; <a href="{% url "admin:terminator_translation_change" translation.id %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit translation" %}</a>
     {% endif %}
-    </p>
+    </h3>
     
     <p>
     <b>{% trans "Status:" %}</b>
@@ -45,8 +40,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </p>
     
     {% if translation.part_of_speech %}<p><b>{% trans "Part of speech:" %}</b> {{ translation.part_of_speech }}{% endif %}
-    {% if translation.grammatical_gender %}<b>{% trans "Grammatical genre:" %}</b> {{ translation.grammatical_gender }}{% endif %}
-    {% if translation.grammatical_number %}<b>{% trans "Grammatical number:" %}</b> {{ translation.grammatical_number }}{% endif %}
+    {% if translation.grammatical_gender %} — {{ translation.grammatical_gender }}{% endif %}
+    {% if translation.grammatical_number %} — {{ translation.grammatical_number }}{% endif %}
     {% if translation.part_of_speech %}</p>{% endif %}
     
     {% if translation.note %}<p><b>{% trans "Note:" %}</b> {{ translation.note }}</p>{% endif %}
@@ -54,21 +49,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     {% if translation.contextsentence_set.all %}
         <div class="translation_subcomponent">
-            <h3>{% trans "Example sentences" %}</h3>
-            {% if "is_terminologist_in_this_glossary" in glossary_perms %}
-                <p><a href="{% url "admin:terminator_contextsentence_add" %}?translation={{ translation.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new example sentence to this translation" %}</a></p>
-            {% endif %}
-            
+            <h4>{% trans "Example sentences" %}</h4>
             <ul>
             {% for context_sentence in translation.contextsentence_set.all %}
-                <li class="contextsentenceitem"><p>{{ context_sentence.text }}</p>
-                {% if "is_terminologist_in_this_glossary" in glossary_perms %}
-                    <p>
-                    <a href="{% url "admin:terminator_contextsentence_change" context_sentence.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this example sentence" %}</a> &nbsp; &nbsp;
-                    <a href="{% url "admin:terminator_contextsentence_delete" context_sentence.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_delete_16.png" /> {% trans "delete this example sentence" %}</a>
-                    </p>
-                {% endif %}
-                </li>
+                <li class="contextsentenceitem">{{ context_sentence.text }}</li>
             {% endfor %}
             </ul>
         </div>
@@ -77,20 +61,16 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     {% if translation.corpusexample_set.all %}
         <div class="translation_subcomponent">
-            <h3>{% trans "Links to real use examples" %}</h3>
-            {% if "is_terminologist_in_this_glossary" in glossary_perms %}
-                <p><a href="{% url "admin:terminator_corpusexample_add" %}?translation={{ translation.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new link to real use example to this translation" %}</a></p>
-            {% endif %}
-            
+            <h4>{% trans "Links to real use examples" %}</h4>
             <ul>
             {% for corpus_example in translation.corpusexample_set.all %}
                 <li class="corpusexampleitem">
-                <p><a href="{{ corpus_example.address }}">{{ corpus_example.address|truncatechars:70 }}
-                {% if corpus_example.description %}<p>{{ corpus_example.description }}</p>{% endif %}
-                {% if "is_terminologist_in_this_glossary" in glossary_perms %}
-                    <p><a href="{% url "admin:terminator_corpusexample_change" corpus_example.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this link to real use example" %}</a> &nbsp; &nbsp;
-                    <a href="{% url "admin:terminator_corpusexample_delete" corpus_example.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_delete_16.png" /> {% trans "delete this link to real use example" %}</a></p>
+                <a href="{{ corpus_example.address }}">
+                {% if corpus_example.description %}{{ corpus_example.description }}
+                {% else %}
+                {{ corpus_example.address|truncatechars:70 }}
                 {% endif %}
+                </a>
                 </li>
             {% endfor %}
             </ul>
@@ -98,5 +78,6 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
     {% if not translation.process_status %}</span>{% endif %}
     </li>
-{% endfor %}
+  {% endfor %}
 </ul>
+{% endif %}
