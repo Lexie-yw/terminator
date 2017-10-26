@@ -219,6 +219,8 @@ class Glossary(models.Model):
         assign_perm('terminator.add_concept', user)
         assign_perm('terminator.change_concept', user)
         assign_perm('terminator.delete_concept', user)
+        # Assign permissions over concepts in language (for summary messages)
+        assign_perm('terminator.change_conceptinlanguage', user)
         # Assign permissions over proposals
         assign_perm('terminator.change_proposal', user)
         assign_perm('terminator.delete_proposal', user)
