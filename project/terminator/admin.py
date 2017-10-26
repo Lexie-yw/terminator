@@ -146,6 +146,8 @@ class ConceptAdmin(admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(glossary__in=inner_qs)
 
+    def response_change(self, request, obj):
+        return HttpResponseRedirect(obj.get_absolute_url())
 
 admin.site.register(Concept, ConceptAdmin)
 
@@ -284,6 +286,9 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
                                         ['is_terminologist_in_this_glossary'],
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
+
+    def response_change(self, request, obj):
+        return HttpResponseRedirect(obj.get_absolute_url())
 
 admin.site.register(Translation, TranslationAdmin)
 
