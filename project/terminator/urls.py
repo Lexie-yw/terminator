@@ -46,7 +46,7 @@ urlpatterns = [
 
     # Concepts URLs
     url(r'^concepts/(?P<pk>\d+)/$',
-        views.ConceptDetailView.as_view(
+        views.ConceptView.as_view(
             model=Concept,
         ),
         name='terminator_concept_detail'),

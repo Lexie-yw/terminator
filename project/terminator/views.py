@@ -135,6 +135,20 @@ class TerminatorTemplateView(TemplateView):
         return context
 
 
+class ConceptView(TerminatorDetailView):
+
+    # no language
+    def get_template_names(self):
+        return "terminator/concept.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(ConceptView, self).get_context_data(**kwargs)
+        # Limit to pre-approved list of languages for this glossary?
+        context['available_languages'] = Language.objects.order_by("pk")
+        return context
+
+
 class ConceptDetailView(TerminatorDetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
