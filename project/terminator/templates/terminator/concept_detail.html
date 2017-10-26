@@ -36,7 +36,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% get_obj_perms user for concept.glossary as "glossary_perms" %}
     
     
-    <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
+    <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }} — {{ current_language }}</h1>
     
 
     {% if concept.source_language_finalized %}
