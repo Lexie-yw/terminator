@@ -139,9 +139,10 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
 
         cleaned_data = self.cleaned_data
         name = cleaned_data.get("name")
-        subject_fields = list(cleaned_data.get("subject_fields"))
+        subject_fields = cleaned_data.get("subject_fields")
 
         if subject_fields and name:
+            subject_fields = list(subject_fields)
             glossary = Glossary.objects.get(name=name)
             for subject_field in subject_fields:
                 if subject_field.glossary != glossary:
