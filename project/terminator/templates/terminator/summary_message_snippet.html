@@ -21,19 +21,14 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 {% if current_language %}
     {% if summary_message %}
-        <h2>{% blocktrans with language=summary_message.language %}Summary message for {{ language }}{% endblocktrans %}</h2>
+        <h2>{% trans "Summary message" %}</h2>
         <div class="summary">
-            <p><i>{% blocktrans with submit_date=summary_message.date %}Wrote on {{ submit_date }}:{% endblocktrans %}</i></p>
-            
-            {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
-                <p>
-                <a href="{% url "admin:terminator_summarymessage_change" summary_message.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this summary message" %}</a> &nbsp; &nbsp;
-                <a href="{% url "admin:terminator_summarymessage_delete" summary_message.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_delete_16.png" /> {% trans "delete this summary message" %}</a>
-                </p>
-            {% endif %}
-            
+            <p><i>{% blocktrans with submit_date=summary_message.date %}Written on {{ submit_date }}:{% endblocktrans %}</i></p>
             {% if not summary_message.is_finalized %}<p class="not_finalized">{% trans "(Not finalized)" %}</p>{% endif %}
             <p{% if not summary_message.is_finalized %} class="not_finalized_item"{% endif %}>{{ summary_message.text|linebreaksbr }}</p>
+            {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+                <a href="{% url "admin:terminator_conceptinlanguage_change" comments_thread.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this summary message" %}</a>
+            {% endif %}
         </div>
     {% else %}
         {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
