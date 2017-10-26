@@ -18,6 +18,7 @@
 
 from django.conf import settings
 from django.contrib import admin
+from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.utils.encoding import force_unicode
@@ -175,6 +176,59 @@ class SummaryMessageAdmin(admin.ModelAdmin):
 admin.site.register(SummaryMessage, SummaryMessageAdmin)
 
 
+class ConceptLanguageMixin(object):
+    """Provides some features for models with concept and language.
+
+    This can be mixed into ModelAdmins where the model has a concept and
+    language field. If the GET parameters concept and language are passed
+    to the admin add form, it will limit the query to those two objects and
+    not display any other alternatives. It is therefore a way to add
+    a model with these foreign fields prescribed by the URL.
+
+    Only superusers can add without these parameters."""
+    def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
+        try:
+            self.get_concept_qs(request)
+            return True
+        except PermissionDenied:
+            return False
+
+    def get_readonly_fields(self, request, obj=None):
+        # Concept and language should be readonly, except when adding a new
+        # model.
+        if obj:
+            return self.readonly_fields
+        fields = list(self.readonly_fields)
+        fields.remove('concept')
+        fields.remove('language')
+        return fields
+
+    def get_concept_qs(self, request):
+        obj_id = request.GET.get('concept', None)
+        if obj_id:
+            try:
+                qs = Concept.objects.filter(pk=obj_id)
+                concept = qs.first()
+                if request.user.has_perm("is_lexicographer_in_this_glossary", concept.glossary):
+                    return qs
+            except Concept.DoesNotExist:
+                raise PermissionDenied
+        if request.user.is_superuser:
+            return Concept.objects
+        raise PermissionDenied
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "concept":
+            kwargs["queryset"] = self.get_concept_qs(request)
+        elif db_field.name == "language":
+            obj_id = request.GET.get('language', None)
+            if obj_id:
+                kwargs["queryset"] = Language.objects.filter(pk=obj_id)
+        return super(ConceptLanguageMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+
 class ConceptInLanguageAdmin(admin.ModelAdmin):
     form = ConceptInLanguageAdminForm
     can_add = False
@@ -203,7 +257,7 @@ class CorpusExampleInline(admin.TabularInline):
     extra = 1
 
 
-class TranslationAdmin(admin.ModelAdmin):
+class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
     form = TerminatorTranslationAdminForm
     fields = [
@@ -267,7 +321,7 @@ myadmin = admin.AdminSite(name='myadmin')
 myadmin.register(Translation, TranslationOfConceptAdmin)
 
 
-class DefinitionAdmin(admin.ModelAdmin):
+class DefinitionAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
     list_display = ('definition_text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
@@ -356,7 +410,7 @@ admin.site.register(Proposal, ProposalAdmin)
 
 
 
-class ExternalResourceAdmin(admin.ModelAdmin):
+class ExternalResourceAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
     list_display = ('address', 'concept', 'language', 'link_type', 'description')
     ordering = ('concept',)
