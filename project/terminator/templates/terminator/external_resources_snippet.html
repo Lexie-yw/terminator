@@ -19,20 +19,26 @@ You should have received a copy of the GNU General Public License
 along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
-<h2>{% trans "External resources" %}</h2>
-{% if "is_terminologist_in_this_glossary" in glossary_perms %}
-    <p><a href="{% url "admin:terminator_externalresource_add" %}?concept={{ concept.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new external resource to this concept" %}</a></p>
+{% with external_resources=comments_thread.external_resources %}
+{% if external_resources %}
+  <h4>{% trans "External resources" %}
+  {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+      <p><a href="{% url "admin:terminator_externalresource_add" %}?concept={{ concept.pk }}&language={{ current_language.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "new" %}</a></p>
+  {% endif %}
+  </h4>
+  <ul class="itemlist">
+  {% for externalresource in external_resources %}
+      {# #TODO if the external resource is an image or a video, embed it instead of showing the link #}
+      <li class="externalresourceitem"><a href="{{ externalresource.address }}">{{ externalresource.description|linebreaksbr }}</a>
+      {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+          <a href="{% url "admin:terminator_externalresource_change" externalresource.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit" %}</a>
+      {% endif %}
+      </li>
+  {% endfor %}
+  </ul>
+{% else %}
+  {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+    <p><a href="{% url "admin:terminator_externalresource_add" %}?concept={{ concept.pk }}&language={{ current_language.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "Define an external resource" %}</a></p>
+  {% endif %}
 {% endif %}
-
-<ul class="itemlist">
-{% for externalresource in concept.externalresource_set.all %}
-    <li class="externalresourceitem">{{ externalresource.language }}: <a href="{{ externalresource.address }}"> {{ externalresource.address|truncatechars:70 }}</a>{# #TODO if the external resource is an image or a video, embed it instead of showing the link #}
-    {{ externalresource.description|linebreaks }}
-    
-    {% if "is_terminologist_in_this_glossary" in glossary_perms %}
-        <p><a href="{% url "admin:terminator_externalresource_change" externalresource.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this external resource" %}</a> &nbsp; &nbsp;
-        <a href="{% url "admin:terminator_externalresource_delete" externalresource.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_delete_16.png" /> {% trans "delete this external resource" %}</a></p>
-    {% endif %}
-    </li>
-{% endfor %}
-</ul>
+{% endwith %}

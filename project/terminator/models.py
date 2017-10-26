@@ -346,6 +346,9 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
         except Definition.DoesNotExist:
             return None
 
+    def external_resources(self):
+        return ExternalResource.objects.filter(concept=self.concept_id, language=self.language_id)
+
     def __unicode__(self):
         return unicode(_(u"%(language)s comment thread for %(concept)s") % {'language': self.language, 'concept': self.concept})
 
