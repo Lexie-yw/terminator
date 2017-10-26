@@ -227,7 +227,7 @@ class TerminatorConceptAdminForm(forms.ModelForm):
 
 
 class ConceptInLanguageAdminForm(forms.ModelForm):
-    summary_text = forms.CharField(max_length=100, min_length=2,
+    summary_text = forms.CharField(min_length=2,
             label=_("Summary message"),
             widget=Textarea(),
     )
