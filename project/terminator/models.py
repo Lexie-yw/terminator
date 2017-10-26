@@ -324,6 +324,9 @@ class Concept(models.Model):
                 id__gt=self.id,
         ).order_by('id').first()
 
+    def get_absolute_url(self):
+        return reverse('terminator_concept_detail', kwargs={'pk': unicode(self.pk)})
+
 
 class ConceptLangUrlMixin(object):
     def get_absolute_url(self):
