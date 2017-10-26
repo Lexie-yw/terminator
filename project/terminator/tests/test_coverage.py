@@ -195,6 +195,8 @@ class URLsB(TestCase):
 
     def test_concept_in_language(self):
         response = self.c.get('/concepts/1/en/')
+        self.assertNotContains(response, "Definition")
+        self.assertNotContains(response, "External resources")
         concept = Concept.objects.get(id=1)
         sm = SummaryMessage(
                 concept=concept,
@@ -207,7 +209,10 @@ class URLsB(TestCase):
         translation.part_of_speech = PartOfSpeech.objects.get(tbx_representation="noun")
         translation.process_status = True
         translation.save()
+        definition = Definition(concept=concept, language_id="en", definition_text="xxxx")
+        definition.save()
         response = self.c.get('/concepts/1/en/')
+        self.assertContains(response, "Definition")
         self.assertContains(response, "Noun")
 
     def test_concept_source(self):
