@@ -243,6 +243,15 @@ class ConceptInLanguageAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
+    def get_queryset(self, request):
+        qs = super(ConceptInLanguageAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        inner_qs = get_objects_for_user(request.user,
+                                        ['is_lexicographer_in_this_glossary'],
+                                        Glossary, False)
+        return qs.filter(concept__glossary__in=inner_qs)
+
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
 
