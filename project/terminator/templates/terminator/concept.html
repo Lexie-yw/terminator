@@ -49,8 +49,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       {% if used_languages %}
         <div class="language_link_list align_left_list">
         {% for lang in used_languages %}
-            {% if lang != concept.glossary.source_language_id %}
-                <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=lang %}" class="language_link">{{ lang }}</a>
+            {% if lang.pk != concept.glossary.source_language_id %}
+                <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=lang.pk %}" class="language_link">{{ lang }}</a>
             {% endif %}
         {% endfor %}
         </div>

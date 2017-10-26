@@ -38,17 +38,19 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
     
-    {% if concept.get_list_of_used_languages %}
+    {% with used_languages=concept.get_list_of_used_languages %}
+      {% if used_languages %}
         <div class="language_link_list align_left_list">
-        {% for lang in concept.get_list_of_used_languages %}
-            {% if lang != current_language.pk %}
-                <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=lang %}" class="language_link">{{ lang }}</a>
+        {% for lang in used_languages %}
+            {% if lang.pk != current_language.pk %}
+                <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=lang.pk %}" class="language_link">{{ lang }}</a>
             {% else %}
                 <span class="current_language">{{ lang }}</span>
             {% endif %}
         {% endfor %}
         </div>
-    {% endif %}
+      {% endif %}
+    {% endwith %}
     
     
     {% if concept.subject_field %}

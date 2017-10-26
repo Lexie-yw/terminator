@@ -295,7 +295,7 @@ class Concept(models.Model):
                    self.externalresource_set,
                    self.definition_set):
             langs.update(qs.values_list('language', flat=True).distinct())
-        return sorted(langs)
+        return Language.objects.filter(iso_code__in=langs).order_by("name")
 
     def get_english_translation(self):
         english_translation = self.translation_set.filter(
