@@ -329,7 +329,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
             if not part_of_speech.allows_grammatical_gender_for_language(language):
                 msg = _(u"The specified Part of speech doesn't allow specifying a Grammatical gender for the chosen language.")
             if not language.allows_grammatical_gender(grammatical_gender):
-                msg += _(u"The chosen language doesn't allow specifying this Grammatical gender.")
+                msg += unicode(_(u"The chosen language doesn't allow specifying this Grammatical gender."))
             if msg:
                 self._errors["grammatical_gender"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
@@ -353,7 +353,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
             if not part_of_speech.allows_grammatical_number_for_language(language):
                 msg = _(u"The specified Part of speech doesn't allow specifying a Grammatical number for the chosen language.")
             if not language.allows_grammatical_number(grammatical_number):
-                msg += _(u"The chosen language doesn't allow specifying this Grammatical number.")
+                msg += unicode(_(u"The chosen language doesn't allow specifying this Grammatical number."))
             if msg:
                 self._errors["grammatical_number"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
@@ -378,7 +378,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
             if not administrative_status.allows_administrative_status_reason:
                 msg = _(u"The specified Administrative status doesn't allow specifying an Administrative status reason.")
             elif not language.allows_administrative_status_reason(administrative_status_reason):
-                msg += _(u"The chosen language doesn't allow specifying this Administrative status reason.")
+                msg += unicocde(_(u"The chosen language doesn't allow specifying this Administrative status reason."))
             if msg:
                 self._errors["administrative_status_reason"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
