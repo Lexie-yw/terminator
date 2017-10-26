@@ -290,16 +290,12 @@ class Concept(models.Model):
             return False
 
     def get_list_of_used_languages(self):
-        language_set = set()
-        for translation in self.translation_set.all():
-            language_set.add(translation.language_id)
-        for external_resource in self.externalresource_set.all():
-            language_set.add(external_resource.language_id)
-        for definition in self.definition_set.all():
-            language_set.add(definition.language_id)
-        used_languages_list = list(language_set)
-        used_languages_list.sort()
-        return used_languages_list
+        langs = set()
+        for qs in (self.translation_set,
+                   self.externalresource_set,
+                   self.definition_set):
+            langs.update(qs.values_list('language', flat=True).distinct())
+        return sorted(langs)
 
     def get_english_translation(self):
         english_translation = self.translation_set.filter(
