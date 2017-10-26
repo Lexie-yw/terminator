@@ -70,6 +70,18 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
 
 
+    <p>
+    {% with prev_concept=concept.prev_concept %}
+        {% if prev_concept %}
+          <a href="{% url "terminator_concept_detail" pk=prev_concept.id %}">← Previous concept</a>
+        {% endif %}
+    {% endwith %}
+    {% with next_concept=concept.next_concept %}
+        {% if next_concept %}
+          <a style="float: right;" href="{% url "terminator_concept_detail" pk=next_concept.id %}">Next concept →</a>
+        {% endif %}
+    {% endwith %}
+    </p>
     {% if finalized %}
       {% include "terminator/summary_message_snippet.html" %}
       {% include "terminator/translations_snippet.html" %}
