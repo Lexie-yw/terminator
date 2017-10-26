@@ -84,10 +84,10 @@ class GrammaticalNumber(models.Model):
 class Language(models.Model):
     iso_code = models.CharField(primary_key=True, max_length=10, verbose_name=_("ISO code"))
     name = models.CharField(max_length=50, verbose_name=_("name"))
-    description = models.TextField(verbose_name=_("description"))
+    description = models.TextField(verbose_name=_("description"), null=True, blank=True)
     parts_of_speech = models.ManyToManyField(PartOfSpeech, through='PartOfSpeechForLanguage', verbose_name=_("parts of speech"))
-    grammatical_genders = models.ManyToManyField(GrammaticalGender, verbose_name=_("grammatical genders"))
-    grammatical_numbers = models.ManyToManyField(GrammaticalNumber, verbose_name=_("grammatical numbers"))
+    grammatical_genders = models.ManyToManyField(GrammaticalGender, blank=True, verbose_name=_("grammatical genders"))
+    grammatical_numbers = models.ManyToManyField(GrammaticalNumber, blank=True, verbose_name=_("grammatical numbers"))
 
     class Meta:
         verbose_name = _("language")
