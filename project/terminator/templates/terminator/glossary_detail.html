@@ -63,11 +63,11 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% endif %}
         {% endwith %}
         
-        <p>{% blocktrans %}Use the form below to subscribe to e-mail notifications of comment in this glossary.{% endblocktrans %}</p>
+        <p>{% blocktrans %}Do you want to receive e-mail notifications of all comments in this glossary?{% endblocktrans %}</p>
         
         {% include "glossary_subscribe_form_snippet.html" %}
         
-        <p>{% blocktrans %}Use the form below to send a collaboration request for this glossary.{% endblocktrans %}</p>
+        <p>{% blocktrans %}Do you want to collaborate on this glossary?{% endblocktrans %}</p>
         
         {% include "glossary_collaboration_request_form_snippet.html" %}
     {% endif %}
