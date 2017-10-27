@@ -69,26 +69,106 @@
       "date_joined": "2011-08-09T18:43:19Z",
       "groups": [],
       "user_permissions": [
-         90,
-         91,
-         92,
-         60,
-         61,
-         62,
-         84,
-         85,
-         86,
-         51,
-         52,
-         53,
-         75,
-         76,
-         77,
-         88,
-         89,
-         45,
-         46,
-         47
+         [
+            "add_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "change_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "delete_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "add_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "change_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "delete_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "add_concept",
+            "terminator",
+            "concept"
+         ],
+         [
+            "change_concept",
+            "terminator",
+            "concept"
+         ],
+         [
+            "delete_concept",
+            "terminator",
+            "concept"
+         ],
+         [
+            "add_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "change_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "delete_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "add_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "change_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "delete_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "add_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "change_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "delete_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "change_proposal",
+            "terminator",
+            "proposal"
+         ],
+         [
+            "delete_proposal",
+            "terminator",
+            "proposal"
+         ]
       ]
    }
 },
@@ -108,30 +188,126 @@
       "date_joined": "2011-08-09T18:43:27Z",
       "groups": [],
       "user_permissions": [
-         82,
-         83,
-         90,
-         91,
-         92,
-         60,
-         61,
-         62,
-         84,
-         85,
-         86,
-         51,
-         52,
-         53,
-         75,
-         76,
-         77,
-         55,
-         56,
-         88,
-         89,
-         45,
-         46,
-         47
+         [
+            "add_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "change_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "delete_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "add_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "change_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "delete_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "change_collaborationrequest",
+            "terminator",
+            "collaborationrequest"
+         ],
+         [
+            "delete_collaborationrequest",
+            "terminator",
+            "collaborationrequest"
+         ],
+         [
+            "add_concept",
+            "terminator",
+            "concept"
+         ],
+         [
+            "change_concept",
+            "terminator",
+            "concept"
+         ],
+         [
+            "delete_concept",
+            "terminator",
+            "concept"
+         ],
+         [
+            "add_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "change_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "delete_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "add_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "change_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "delete_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "add_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "change_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "delete_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "is_lexicographer_in_this_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "is_owner_for_this_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "change_proposal",
+            "terminator",
+            "proposal"
+         ],
+         [
+            "delete_proposal",
+            "terminator",
+            "proposal"
+         ]
       ]
    }
 },
@@ -151,21 +327,81 @@
       "date_joined": "2011-08-09T18:43:34Z",
       "groups": [],
       "user_permissions": [
-         60,
-         61,
-         62,
-         84,
-         85,
-         86,
-         51,
-         52,
-         53,
-         75,
-         76,
-         77,
-         45,
-         46,
-         47
+         [
+            "add_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "change_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "delete_administrativestatus",
+            "terminator",
+            "administrativestatus"
+         ],
+         [
+            "add_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "change_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "delete_administrativestatusreason",
+            "terminator",
+            "administrativestatusreason"
+         ],
+         [
+            "add_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "change_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "delete_conceptinlanguage",
+            "terminator",
+            "conceptinlanguage"
+         ],
+         [
+            "add_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "change_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "delete_corpusexample",
+            "terminator",
+            "corpusexample"
+         ],
+         [
+            "add_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "change_glossary",
+            "terminator",
+            "glossary"
+         ],
+         [
+            "delete_glossary",
+            "terminator",
+            "glossary"
+         ]
       ]
    }
 },
@@ -564,10 +800,17 @@
    "fields": {
       "name": "Glosario inicial",
       "description": "Glosario inicial para ir facendo probas",
+      "source_language": "en",
       "subscribers": [
-         4,
-         5,
-         6
+         [
+            "lexi"
+         ],
+         [
+            "dono"
+         ],
+         [
+            "term"
+         ]
       ],
       "subject_fields": []
    }
@@ -578,6 +821,7 @@
    "fields": {
       "name": "Glosario de proba",
       "description": "Glosario para facer probas",
+      "source_language": "en",
       "subscribers": [],
       "subject_fields": []
    }
@@ -588,6 +832,7 @@
    "fields": {
       "name": "glosario extra",
       "description": "glosario extra",
+      "source_language": "en",
       "subscribers": [],
       "subject_fields": []
    }
@@ -599,6 +844,7 @@
       "glossary": 1,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -609,6 +855,7 @@
       "glossary": 1,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -619,6 +866,7 @@
       "glossary": 1,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -629,6 +877,7 @@
       "glossary": 2,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -639,6 +888,7 @@
       "glossary": 1,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -649,6 +899,7 @@
       "glossary": 2,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -659,6 +910,7 @@
       "glossary": 1,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -669,6 +921,7 @@
       "glossary": 3,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -679,6 +932,7 @@
       "glossary": 3,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -689,6 +943,7 @@
       "glossary": 3,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -699,6 +954,7 @@
       "glossary": 3,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -709,6 +965,7 @@
       "glossary": 3,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -719,6 +976,7 @@
       "glossary": 3,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -729,6 +987,7 @@
       "glossary": 3,
       "subject_field": null,
       "broader_concept": null,
+      "repr_cache": null,
       "related_concepts": []
    }
 },
@@ -1319,7 +1578,9 @@
       "language": "en",
       "word": "attachment",
       "definition": "An email attachment is a computer file sent along with an email message. One or more files can be attached to any email message, and be sent along with it to the recipient. This is typically used as a simple method to share documents and images. A paper clip image is the standard image for an attachment in an email client.",
-      "user": 10,
+      "user": [
+         "usuario"
+      ],
       "sent_date": "2011-05-14T10:08:04Z",
       "for_glossary": 1
    }
@@ -1331,7 +1592,9 @@
       "language": "en",
       "word": "wildcard",
       "definition": "In computer (software) technology, a wildcard character can be used to substitute for any other character or characters in a string.",
-      "user": 2,
+      "user": [
+         "a"
+      ],
       "sent_date": "2011-06-24T20:08:04Z",
       "for_glossary": 2
    }
@@ -1383,70 +1646,131 @@
    "model": "guardian.userobjectpermission",
    "pk": 1,
    "fields": {
-      "permission": ["is_lexicographer_in_this_glossary", "terminator", "glossary"],
-      "content_type": 18,
+      "permission": [
+         "is_lexicographer_in_this_glossary",
+         "terminator",
+         "glossary"
+      ],
+      "content_type": [
+         "terminator",
+         "contextsentence"
+      ],
       "object_pk": "1",
-      "user": 5
+      "user": [
+         "dono"
+      ]
    }
 },
 {
    "model": "guardian.userobjectpermission",
    "pk": 2,
    "fields": {
-      "permission": ["is_owner_for_this_glossary", "terminator", "glossary"],
-      "content_type": 18,
+      "permission": [
+         "is_owner_for_this_glossary",
+         "terminator",
+         "glossary"
+      ],
+      "content_type": [
+         "terminator",
+         "contextsentence"
+      ],
       "object_pk": "1",
-      "user": 5
+      "user": [
+         "dono"
+      ]
    }
 },
 {
    "model": "guardian.userobjectpermission",
    "pk": 3,
    "fields": {
-      "permission": ["is_terminologist_in_this_glossary", "terminator", "glossary"],
-      "content_type": 18,
+      "permission": [
+         "is_terminologist_in_this_glossary",
+         "terminator",
+         "glossary"
+      ],
+      "content_type": [
+         "terminator",
+         "contextsentence"
+      ],
       "object_pk": "1",
-      "user": 5
+      "user": [
+         "dono"
+      ]
    }
 },
 {
    "model": "guardian.userobjectpermission",
    "pk": 4,
    "fields": {
-      "permission": ["is_lexicographer_in_this_glossary", "terminator", "glossary"],
-      "content_type": 18,
+      "permission": [
+         "is_lexicographer_in_this_glossary",
+         "terminator",
+         "glossary"
+      ],
+      "content_type": [
+         "terminator",
+         "contextsentence"
+      ],
       "object_pk": "1",
-      "user": 4
+      "user": [
+         "lexi"
+      ]
    }
 },
 {
    "model": "guardian.userobjectpermission",
    "pk": 5,
    "fields": {
-      "permission": ["is_terminologist_in_this_glossary", "terminator", "glossary"],
-      "content_type": 18,
+      "permission": [
+         "is_terminologist_in_this_glossary",
+         "terminator",
+         "glossary"
+      ],
+      "content_type": [
+         "terminator",
+         "contextsentence"
+      ],
       "object_pk": "1",
-      "user": 4
+      "user": [
+         "lexi"
+      ]
    }
 },
 {
    "model": "guardian.userobjectpermission",
    "pk": 6,
    "fields": {
-      "permission": ["is_terminologist_in_this_glossary", "terminator", "glossary"],
-      "content_type": 18,
+      "permission": [
+         "is_terminologist_in_this_glossary",
+         "terminator",
+         "glossary"
+      ],
+      "content_type": [
+         "terminator",
+         "contextsentence"
+      ],
       "object_pk": "1",
-      "user": 6
+      "user": [
+         "term"
+      ]
    }
 },
 {
    "model": "django_comments.comment",
    "pk": 1,
    "fields": {
-      "content_type": 14,
+      "content_type": [
+         "terminator",
+         "translation"
+      ],
       "object_pk": "1",
-      "site": 1,
-      "user": 10,
+      "site": [
+         "example.com"
+      ],
+      "user": [
+         "usuario"
+      ],
       "user_name": "usuario",
       "user_email": "unho_fic@hotmail.com",
       "user_url": "",
@@ -1461,10 +1785,17 @@
    "model": "django_comments.comment",
    "pk": 2,
    "fields": {
-      "content_type": 14,
+      "content_type": [
+         "terminator",
+         "translation"
+      ],
       "object_pk": "1",
-      "site": 1,
-      "user": 10,
+      "site": [
+         "example.com"
+      ],
+      "user": [
+         "usuario"
+      ],
       "user_name": "usuario",
       "user_email": "unho_fic@hotmail.com",
       "user_url": "",
@@ -1479,10 +1810,17 @@
    "model": "django_comments.comment",
    "pk": 3,
    "fields": {
-      "content_type": 14,
+      "content_type": [
+         "terminator",
+         "translation"
+      ],
       "object_pk": "1",
-      "site": 1,
-      "user": 10,
+      "site": [
+         "example.com"
+      ],
+      "user": [
+         "usuario"
+      ],
       "user_name": "usuario",
       "user_email": "unho_fic@hotmail.com",
       "user_url": "",
@@ -1497,10 +1835,17 @@
    "model": "django_comments.comment",
    "pk": 4,
    "fields": {
-      "content_type": 14,
+      "content_type": [
+         "terminator",
+         "translation"
+      ],
       "object_pk": "1",
-      "site": 1,
-      "user": 5,
+      "site": [
+         "example.com"
+      ],
+      "user": [
+         "dono"
+      ],
       "user_name": "dono",
       "user_email": "dono@dono.es",
       "user_url": "",
@@ -1515,10 +1860,17 @@
    "model": "django_comments.comment",
    "pk": 5,
    "fields": {
-      "content_type": 14,
+      "content_type": [
+         "terminator",
+         "translation"
+      ],
       "object_pk": "2",
-      "site": 1,
-      "user": 5,
+      "site": [
+         "example.com"
+      ],
+      "user": [
+         "dono"
+      ],
       "user_name": "dono",
       "user_email": "dono@dono.es",
       "user_url": "",
@@ -1533,10 +1885,17 @@
    "model": "django_comments.comment",
    "pk": 6,
    "fields": {
-      "content_type": 14,
+      "content_type": [
+         "terminator",
+         "translation"
+      ],
       "object_pk": "2",
-      "site": 1,
-      "user": 4,
+      "site": [
+         "example.com"
+      ],
+      "user": [
+         "lexi"
+      ],
       "user_name": "lexi",
       "user_email": "lexi@lexi.org",
       "user_url": "",
@@ -1551,10 +1910,17 @@
    "model": "django_comments.comment",
    "pk": 7,
    "fields": {
-      "content_type": 14,
+      "content_type": [
+         "terminator",
+         "translation"
+      ],
       "object_pk": "2",
-      "site": 1,
-      "user": 4,
+      "site": [
+         "example.com"
+      ],
+      "user": [
+         "lexi"
+      ],
       "user_name": "lexi",
       "user_email": "lexi@lexi.org",
       "user_url": "",
