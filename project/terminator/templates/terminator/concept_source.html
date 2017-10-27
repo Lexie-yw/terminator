@@ -70,7 +70,11 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% endif %}
                 {% if definition and "is_lexicographer_in_this_glossary" in glossary_perms %}
                   <p>
-                    <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise definition" %}</a>
+                    {% if definition.is_finalized %}
+                      <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Revise definition" %}</a>
+                    {% else %}
+                      <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise definition" %}</a>
+                    {% endif %}
                   </p>
                 {% endif %}
                 {% if may_edit %}
