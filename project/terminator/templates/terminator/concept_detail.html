@@ -46,7 +46,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       {% else %}
         <p>{% blocktrans %}The entry for this language is still under development.{% endblocktrans %}</p>
         {# TODO: implement terminator_concept_edit for any language #}
-        <h2><a href="{% url "terminator_concept_source" pk=concept.pk %}">Go to the work area for this language</a></h2>
+        <h2><a href="{% url "terminator_concept_source" pk=concept.pk %}">{% trans "Go to the work area for this language" %}</a></h2>
       {% endif %}
 
     {# TODO: Emphasize to the user's preferred languages #}
