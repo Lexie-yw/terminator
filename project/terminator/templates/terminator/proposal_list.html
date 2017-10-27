@@ -21,12 +21,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% block breadcrumbs %}
-    » <a href="{% url "terminator_proposal_list" %}">{% trans "Proposal list" %}</a>
+    » <a href="{% url "terminator_proposal_list" %}">{% trans "Proposed concepts" %}</a>
 {% endblock %}
 
 
 {% block content %}
-    <h1><img src="{{ STATIC_PREFIX }}images/icon_comment_32.png" />{% trans "Proposal list" %}</h1>
+    <h1><img src="{{ STATIC_PREFIX }}images/icon_comment_32.png" />{% trans "Proposed concepts" %}</h1>
     {% if proposal_list %}
         <ul class="iconlist">
         {% for proposal in proposal_list %}
