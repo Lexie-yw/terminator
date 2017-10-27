@@ -37,7 +37,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             </div>
         </div>
         <div id="header_session_block">
-            <div id="header_language_selection">
+            <div id="header_language_selection" title="{% trans 'User interface language' %}">
             {% block language_selection %}
                 <form action="{% url "set_language" %}" method="post">
                     {% csrf_token %}
