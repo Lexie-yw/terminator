@@ -497,7 +497,7 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
 
             lang_summary_message = summary_dict.get(key, None)
             if lang_summary_message:
-                lang_summary_message = lang_summary_message.text
+                lang_summary_message = lang_summary_message[0].text
 
             # Get the last definition by id
             #python 3:
