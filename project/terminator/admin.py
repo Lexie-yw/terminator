@@ -407,10 +407,10 @@ admin.site.register(AdministrativeStatus, AdministrativeStatusAdmin)
 
 class ProposalAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('word', 'language', 'definition', 'sent_date', 'for_glossary')
+    list_display = ('term', 'language', 'definition', 'sent_date', 'for_glossary')
     ordering = ('sent_date',)
     list_filter = ['language', 'for_glossary', 'sent_date', 'user']
-    search_fields = ['word', 'definition']
+    search_fields = ['term', 'definition']
     actions = ['convert_proposals']
 
     def get_queryset(self, request):
@@ -428,7 +428,7 @@ class ProposalAdmin(admin.ModelAdmin):
             concept.save()
             translation = Translation(concept=concept,
                                       language=proposal.language,
-                                      translation_text=proposal.word)
+                                      translation_text=proposal.term)
             translation.save()
             definition = Definition(concept=concept,
                                     language=proposal.language,

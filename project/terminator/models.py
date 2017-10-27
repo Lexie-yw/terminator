@@ -478,7 +478,7 @@ class ExternalResource(models.Model):
 
 class Proposal(models.Model):
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
-    word = models.CharField(max_length=100, verbose_name=_("word"))
+    term = models.CharField(max_length=100, verbose_name=_("term"))
     definition = models.TextField(verbose_name=_("definition"))
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, verbose_name=_("user"))
     sent_date = models.DateTimeField(auto_now_add=True, verbose_name=_("sent date"))
@@ -489,7 +489,7 @@ class Proposal(models.Model):
         verbose_name_plural = _("proposals")
 
     def __unicode__(self):
-        return unicode(_(u"%(proposed_word)s (%(language)s)") % {'proposed_word': self.word, 'language': self.language})
+        return unicode(_(u"%(proposed_term)s (%(language)s)") % {'proposed_term': self.term, 'language': self.language})
 
 
 class ContextSentence(models.Model):

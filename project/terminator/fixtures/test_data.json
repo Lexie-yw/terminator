@@ -1576,7 +1576,7 @@
    "pk": 1,
    "fields": {
       "language": "en",
-      "word": "attachment",
+      "term": "attachment",
       "definition": "An email attachment is a computer file sent along with an email message. One or more files can be attached to any email message, and be sent along with it to the recipient. This is typically used as a simple method to share documents and images. A paper clip image is the standard image for an attachment in an email client.",
       "user": [
          "usuario"
@@ -1590,7 +1590,7 @@
    "pk": 2,
    "fields": {
       "language": "en",
-      "word": "wildcard",
+      "term": "wildcard",
       "definition": "In computer (software) technology, a wildcard character can be used to substitute for any other character or characters in a string.",
       "user": [
          "a"

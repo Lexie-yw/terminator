@@ -112,7 +112,7 @@ class SubscribeForm(forms.Form):
 class ProposalForm(forms.ModelForm):
     class Meta:
         model = Proposal
-        fields = ('for_glossary', 'language', 'word', 'definition',)
+        fields = ('for_glossary', 'language', 'term', 'definition',)
 
 
 class CollaborationRequestForm(forms.ModelForm):

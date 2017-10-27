@@ -72,7 +72,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <div class="two_columns_index_row">
         <div class="index_left_column">
             <h2><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{% trans "Propose a new concept" %}</h2>
-            <p>{% trans "Proposing a new concept is easy. Just send a word and a definition in any language!" %}</p>
+            <p>{% trans "Proposing a new concept is easy. Just submit a term and a definition in any language!" %}</p>
             
             <div class="index_proposal_form">
                 {% if user.is_authenticated %}
@@ -98,7 +98,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% for proposal in latest_proposals %}
                 <li class="proposallink">
                     {% url "terminator_proposal_detail" pk=proposal.pk as proposal_url %}
-                    {% blocktrans with proposal_word=proposal.word proposal_language=proposal.language proposal_glossary=proposal.for_glossary proposal_definition=proposal.definition|truncatewords:20  %}Proposed <a href="{{ proposal_url }}">{{ proposal_word }}</a> for <b>{{ proposal_language }}</b> in glossary <b>{{ proposal_glossary }}</b> with definition <b>«{{ proposal_definition }}»</b>.{% endblocktrans %}
+                    {% blocktrans with proposal_term=proposal.term proposal_language=proposal.language proposal_glossary=proposal.for_glossary proposal_definition=proposal.definition|truncatewords:20  %}Proposed <a href="{{ proposal_url }}">{{ proposal_term }}</a> for <b>{{ proposal_language }}</b> in glossary <b>{{ proposal_glossary }}</b> with definition <b>“{{ proposal_definition }}”</b>.{% endblocktrans %}
                     <p class="change_ago">{% blocktrans with time_ago=proposal.sent_date|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
                 </li>
             {% endfor %}

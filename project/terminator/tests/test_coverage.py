@@ -138,7 +138,7 @@ class URLsB(TestCase):
         for field in [
                 "for_glossary",
                 "language",
-                "word",
+                "term",
                 "definition",
         ]:
             self.assertFormError(response, "proposal_form", field, "This field is required.")
@@ -149,7 +149,7 @@ class URLsB(TestCase):
         response = self.c.post('/', data={
                 "for_glossary": 1,
                 "language": 'en',
-                "word": "asdf",
+                "term": "asdf",
                 "definition": "asdf",
         })
         self.assertContains(response, "Thank you")
