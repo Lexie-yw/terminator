@@ -26,7 +26,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 {% block content %}
     <h1><img src="{{ STATIC_PREFIX }}images/icon_export_32.png" />{% trans "Export" %}</h1>
-    
+
+    <p>{% blocktrans %}Exporting provides the selected information as a downloadable TBX file. TBX is a standardized format for terminology exchange and is also supported by some other software.{% endblocktrans %}</p>
     <div class="search_form">
         <form action="" method="post">
             {% csrf_token %}
