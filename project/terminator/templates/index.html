@@ -43,7 +43,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% for glossary in glossary_list %}
                 <li class="glossaryitem">
                     <a href="{% url "terminator_glossary_detail" pk=glossary.pk %}">{{ glossary.name }}</a>
-                    <p class="change_ago">{{ glossary.description }}</p>
+                    <p class="change_ago">{{ glossary.description|truncatewords:"20"|truncatechars:"150"}}</p>
                 </li>
             {% empty %}
                 <p>{% trans "No glossaries are available." %}</p>
