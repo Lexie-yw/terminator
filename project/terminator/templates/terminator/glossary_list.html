@@ -21,12 +21,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% block breadcrumbs %}
-    » <a href="{% url "terminator_glossary_list" %}">{% trans "Glossary list" %}</a>
+    » <a href="{% url "terminator_glossary_list" %}">{% trans "Glossaries" %}</a>
 {% endblock %}
 
 
 {% block content %}
-    <h1><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{% trans "Glossary list" %}</h1>
+    <h1><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{% trans "Glossaries" %}</h1>
     
     {% if perms.terminator.add_glossary %}
         <p><a href="{% url "admin:terminator_glossary_add" %}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new glossary" %}</a></p>
