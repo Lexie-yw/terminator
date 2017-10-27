@@ -321,7 +321,6 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
 
 .glossaryitem {
     padding-left: 1.5em;
-    padding-bottom: 0.4em;
     background: url(../images/icon_glossary_16.png) 0 0 no-repeat;
 }
 
@@ -491,7 +490,7 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
 /* Styles for index page */
 .two_columns_index_row {
     clear: both;
-    padding-top: 2em;
+    padding-top: 0.5em;
     width: 100%;
 }
 
