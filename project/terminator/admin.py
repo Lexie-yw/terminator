@@ -160,9 +160,11 @@ class ConceptAdmin(admin.ModelAdmin):
             return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
         # only show concepts from this glossary
-        available_concepts = Concept.objects.filter(glossary_id=glossary_id)
-        if db_field.name in ("subject_field", "broader_concept"):
+        if db_field.name == "broader_concept":
+            available_concepts = Concept.objects.filter(glossary_id=glossary_id)
             kwargs["queryset"] = available_concepts
+        elif db_field.name == "subject_field":
+            kwargs["queryset"] = Glossary.objects.get(id=glossary_id).subject_fields
         return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
