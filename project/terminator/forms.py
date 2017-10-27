@@ -24,7 +24,12 @@ from terminator.models import *
 
 
 class SearchForm(forms.Form):
-    search_string = forms.CharField(max_length=100, min_length=2, label=_("Search string"))
+    search_string = forms.CharField(
+            max_length=100,
+            min_length=2,
+            label=_("Search string"),
+            widget=TextInput(attrs={"placeholder": _("Term to search for")}),
+    )
 
 
 class AdvancedSearchForm(SearchForm):
