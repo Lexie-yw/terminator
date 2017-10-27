@@ -137,6 +137,14 @@ class ConceptAdmin(admin.ModelAdmin):
             }),
     )
 
+    def get_readonly_fields(self, request, obj=None):
+        # Glossary should be readonly, except when adding a new model.
+        if obj:
+            return self.readonly_fields
+        fields = list(self.readonly_fields)
+        fields.remove('glossary')
+        return fields
+
     def get_queryset(self, request):
         qs = super(ConceptAdmin, self).get_queryset(request)
         if request.user.is_superuser:
