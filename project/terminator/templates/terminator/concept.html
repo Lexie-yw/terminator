@@ -59,7 +59,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     {% else %}
         <p>{% blocktrans %}The information in the source language has to be finalized before work can commence on the other languages.{% endblocktrans %}</p>
-        <h2><a href="{% url "terminator_concept_source" pk=concept.pk %}">{% trans "Go to the work area for the source language" %}</a></h2>
+        <h2><a href="{% url "terminator_concept_source" pk=concept.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Go to the work area for the source language" %}</a></h2>
     {% endif %}
 
 
