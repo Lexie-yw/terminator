@@ -98,7 +98,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% for proposal in latest_proposals %}
                 <li class="proposallink">
                     {% url "terminator_proposal_detail" pk=proposal.pk as proposal_url %}
-                    {% blocktrans with proposal_term=proposal.term proposal_language=proposal.language proposal_glossary=proposal.for_glossary proposal_definition=proposal.definition|truncatewords:20  %}Proposed <a href="{{ proposal_url }}">{{ proposal_term }}</a> for <b>{{ proposal_language }}</b> in glossary <b>{{ proposal_glossary }}</b> with definition <b>“{{ proposal_definition }}”</b>.{% endblocktrans %}
+                    {% blocktrans with proposal_term=proposal.term proposal_language=proposal.language.name proposal_glossary=proposal.for_glossary proposal_definition=proposal.definition|truncatewords:20  %}Proposed <a href="{{ proposal_url }}">{{ proposal_term }}</a> for <b>{{ proposal_language }}</b> in glossary <b>{{ proposal_glossary }}</b> with definition <i>“{{ proposal_definition }}”</i>.{% endblocktrans %}
                     <p class="change_ago">{% blocktrans with time_ago=proposal.sent_date|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
                 </li>
             {% endfor %}
