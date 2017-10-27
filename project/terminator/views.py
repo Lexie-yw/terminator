@@ -355,13 +355,19 @@ def terminator_index(request):
 
     glossary_ctype = ContentType.objects.get_for_model(Glossary)
     concept_ctype = ContentType.objects.get_for_model(Concept)
+    cil_ctype = ContentType.objects.get_for_model(ConceptInLanguage)
     translation_ctype = ContentType.objects.get_for_model(Translation)
 
     latest_translation_changes = LogEntry.objects.filter(content_type=translation_ctype).order_by("-action_time")[:8]
     translation_changes = []
+    # simple cache to hopefully avoid some queries:
+    translation_dict = {}
     for logentry in latest_translation_changes:
         try:
-            translation = Translation.objects.get(id=logentry.object_id)
+            translation = translation_dict.get(logentry.object_id, None)
+            if not translation:
+                translation = Translation.objects.get(id=logentry.object_id)
+                translation_dict[logentry.object_id] = translation
             translation_changes.append({
                 "data": logentry,
                 "translation_concept_id": translation.concept_id,
@@ -380,9 +386,15 @@ def terminator_index(request):
         'new_proposal_message': new_proposal_message,
         'next': request.get_full_path(),
         'glossary_list': Glossary.objects.all()[:8],
-        'are_there_more_glossaries': len(Glossary.objects.all()) > 8,
-        'latest_proposals': Proposal.objects.order_by("-id")[:8],
-        'latest_comments': Comment.objects.order_by("-id")[:8],
+        'are_there_more_glossaries': Glossary.objects.count() > 8,
+        'latest_proposals': Proposal.objects.order_by("-id").
+                select_related("language", "for_glossary")[:8],
+        'latest_comments': Comment.objects.order_by("-id").
+                # this filter should be unnecessary, but will become required
+                # if we ever have comments on other content types.
+                filter(content_type=cil_ctype).
+                select_related("user").
+                prefetch_related("content_object", "content_object__concept")[:8],
         'latest_glossary_changes': LogEntry.objects.filter(content_type=glossary_ctype).order_by("-action_time")[:8],
         'latest_concept_changes': LogEntry.objects.filter(content_type=concept_ctype).order_by("-action_time")[:8],
         'latest_translation_changes': translation_changes,
