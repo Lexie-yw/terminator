@@ -15,8 +15,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
-{% endcomment %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ LANGUAGE_CODE }}" xml:lang="{{ LANGUAGE_CODE }}">
+{% endcomment %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Language" content="{{ LANGUAGE_CODE }}" />
@@ -42,7 +43,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ next }}" />
                     <select name="language">
-                        {#  <!--   {% get_available_languages as LANGUAGES %} --> %}
+                    {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
                     {% for language in languages %}
                         <option value="{{ language.code }}"{% if LANGUAGE_CODE == language.code %} selected="selected"{% endif %}>{{ language.name_local }} ({{ language.code }})</option>
