@@ -157,7 +157,7 @@ class ConceptAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         glossary_id = request.GET.get('glossary', None)
         if not glossary_id:
-            return super(ConceptLanguageMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+            return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
         # only show concepts from this glossary
         available_concepts = Concept.objects.filter(glossary_id=glossary_id)
@@ -168,7 +168,7 @@ class ConceptAdmin(admin.ModelAdmin):
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         glossary_id = request.GET.get('glossary', None)
         if not glossary_id:
-            return super(ConceptLanguageMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+            return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
         # only show concepts from this glossary
         available_concepts = Concept.objects.filter(glossary_id=glossary_id)
