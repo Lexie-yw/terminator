@@ -263,6 +263,7 @@ class Concept(models.Model):
     class Meta:
         verbose_name = _("concept")
         verbose_name_plural = _("concepts")
+        ordering = ['id']
 
     def __unicode__(self):
         if self.repr_cache:
