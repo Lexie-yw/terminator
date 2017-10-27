@@ -285,7 +285,6 @@ class ConceptInLanguageForm(forms.Form):
                        )
 
 
-
 class TerminatorTranslationAdminForm(forms.ModelForm):
     """A form for handling/validating the full Translation model."""
     class Meta:
@@ -306,7 +305,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         if language and part_of_speech:
             # Only do something if both fields are valid so far.
             if not language.allows_part_of_speech(part_of_speech):
-                msg = _(u"Specify only Parts of speech allowed by the chosen language.")
+                msg = _(u"Specify only parts of speech allowed by the chosen language.")
                 self._errors["part_of_speech"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
                 # data.
@@ -316,7 +315,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         # Check that Grammatical Gender is only specified when is given a Part
         # of Speech.
         if not part_of_speech and grammatical_gender:
-            msg = _(u"Don't specify a Grammatical gender without specifying a Part of speech.")
+            msg = _(u"Don't specify a grammatical gender without specifying a part of speech.")
             self._errors["grammatical_gender"] = self.error_class([msg])
             # This field is no longer valid. So remove it from the cleaned data.
             del cleaned_data["grammatical_gender"]
@@ -327,9 +326,9 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         if language and part_of_speech and grammatical_gender:
             msg = u""
             if not part_of_speech.allows_grammatical_gender_for_language(language):
-                msg = _(u"The specified Part of speech doesn't allow specifying a Grammatical gender for the chosen language.")
+                msg = _(u"The specified part of speech doesn't allow specifying a grammatical gender for the chosen language.")
             if not language.allows_grammatical_gender(grammatical_gender):
-                msg += unicode(_(u"The chosen language doesn't allow specifying this Grammatical gender."))
+                msg += unicode(_(u"The chosen language doesn't allow specifying this grammatical gender."))
             if msg:
                 self._errors["grammatical_gender"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
@@ -340,7 +339,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         # Check that Grammatical Number is only specified when is given a Part
         # of Speech.
         if not part_of_speech and grammatical_number:
-            msg = _(u"Don't specify a Grammatical number without specifying a Part of speech.")
+            msg = _(u"Don't specify a grammatical number without specifying a part of speech.")
             self._errors["grammatical_number"] = self.error_class([msg])
             # This field is no longer valid. So remove it from the cleaned data.
             del cleaned_data["grammatical_number"]
@@ -351,9 +350,9 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         if language and part_of_speech and grammatical_number:
             msg = u""
             if not part_of_speech.allows_grammatical_number_for_language(language):
-                msg = _(u"The specified Part of speech doesn't allow specifying a Grammatical number for the chosen language.")
+                msg = _(u"The specified part of speech doesn't allow specifying a grammatical number for the chosen language.")
             if not language.allows_grammatical_number(grammatical_number):
-                msg += unicode(_(u"The chosen language doesn't allow specifying this Grammatical number."))
+                msg += unicode(_(u"The chosen language doesn't allow specifying this grammatical number."))
             if msg:
                 self._errors["grammatical_number"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
@@ -365,7 +364,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         # Check that Administrative Status Reason is only specified when is
         # given an Administrative Status.
         if not administrative_status and administrative_status_reason:
-            msg = _(u"Don't specify an Administrative status reason without specifying an Administrative status.")
+            msg = _(u"Don't specify an administrative status reason without specifying an administrative status.")
             self._errors["administrative_status_reason"] = self.error_class([msg])
             # This field is no longer valid. So remove it from the cleaned data.
             del cleaned_data["administrative_status_reason"]
@@ -376,9 +375,9 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         if language and administrative_status and administrative_status_reason:
             msg = u""
             if not administrative_status.allows_administrative_status_reason:
-                msg = _(u"The specified Administrative status doesn't allow specifying an Administrative status reason.")
+                msg = _(u"The specified Administrative status doesn't allow specifying an administrative status reason.")
             elif not language.allows_administrative_status_reason(administrative_status_reason):
-                msg += unicocde(_(u"The chosen language doesn't allow specifying this Administrative status reason."))
+                msg += unicocde(_(u"The chosen language doesn't allow specifying this administrative status reason."))
             if msg:
                 self._errors["administrative_status_reason"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
@@ -389,7 +388,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         # Check that the process_status is not set to True when the Part of
         # Speech or the Administrative Status are not set.
         if process_status and (not administrative_status or not part_of_speech):
-            msg = _(u"You cannot set 'is finalized' to True unless an Administrative status and a Part of Speech are set.")
+            msg = _(u"You cannot set 'is finalized' to True unless an administrative status and a part of speech are set.")
             self._errors["process_status"] = self.error_class([msg])
             # This field is no longer valid. So remove it from the cleaned data.
             del cleaned_data["process_status"]
