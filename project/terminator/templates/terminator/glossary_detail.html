@@ -38,7 +38,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <h1><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{{ glossary.name }}</h1>
     
-    <p>{{ glossary.description }}</p>
+    <p>{{ glossary.description|linebreaks }}</p>
     {% if "is_owner_for_this_glossary" in glossary_perms %}
         <p><a href="{% url "admin:terminator_glossary_change" glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this glossary" %}</a></p>
     {% endif %}
