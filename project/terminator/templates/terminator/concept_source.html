@@ -42,7 +42,11 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             <form method="post" action="">
                 {% csrf_token %}
                 {% for translation in translations %}
-                    <div class="translation">
+                  {% if translation.administrative_status_id %}
+                  <div class="translation" title="{% blocktrans with status=translation.administrative_status %}A term marked “{{ status }}”{% endblocktrans %}">
+                  {% else %}
+                    <div class="translation" title="{% trans 'A suggested term' %}">
+                  {% endif %}
                         {{ translation.translation_text }}
                     </div>
                 {% endfor %}
