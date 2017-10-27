@@ -38,14 +38,23 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <h1><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{{ glossary.name }}</h1>
     
+    <p>{{ glossary.description }}</p>
     {% if "is_owner_for_this_glossary" in glossary_perms %}
         <p><a href="{% url "admin:terminator_glossary_change" glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this glossary" %}</a></p>
     {% endif %}
+
+    <h3>{% blocktrans %}Concepts{% endblocktrans %}</h3>
     
-    <p>{{ glossary.description }}</p>
-    <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
+    <ul class="iconlist vertflexlist">
+    {% for concept in glossary.concept_set.all %}
+        <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
+    {% endfor %}
+    </ul>
+    {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+        <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
+    {% endif %}
     
-    
+
     {% if user.is_authenticated %}
         <h3>{% blocktrans %}Glossary collaborators{% endblocktrans %}</h3>
         {% with glossary.get_collaborators as collaborators %}
@@ -71,17 +80,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         
         {% include "glossary_collaboration_request_form_snippet.html" %}
     {% endif %}
-    
-    
-    <h3>{% blocktrans %}Concept list{% endblocktrans %}</h3>
-    
-    {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
-        <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
-    {% endif %}
-    
-    <ul class="iconlist vertflexlist">
-    {% for concept in glossary.concept_set.all %}
-        <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
-    {% endfor %}
-    </ul>
+
+    <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
+
 {% endblock %}

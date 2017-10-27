@@ -264,7 +264,7 @@ class URLsB(TestCase):
 
     def test_glossaries(self):
         response = self.c.get('/glossaries/1/')
-        self.assertContains(response, "Concept list")
+        self.assertContains(response, "Concepts")
 
 #        response = self.c.post('/glossaries/1/', data={
 #            'collaboration_role': 'T', # Terminologist
