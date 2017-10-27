@@ -154,6 +154,28 @@ class ConceptAdmin(admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(glossary__in=inner_qs)
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        glossary_id = request.GET.get('glossary', None)
+        if not glossary_id:
+            return super(ConceptLanguageMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+        # only show concepts from this glossary
+        available_concepts = Concept.objects.filter(glossary_id=glossary_id)
+        if db_field.name in ("subject_field", "broader_concept"):
+            kwargs["queryset"] = available_concepts
+        return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        glossary_id = request.GET.get('glossary', None)
+        if not glossary_id:
+            return super(ConceptLanguageMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+        # only show concepts from this glossary
+        available_concepts = Concept.objects.filter(glossary_id=glossary_id)
+        if db_field.name == "related_concepts":
+            kwargs["queryset"] = available_concepts
+        return super(ConceptAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
 
