@@ -66,7 +66,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 </p>
                 {% endif %}
                 {% if definition or may_edit %}
+                   <div title="{% if definition.is_finalized %}{% trans "The definition marked as final" %}{% else %}{% trans "A suggested definition"%}{% endif %}">
                   {{ form.definition }}
+                  </div>
                 {% endif %}
                 {% if definition and "is_lexicographer_in_this_glossary" in glossary_perms %}
                   <p>
