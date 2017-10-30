@@ -54,7 +54,8 @@ a:active {
 /* Styles for header components */
 #header {
     padding: 0;
-    background: #666 url(../images/header_background.png) 0 0 repeat;
+    background: #555;
+    background: #555 linear-gradient(#555, #444);
     height: 70px;
 }
 
