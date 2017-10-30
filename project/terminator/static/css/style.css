@@ -80,13 +80,13 @@ a:active {
     margin: 0px;
     font-size: 24px;
     font-weight: bold;
-    color: #999;
+    color: #bbb;
 }
 
 #header_title p {
     margin: 0px;
     font-size: 14px;
-    color: #666;
+    color: #999;
 }
 
 #header_session_block {
@@ -120,19 +120,19 @@ a:active {
     margin: 0;
     padding: 0;
     padding-left: 1em;
-    color: #666;
+    color: #999;
     font-weight: bold;
     font-size: 12px;
 }
 
 #header_session a:link {
-    color: #07a;
+    color: #08b;
     font-style: normal;
     text-decoration: none;
 }
 
 #header_session a:visited {
-    color: #999;
+    color: #bbb;
     font-style: normal;
     text-decoration: none;
 }
