@@ -150,7 +150,7 @@ a:active {
     padding-left: 3em;
     background: #bbb;
     background: linear-gradient(#bbb, #ccc);
-    height: 32px;
+    height: 35px;
 }
 
 #breadcrumbs_links {
@@ -164,6 +164,13 @@ a:active {
     float: right;
     text-align: right;
     padding-right: 1em;
+    font-size: 90%;
+    vertical-align: middle;
+}
+
+#breadcrumbs_search input[type="submit"] {
+    font-size: 80%;
+    vertical-align: middle;
 }
 
 #breadcrumbs_links a:link, #breadcrumbs_links a:visited, #footer_text a:link {
