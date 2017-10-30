@@ -177,7 +177,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% for comment in latest_comments %}
                 <li class="proposallink">
                     {% url "profiles_profile_detail" username=comment.user.username as profile_url %}
-                    {% blocktrans with comment_url=comment.get_absolute_url comment_id=comment.pk concept=comment.content_object.concept language_code=comment.content_object.language_id username=comment.user.username %}<a href="{{ comment_url }}">Comment {{ comment_id }}</a> in <b>{{ concept }} ({{ language_code }})</b> by <a href="{{ profile_url }}">{{ username }}</a>{% endblocktrans %}
+                    {% blocktrans with comment=comment.comment|truncatewords:"10"|truncatechars:"100" comment_url=comment.get_absolute_url comment_id=comment.pk concept=comment.content_object.concept language_code=comment.content_object.language_id username=comment.user.username %}<a href="{{ comment_url }}">{{ comment }}</a> by <a href="{{ profile_url }}">{{ username }}</a> in <b>{{ concept }} ({{ language_code }})</b>{% endblocktrans %}
                     <p class="change_ago">{% blocktrans with time_ago=comment.submit_date|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
                 </li>
             {% endfor %}
