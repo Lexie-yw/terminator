@@ -468,6 +468,11 @@ input[type="text"]:enabled, input[type="password"]:enabled, textarea:enabled {
     padding: 2px 4px;
 }
 
+input[type="text"].translation,
+textarea.definition {
+    padding: 8px;
+}
+
 input:focus[type="text"], input:focus[type="password"],textarea:focus {
     transition: box-shadow 0.25s ease-in-out;
     box-shadow: 0 0 5px #09f, inset 1px 1px 2px 0 #707070;
