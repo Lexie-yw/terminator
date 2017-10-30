@@ -378,6 +378,10 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
     background-color: #eee;
 }
 
+#id_search_string {
+    font-size: 110%;
+}
+
 select {
     max-width: 16em;
 }
@@ -452,6 +456,7 @@ input[type="text"]:enabled, input[type="password"]:enabled, textarea:enabled {
     outline: none;
     border: 1px solid #DDDDDD;
     box-shadow: inset 1px 1px 2px 0 #707070;
+    padding: 2px 4px;
 }
 
 input:focus[type="text"], input:focus[type="password"],textarea:focus {
