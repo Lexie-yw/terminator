@@ -20,7 +20,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% if translations %}
-<h2>{% trans "Translations" %}</h2>
+<h2>{% trans "Terms" %}</h2>
 <ul class="itemlist">
   {% for translation in translations %}
     <li class="translation_entry">
@@ -28,7 +28,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <h3><b>{{ translation.translation_text }}</b>
     
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
-        &nbsp; &nbsp; <a href="{% url "admin:terminator_translation_change" translation.id %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit translation" %}</a>
+        &nbsp; &nbsp; <a href="{% url "admin:terminator_translation_change" translation.id %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit term" %}</a>
     {% endif %}
     </h3>
     
