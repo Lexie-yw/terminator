@@ -88,6 +88,10 @@ def terminator_profile_detail(request, username):
 
 
 class ProfileListView(ListView):
+    def get_queryset(self):
+        qs = super(ProfileListView, self).get_queryset()
+        return qs.exclude(username="AnonymousUser")
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ProfileListView, self).get_context_data(**kwargs)
