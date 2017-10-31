@@ -29,21 +29,25 @@ body {
 }
 
 a:link {
-    color: #09f;
+    color: #37c;
     font-style: normal;
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: #dde;
 }
 
 a:visited {
-    color: #5a0;
+    color: #69c;
     font-style: normal;
     text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: #eef;
 }
 
 a:hover, a:focus {
-    color: #f60;
+    color: #b11;
     font-style: normal;
     text-decoration: underline;
+    text-decoration: underline #d99;
 }
 
 a:active {
@@ -139,7 +143,7 @@ a:active {
 }
 
 #header_session a:hover, #header_session a:focus{
-    color: #f60;
+    color: #b11;
     font-style: normal;
     text-decoration: underline;
 }
@@ -186,7 +190,7 @@ a:active {
 }
 
 #breadcrumbs_links a:hover, #breadcrumbs_links a:focus, #footer_text a:hover, #footer_text a:focus {
-    color: #d50;
+    color: #b11;
     font-style: normal;
     text-decoration: underline;
 }
