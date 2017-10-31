@@ -484,12 +484,12 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
 
 .left_field {
     text-align: right;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .right_field {
     text-align: left;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .login_form {
