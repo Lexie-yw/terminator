@@ -109,6 +109,7 @@ TEMPLATES = [
 #                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
 #                'django.contrib.messages.context_processors.messages',
+                'terminator.context_processors.features',
             ],
         },
     },
@@ -173,3 +174,12 @@ LOGGING = {
 }
 
 WSGI_APPLICATION = 'wsgi.application'
+
+
+# Use the following to enable these features
+FEATURES = {
+        'autoterm': True,
+        'import_tbx': True,
+        'export_tbx': True,
+        'proposals': True,
+}
