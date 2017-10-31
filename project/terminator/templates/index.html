@@ -110,45 +110,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% endif %}
         </div>
     </div>
-    
-    
-    <div class="two_columns_index_row">
-        <div class="index_left_column">
-            <h2><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{% trans "Latest Changes to Glossaries" %}</h2>
-            <ul class="changelist">
-                <li><a href="{% url "terminator_feed_glossaries" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" />{% trans "RSS feed with latest changes to glossaries" %}</a></li>
-            {% for change in latest_glossary_changes %}
-                <li class="{% if change.is_addition %}addlink{% endif %}{% if change.is_change %}changelink{% endif %}{% if change.is_deletion %}deletelink{% endif %}">
-                    {% if change.is_deletion %}
-                        {% trans "Deleted" %} <b>{{ change.object_repr }}</b>
-                    {% else %} 
-                        {% if change.is_change %}{% trans "Modified" %}{% else %}{% trans "Added" %}{% endif %} <a href="{% url "terminator_glossary_detail" pk=change.object_id %}">{{ change.object_repr }}</a>
-                    {% endif %}
-                    <p class="change_ago">{% blocktrans with time_ago=change.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
-        
-        <div class="index_right_column">
-            <h2><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{% trans "Latest Changes to Concepts" %}</h2>
-            <ul class="changelist">
-                <li><a href="{% url "terminator_feed_concepts" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" />{% trans "RSS feed with latest changes to concepts" %}</a></li>
-            {% for change in latest_concept_changes %}
-                <li class="{% if change.is_addition %}addlink{% endif %}{% if change.is_change %}changelink{% endif %}{% if change.is_deletion %}deletelink{% endif %}">
-                    {% if change.is_deletion %}
-                        {% trans "Deleted" %} <b>{{ change.object_repr }}</b>
-                    {% else %} 
-                        {% if change.is_change %}{% trans "Modified" %}{% else %}{% trans "Added" %}{% endif %} <a href="{% url "terminator_concept_detail" pk=change.object_id %}">{{ change.object_repr }}</a>
-                    {% endif %}
-                    <p class="change_ago">{% blocktrans with time_ago=change.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
-                </li>
-            {% endfor %}
-            <ul>
-        </div>
-    </div>
-    
-    
+
     <div class="two_columns_index_row">
         <div class="index_left_column">
             <h2><img src="{{ STATIC_PREFIX }}images/icon_translation_32.png" />{% trans "Latest Changes to Terms" %}</h2>
@@ -184,6 +146,43 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             <ul>
         </div>
     </div>
+
+    <div class="two_columns_index_row">
+        <div class="index_left_column">
+            <h2><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{% trans "Latest Changes to Glossaries" %}</h2>
+            <ul class="changelist">
+                <li><a href="{% url "terminator_feed_glossaries" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" />{% trans "RSS feed with latest changes to glossaries" %}</a></li>
+            {% for change in latest_glossary_changes %}
+                <li class="{% if change.is_addition %}addlink{% endif %}{% if change.is_change %}changelink{% endif %}{% if change.is_deletion %}deletelink{% endif %}">
+                    {% if change.is_deletion %}
+                        {% trans "Deleted" %} <b>{{ change.object_repr }}</b>
+                    {% else %}
+                        {% if change.is_change %}{% trans "Modified" %}{% else %}{% trans "Added" %}{% endif %} <a href="{% url "terminator_glossary_detail" pk=change.object_id %}">{{ change.object_repr }}</a>
+                    {% endif %}
+                    <p class="change_ago">{% blocktrans with time_ago=change.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="index_right_column">
+            <h2><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{% trans "Latest Changes to Concepts" %}</h2>
+            <ul class="changelist">
+                <li><a href="{% url "terminator_feed_concepts" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" />{% trans "RSS feed with latest changes to concepts" %}</a></li>
+            {% for change in latest_concept_changes %}
+                <li class="{% if change.is_addition %}addlink{% endif %}{% if change.is_change %}changelink{% endif %}{% if change.is_deletion %}deletelink{% endif %}">
+                    {% if change.is_deletion %}
+                        {% trans "Deleted" %} <b>{{ change.object_repr }}</b>
+                    {% else %}
+                        {% if change.is_change %}{% trans "Modified" %}{% else %}{% trans "Added" %}{% endif %} <a href="{% url "terminator_concept_detail" pk=change.object_id %}">{{ change.object_repr }}</a>
+                    {% endif %}
+                    <p class="change_ago">{% blocktrans with time_ago=change.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
+                </li>
+            {% endfor %}
+            <ul>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
 
