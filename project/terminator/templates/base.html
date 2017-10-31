@@ -19,6 +19,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Language" content="{{ LANGUAGE_CODE }}" />
     <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{{ STATIC_PREFIX }}css/style.css{% endblock %}" />
