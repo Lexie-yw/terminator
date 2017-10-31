@@ -71,6 +71,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </div>
     
     
+    {% if features.proposals %}
     <div class="two_columns_index_row">
         <div class="index_left_column">
             <h2><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{% trans "Propose a new concept" %}</h2>
@@ -110,6 +111,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% endif %}
         </div>
     </div>
+    {% endif %}
 
     <div class="two_columns_index_row">
         <div class="index_left_column">

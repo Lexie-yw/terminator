@@ -94,11 +94,19 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% block commonsidebar %}
             <ul>
                 <li><a href="{% url "terminator_help" %}"><img src="{{ STATIC_PREFIX }}images/icon_help_24.png" />{% trans "Help" %}</a></li>
+                {% if features.export_tbx %}
                 <li><a href="{% url "terminator_export" %}"><img src="{{ STATIC_PREFIX }}images/icon_export_24.png" />{% trans "Export" %}</a></li>
+                {% endif %}
+                {% if features.import_tbx %}
                 {% if perms.terminator.add_glossary %}<li><a href="{% url "terminator_import" %}"><img src="{{ STATIC_PREFIX }}images/icon_import_24.png" />{% trans "Import TBX" %}</a></li>{% endif %}
+                {% endif %}
+                {% if features.autoterm %}
                 <li><a href="{% url "terminator_autoterm_index" %}"><img src="{{ STATIC_PREFIX }}images/icon_autoterm_24.png" />{% trans "Autoterm" %}</a></li>
+                {% endif %}
                 <li><a href="{% url "terminator_glossary_list" %}"><img src="{{ STATIC_PREFIX }}images/icon_glossary_24.png" />{% trans "Glossaries" %}</a></li>
+                {% if features.proposals %}
                 <li><a href="{% url "terminator_proposal_list" %}"><img src="{{ STATIC_PREFIX }}images/icon_comment_24.png" />{% trans "Proposed concepts" %}</a></li>
+                {% endif %}
                 {# #TODO<li><a href="/concepts/pending/">Pending concepts</a></li>#}{# #TODO Use the trans template tag #}
                 {# #TODO<li><a href="/comments/latest/">Latest comments</a></li>#}{# #TODO Use the trans template tag #}
                 {# #TODO<li><a href="/changes/latest/">Latest changes</a></li>#}{# #TODO Use the trans template tag #}

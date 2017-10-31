@@ -81,6 +81,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {% include "glossary_collaboration_request_form_snippet.html" %}
     {% endif %}
 
-    <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
+    {% if features.export %}
+        <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
+    {% endif %}
 
 {% endblock %}
