@@ -170,8 +170,7 @@ a:active {
 }
 
 #breadcrumbs_search input[type="submit"] {
-    font-size: 80%;
-    vertical-align: middle;
+    height: 1.8em;
 }
 
 #breadcrumbs_links a:link, #breadcrumbs_links a:visited, #footer_text a:link {
