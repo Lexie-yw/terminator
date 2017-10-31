@@ -145,17 +145,35 @@ class ConceptAdmin(admin.ModelAdmin):
         fields.remove('glossary')
         return fields
 
+    def get_fieldsets(self, request, obj=None):
+        if obj or self._glossary_parameter(request):
+            return self.fieldsets
+        # We need to know the glossary: we can't afford to load all the concept
+        # fields without filtering. If there is no obj, we'll redirect to edit
+        # this after adding.
+        return (
+            (None, {
+                'description': _("Related concepts can be specified after adding the concept."),
+                'fields': ('glossary',),
+            }),
+        )
+
+    def _glossary_parameter(self, request):
+        return request.GET.get('glossary', None)
+
+    def _glossaries_for(self, request):
+        return get_objects_for_user(request.user,
+                                        ['is_lexicographer_in_this_glossary'],
+                                        Glossary, False)
+
     def get_queryset(self, request):
         qs = super(ConceptAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-        inner_qs = get_objects_for_user(request.user,
-                                        ['is_lexicographer_in_this_glossary'],
-                                        Glossary, False)
-        return qs.filter(glossary__in=inner_qs)
+        return qs.filter(glossary__in=self._glossaries_for(request))
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        glossary_id = request.GET.get('glossary', None)
+        glossary_id = self._glossary_parameter(request)
         if not glossary_id:
             return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
@@ -168,15 +186,32 @@ class ConceptAdmin(admin.ModelAdmin):
         return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        glossary_id = request.GET.get('glossary', None)
+        glossary_id = self._glossary_parameter(request)
         if not glossary_id:
-            return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+            return super(ConceptAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
         # only show concepts from this glossary
         available_concepts = Concept.objects.filter(glossary_id=glossary_id)
         if db_field.name == "related_concepts":
             kwargs["queryset"] = available_concepts
         return super(ConceptAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+
+    def response_add(self, request, obj, post_url_continue=None):
+        if self._glossary_parameter(request):
+            # The user added this to a specific glossary, probably from the
+            # glossary detail page. All fields were available, so let's go
+            # back to the concept's page.
+            return HttpResponseRedirect(obj.get_absolute_url())
+        else:
+            # Let's now edit the rest of the fields since we know the glossary
+            opts = obj._meta
+            pk_value = obj._get_pk_val()
+            obj_url = reverse(
+                'admin:%s_%s_change' % (opts.app_label, opts.model_name),
+                args=(quote(pk_value),),
+                current_app=self.admin_site.name,
+            )
+            return HttpResponseRedirect(obj_url)
 
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
