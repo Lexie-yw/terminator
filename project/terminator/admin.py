@@ -174,6 +174,10 @@ class ConceptAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         glossary_id = self._glossary_parameter(request)
+
+        # only show glossaries where the user has permission
+        if db_field.name == "glossary":
+            kwargs["queryset"] = self._glossaries_for(request)
         if not glossary_id:
             return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
