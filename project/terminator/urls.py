@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
+from django.conf import settings
 from django.conf.urls import url
 from django.contrib.auth.models import User
 from django_comments.feeds import LatestCommentFeed
@@ -61,25 +62,6 @@ urlpatterns = [
         ),
         name='terminator_concept_source'),
 
-
-    # Proposal URLs
-    url(r'^proposals/$',
-        views.TerminatorListView.as_view(
-            model=Proposal,
-            context_object_name="proposal_list",
-        ),
-        name='terminator_proposal_list'),
-    url(r'^proposals/(?P<pk>\d+)/$',
-        views.TerminatorDetailView.as_view(
-            model=Proposal,
-        ),
-        name='terminator_proposal_detail'),
-
-    # Export URLs
-    url(r'^export/$',
-        views.export,
-        name='terminator_export'),
-
     # Search URLs
     url(r'^search/$',
         views.search,
@@ -108,16 +90,6 @@ urlpatterns = [
         CommentThreadFeed(),
         name='terminator_feed_commentthread'),
 
-    # Autoterm URLs
-    url(r'^autoterm/$',
-        views.TerminatorTemplateView.as_view(
-            template_name="autoterm.html"
-        ),
-        name='terminator_autoterm_index'),
-    url(r'^autoterm/(?P<language_code>\w+)/$',
-        views.autoterm,
-        name='terminator_autoterm_query'),
-
     # TODO URLs
     #url(r'^query/(?P<language_code>\w+)/(?P<word>\w+)/$',
     #    'query_word',
@@ -134,11 +106,6 @@ urlpatterns = [
     #url(r'^history/$',
     #    'latest_changes',
     #    name='terminator_latest_changes'),
-
-    # Import URLs
-    url(r'^import/$',
-        views.import_view,
-        name='terminator_import'),
 
     # Profile URLs
     url(r'^profiles/(?P<username>\w+)/$',
@@ -159,3 +126,48 @@ urlpatterns = [
         ),
         name='terminator_help'),
 ]
+
+# Autoterm URLs
+if settings.FEATURES.get("autoterm"):
+    urlpatterns.extend([
+        url(r'^autoterm/$',
+            views.TerminatorTemplateView.as_view(
+                template_name="autoterm.html"
+            ),
+            name='terminator_autoterm_index'),
+        url(r'^autoterm/(?P<language_code>\w+)/$',
+            views.autoterm,
+            name='terminator_autoterm_query'),
+    ])
+
+# Import URLs
+if settings.FEATURES.get("import_tbx"):
+    urlpatterns.append(
+        url(r'^import/$',
+            views.import_view,
+            name='terminator_import'),
+    )
+
+# Export URLs
+if settings.FEATURES.get("export_tbx"):
+    urlpatterns.append(
+        url(r'^export/$',
+            views.export,
+            name='terminator_export')
+    )
+
+# Proposal URLs
+if settings.FEATURES.get("proposals"):
+    urlpatterns.extend([
+        url(r'^proposals/$',
+            views.TerminatorListView.as_view(
+                model=Proposal,
+                context_object_name="proposal_list",
+            ),
+            name='terminator_proposal_list'),
+        url(r'^proposals/(?P<pk>\d+)/$',
+            views.TerminatorDetailView.as_view(
+                model=Proposal,
+            ),
+            name='terminator_proposal_detail'),
+    ])
