@@ -276,7 +276,7 @@ class ConceptInLanguageAdminForm(forms.ModelForm):
 class ConceptInLanguageForm(forms.Form):
     translation = forms.CharField(label="", required=False, widget=TextInput(
                             attrs={
-                                "placeholder": _("Enter alternative term..."),
+                                "placeholder": _("Enter correction or alternative term..."),
                                 "class": "translation",
                             })
                        )
