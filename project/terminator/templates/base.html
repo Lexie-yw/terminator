@@ -60,7 +60,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% if user.is_authenticated %}
                     {% trans "Welcome," %} <a href="{% url "profiles_profile_detail" username=user.username %}">{{ user.username }}</a> | <a href="{% url "logout" %}?next={{ next }}">{% trans "Log out" %}</a>{# #TODO Put icons besides login, logout, register and profile #}
                 {% else %}
-                    <a href="{% url "login" %}?next={{ next }}">{% trans "Log in" %}</a> | <a href="{% url "registration_register" %}">{% trans "Register" %}</a>{# #TODO Put icons besides login, logout, register and profile #}
+                    <a href="{% url "login" %}?next={{ next }}">{% trans "Log in" %}</a>
+                    {% if features.registration %}
+                    | <a href="{% url "registration_register" %}">{% trans "Register" %}</a>{# #TODO Put icons besides login, logout, register and profile #}
+                    {% endif %}
                 {% endif %}
             {% endblock %}
             </div>

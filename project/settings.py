@@ -177,6 +177,8 @@ WSGI_APPLICATION = 'wsgi.application'
 
 
 # Use the following to enable these features
+# Also see the settings for Django apps that we use, such as
+#  - registration: REGISTRATION_OPEN
 FEATURES = {
         'autoterm': True,
         'import_tbx': True,
