@@ -37,5 +37,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {% endif %}
     </li>
 {% empty %}
-    <li class="search_result">{% trans "No results are available." %}</li>
+    {% if search_results is not None %}
+        <li class="search_result">{% trans "No results are available." %}</li>
+    {% endif %}
 {% endfor %}
