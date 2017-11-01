@@ -27,7 +27,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, InvalidPage, Paginator
 from django.db import transaction, DatabaseError
-from django.db.models import Q
+from django.db.models import Prefetch, Q
 from django.db.models import prefetch_related_objects
 from django.http import HttpResponse
 from django.shortcuts import (get_object_or_404, render, Http404)
@@ -1130,6 +1130,7 @@ def search(request):
 
             # Limit for better worst-case performance. Consider pager.
             queryset = queryset.select_related('concept', 'concept__glossary')[:100]
+            queryset = queryset.prefetch_related(Prefetch('concept__translation_set', to_attr="others"))
 
             previous_concept = None
             for trans in queryset:# All recovered translations are ordered by concept and then by language
@@ -1142,10 +1143,7 @@ def search(request):
                 if previous_concept != trans.concept_id:
                     is_first = True
                     previous_concept = trans.concept_id
-                    try:
-                        other_translations = Translation.objects.exclude(id=trans.pk).filter(concept_id=trans.concept_id)[:7]
-                    except Translation.DoesNotExist:
-                        other_translations = None
+                    other_translations = itertools.islice((c for c in trans.concept.others if c.pk != trans.pk), 7)
                 else:
                     other_translations = None
                     is_first = False
