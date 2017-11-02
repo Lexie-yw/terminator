@@ -212,6 +212,7 @@ class ConceptSourceView(TerminatorDetailView):
         except Definition.DoesNotExist:
             definition = None
         may_edit = False
+        message = ""
         user = self.request.user
         glossary_perms = get_perms(user, concept.glossary)
         if user.is_authenticated:
@@ -253,9 +254,11 @@ class ConceptSourceView(TerminatorDetailView):
                         object_repr=force_unicode(model),
                         action_flag=ADDITION,
                     )
+                    message = _("Your contribution was saved: %s") % value
 
         context['glossary_perms'] = glossary_perms
         context['may_edit'] = may_edit
+        context['message'] = message
         context['current_language'] = language
         context['translations'] = translations
         context['definition'] = definition

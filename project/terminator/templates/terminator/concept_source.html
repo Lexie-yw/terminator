@@ -37,6 +37,16 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
 
+    <p>
+        {% if message %}
+            {{ message|truncatewords:"20"|truncatechars:"100" }}
+        {% elif may_edit %}
+            {% blocktrans %}Feel free to contribute improvements.{% endblocktrans %}
+        {% else %}
+            {% blocktrans %}You can not currently change content here.{% endblocktrans %}
+        {%  endif %}
+    </p>
+
     <div class="flex">
         <div class="flexcol">
             <form method="post" action="">
