@@ -534,7 +534,13 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
     # Create the HttpResponse object with the appropriate header.
     response = HttpResponse(content_type='application/x-tbx')
     if len(glossaries) == 1:
-        response['Content-Disposition'] = 'attachment; filename=' + glossaries[0].name + '.tbx'
+        from urllib import quote
+        encoded_name = "%s%s" % (quote(glossaries[0].name.encode('utf-8')), '.tbx')
+        response['Content-Disposition'] = "attachment; filename=\"%s\"; filename*=UTF-8''%s" % (encoded_name, encoded_name)
+        # http://test.greenbytes.de/tech/tc2231/
+        # The encoding of filename is wrong, but seems like it will trigger the
+        # right bugs in older browsers that don't support filename* to actually
+        # display the right filename.
     else:
         response['Content-Disposition'] = 'attachment; filename=terminator_several_exported_glossaries.tbx'
 
