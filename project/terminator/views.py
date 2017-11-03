@@ -17,7 +17,6 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 import itertools
-from math import ceil
 import re
 from xml.dom import minidom
 
