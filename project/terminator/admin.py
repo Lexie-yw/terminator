@@ -18,9 +18,11 @@
 
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.admin.utils import quote
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy, ungettext, ugettext as _
 
