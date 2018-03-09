@@ -70,7 +70,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
 
 
-    <p>
+    <div class="prevnext">
     {% with prev_concept=concept.prev_concept %}
         {% if prev_concept %}
           <a href="{% url "terminator_concept_detail" pk=prev_concept.id %}">← Previous concept</a>
@@ -81,7 +81,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
           <a style="float: right;" href="{% url "terminator_concept_detail" pk=next_concept.id %}">Next concept →</a>
         {% endif %}
     {% endwith %}
-    </p>
+    </div>
     {% if finalized %}
       {% include "terminator/summary_message_snippet.html" %}
       {% include "terminator/translations_snippet.html" %}

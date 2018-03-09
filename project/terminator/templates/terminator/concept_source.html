@@ -98,8 +98,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         </div>
     </div>
 
-
-    <p>
+    <div class="prevnext">
     {% with prev_concept=concept.prev_concept %}
         {% if prev_concept %}
           <a href="{% url "terminator_concept_source" pk=prev_concept.id %}">← Previous concept</a>
@@ -110,8 +109,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
           <a style="float: right;" href="{% url "terminator_concept_source" pk=next_concept.id %}">Next concept →</a>
         {% endif %}
     {% endwith %}
-    </p>
-
+    </div>
 
     {% include "terminator/mono_comments_snippet.html" %}
 

@@ -259,6 +259,11 @@ a > img {
     border-style: none;
 }
 
+.prevnext {
+    min-height: 1.5em;
+    margin-top: 0.5em;
+}
+
 /* Styles for showing the sidebar links */
 #sidebar > ul {
     list-style-type: none;
