@@ -190,6 +190,9 @@ class Glossary(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('terminator_glossary_detail', kwargs={'pk': unicode(self.pk)})
+
     def assign_terminologist_permissions(self, user):
         assign_perm('is_terminologist_in_this_glossary', user, self)
         # Assign permissions over translations

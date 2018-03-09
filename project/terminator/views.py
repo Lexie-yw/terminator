@@ -1094,8 +1094,9 @@ def import_view(request):
                 glossary.assign_terminologist_permissions(request.user)
                 glossary.assign_lexicographer_permissions(request.user)
                 glossary.assign_owner_permissions(request.user)
-                import_message = _("TBX file succesfully imported. Thank you!")
+                import_message = _("TBX file succesfully imported.")
                 context['import_message'] = import_message
+                context['glossary_url'] = glossary.get_absolute_url()
                 import_form = ImportForm()
     else:
         import_form = ImportForm()
