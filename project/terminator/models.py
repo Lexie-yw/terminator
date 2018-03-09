@@ -236,18 +236,36 @@ class Glossary(models.Model):
         assign_perm('terminator.delete_collaborationrequest', user)
 
     def get_collaborators(self):
-        collaborators = []
+        from django.contrib.contenttypes.models import ContentType
+        from guardian.models import UserObjectPermission
+        from django.contrib.auth.models import Permission
+        # This is what we want:
+        # user_dict = get_users_with_perms(self, attach_perms=True, with_superusers=True)
+        # for user, perms in user_dict: if 'xxx' in perms: ...
         # XXX: attach_perms=True makes this very slow with lots of users
         # https://github.com/django-guardian/django-guardian/issues/494
-        user_dict = get_users_with_perms(self, attach_perms=True, with_superusers=True)
-        for user, perms in user_dict.items():
-            if u'is_owner_for_this_glossary' in perms:
-                collaborators.append({'user': user, 'role': _(u"Owner")})
-            elif u'is_lexicographer_in_this_glossary' in perms:
-                collaborators.append({'user': user, 'role': _(u"Lexicographer")})
-            elif u'is_terminologist_in_this_glossary' in perms:
-                collaborators.append({'user': user, 'role': _(u"Terminologist")})
-        collaborators.sort(key=lambda x: unicode(x['user']))
+        # We could limit the damage by first checking if there is a reasonable
+        # number users and adapt the UI, but it sucks to have to make the
+        # choice.
+
+        # Hand-written for constant number of queries. This is not exactly
+        # equivalent, since we are not checking group permissions.
+        glossary_ctype = ContentType.objects.get_for_model(Glossary)
+        collaborators = []
+        for user in User.objects.filter(is_superuser=True, is_active=True):
+            collaborators.append({'user': user, 'role': _("Administrator")})
+        for role, codename in (
+                (_("owner"), "is_owner_for_this_glossary"),
+                (_("lexicographer"), "is_lexicographer_in_this_glossary"),
+                (_("terminologist"), "is_terminologist_in_this_glossary")):
+            perm = Permission.objects.get(codename=codename)
+            permission_lines = UserObjectPermission.objects.filter(
+                    permission=perm,
+                    content_type=glossary_ctype,
+                    object_pk=self.id,
+            ).order_by("user__username").select_related("user")
+            for line in permission_lines:
+                collaborators.append({'user': line.user, 'role': role})
         return collaborators
 
 
