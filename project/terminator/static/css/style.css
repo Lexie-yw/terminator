@@ -539,6 +539,10 @@ h2 {
     margin-top: 0.5em;
 }
 
+p.important {
+    font-size: 150% !important;
+    font-weight: bold;
+}
 
 /* Styles for showing error messages for all custom forms */
 tr.errors {
