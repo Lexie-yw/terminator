@@ -264,6 +264,12 @@ a > img {
     margin-top: 0.5em;
 }
 
+.rss {
+    margin-top: 0.7em;
+    float: right;
+    margin-right: 10%;
+}
+
 /* Styles for showing the sidebar links */
 #sidebar > ul {
     list-style-type: none;
