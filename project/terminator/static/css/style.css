@@ -553,7 +553,6 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
     background-color: #eee;
     background-image: radial-gradient(circle, #f7f7f7 0%, #eee 100%);
     padding: 1em 2em;
-    margin-right: 1em;
 }
 
 h2, h3 {
