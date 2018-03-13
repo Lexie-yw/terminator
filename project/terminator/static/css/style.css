@@ -219,6 +219,8 @@ a:active {
     margin: 0;
     width: 200px;
     background: #d7eef4;
+    opacity: 0.95;
+    border-bottom-left-radius: 1em;
 }
 
 #footer {
