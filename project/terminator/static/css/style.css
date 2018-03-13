@@ -219,6 +219,7 @@ a:active {
     margin: 0;
     width: 200px;
     background: #d7eef4;
+    background: linear-gradient(to right, #d7eef4, #eff);
     opacity: 0.95;
     border-bottom-left-radius: 1em;
 }
@@ -404,6 +405,7 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
     padding: 2em 4em 2em 4em;
     width: 40em;
     background-color: #eee;
+    background-image: radial-gradient(circle, #f7f7f7 0%, #eee 100%);
 }
 
 #id_search_string {
@@ -517,6 +519,7 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
     padding: 2em 3em;
     width: 30em;
     background-color: #eee;
+    background-image: radial-gradient(circle, #f7f7f7 0%, #eee 100%);
 }
 
 .collaboration_request_form {
@@ -524,6 +527,7 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
     padding: 0.5em 0.5em;
     width: 40em;
     background-color: #eee;
+    background-image: radial-gradient(circle, #f7f7f7 0%, #eee 100%);
 }
 
 /* Styles for index page */
@@ -547,6 +551,7 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
 
 .index_proposal_form {
     background-color: #eee;
+    background-image: radial-gradient(circle, #f7f7f7 0%, #eee 100%);
     padding: 1em 2em;
     margin-right: 1em;
 }
