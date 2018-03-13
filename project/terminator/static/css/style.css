@@ -195,6 +195,7 @@ a:active {
     color: #b11;
     font-style: normal;
     text-decoration: underline;
+    text-decoration-color: #d99;
 }
 
 /* Styles for other divisions */
