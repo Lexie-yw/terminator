@@ -262,6 +262,12 @@ class URLsB(TestCase):
         self.assertContains(response, "newer definition")
         self.assertNotContains(response, "definizione uno")
 
+        response = self.c.post('/concepts_source/1/', data={
+            "translation": "x"*200,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "xxxxxxxxxx") # too long
+
     def test_glossaries(self):
         response = self.c.get('/glossaries/1/')
         self.assertContains(response, "Concepts")
