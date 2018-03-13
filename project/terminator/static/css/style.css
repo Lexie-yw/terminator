@@ -47,7 +47,7 @@ a:hover, a:focus {
     color: #b11;
     font-style: normal;
     text-decoration: underline;
-    text-decoration: underline #d99;
+    text-decoration-color: #d99;
 }
 
 a:active {
