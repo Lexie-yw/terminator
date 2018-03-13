@@ -130,22 +130,24 @@ a:active {
     font-size: 12px;
 }
 
-#header_session a:link {
+#header a:link {
     color: #08b;
     font-style: normal;
     text-decoration: none;
 }
 
-#header_session a:visited {
+#header a:visited {
     color: #bbb;
     font-style: normal;
     text-decoration: none;
 }
 
-#header_session a:hover, #header_session a:focus{
-    color: #b11;
+#header a:hover, #header a:focus{
+    /* lighter color on dark background */
+    color: #e44;
     font-style: normal;
     text-decoration: underline;
+    text-decoration-color: #933;
 }
 
 /* Styles for breadcrumbs elements */
