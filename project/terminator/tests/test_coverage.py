@@ -242,6 +242,7 @@ class URLsB(TestCase):
             "translation": "SEARCHxxx",
         })
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "successnote")
         self.assertContains(response, "search")
         self.assertContains(response, "SEARCHxxx")
 
@@ -250,6 +251,7 @@ class URLsB(TestCase):
             "definition": "definizione uno",
         })
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "successnote")
         self.assertContains(response, "search")
         self.assertContains(response, "SEARCHxxx")
         self.assertContains(response, "SEARCHyyy")
@@ -259,14 +261,25 @@ class URLsB(TestCase):
             "definition": "newer definition",
         })
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "successnote")
         self.assertContains(response, "newer definition")
         self.assertNotContains(response, "definizione uno")
 
+        # too long
         response = self.c.post('/concepts_source/1/', data={
             "translation": "x"*200,
         })
         self.assertEqual(response.status_code, 200)
-        self.assertNotContains(response, "xxxxxxxxxx") # too long
+        self.assertNotContains(response, "xxxxxxxxxx")
+
+        # duplicate
+        response = self.c.post('/concepts_source/1/', data={
+            "translation": "SEARCHxxx",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "errornote")
+        self.assertContains(response, "already present")
+        self.assertContains(response, "SEARCHxxx")
 
     def test_glossaries(self):
         response = self.c.get('/glossaries/1/')

@@ -37,7 +37,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
 
-    <p>
+    <p {% if message_class %}class="{{ message_class }}"{% endif %}>
         {% if message %}
             {{ message|truncatewords:"20"|truncatechars:"100" }}
         {% elif may_edit %}

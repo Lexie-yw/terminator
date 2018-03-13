@@ -212,6 +212,7 @@ class ConceptSourceView(TerminatorDetailView):
             definition = None
         may_edit = False
         message = ""
+        message_class = ""
         user = self.request.user
         glossary_perms = get_perms(user, concept.glossary)
         if user.is_authenticated:
@@ -234,7 +235,14 @@ class ConceptSourceView(TerminatorDetailView):
                         continue
                     # assume it is either "translation" or "definition"
                     if name == "translation":
+                        if value in (t.translation_text for t in translations):
+                            message = _("This term is already present.")
+                            message_class = "errornote"
+                            break
                         model = Translation(translation_text=value)
+                        translations = Translation.objects.filter(concept=concept, language=language)
+                        # model is not saved yet, but the queryset will only
+                        # load later in the template.
                     elif name == "definition":
                         if definition:
                             definition.is_finalized = False
@@ -254,10 +262,12 @@ class ConceptSourceView(TerminatorDetailView):
                         action_flag=ADDITION,
                     )
                     message = _("Your contribution was saved: %s") % value
+                    message_class = "successnote"
 
         context['glossary_perms'] = glossary_perms
         context['may_edit'] = may_edit
         context['message'] = message
+        context['message_class'] = message_class
         context['current_language'] = language
         context['translations'] = translations
         context['definition'] = definition
