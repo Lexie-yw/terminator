@@ -273,7 +273,7 @@ a > img {
 .rss {
     margin-top: 0.7em;
     float: right;
-    margin-right: 10%;
+    margin-right: 18%;
 }
 
 /* Styles for showing the sidebar links */
@@ -540,7 +540,7 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
 .index_left_column {
     float: left;
     padding: 0;
-    width: 50%;
+    width: 48%;
 }
 
 .index_right_column {
@@ -556,8 +556,10 @@ input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
     margin-right: 1em;
 }
 
-h2 {
-    margin-top: 0.5em;
+h2, h3 {
+    width: 80%;
+    background: #eee;
+    background: linear-gradient(#fafafa, #eee);
 }
 
 p.important {
@@ -735,11 +737,6 @@ h3 {
 
 .comment_list_count {
     float: left;
-}
-
-.comment_list_feed {
-    float: right;
-    text-align: right;
 }
 
 .comment {
