@@ -44,6 +44,11 @@ urlpatterns = [
             model=Glossary,
         ),
         name='terminator_glossary_detail'),
+    url(r'^glossaries/(?P<pk>\d+)/concepts/$',
+        views.GlossaryConceptsView.as_view(
+            model=Glossary,
+        ),
+        name='terminator_glossary_concepts'),
 
     # Concepts URLs
     url(r'^concepts/(?P<pk>\d+)/$',

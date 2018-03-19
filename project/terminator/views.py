@@ -342,6 +342,11 @@ class GlossaryDetailView(TerminatorDetailView):
         return context
 
 
+class GlossaryConceptsView(TerminatorDetailView):
+    def get_template_names(self):
+        return "terminator/glossary_concepts.html"
+
+
 @csrf_protect
 def terminator_index(request):
     new_proposal_message = ""

@@ -46,9 +46,17 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <h3>{% blocktrans %}Concepts{% endblocktrans %}</h3>
     
     <ul class="iconlist vertflexlist">
-    {% for concept in glossary.concept_set.all %}
+    {% for concept in glossary.concept_set.all|slice:":19" %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
     {% endfor %}
+    {% if glossary.concept_set.all.count > 21 %}
+        <li class="conceptitem">...</li>
+        <li><b><a href="{% url "terminator_glossary_concepts" pk=glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_glossary_16.png" />{% trans "See all concepts in this glossary" %}</a></b></li>
+    {% else %}
+      {% for concept in glossary.concept_set.all|slice:"19:21" %}
+        <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
+      {% endfor %}
+    {% endif %}
     </ul>
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
         <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load guardian_tags %}
+{% load i18n %}
+
+{% block title %}
+    {% blocktrans %}{{ glossary }} — Terminator{% endblocktrans %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    » <a href="{% url "terminator_glossary_list" %}">{% trans "Glossaries" %}</a>
+    » <a href="{% url "terminator_glossary_detail" pk=glossary.pk %}">{{ glossary }}</a>
+    » <a href="{% url "terminator_glossary_concepts" pk=glossary.pk %}">{% trans "All concepts" %}</a>
+{% endblock %}
+
+
+{% block content %}
+
+    {% get_obj_perms user for glossary as "glossary_perms" %}
+
+    <h1><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{{ glossary.name }}</h1>
+
+    {% if "is_owner_for_this_glossary" in glossary_perms %}
+        <p><a href="{% url "admin:terminator_glossary_change" glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this glossary" %}</a></p>
+    {% endif %}
+
+    <h3>{% blocktrans %}Concepts{% endblocktrans %}</h3>
+
+    <ul class="iconlist vertflexlist">
+    {% for concept in glossary.concept_set.all %}
+        <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
+    {% endfor %}
+    </ul>
+    {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+        <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
+    {% endif %}
+
+    {% if features.export_tbx %}
+        <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
+    {% endif %}
+
+{% endblock %}
