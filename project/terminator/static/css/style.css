@@ -319,7 +319,16 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
     max-height: 92vh;
 }
 
-.vertflexlist > li {
+.halfvertflexlist {
+    display: flex;
+    /* This displays items in short columns */
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 100vw;
+    max-height: 12em;
+}
+
+.vertflexlist > li .halfvertflexlist > li {
     margin: 2px 2px auto 2px;
     max-width: 20em;
 }
