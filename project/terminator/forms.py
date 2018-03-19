@@ -280,7 +280,7 @@ class ConceptInLanguageForm(forms.Form):
                         max_length=100,
                         widget=TextInput(
                             attrs={
-                                "placeholder": _("Enter correction or alternative term..."),
+                                "placeholder": _("Add corrected or alternative term..."),
                                 "class": "translation",
                             })
                        )

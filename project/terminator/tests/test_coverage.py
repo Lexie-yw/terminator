@@ -235,7 +235,7 @@ class URLsB(TestCase):
         response = self.c.get('/concepts_source/1/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Finalise term information")
-        self.assertContains(response, "Enter correction or alternative term")
+        self.assertContains(response, "Add corrected or alternative term")
         self.assertContains(response, "Submit")
 
         response = self.c.post('/concepts_source/1/', data={
