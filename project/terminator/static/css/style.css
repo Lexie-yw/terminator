@@ -214,6 +214,14 @@ a:active {
     padding: 0em;
 }
 
+#wide_content {
+    float: left;
+    max-width: calc(100% - 240px);
+    margin: 0px;
+    margin-left: 2em;
+    padding: 0em;
+}
+
 #sidebar {
     float: right;
     margin: 0;
