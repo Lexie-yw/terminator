@@ -379,27 +379,9 @@ def terminator_index(request):
     cil_ctype = ContentType.objects.get_for_model(ConceptInLanguage)
     translation_ctype = ContentType.objects.get_for_model(Translation)
 
-    latest_translation_changes = LogEntry.objects.filter(content_type=translation_ctype).order_by("-action_time")[:8]
-    translation_changes = []
-    # simple cache to hopefully avoid some queries:
-    translation_dict = {}
-    for logentry in latest_translation_changes:
-        try:
-            translation = translation_dict.get(logentry.object_id, None)
-            if not translation:
-                translation = Translation.objects.get(id=logentry.object_id)
-                translation_dict[logentry.object_id] = translation
-            translation_changes.append({
-                "data": logentry,
-                "translation_concept_id": translation.concept_id,
-            })
-        except Translation.DoesNotExist:
-            # Translation since deleted. Let's try to get the concept.
-            change = {"data": logentry}
-            match = re.search(r'#([\d]+)', logentry.object_repr)
-            if match and Concept.objects.filter(pk=int(match.group(1))).exists():
-                change["translation_concept_id"] = int(match.group(1))
-            translation_changes.append(change)
+    translation_changes = LogEntry.objects.filter(
+            content_type=translation_ctype,
+    ).order_by("-action_time")[:8]
 
     context = {
         'search_form': SearchForm(),
@@ -418,7 +400,7 @@ def terminator_index(request):
                 prefetch_related("content_object", "content_object__concept")[:8],
         'latest_glossary_changes': LogEntry.objects.filter(content_type=glossary_ctype).order_by("-action_time")[:8],
         'latest_concept_changes': LogEntry.objects.filter(content_type=concept_ctype).order_by("-action_time")[:8],
-        'latest_translation_changes': translation_changes,
+        'latest_translation_changes': recent_translation_changes(translation_changes),
     }
 
     return render(request, 'index.html', context)

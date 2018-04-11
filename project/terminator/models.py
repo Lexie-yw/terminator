@@ -27,6 +27,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from guardian.shortcuts import assign_perm, get_users_with_perms
 
+import re
 
 class PartOfSpeech(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("name"))
@@ -572,3 +573,27 @@ class CollaborationRequest(models.Model):
             'glossary': self.for_glossary
         }
         return unicode(_(u"%(user)s requested %(role)s for %(glossary)s") % trans_data)
+
+
+def recent_translation_changes(changes):
+    translation_changes = []
+    # simple cache to hopefully avoid some queries:
+    translation_dict = {}
+    for logentry in changes:
+        try:
+            translation = translation_dict.get(logentry.object_id, None)
+            if not translation:
+                translation = Translation.objects.get(id=logentry.object_id)
+                translation_dict[logentry.object_id] = translation
+            translation_changes.append({
+                "data": logentry,
+                "translation_concept_id": translation.concept_id,
+            })
+        except Translation.DoesNotExist:
+            # Translation since deleted. Let's try to get the concept.
+            change = {"data": logentry}
+            match = re.search(r'#([\d]+)', logentry.object_repr)
+            if match and Concept.objects.filter(pk=int(match.group(1))).exists():
+                change["translation_concept_id"] = int(match.group(1))
+            translation_changes.append(change)
+    return translation_changes
