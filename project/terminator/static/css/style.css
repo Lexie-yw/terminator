@@ -420,7 +420,8 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
     margin-bottom: 2em;
     margin-top: 2em;
     padding: 2em 4em 2em 4em;
-    width: 40em;
+    width: auto;
+    max-width: 40em;
     background-color: #eee;
     background-image: radial-gradient(circle, #f7f7f7 0%, #eee 100%);
 }
