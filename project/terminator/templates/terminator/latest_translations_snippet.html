@@ -1,0 +1,26 @@
+{% load i18n %}
+{% if changes %}
+  <div class="index_left_column">
+
+    {% if rss %}
+      <div class="rss" title="{% trans "RSS feed with latest changes to terms " %}"><a href="{% url "terminator_feed_translations" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" /></a></div>
+    {% endif %}
+
+    <h2><img src="{{ STATIC_PREFIX }}images/icon_translation_32.png" />{% trans "Latest Changes to Terms" %}</h2>
+    <ul class="changelist">
+    {% for change in changes %}
+        <li class="{% if change.data.is_addition %}addlink{% endif %}{% if change.data.is_change %}changelink{% endif %}{% if change.data.is_deletion %}deletelink{% endif %}">
+            {% if change.data.is_deletion %}
+                {% trans "Deleted" %}
+            {% elif change.data.is_change %}
+                {% trans "Modified" %}
+            {% else %}
+                {% trans "Added" %}
+            {% endif %}
+            {% if change.translation_concept_id %}<a href="{% url "terminator_concept_detail" pk=change.translation_concept_id %}">{{ change.data.object_repr }}</a>{% endif %}
+            <p class="change_ago">{% blocktrans with time_ago=change.data.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
+        </li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endif %}

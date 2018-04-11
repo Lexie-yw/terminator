@@ -114,40 +114,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
 
     <div class="two_columns_index_row">
-        <div class="index_left_column">
-            <div class="rss" title="{% trans "RSS feed with latest changes to terms " %}"><a href="{% url "terminator_feed_translations" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" /></a></div>
-            <h2><img src="{{ STATIC_PREFIX }}images/icon_translation_32.png" />{% trans "Latest Changes to Terms" %}</h2>
-            <ul class="changelist">
-            {% for change in latest_translation_changes %}
-                <li class="{% if change.data.is_addition %}addlink{% endif %}{% if change.data.is_change %}changelink{% endif %}{% if change.data.is_deletion %}deletelink{% endif %}">
-                    {% if change.data.is_deletion %}
-                        {% trans "Deleted" %}
-                    {% elif change.data.is_change %}
-                        {% trans "Modified" %}
-                    {% else %}
-                        {% trans "Added" %}
-                    {% endif %}
-                    {% if change.translation_concept_id %}<a href="{% url "terminator_concept_detail" pk=change.translation_concept_id %}">{{ change.data.object_repr }}</a>{% endif %}
-                    <p class="change_ago">{% blocktrans with time_ago=change.data.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
-                </li>
-            {% endfor %}
-            <ul>
-        </div>
-        
-
-        <div class="index_right_column">
-            <div class="rss" title="{% trans "RSS feed with latest comments " %}"><a href="{% url "terminator_feed_comments" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" /></a></div>
-            <h2><img src="{{ STATIC_PREFIX }}images/icon_comment_32.png" />{% trans "Latest Comments" %}</h2>
-            <ul class="changelist">
-            {% for comment in latest_comments %}
-                <li class="proposallink">
-                    {% url "profiles_profile_detail" username=comment.user.username as profile_url %}
-                    {% blocktrans with comment=comment.comment|truncatewords:"10"|truncatechars:"100" comment_url=comment.get_absolute_url comment_id=comment.pk concept=comment.content_object.concept language_code=comment.content_object.language_id username=comment.user.username %}<a href="{{ profile_url }}">{{ username }}</a>: “<a href="{{ comment_url }}">{{ comment }}</a>” in <b>{{ concept }} ({{ language_code }})</b>{% endblocktrans %}
-                    <p class="change_ago">{% blocktrans with time_ago=comment.submit_date|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
-                </li>
-            {% endfor %}
-            <ul>
-        </div>
+        {% include "terminator/latest_translations_snippet.html" with rss=True changes=latest_translation_changes %}
+        {% include "terminator/latest_comments_snippet.html" with rss=True %}
     </div>
 
     <div class="two_columns_index_row">
