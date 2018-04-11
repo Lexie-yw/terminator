@@ -43,7 +43,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <p><a href="{% url "admin:terminator_glossary_change" glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this glossary" %}</a></p>
     {% endif %}
 
-    <h3>{% blocktrans %}Concepts{% endblocktrans %}</h3>
+    <h2>{% blocktrans %}Concepts{% endblocktrans %}</h2>
     
     <ul class="iconlist halfvertflexlist">
     {% for concept in glossary.concept_set.all|slice:":19" %}
@@ -64,7 +64,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
 
     {% if user.is_authenticated %}
-        <h3>{% blocktrans %}Glossary collaborators{% endblocktrans %}</h3>
+        <h2>{% blocktrans %}Glossary collaborators{% endblocktrans %}</h2>
         {% with glossary.get_collaborators as collaborators %}
             {% if collaborators %}
                 <ul class="iconlist halfvertflexlist">
