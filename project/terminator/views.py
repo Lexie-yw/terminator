@@ -339,6 +339,23 @@ class GlossaryDetailView(TerminatorDetailView):
         collaboration_form = collaboration_form or CollaborationRequestForm()
         context['subscribe_form'] = subscribe_form
         context['collaboration_request_form'] = collaboration_form
+
+        cil_ctype = ContentType.objects.get_for_model(ConceptInLanguage)
+        context.update({
+            'latest_comments': Comment.objects.order_by("-id").
+                # the cil_ctype filter should be unnecessary, but will become
+                # required if we ever have comments on other content types.
+                filter(
+                    content_type=cil_ctype,
+                    #the __integer transform changes the str object_pk into an
+                    #INT that can be joined by the database
+                    object_pk__integer__in=ConceptInLanguage.objects.filter(
+                        concept__glossary=self.object,
+                    ),
+                ).
+                select_related("user").
+                prefetch_related("content_object", "content_object__concept")[:5],
+        })
         return context
 
 

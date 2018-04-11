@@ -63,6 +63,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
     {% endif %}
     
+    <div class="two_columns_index_row">
+      {% include "terminator/latest_translations_snippet.html" with rss=False changes=glossary.get_recent_translation_changes %}
+      {% include "terminator/latest_comments_snippet.html" with rss=False%}
+    </div>
 
     {% if user.is_authenticated %}
         <h2>{% blocktrans %}Glossary collaborators{% endblocktrans %}</h2>
