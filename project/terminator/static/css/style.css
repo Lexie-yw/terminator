@@ -239,7 +239,6 @@ a:active {
     background: linear-gradient(#999, #aaa);
     height: 32px;
     padding: 0;
-    margin-top: 20em;/* TODO the problem is that we are using floats */
 }
 
 #footer_text {
