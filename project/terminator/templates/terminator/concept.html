@@ -41,7 +41,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     {% if concept.source_language_finalized %}
         <p>{% blocktrans %}The information in the source language is finalized.{% endblocktrans %}</p>
-        <h4><a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=concept.glossary.source_language_id %}">View full information for the source language</a></h4>
+        <h4><a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=concept.glossary.source_language_id %}">{% trans "View full information for the source language" %}</a></h4>
 
 
     {# TODO: Enforce/suggest work according to ideal workflow + user's prefered language  #}
@@ -67,12 +67,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <p>
     {% with prev_concept=concept.prev_concept %}
         {% if prev_concept %}
-          <a href="{% url "terminator_concept_detail" pk=prev_concept.id %}">← Previous concept</a>
+          <a href="{% url "terminator_concept_detail" pk=prev_concept.id %}">{% trans "← Previous concept" %}</a>
         {% endif %}
     {% endwith %}
     {% with next_concept=concept.next_concept %}
         {% if next_concept %}
-          <a style="float: right;" href="{% url "terminator_concept_detail" pk=next_concept.id %}">Next concept →</a>
+          <a style="float: right;" href="{% url "terminator_concept_detail" pk=next_concept.id %}">{% trans "Next concept →" %}</a>
         {% endif %}
     {% endwith %}
     </p>
