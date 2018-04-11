@@ -19,6 +19,7 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.db.models import Field, Transform
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
@@ -573,6 +574,16 @@ class CollaborationRequest(models.Model):
             'glossary': self.for_glossary
         }
         return unicode(_(u"%(user)s requested %(role)s for %(glossary)s") % trans_data)
+
+
+@Field.register_lookup
+class IntegerValue(Transform):
+    lookup_name = 'integer'  # e.g. field__integer__in
+
+    def as_sql(self, compiler, connection):
+        sql, params = compiler.compile(self.lhs)
+        sql = 'CAST(%s AS INT)' % sql
+        return sql, params
 
 
 def recent_translation_changes(changes):
