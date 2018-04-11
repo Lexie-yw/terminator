@@ -69,6 +69,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </div>
 
     {% if user.is_authenticated %}
+        <div class="two_columns_index_row">
+          <div class="index_double_column">
         <h2>{% blocktrans %}Glossary collaborators{% endblocktrans %}</h2>
         {% with glossary.get_collaborators as collaborators %}
             {% if collaborators %}
@@ -84,6 +86,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 <p>{% blocktrans %}This glossary has no collaborators.{% endblocktrans %}</p>
             {% endif %}
         {% endwith %}
+          </div>
+        </div>
         
         <p>{% blocktrans %}Do you want to receive e-mail notifications of all comments in this glossary?{% endblocktrans %}</p>
         
