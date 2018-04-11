@@ -373,6 +373,7 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
 .conceptitem {
     padding-left: 1.5em;
     background: url(../images/icon_concept_16.png) 0 0 no-repeat;
+    max-width: 25vw;
 }
 
 .definitionitem {
