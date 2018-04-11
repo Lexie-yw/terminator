@@ -324,8 +324,8 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
     /* This displays items in short columns */
     flex-direction: column;
     flex-wrap: wrap;
-    max-width: 100vw;
-    max-height: 12em;
+    max-width: calc(100vw - 220px);
+    max-height: 14em;
 }
 
 .vertflexlist > li .halfvertflexlist > li {
