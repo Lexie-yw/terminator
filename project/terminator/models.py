@@ -16,7 +16,9 @@
 # You should have received a copy of the GNU General Public License along with
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
+from django.contrib.admin.models import LogEntry
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Field, Transform
@@ -272,6 +274,17 @@ class Glossary(models.Model):
             for line in permission_lines:
                 collaborators.append({'user': line.user, 'role': role})
         return collaborators
+
+    def get_recent_translation_changes(self):
+        translation_ctype = ContentType.objects.get_for_model(Translation)
+        return recent_translation_changes(LogEntry.objects.filter(
+                content_type=translation_ctype,
+                #the __integer transform changes the str object_id into an INT
+                #that can be joined by the database
+                object_id__integer__in=Translation.objects.filter(
+                    concept__glossary=self,
+                ),
+        ).order_by("-action_time")[:5])
 
 
 class Concept(models.Model):
