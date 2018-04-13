@@ -32,7 +32,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 
 {% block content %}
-    <h1><img src="{{ STATIC_PREFIX }}images/icon_user_32.png" />{% blocktrans with user=thisuser %}{{ user }}'s profile{% endblocktrans %}</h1>
+    <h1><img src="{{ STATIC_PREFIX }}images/icon_user_32.png" />{% blocktrans with user=thisuser %}{{ user }}’s profile{% endblocktrans %}</h1>
     {% if user.is_authenticated and thisuser.email %}
       <p><a href="mailto:{{ thisuser.email }}">{% trans "E-mail this user" %}</a></p>
     {% endif %}
@@ -66,13 +66,13 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <div class="pagination step-links">
             {% if comments.paginator.num_pages > 1 %}
                 {% if comments.has_previous %}
-                    <a href="?page={{ comments.previous_page_number }}">{% trans "previous" %}</a>
+                    <a href="?page={{ comments.previous_page_number }}">{% trans "← Previous" %}</a>
                 {% endif %}
                 <span class="current">
-                    {% blocktrans with number=comments.number total=comments.paginator.num_pages %}Page {{ number }} of {{ total }}.{% endblocktrans %}
+                    {% blocktrans with number=comments.number total=comments.paginator.num_pages %}(Page {{ number }} of {{ total }}){% endblocktrans %}
                 </span>
                 {% if comments.has_next %}
-                    <a href="?page={{ comments.next_page_number }}">{% trans "next" %}</a>
+                    <a href="?page={{ comments.next_page_number }}">{% trans "Next  →" %}</a>
                 {% endif %}
             {% endif %}
         </div>
