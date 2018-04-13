@@ -37,7 +37,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       <p><a href="mailto:{{ thisuser.email }}">{% trans "E-mail this user" %}</a></p>
     {% endif %}
     
-    <h3>{% blocktrans with user=thisuser %}Glossaries on which {{ user }} collaborates{% endblocktrans %}</h3>
+    <h2>{% blocktrans with user=thisuser %}Glossaries on which {{ user }} collaborates{% endblocktrans %}</h2>
     {% if glossaries %}
         <ul class="changelist halfvertflexlist">
         {% for glossary in glossaries %}
@@ -52,7 +52,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
     
     
-    <h3>{% blocktrans with user=thisuser %}Comments by {{ user }}{% endblocktrans %}</h3>
+    <h2>{% blocktrans with user=thisuser %}Comments by {{ user }}{% endblocktrans %}</h2>
     {% if comments.object_list %}
         <ul class="changelist">
         {% for comment in comments.object_list %}
