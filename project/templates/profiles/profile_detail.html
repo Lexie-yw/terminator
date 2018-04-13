@@ -27,7 +27,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 {% block breadcrumbs %}
     » <a href="{% url "profiles_profile_list" %}">{% trans "Profiles" %}</a>
-    » <a href="{% url "profiles_profile_detail" username=thisuser %}">{{ user }}</a>
+    » <a href="{% url "profiles_profile_detail" username=thisuser %}">{{ thisuser }}</a>
 {% endblock %}
 
 
