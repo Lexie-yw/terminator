@@ -33,7 +33,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <h1><img src="{{ STATIC_PREFIX }}images/icon_user_32.png" /> {% trans "Profile list" %}</h1>
     <ul class="iconlist">
     {% for user in user_list %}
-        <li class="useritem"><a href="{{ user.username}}/">{% blocktrans with user=user.username %}{{ user }} profile{% endblocktrans %}</a></li>
+        <li class="useritem"><a href="{{ user.username}}/">{{ user }}</a></li>
     {% endfor %}
     </ul>
 {% endblock %}
