@@ -39,7 +39,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <h3>{% blocktrans with user=thisuser %}Glossaries on which {{ user }} collaborates{% endblocktrans %}</h3>
     {% if glossaries %}
-        <ul class="changelist">
+        <ul class="changelist halfvertflexlist">
         {% for glossary in glossaries %}
             <li class="glossaryitem">
                 {% url "terminator_glossary_detail" pk=glossary.glossary.pk as glossary_url %}
