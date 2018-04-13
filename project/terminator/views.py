@@ -49,7 +49,7 @@ from terminator.models import *
 def terminator_profile_detail(request, username):
     user = get_object_or_404(User, username=username)
     user_comments = Comment.objects.filter(user=user).order_by('-submit_date')
-    paginator = Paginator(user_comments, 25)
+    paginator = Paginator(user_comments, 10)
     # Make sure page request is an int. If not, deliver first page.
     try:
         page = int(request.GET.get('page', '1'))
