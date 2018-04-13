@@ -57,6 +57,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </div>
     
     <div class="two_columns_index_row">
+        {% include "terminator/latest_translations_snippet.html" with rss=False changes=translation_changes%}
     <div class="index_right_column">
     <h2><img src="{{ STATIC_PREFIX }}images/icon_comment_32.png" />
             {% blocktrans with user=thisuser %}Comments by {{ user }}{% endblocktrans %}</h2>

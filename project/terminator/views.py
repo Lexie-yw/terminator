@@ -76,12 +76,21 @@ def terminator_profile_detail(request, username):
             user_glossaries.append({'glossary': glossary, 'role': _(u"Lexicographer")})
         elif checker.has_perm('is_terminologist_in_this_glossary', glossary):
             user_glossaries.append({'glossary': glossary, 'role': _(u"Terminologist")})
+
+    translation_ctype = ContentType.objects.get_for_model(Translation)
+    translation_changes = recent_translation_changes(LogEntry.objects.filter(
+                content_type=translation_ctype,
+                user=user,
+            ).order_by("-action_time")[:10])
+
+
     context = {
         'thisuser': user,
         'glossaries': user_glossaries,
         'comments': comments,
         'search_form': SearchForm(),
         'next': request.get_full_path(),
+        'translation_changes': translation_changes,
     }
     return render(request, "profiles/profile_detail.html", context)
 
