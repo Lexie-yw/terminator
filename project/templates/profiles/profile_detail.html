@@ -39,7 +39,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <div class="two_columns_index_row">
     <div class="index_left_column">
-    <h2><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />
+    <h2><img src="{{ STATIC_PREFIX }}images/icon_glossary_24.png" />
             {% blocktrans with user=thisuser %}Glossaries on which {{ user }} collaborates{% endblocktrans %}</h2>
     {% if glossaries %}
         <ul class="changelist halfvertflexlist">
@@ -59,7 +59,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <div class="two_columns_index_row">
         {% include "terminator/latest_translations_snippet.html" with rss=False changes=translation_changes%}
     <div class="index_right_column">
-    <h2><img src="{{ STATIC_PREFIX }}images/icon_comment_32.png" />
+    <h2><img src="{{ STATIC_PREFIX }}images/icon_comment_24.png" />
             {% blocktrans with user=thisuser %}Comments by {{ user }}{% endblocktrans %}</h2>
     {% if comments.object_list %}
         <ul class="changelist">
