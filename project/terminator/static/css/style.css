@@ -79,6 +79,9 @@ a:active {
 #header_title {
     padding-top: 20px;
     margin-left: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #header_title h1 {
@@ -162,9 +165,12 @@ a:active {
 
 #breadcrumbs_links {
     float: left;
-    width: 70%;
+    max-width: calc(100% - 22em);
     margin: 0em;
     padding-top: 0.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #breadcrumbs_search {
