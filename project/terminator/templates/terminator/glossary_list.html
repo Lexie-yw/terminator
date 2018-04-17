@@ -25,7 +25,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endblock %}
 
 
-{% block content %}
+{% block wide_content %}
     <h1><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{% trans "Glossaries" %}</h1>
     
     {% if perms.terminator.add_glossary %}
@@ -33,17 +33,17 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
     
     {% if glossary_list %}
-        <ul class="iconlist">
+        <div class="iconlist horizflexlist">
         {% for glossary in glossary_list %}
-            <li class="glossaryitem">
-                <p><a href="{% url "terminator_glossary_detail" pk=glossary.pk %}">{{ glossary.name }}</a></p>
+            <div class="glossaryitem">
+                <h3><a href="{% url "terminator_glossary_detail" pk=glossary.pk %}">{{ glossary.name }}</a></h3>
                 <p>{{ glossary.description|truncatewords:15 }}</p>
                 {% if features.export_tbx %}
                     <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
                 {% endif %}
-            </li>
+            </div>
         {% endfor %}
-        </ul>
+        </div>
     {% else %}
         <p>{% trans "No glossaries are available." %}</p>
     {% endif %}
