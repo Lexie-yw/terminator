@@ -300,6 +300,22 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
         fields = '__all__'
         model = Translation
 
+    def __init__(self, *args, **kwargs):
+        super(TerminatorTranslationAdminForm, self).__init__(*args, **kwargs)
+        if not "instance" in kwargs:
+            # Not editing
+            return
+
+        language = self.instance.language
+        for field, qs in (
+                ("part_of_speech", language.parts_of_speech),
+                ("grammatical_gender", language.grammatical_genders),
+                ("grammatical_number", language.grammatical_numbers),
+                ("administrative_status_reason", language.administrativestatusreason_set),
+            ):
+            if field in self.fields:
+                self.fields[field].queryset = qs
+
     def clean(self):
         super(forms.ModelForm, self).clean()
 
