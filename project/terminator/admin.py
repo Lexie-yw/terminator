@@ -360,6 +360,24 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     inlines = [ContextSentenceInline, CorpusExampleInline]
     list_select_related = ('language', 'concept', 'part_of_speech', 'administrative_status')
 
+    def get_fields(self, request, obj=None):
+        fields = super(TranslationAdmin, self).get_fields(request, obj)
+        if not obj:
+            return fields
+
+        # simplify by removing fields that can only get invalid values here
+        # (the language relationships first need to be updated)
+        fields = fields[:]
+        language = obj.language
+        if not language.grammatical_genders.exists():
+            fields.remove("grammatical_gender")
+        if not language.grammatical_numbers.exists():
+            fields.remove("grammatical_number")
+        if not language.administrativestatusreason_set.exists():
+            fields.remove("administrative_status_reason")
+
+        return fields
+
     def get_queryset(self, request):
         qs = super(TranslationAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -400,6 +418,31 @@ class TranslationOfConceptAdmin(TranslationAdmin):
     inlines = [ContextSentenceInline, CorpusExampleInline]
     show_full_result_count = False
     actions_selection_counter = False
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super(TranslationOfConceptAdmin, self).get_fieldsets(request, obj)
+        if not obj:
+            return fieldsets
+
+        # simplify by removing fields that can only get invalid values here
+        # (the language relationships first need to be updated)
+        language = obj.language
+        fields = list(fieldsets[1][1]['fields'])
+        if "grammatical_gender" in fields and not language.grammatical_genders.exists():
+            fields.remove("grammatical_gender")
+        if "grammatical_number" in fields and not language.grammatical_numbers.exists():
+            fields.remove("grammatical_number")
+
+        fieldsets[1][1]['fields'] = fields
+
+        fields = list(fieldsets[2][1]['fields'][1])
+        if "administrative_status_reason" in fields and \
+                not language.administrativestatusreason_set.exists():
+            fields.remove("administrative_status_reason")
+            fieldsets[2][1]['fields'] = ('process_status', fields, 'note')
+
+        return fieldsets
+
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
 
