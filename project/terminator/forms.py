@@ -48,7 +48,7 @@ class AdvancedSearchForm(SearchForm):
         queryset=PartOfSpeech.objects.all(), required=False,
         label=_("Filter by part of speech")
     )
-    #TODO Perhaps for the filter_by_administrative_status field it should be
+    #TODO Perhaps for the filter_by_administrative_status field it would be
     # better to put a checkbox for each one, or a MultipleChoices field. Both
     # approachs would require changes in the view.
     filter_by_administrative_status = forms.ModelChoiceField(
@@ -337,7 +337,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
                 del cleaned_data["part_of_speech"]
 
         grammatical_gender = cleaned_data.get("grammatical_gender")
-        # Check that Grammatical Gender is only specified when is given a Part
+        # Check that Grammatical Gender is only specified when given a Part
         # of Speech.
         if not part_of_speech and grammatical_gender:
             msg = _(u"Don't specify a grammatical gender without specifying a part of speech.")
@@ -361,7 +361,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
                 del cleaned_data["grammatical_gender"]
 
         grammatical_number = cleaned_data.get("grammatical_number")
-        # Check that Grammatical Number is only specified when is given a Part
+        # Check that Grammatical Number is only specified when given a Part
         # of Speech.
         if not part_of_speech and grammatical_number:
             msg = _(u"Don't specify a grammatical number without specifying a part of speech.")
@@ -386,7 +386,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
 
         administrative_status = cleaned_data.get("administrative_status")
         administrative_status_reason = cleaned_data.get("administrative_status_reason")
-        # Check that Administrative Status Reason is only specified when is
+        # Check that Administrative Status Reason is only specified when
         # given an Administrative Status.
         if not administrative_status and administrative_status_reason:
             msg = _(u"Don't specify an administrative status reason without specifying an administrative status.")
