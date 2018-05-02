@@ -601,23 +601,23 @@ class IntegerValue(Transform):
 
 def recent_translation_changes(changes):
     translation_changes = []
-    # simple cache to hopefully avoid some queries:
-    translation_dict = {}
+    changes = list(changes) # we need to iterate twice through changes
+    translation_dict = Translation.objects.in_bulk(c.object_id for c in changes)
+
+    # Some Translations might have been deleted, so we have to check each one.
     for logentry in changes:
-        try:
-            translation = translation_dict.get(logentry.object_id, None)
-            if not translation:
-                translation = Translation.objects.get(id=logentry.object_id)
-                translation_dict[logentry.object_id] = translation
-            translation_changes.append({
-                "data": logentry,
-                "translation_concept_id": translation.concept_id,
-            })
-        except Translation.DoesNotExist:
+        translation = translation_dict.get(int(logentry.object_id), None)
+        if translation is None:
             # Translation since deleted. Let's try to get the concept.
             change = {"data": logentry}
             match = re.search(r'#([\d]+)', logentry.object_repr)
             if match and Concept.objects.filter(pk=int(match.group(1))).exists():
                 change["translation_concept_id"] = int(match.group(1))
             translation_changes.append(change)
+        else:
+            # Translation there - let's assume it is still the same one.
+            translation_changes.append({
+                "data": logentry,
+                "translation_concept_id": translation.concept_id,
+            })
     return translation_changes
