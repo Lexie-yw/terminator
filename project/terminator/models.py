@@ -30,6 +30,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from guardian.shortcuts import assign_perm, get_users_with_perms
 
+import itertools
 import re
 
 class PartOfSpeech(models.Model):
@@ -358,6 +359,19 @@ class Concept(models.Model):
                 glossary=self.glossary,
                 id__gt=self.id,
         ).order_by('id').first()
+
+    def other_concepts(self):
+        """Some surrounding concepts in the glossary."""
+        previous_concepts = Concept.objects.filter(
+                glossary=self.glossary,
+                id__lt=self.pk,
+        ).only("id", "repr_cache").order_by('-id')[:5]
+        next_concepts = Concept.objects.filter(
+                glossary=self.glossary,
+                id__gte=self.pk,
+        ).only("id", "repr_cache").order_by('id')[:6]
+
+        return itertools.chain(reversed(previous_concepts), next_concepts)
 
     def get_absolute_url(self):
         return reverse('terminator_concept_detail', kwargs={'pk': unicode(self.pk)})
