@@ -775,7 +775,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             # The next line may raise the
                             # ExternalLinkType.DoesNotExist exception.
                             resource_link_type = ExternalLinkType.objects.get(pk=resource_type)
-                        except:
+                        except ExternalLinkType.DoesNotExist:
                             excp_msg = (_("External Link Type \"%s\", found "
                                           "inside a \"%s\" tag in the \"%s\" "
                                           "language in concept \"%s\", doesn't"
