@@ -98,18 +98,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         </div>
     </div>
 
-    <div class="prevnext">
-    {% with prev_concept=concept.prev_concept %}
-        {% if prev_concept %}
-          <a href="{% url "terminator_concept_source" pk=prev_concept.id %}">{% trans "← Previous concept" %}</a>
-        {% endif %}
-    {% endwith %}
-    {% with next_concept=concept.next_concept %}
-        {% if next_concept %}
-          <a style="float: right;" href="{% url "terminator_concept_source" pk=next_concept.id %}">{% trans "Next concept →" %}</a>
-        {% endif %}
-    {% endwith %}
-    </div>
+    {% include "terminator/prev_next_concept_snippet.html" with concept=concept target="terminator_concept_source" %}
 
     {% include "terminator/mono_comments_snippet.html" %}
 

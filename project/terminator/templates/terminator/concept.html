@@ -64,19 +64,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 
     {% get_current_language as LANGUAGE_CODE %}
-    <p>
-    {% with prev_concept=concept.prev_concept %}
-        {% if prev_concept %}
-          <a href="{% url "terminator_concept_detail" pk=prev_concept.id %}">{% trans "← Previous concept" %}</a>
-        {% endif %}
-    {% endwith %}
-    {% with next_concept=concept.next_concept %}
-        {% if next_concept %}
-          <a style="float: right;" href="{% url "terminator_concept_detail" pk=next_concept.id %}">{% trans "Next concept →" %}</a>
-        {% endif %}
-    {% endwith %}
-    </p>
-
+    {% include "terminator/prev_next_concept_snippet.html" with concept=concept target="terminator_concept_detail" %}
 
     {% if concept.subject_field %}
     <p><b>{% trans "Subject field:" %}</b> <a href="{% url "terminator_concept_detail" pk=concept.subject_field.pk %}">{{ concept.subject_field }}</a></p>
