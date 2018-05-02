@@ -222,6 +222,7 @@ class Glossary(models.Model):
         assign_perm('terminator.delete_corpusexample', user)
 
     def assign_lexicographer_permissions(self, user):
+        # A lexicographer is also considered a terminologist
         assign_perm('is_lexicographer_in_this_glossary', user, self)
         # Assign permissions over concepts
         assign_perm('terminator.add_concept', user)
@@ -234,6 +235,7 @@ class Glossary(models.Model):
         assign_perm('terminator.delete_proposal', user)
 
     def assign_owner_permissions(self, user):
+        # An owner is also considered a lexicographer and a terminologist
         assign_perm('is_owner_for_this_glossary', user, self)
         # Assign permissions over glossaries
         #assign_perm('terminator.add_glossary', user)
@@ -252,7 +254,7 @@ class Glossary(models.Model):
         # XXX: attach_perms=True makes this very slow with lots of users
         # https://github.com/django-guardian/django-guardian/issues/494
         # We could limit the damage by first checking if there is a reasonable
-        # number users and adapt the UI, but it sucks to have to make the
+        # number of users and adapt the UI, but it sucks to have to make the
         # choice.
 
         # Hand-written for constant number of queries. This is not exactly

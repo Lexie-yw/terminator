@@ -165,7 +165,6 @@ class ConceptDetailView(TerminatorDetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ConceptDetailView, self).get_context_data(**kwargs)
-        # Add the comment thread for the given language, if given, to context
         context['available_languages'] = Language.objects.order_by("pk")
         try:
             language = Language.objects.get(pk=self.kwargs.get('lang'))
@@ -997,9 +996,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 # translation note, so stop looping.
                                 break
 
-                        # Remove the assigned Grammatical Gender or Grammatical
-                        # Number for the translation if doesn't has a Part of
-                        # Speech.
+                        # Remove the gender and number for the translation if
+                        # it doesn't have a Part of Speech.
                         if (translation_object.grammatical_gender or translation_object.grammatical_number) and not translation_object.part_of_speech:
                             translation_object.grammatical_gender = None
                             translation_object.grammatical_number = None
