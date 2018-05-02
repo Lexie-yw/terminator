@@ -11,7 +11,7 @@
 <h2><img src="{{ STATIC_PREFIX }}images/icon_comment_24.png" />{% trans "Latest Comments" %}</h2>
 <ul class="changelist">
 {% for comment in latest_comments %}
-    <li class="commentitem">
+    <li class="commentitem" title="{{ comment.comment }}">
         {% url "profiles_profile_detail" username=comment.user.username as profile_url %}
         {% blocktrans with comment=comment.comment|truncatewords:"10"|truncatechars:"100" comment_url=comment.get_absolute_url comment_id=comment.pk concept=comment.content_object.concept language_code=comment.content_object.language_id username=comment.user.username %}<a href="{{ profile_url }}">{{ username }}</a>: “<a href="{{ comment_url }}">{{ comment }}</a>” in <b>{{ concept }} ({{ language_code }})</b>{% endblocktrans %}
         <p class="change_ago">{% blocktrans with time_ago=comment.submit_date|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>

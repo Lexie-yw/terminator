@@ -64,7 +64,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% if comments.object_list %}
         <ul class="changelist">
         {% for comment in comments.object_list %}
-            <li class="commentitem">
+            <li class="commentitem" title="{{ comment.comment }}">
                 {% blocktrans with comment=comment.comment|truncatewords:"10"|truncatechars:"100" comment_url=comment.get_absolute_url comment_id=comment.pk concept=comment.content_object.concept language_code=comment.content_object.language_id glossary=comment.content_object.concept.glossary %}“<a href="{{ comment_url }}">{{ comment }}</a>” in <b>{{ concept }} ({{ language_code }})</b> in {{ glossary }}{% endblocktrans %}
                 <p class="change_ago">{% blocktrans with time_ago=comment.submit_date|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
             </li>
