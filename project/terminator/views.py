@@ -414,8 +414,7 @@ def terminator_index(request):
         'proposal_form': proposal_form,
         'new_proposal_message': new_proposal_message,
         'next': request.get_full_path(),
-        'glossary_list': Glossary.objects.all()[:8],
-        'are_there_more_glossaries': Glossary.objects.count() > 8,
+        'glossaries': Glossary.objects.all(),
         'latest_proposals': Proposal.objects.order_by("-id").
                 select_related("language", "for_glossary")[:8],
         'latest_comments': Comment.objects.order_by("-id").
