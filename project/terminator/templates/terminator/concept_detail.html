@@ -89,18 +89,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             <li><a href="{% url "admin:terminator_concept_add" %}?glossary={{ concept.glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "Add new concept" %}</a></li>
         {% endif %}
         {# #TODO add more links to specific sidebar #}
-        {% with other_concepts=concept.glossary.concept_set.all %}
-            <li>
-                <ul class="concept_list">
-                {% for other_concept in other_concepts|slice:":10" %}
-                    <li><a href="{% url "terminator_concept_detail" pk=other_concept.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_concept_16.png" />{{ other_concept }}</a></li>
-                {% endfor %}
-                </ul>
-            </li>
-            {% if other_concepts|length > 10 %}
-                <li><a href="{% url "terminator_glossary_detail" pk=concept.glossary.pk %}">{% trans "See all glossary concepts" %}</a></li>
-            {% endif %}
-        {% endwith %}
+        {% include "terminator/other_concepts_snippet.html" with concept=concept %}
+        <li><a href="{% url "terminator_glossary_concepts" pk=concept.glossary.pk %}">{% trans "See all glossary concepts" %}</a></li>
     </ul>
     
     <hr />
