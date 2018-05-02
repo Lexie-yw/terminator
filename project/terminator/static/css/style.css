@@ -308,6 +308,11 @@ ul.concept_list {
     padding-left: 1em;
 }
 
+#sidebar ul.concept_list {
+    padding-left: 0;
+    font-size: 90%;
+}
+
 /* Styles for latest changes lists */
 
 ul.iconlist {
