@@ -1,0 +1,17 @@
+{% load i18n %}
+{# provde concept and target (url) #}
+<div class="prevnext">
+  {% with prev_concept=concept.prev_concept %}
+      {% if prev_concept %}
+        <a href="{% url target pk=prev_concept.id %}"
+           title=" {{prev_concept }}">{% trans "← Previous concept" %}</a>
+      {% endif %}
+  {% endwith %}
+  {% with next_concept=concept.next_concept %}
+      {% if next_concept %}
+        <a style="float: right;"
+           href="{% url target pk=next_concept.id %}"
+           title="{{ next_concept }}">{% trans "Next concept →" %}</a>
+      {% endif %}
+  {% endwith %}
+</div>
