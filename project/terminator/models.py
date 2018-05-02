@@ -244,7 +244,6 @@ class Glossary(models.Model):
         assign_perm('terminator.delete_collaborationrequest', user)
 
     def get_collaborators(self):
-        from django.contrib.contenttypes.models import ContentType
         from guardian.models import UserObjectPermission
         from django.contrib.auth.models import Permission
         # This is what we want:
