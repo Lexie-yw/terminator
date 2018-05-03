@@ -150,6 +150,11 @@ class TerminatorTemplateView(TemplateView):
 class ConceptView(TerminatorDetailView):
 
     # no language
+
+    def get_queryset(self):
+        qs = super(ConceptView, self).get_queryset()
+        return qs.select_related('glossary')
+
     def get_template_names(self):
         return "terminator/concept.html"
 
@@ -196,6 +201,10 @@ class ConceptDetailView(TerminatorDetailView):
 
 
 class ConceptSourceView(TerminatorDetailView):
+
+    def get_queryset(self):
+        qs = super(ConceptSourceView, self).get_queryset()
+        return qs.select_related('glossary', 'glossary__source_language')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -277,6 +286,7 @@ class ConceptSourceView(TerminatorDetailView):
         context['message'] = message
         context['message_class'] = message_class
         context['current_language'] = language
+        translations = translations.select_related('administrative_status')
         context['translations'] = translations
         context['definition'] = definition
         context['comments_thread'], _c = ConceptInLanguage.objects.get_or_create(
