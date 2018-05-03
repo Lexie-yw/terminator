@@ -180,17 +180,24 @@ class ConceptAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         glossary_id = self._glossary_parameter(request)
 
-        # only show glossaries where the user has permission
-        if db_field.name == "glossary":
-            kwargs["queryset"] = self._glossaries_for(request)
         if not glossary_id:
+            if db_field.name == "glossary":
+                # only show glossaries where the user has permission
+                kwargs["queryset"] = self._glossaries_for(request)
             return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-        # only show concepts from this glossary
-        if db_field.name == "broader_concept":
+        # we have a glossary_id
+        if db_field.name == "glossary":
+            # Only show the single glossary, since the other fields will
+            # only be valid for that glossary. But only do this if the user has
+            # the necessary permission for glossary_id!
+            kwargs["queryset"] = self._glossaries_for(request).filter(id=glossary_id)
+            #kwargs["disabled"] = True # doesn't work :-(
+        elif db_field.name == "broader_concept":
             kwargs["queryset"] = self._concepts_in(glossary_id)
         elif db_field.name == "subject_field":
             kwargs["queryset"] = Glossary.objects.get(id=glossary_id).subject_fields
+
         return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
