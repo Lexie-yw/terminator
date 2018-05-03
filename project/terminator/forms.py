@@ -17,7 +17,7 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 from django import forms
-from django.forms.widgets import Textarea, TextInput
+from django.forms.widgets import Textarea, TextInput, URLInput, Select
 from django.utils.translation import ugettext_lazy as _
 
 from terminator.models import *
@@ -124,6 +124,31 @@ class CollaborationRequestForm(forms.ModelForm):
     class Meta:
         model = CollaborationRequest
         fields = ('collaboration_role',)
+
+
+class ExternalResourceForm(forms.ModelForm):
+    class Meta:
+        model = ExternalResource
+        fields = ('address', 'link_type', 'description')
+        labels = {
+                'address': "",
+                'description': "",
+                'link_type': "",
+        }
+        widgets = {
+                'address': URLInput(attrs={
+                        "placeholder": "https://en.wikipedia.org/wiki/..."
+                }),
+                'description': Textarea(attrs={
+                        "placeholder": _("Enter a description of the linked resource..."),
+                        "rows": 2,
+                        "cols": 50,
+                }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ExternalResourceForm, self).__init__(*args, **kwargs)
+        self.fields['link_type'].empty_label = _("Type of link...")
 
 
 class TerminatorGlossaryAdminForm(forms.ModelForm):

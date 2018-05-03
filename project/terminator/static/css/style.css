@@ -828,3 +828,55 @@ h3 {
 }
 
 
+.resource_form {
+    max-width: 36em;
+    color: gray;
+    margin-bottom: 8px;
+}
+.resource_form:hover {
+    color: black;
+}
+.resource_form select {
+    color: inherit;
+}
+.resource_form select:active,
+.resource_form select:focus {
+    color: black;
+}
+
+/* instruction to user */
+.resource_form select >option:first-child {
+    color: gray;
+}
+/* actual options */
+.resource_form select >option {
+    color: black;
+}
+
+
+.resource_form input[type=url] {
+    width: 66%;
+}
+.resource_form select {
+    width: 30%;
+}
+
+.resource_form textarea {
+    height: 2em;
+    width: 97%;
+    transition: height 0.25s ease-in-out;
+}
+
+.resource_form form:valid textarea,
+.resource_form textarea:focus {
+    height: 4em;
+    transition: height 0.25s ease-in-out;
+}
+
+.resource_form form:invalid input[type="submit"]{
+    min-height: 2em;
+    color: gray;
+}
+.resource_form form:valid input[type="submit"]{
+    color: black;
+}

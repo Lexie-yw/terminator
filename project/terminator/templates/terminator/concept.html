@@ -94,6 +94,45 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
 
 
+    {% if external_resources or "is_terminologist_in_this_glossary" in glossary_perms %}
+      <h4>{% trans "External resources" %}</h4>
+    {% endif %}
+
+    {% if external_resources %}
+      <ul class="itemlist">
+      {% for externalresource in external_resources %}
+          <li class="externalresourceitem"><a href="{{ externalresource.address }}">
+              {% if externalresource.description %}
+                {{ externalresource.description|linebreaksbr }}
+              {% else %}
+                {{ externalresource.address }}
+              {% endif %}
+            </a>
+          {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+              <a href="{% url "admin:terminator_externalresource_change" externalresource.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit" %}</a>
+          {% endif %}
+          </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if not source_language_finalized and "is_terminologist_in_this_glossary" in glossary_perms or "is_lexicographer_in_this_glossary" in glossary_perms %}
+      <p><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "Link to an external resource:" %}</p>
+      <div class="resource_form">
+      <form method="post" action="">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          <p>{{form.address.errors}}{{ form.address }}
+          {{ form.link_type.errors }}
+          {{ form.link_type }}
+          </p>
+          <p>{{ form.description }}</p>
+          {# TRANSLATORS: button text (verb) #}
+          <input type="submit" value="{% trans "Link" %}"/>
+      </form>
+      </div>
+    {% endif %}
+
 {% endblock %}
 
 

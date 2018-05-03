@@ -42,7 +42,8 @@ from guardian.shortcuts import get_perms
 
 from terminator.forms import (AdvancedSearchForm, CollaborationRequestForm,
                               ExportForm, ImportForm, ProposalForm, SearchForm,
-                              SubscribeForm, ConceptInLanguageForm)
+                              SubscribeForm, ConceptInLanguageForm,
+                              ExternalResourceForm)
 from terminator.models import *
 
 
@@ -158,12 +159,38 @@ class ConceptView(TerminatorDetailView):
     def get_template_names(self):
         return "terminator/concept.html"
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = ExternalResourceForm(request.POST)
+        if form.is_valid():
+            resource = form.save(commit=False)
+            resource.concept = self.object
+            resource.save()
+            LogEntry.objects.log_action(
+                user_id=self.request.user.pk,
+                content_type_id=ContentType.objects.get_for_model(self.object).pk,
+                object_id=self.object.pk,
+                object_repr=force_unicode(self.object),
+                action_flag=ADDITION,
+            )
+            form = ExternalResourceForm()
+
+        context = self.get_context_data(object=self.object)
+        context["form"] = form
+        return self.render_to_response(context)
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ConceptView, self).get_context_data(**kwargs)
+        form = ExternalResourceForm()
+        context['form'] = form
         context['source_language_finalized'] = self.object.source_language_finalized()
         # Limit to pre-approved list of languages for this glossary?
         context['available_languages'] = Language.objects.order_by("pk")
+        context['external_resources'] = ExternalResource.objects.filter(
+                concept=self.object,
+                language_id=None,
+        )
         return context
 
 
