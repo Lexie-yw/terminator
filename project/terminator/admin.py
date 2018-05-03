@@ -174,6 +174,9 @@ class ConceptAdmin(admin.ModelAdmin):
             return qs
         return qs.filter(glossary__in=self._glossaries_for(request))
 
+    def _concepts_in(self, glossary_id):
+        return Concept.objects.filter(glossary_id=glossary_id)
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         glossary_id = self._glossary_parameter(request)
 
@@ -185,8 +188,7 @@ class ConceptAdmin(admin.ModelAdmin):
 
         # only show concepts from this glossary
         if db_field.name == "broader_concept":
-            available_concepts = Concept.objects.filter(glossary_id=glossary_id)
-            kwargs["queryset"] = available_concepts
+            kwargs["queryset"] = self._concepts_in(glossary_id)
         elif db_field.name == "subject_field":
             kwargs["queryset"] = Glossary.objects.get(id=glossary_id).subject_fields
         return super(ConceptAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
@@ -197,9 +199,8 @@ class ConceptAdmin(admin.ModelAdmin):
             return super(ConceptAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
         # only show concepts from this glossary
-        available_concepts = Concept.objects.filter(glossary_id=glossary_id)
         if db_field.name == "related_concepts":
-            kwargs["queryset"] = available_concepts
+            kwargs["queryset"] = self._concepts_in(glossary_id)
         return super(ConceptAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
     def response_add(self, request, obj, post_url_continue=None):
