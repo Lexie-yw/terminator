@@ -161,6 +161,7 @@ class ConceptView(TerminatorDetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ConceptView, self).get_context_data(**kwargs)
+        context['source_language_finalized'] = self.object.source_language_finalized()
         # Limit to pre-approved list of languages for this glossary?
         context['available_languages'] = Language.objects.order_by("pk")
         return context

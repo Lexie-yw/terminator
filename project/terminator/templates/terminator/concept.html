@@ -39,7 +39,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
 
 
-    {% if concept.source_language_finalized %}
+    {% if source_language_finalized %}
         <p>{% blocktrans %}The information in the source language is finalized.{% endblocktrans %}</p>
         <h4><a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=concept.glossary.source_language_id %}">{% trans "View full information for the source language" %}</a></h4>
 
