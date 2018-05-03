@@ -531,7 +531,15 @@ div.translation, div.definition {
     border: 1px solid black;
 }
 
-input[type="text"]:enabled, input[type="password"]:enabled, textarea:enabled {
+input[type="url"],
+textarea {
+    font: inherit;
+}
+
+input[type="text"]:enabled,
+input[type="url"]:enabled,
+input[type="password"]:enabled,
+textarea:enabled {
     outline: none;
     border: 1px solid #DDDDDD;
     box-shadow: inset 1px 1px 2px 0 #707070;
@@ -543,12 +551,18 @@ textarea.definition {
     padding: 8px;
 }
 
-input:focus[type="text"], input:focus[type="password"],textarea:focus {
+input:focus[type="text"],
+input:focus[type="url"],
+input:focus[type="password"],
+textarea:focus {
     transition: box-shadow 0.25s ease-in-out;
     box-shadow: 0 0 5px #09f, inset 1px 1px 2px 0 #707070;
 }
 
-input:hover[type="text"], input:hover[type="password"], textarea:hover:enabled {
+input:hover[type="text"],
+input:hover[type="url"],
+input:hover[type="password"],
+textarea:hover:enabled {
     outline: 1px solid #09f;
 }
 
