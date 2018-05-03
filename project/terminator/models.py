@@ -515,7 +515,7 @@ class Definition(models.Model, ConceptLangUrlMixin):
 
 class ExternalResource(models.Model):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
-    language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
+    language = models.ForeignKey(Language, null=True, blank=True, on_delete=models.PROTECT, verbose_name=_("language"))
     address = models.URLField(verbose_name=_("address"))
     link_type = models.ForeignKey(ExternalLinkType, on_delete=models.PROTECT, verbose_name=_("link type"))
     description = models.TextField(blank=True, verbose_name=_("description"))
