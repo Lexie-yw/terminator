@@ -51,7 +51,13 @@ from terminator.models import *
 
 def terminator_profile_detail(request, username):
     user = get_object_or_404(User, username=username)
-    user_comments = Comment.objects.filter(user=user).order_by('-submit_date')
+    cil_ctype = ContentType.objects.get_for_model(ConceptInLanguage)
+    user_comments = Comment.objects.filter(
+            user=user,
+            content_type=cil_ctype,
+            is_public=True,
+            is_removed=False,
+    ).order_by('-submit_date')
     paginator = Paginator(user_comments, 10)
     # Make sure page request is an int. If not, deliver first page.
     try:
@@ -398,6 +404,8 @@ class GlossaryDetailView(TerminatorDetailView):
                 # required if we ever have comments on other content types.
                 filter(
                     content_type=cil_ctype,
+                    is_public=True,
+                    is_removed=False,
                     #the __integer transform changes the str object_pk into an
                     #INT that can be joined by the database
                     object_pk__integer__in=ConceptInLanguage.objects.filter(
@@ -462,7 +470,11 @@ def terminator_index(request):
         'latest_comments': Comment.objects.order_by("-id").
                 # this filter should be unnecessary, but will become required
                 # if we ever have comments on other content types.
-                filter(content_type=cil_ctype).
+                filter(
+                    content_type=cil_ctype,
+                    is_public=True,
+                    is_removed=False,
+                ).
                 select_related("user").
                 prefetch_related("content_object", "content_object__concept")[:8],
         'latest_glossary_changes': LogEntry.objects.filter(content_type=glossary_ctype).order_by("-action_time")[:8],
