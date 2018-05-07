@@ -208,7 +208,7 @@ class TerminatorConceptAdminForm(forms.ModelForm):
             self.fields['broader_concept'].queryset = concepts
 
     def clean(self):
-        super(forms.ModelForm, self).clean()
+        super(TerminatorConceptAdminForm, self).clean()
 
         cleaned_data = self.cleaned_data
         glossary = cleaned_data.get("glossary")
