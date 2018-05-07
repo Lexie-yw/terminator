@@ -3,7 +3,7 @@
   <div class="index_left_column">
 
     {% if rss %}
-      <div class="rss" title="{% trans "RSS feed with latest changes to terms " %}"><a href="{% url "terminator_feed_translations" %}"><img src="{{ STATIC_PREFIX }}images/icon_rss_24.png" /></a></div>
+      <div class="rss" title="{% trans "RSS feed with latest changes to terms " %}"><a href="{% url "terminator_feed_translations" %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" /></a></div>
     {% endif %}
 
     <h2><img src="{{ STATIC_PREFIX }}images/icon_translation_24.png" />{% trans "Latest Changes to Terms" %}</h2>
