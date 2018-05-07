@@ -3,6 +3,7 @@
 
 import os.path
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
@@ -300,20 +301,23 @@ class URLsB(TestCase):
         response = self.c.get('/glossaries/1/')
         self.assertContains(response, "edit this glossary")
 
-        response = self.c.post('/glossaries/1/', data={
-            'collaboration_role': 'T', # Terminologist
-        })
-        self.assertContains(response, "You will receive a message")
-        response = self.c.post('/glossaries/1/', data={
-            'collaboration_role': 'T',
-        })
-        self.assertContains(response, "You already sent")
-        response = self.c.post('/glossaries/1/', data={
-            'subscribe_to_this_glossary': True,
-        })
-        self.assertContains(response, "You have subscribed")
-        response = self.c.post('/glossaries/1/', data={}) # empty form
-        self.assertEqual(response.status_code, 200)
+        if settings.FEATURES.get('collaboration', True):
+            response = self.c.post('/glossaries/1/', data={
+                'collaboration_role': 'T', # Terminologist
+            })
+            self.assertContains(response, "You will receive a message")
+            response = self.c.post('/glossaries/1/', data={
+                'collaboration_role': 'T',
+            })
+            self.assertContains(response, "You already sent")
+            response = self.c.post('/glossaries/1/', data={
+                'subscribe_to_this_glossary': True,
+            })
+
+        if settings.FEATURES.get('subscription', True):
+            self.assertContains(response, "You have subscribed")
+            response = self.c.post('/glossaries/1/', data={}) # empty form
+            self.assertEqual(response.status_code, 200)
 
     def test_guardian_admin(self):
         self.c.login(username='usuario', password='usuario')
