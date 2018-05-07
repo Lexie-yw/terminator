@@ -402,7 +402,7 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
         return ExternalResource.objects.filter(concept=self.concept_id, language=self.language_id)
 
     def __unicode__(self):
-        return unicode(_(u"%(language)s comment thread for %(concept)s") % {'language': self.language, 'concept': self.concept})
+        return unicode(_(u"%(concept)s — language code: %(iso_code)s") % {'iso_code': self.language_id, 'concept': self.concept})
 
     def translations_html(self):
         translations = Translation.objects.filter(
@@ -525,7 +525,7 @@ class ExternalResource(models.Model):
         verbose_name_plural = _("external resources")
 
     def __unicode__(self):
-        return unicode(_(u"%(address)s (%(language)s) for %(concept)s") % {'address': self.address, 'language': self.language, 'concept': self.concept})
+        return unicode(_(u"%(address)s (#%(concept)s") % {'address': self.address, 'concept': self.concept_id})
 
 
 class Proposal(models.Model):
