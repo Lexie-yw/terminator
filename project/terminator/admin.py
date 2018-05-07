@@ -117,7 +117,7 @@ class GlossaryAdmin(GuardedModelAdmin):
 
     def get_fields(self, request, obj=None):
         fields = super(GlossaryAdmin, self).get_fields(request, obj)
-        if not settings.FEATURES.get('subscribe', True):
+        if not settings.FEATURES.get('subscription', True):
             # This saves a bit of time, and removes the field which will be
             # confusing if the feature is disabled.
             if 'subscribers' in fields:
