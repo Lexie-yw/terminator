@@ -1198,7 +1198,10 @@ def search(request):
                 queryset = Translation.objects.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
 
             # Limit for better worst-case performance. Consider pager.
-            queryset = queryset.select_related('concept', 'concept__glossary', 'administrative_status')[:100]
+            limit = 20
+            if request.user.is_authenticated:
+                limit = 100
+            queryset = queryset.select_related('concept', 'concept__glossary', 'administrative_status')[:limit]
             queryset = queryset.prefetch_related(Prefetch('concept__translation_set', to_attr="others"))
 
             previous_concept = None
