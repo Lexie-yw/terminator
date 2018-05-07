@@ -175,7 +175,7 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
             subject_fields = list(subject_fields)
             glossary = Glossary.objects.get(name=name)
             for subject_field in subject_fields:
-                if subject_field.glossary != glossary:
+                if subject_field.glossary_id != glossary.id:
                     msg = _(u"Specify only concepts that belong to the chosen glossary.")
                     self._errors["subject_fields"] = self.error_class([msg])
                     # This field is no longer valid. So remove it from the
