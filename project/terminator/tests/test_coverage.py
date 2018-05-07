@@ -29,7 +29,6 @@ class URLsA(TestCase):
     def test_plain_200_urls(self):
         for url in [
                 '/',
-                '/export/',
                 '/search/',
                 '/advanced_search/',
                 '/proposals/',
@@ -51,6 +50,7 @@ class URLsA(TestCase):
     def test_plain_302_urls(self):
         for url in [
                 '/import/',
+                '/export/',
                 '/admin/',
         ]:
             #print(url)

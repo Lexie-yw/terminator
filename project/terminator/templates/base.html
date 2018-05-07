@@ -101,7 +101,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% block commonsidebar %}
             <ul>
                 <li><a href="{% url "terminator_help" %}"><img src="{{ STATIC_PREFIX }}images/icon_help_24.png" />{% trans "Help" %}</a></li>
-                {% if features.export_tbx %}
+                {% if features.export_tbx and user.is_authenticated %}
                 <li><a href="{% url "terminator_export" %}"><img src="{{ STATIC_PREFIX }}images/icon_export_24.png" />{% trans "Export" %}</a></li>
                 {% endif %}
                 {% if features.import_tbx %}

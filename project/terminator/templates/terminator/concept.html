@@ -141,7 +141,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <ul>
         {# #TODO add more links to specific sidebar #}
         {% include "terminator/other_concepts_snippet.html" with concept=concept %}
-        <li><a href="{% url "terminator_glossary_concepts" pk=concept.glossary.pk %}">{% trans "See all glossary concepts" %}</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="{% url "terminator_glossary_concepts" pk=concept.glossary.pk %}">{% trans "See all glossary concepts" %}</a></li>
+        {% endif %}
     </ul>
 
     <hr />

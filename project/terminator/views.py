@@ -21,6 +21,7 @@ import re
 from xml.dom import minidom
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -405,7 +406,7 @@ class GlossaryDetailView(TerminatorDetailView):
         return context
 
 
-class GlossaryConceptsView(TerminatorDetailView):
+class GlossaryConceptsView(LoginRequiredMixin, TerminatorDetailView):
     def get_template_names(self):
         return "terminator/glossary_concepts.html"
 
@@ -621,6 +622,7 @@ def autoterm(request, language_code):
 
 
 @csrf_protect
+@login_required
 def export(request):
     #exporting_message = ""#TODO show export confirmation message
     if request.method == 'GET' and 'from_glossaries' in request.GET:

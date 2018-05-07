@@ -53,7 +53,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% if glossary.concept_set.all.count > 20 %}
         <li class="conceptitem">...</li>
       </ul>
-      <p><b><a href="{% url "terminator_glossary_concepts" pk=glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_glossary_16.png" />{% trans "See all concepts in this glossary" %}</a></b></p>
+      {% if user.is_authenticated %}
+        <p><b><a href="{% url "terminator_glossary_concepts" pk=glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_glossary_16.png" />{% trans "See all concepts in this glossary" %}</a></b></p>
+      {% endif %}
     {% else %}
       {% for concept in glossary.concept_set.all|slice:"17:20" %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
@@ -100,7 +102,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {% include "glossary_collaboration_request_form_snippet.html" %}
     {% endif %}
 
-    {% if features.export_tbx %}
+    {% if features.export_tbx and user.is_authenticated %}
         <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
     {% endif %}
 
