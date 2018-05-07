@@ -8,6 +8,8 @@ def features(request):
             "import_tbx": features.get("import_tbx", True),
             "export_tbx": features.get("export_tbx", True),
             "proposals": features.get("proposals", True),
+            "subscription": features.get("subscription", True),
+            "collaboration": features.get("collaboration", True),
             "registration": getattr(settings, "REGISTRATION_OPEN", True),
     }
     return {"features": features}

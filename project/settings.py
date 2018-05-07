@@ -184,4 +184,6 @@ FEATURES = {
         'import_tbx': True,
         'export_tbx': True,
         'proposals': True,
+        'subscription': True,
+        'collaboration': True,
 }

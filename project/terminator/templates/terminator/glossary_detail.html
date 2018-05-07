@@ -93,13 +93,15 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
           </div>
         </div>
         
+        {% if features.subscription %}
         <p>{% blocktrans %}Do you want to receive e-mail notifications of all comments in this glossary?{% endblocktrans %}</p>
-        
         {% include "glossary_subscribe_form_snippet.html" %}
+        {% endif %}
         
+        {% if features.collaboration %}
         <p>{% blocktrans %}Do you want to collaborate on this glossary?{% endblocktrans %}</p>
-        
         {% include "glossary_collaboration_request_form_snippet.html" %}
+        {% endif %}
     {% endif %}
 
     {% if features.export_tbx and user.is_authenticated %}

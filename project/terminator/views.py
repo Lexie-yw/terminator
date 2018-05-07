@@ -20,6 +20,7 @@ import itertools
 import re
 from xml.dom import minidom
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.admin.models import LogEntry, ADDITION
@@ -338,6 +339,9 @@ class ConceptSourceView(TerminatorDetailView):
 
 class GlossaryDetailView(TerminatorDetailView):
     def post(self, request, *args, **kwargs):
+        if not settings.FEATURES.get('collaboration', True) and \
+           not settings.FEATURES.get('subscription', True):
+            raise PermissionDenied
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
