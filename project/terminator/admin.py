@@ -115,6 +115,16 @@ class GlossaryAdmin(GuardedModelAdmin):
         # glossary instance.
         clean_orphan_obj_perms()
 
+    def get_fields(self, request, obj=None):
+        fields = super(GlossaryAdmin, self).get_fields(request, obj)
+        if not settings.FEATURES.get('subscribe', True):
+            # This saves a bit of time, and removes the field which will be
+            # confusing if the feature is disabled.
+            if 'subscribers' in fields:
+                fields = list(fields)
+                fields.remove('subscribers')
+        return fields
+
 
 admin.site.register(Glossary, GlossaryAdmin)
 
@@ -543,7 +553,8 @@ class ProposalAdmin(admin.ModelAdmin):
                                             "Translations and Definitions in "
                                             "a new concept")
 
-admin.site.register(Proposal, ProposalAdmin)
+if settings.FEATURES.get('proposals', False):
+    admin.site.register(Proposal, ProposalAdmin)
 
 
 
@@ -730,7 +741,8 @@ class CollaborationRequestAdmin(admin.ModelAdmin):
                                              {'count': rows_deleted})
     accept_collaboration_requests.short_description = _("Accept selected %(verbose_name_plural)s")
 
-admin.site.register(CollaborationRequest, CollaborationRequestAdmin)
+if settings.FEATURES.get('collaboration', False):
+    admin.site.register(CollaborationRequest, CollaborationRequestAdmin)
 
 
 
