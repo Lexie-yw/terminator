@@ -123,13 +123,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% if user.is_superuser %}
                 
                 <hr />
-                <li><a href="{% url "admin:terminator_language_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage languages" %}</a></li>
-                <li><a href="{% url "admin:terminator_partofspeech_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage parts of speech" %}</a></li>
-                <li><a href="{% url "admin:terminator_grammaticalgender_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage grammatical genders" %}</a></li>
-                <li><a href="{% url "admin:terminator_grammaticalnumber_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage grammatical numbers" %}</a></li>
-                <li><a href="{% url "admin:terminator_administrativestatus_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage administrative statuses" %}</a></li>
-                <li><a href="{% url "admin:terminator_administrativestatusreason_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage administrative status reasons" %}</a></li>
-                <li><a href="{% url "admin:terminator_externallinktype_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage external link types" %}</a></li>
+                <li><a href="{% url "admin:app_list" "terminator" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage terminator data" %}</a></li>
                 <li><a href="{% url "admin:auth_user_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_user_24.png" />{% trans "Manage users and permissions" %}</a></li>
                 {% endif %}
             </ul>
