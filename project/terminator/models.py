@@ -261,6 +261,7 @@ class Glossary(models.Model):
         # equivalent, since we are not checking group permissions.
         glossary_ctype = ContentType.objects.get_for_model(Glossary)
         collaborators = []
+        listed_users = set()
         for user in User.objects.filter(is_superuser=True, is_active=True):
             collaborators.append({'user': user, 'role': _("Administrator")})
         for role, codename in (
@@ -274,7 +275,10 @@ class Glossary(models.Model):
                     object_pk=self.id,
             ).order_by("user__username").select_related("user")
             for line in permission_lines:
-                collaborators.append({'user': line.user, 'role': role})
+                if line.user not in listed_users:
+                    # We don't want user xxx as admin and owner and ...
+                    listed_users.add(line.user)
+                    collaborators.append({'user': line.user, 'role': role})
         return collaborators
 
     def get_recent_translation_changes(self):
