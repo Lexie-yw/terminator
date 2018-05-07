@@ -765,7 +765,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 try:
                     # The next line may raise a Language.DoesNotExist exception.
                     language_object = Language.objects.get(pk=xml_lang)
-                except:
+                except Language.DoesNotExist:
                     excp_msg = (_("\"%s\" tag with code \"%s\" in its \"%s\" "
                                   "attribute, found in concept \"%s\", but "
                                   "there is no Language with that code in "
@@ -886,7 +886,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     # The next line may raise the
                                     # PartOfSpeech.DoesNotExist exception.
                                     part_of_speech_object = PartOfSpeech.objects.get(tbx_representation__iexact=pos_text)
-                                except:
+                                except PartOfSpeech.DoesNotExist:
                                     raise Exception(_("Part of Speech \"%s\", "
                                                       "found in \"%s\" "
                                                       "translation for \"%s\" "
@@ -909,7 +909,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     # The next line may raise the
                                     # GrammaticalGender.DoesNotExist exception.
                                     grammatical_gender_object = GrammaticalGender.objects.get(tbx_representation__iexact=gramm_gender_text)
-                                except:
+                                except GrammaticalGender.DoesNotExist:
                                     raise Exception(_("Grammatical Gender "
                                                       "\"%s\", found in \"%s\""
                                                       " translation for \"%s\""
@@ -933,7 +933,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     # The next line may raise the
                                     # GrammaticalNumber.DoesNotExist exception.
                                     grammatical_number_object = GrammaticalNumber.objects.get(tbx_representation__iexact=gramm_number_text)
-                                except:
+                                except GrammaticalNumber.DoesNotExist:
                                     raise Exception(_("Grammatical Number "
                                                       "\"%s\", found in \"%s\""
                                                       " translation for \"%s\""
@@ -962,7 +962,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     # The next line may raise the
                                     # AdministrativeStatus.DoesNotExist exception.
                                     administrative_status_object = AdministrativeStatus.objects.get(tbx_representation__iexact=admin_status_text)
-                                except:
+                                except AdministrativeStatus.DoesNotExist:
                                     raise Exception(_("Administrative Status "
                                                       "\"%s\", found in \"%s\""
                                                       " translation for \"%s\""
@@ -991,7 +991,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                             # AdministrativeStatusReason.
                                             # DoesNotExist exception.
                                             reason_object = AdministrativeStatusReason.objects.get(name__iexact=getText(reason_tag_list[0].childNodes))
-                                        except:
+                                        except AdministrativeStatusReason.DoesNotExist:
                                             pass #TODO Raise an exception
                                         else:
                                             translation_object.administrative_status_reason = reason_object
@@ -1004,7 +1004,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     # The next line may raise the
                                     # PartOfSpeech.DoesNotExist exception.
                                     part_of_speech_object = PartOfSpeech.objects.get(tbx_representation__iexact=termtype_text)
-                                except:
+                                except PartOfSpeech.DoesNotExist:
                                     raise Exception(_("TermType \"%s\", found "
                                                       "in \"%s\" translation "
                                                       "for \"%s\" language in "
@@ -1074,7 +1074,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 if "subject" in current:
                     try:
                         current["object"].subject_field = concept_pool[current["subject"]]["object"]
-                    except:
+                    except KeyError:
                         excp_msg = (_("The concept \"%s\" uses the concept"
                                       " \"%s\" as its subject field, but that "
                                       "concept id doesn't exist in the TBX "
@@ -1086,7 +1086,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 if "broader" in current:
                     try:
                         current["object"].broader_concept = concept_pool[current["broader"]]["object"]
-                    except:
+                    except KeyError:
                         excp_msg = (_("The concept \"%s\" uses the concept"
                                       " \"%s\" as its broader concept, but "
                                       "that concept id doesn't exist in the "
@@ -1099,7 +1099,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                     for related_key in current["related"]:
                         try:
                             current["object"].related_concepts.add(concept_pool[related_key]["object"])
-                        except:
+                        except KeyError:
                             excp_msg = (_("The concept \"%s\" uses the concept"
                                           " \"%s\" as one of its related "
                                           "concepts (cross reference), but "
