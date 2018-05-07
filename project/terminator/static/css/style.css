@@ -769,7 +769,7 @@ h3 {
     padding: 4px 8px;
     margin: 0;
     margin-right: 6px;
-    background-color: #eee;
+    background-color: #ddd;
 }
 
 .current_language {
@@ -784,7 +784,7 @@ h3 {
 /* Summary messages styles */
 .summary {
     margin-top: 0;
-    background-color: #eee;
+    background-color: #ddd;
 }
 
 
