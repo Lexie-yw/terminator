@@ -292,8 +292,7 @@ class ConceptLanguageMixin(object):
         obj_id = request.GET.get('concept', None)
         if obj_id:
             try:
-                qs = Concept.objects.filter(pk=obj_id)
-                concept = qs.first()
+                concept = Concept.objects.get(pk=obj_id)
                 if request.user.has_perm("is_lexicographer_in_this_glossary", concept.glossary):
                     return qs
             except Concept.DoesNotExist:
