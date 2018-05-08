@@ -23,7 +23,7 @@ from xml.dom import minidom
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.admin.models import LogEntry, ADDITION
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, InvalidPage, Paginator
@@ -179,7 +179,7 @@ class ConceptView(TerminatorDetailView):
                 content_type_id=ContentType.objects.get_for_model(self.object).pk,
                 object_id=self.object.pk,
                 object_repr=force_unicode(self.object),
-                action_flag=ADDITION,
+                action_flag=CHANGE,
             )
             form = ExternalResourceForm()
 
