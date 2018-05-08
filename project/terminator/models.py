@@ -263,6 +263,7 @@ class Glossary(models.Model):
         collaborators = []
         listed_users = set()
         for user in User.objects.filter(is_superuser=True, is_active=True):
+            listed_users.add(user)
             collaborators.append({'user': user, 'role': _("Administrator")})
         for role, codename in (
                 (_("owner"), "is_owner_for_this_glossary"),
