@@ -301,7 +301,7 @@ class Concept(models.Model):
     related_concepts = models.ManyToManyField('self', blank=True, verbose_name=_("related concepts"))
     # This keeps a readable version cached in this table so that no joining
     # with Translation is required for a human readable form.
-    repr_cache = models.CharField(max_length=200, editable=False, null=True, blank=True)
+    repr_cache = models.CharField(max_length=200, editable=False, null=True, blank=True, verbose_name=_("representation"))
 
     class Meta:
         verbose_name = _("concept")

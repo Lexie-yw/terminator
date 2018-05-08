@@ -138,7 +138,8 @@ class ConceptAdmin(admin.ModelAdmin):
     save_on_top = True
     form = TerminatorConceptAdminForm
     filter_horizontal = ('related_concepts',)
-    list_display = ('id', 'glossary', 'subject_field', 'broader_concept')
+    list_display = ('id', 'glossary', 'repr_cache', 'subject_field', 'broader_concept')
+    search_fields = ['id', 'repr_cache']
     ordering = ('id',)
     list_filter = ['glossary']
     inlines = [DefinitionInline]
