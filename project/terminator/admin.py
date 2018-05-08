@@ -273,7 +273,9 @@ class ConceptLanguageMixin(object):
             return self.readonly_fields
         fields = list(self.readonly_fields)
         fields.remove('concept')
-        fields.remove('language')
+        if 'language' in fields:
+            # optional in ExternalResource
+            fields.remove('language')
         return fields
 
     def get_concept_qs(self, request):
