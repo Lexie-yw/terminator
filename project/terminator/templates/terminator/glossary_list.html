@@ -38,7 +38,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             <div class="glossaryitem">
                 <h3><a href="{% url "terminator_glossary_detail" pk=glossary.pk %}">{{ glossary.name }}</a></h3>
                 <p>{{ glossary.description|truncatewords:15 }}</p>
-                {% if features.export_tbx %}
+                {% if features.export_tbx and user.is_authenticated %}
                     <p><a href="{% url "terminator_export" %}?from_glossaries={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_tbx_16.png" /> {% trans "export glossary to TBX" %}</a></p>
                 {% endif %}
             </div>
