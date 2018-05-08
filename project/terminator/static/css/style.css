@@ -890,3 +890,19 @@ h3 {
 .resource_form form:valid input[type="submit"]{
     color: black;
 }
+
+/* Garbage to work around IE bugs */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    .vertflexlist {
+        height: 92vh;
+    }
+
+    .halfvertflexlist {
+        height: 14em;
+    }
+
+    .two_columns_index_row {
+        width: 88vw; /* to avoid scrolling */
+    }
+}
