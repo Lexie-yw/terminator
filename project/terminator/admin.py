@@ -569,7 +569,7 @@ class ExternalResourceAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     ordering = ('concept',)
     list_filter = ['language', 'concept__glossary', 'link_type']
     search_fields = ['description', 'address']
-    readonly_fields = ('concept', 'language')
+    readonly_fields = ('concept',)
     fieldsets = (
             (None, {
                 'fields': (('concept', 'language'), 'address', 'link_type', 'description'),
