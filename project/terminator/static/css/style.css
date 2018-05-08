@@ -514,6 +514,7 @@ div.flexcol {
 
 .translation {
     font-size: 20px;
+    color: #555;
 }
 
 .definition {
@@ -524,6 +525,19 @@ div.flexcol {
 
 div.translation, div.definition {
     border: 1px solid black;
+}
+
+.deprecatedTerm-admn-sts {
+    background-color: #ccc;
+}
+
+.admittedTerm-admn-sts {
+    background-color: #eee;
+    color: black;
+}
+
+.preferredTerm-admn-sts {
+    color: black;
 }
 
 input[type="url"],
