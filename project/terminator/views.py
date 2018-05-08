@@ -323,6 +323,7 @@ class ConceptSourceView(TerminatorDetailView):
         context['message_class'] = message_class
         context['current_language'] = language
         translations = translations.select_related('administrative_status')
+        translations = sorted(translations, key=lambda t: t.cmp_key())
         context['translations'] = translations
         context['definition'] = definition
         context['comments_thread'], _c = ConceptInLanguage.objects.get_or_create(

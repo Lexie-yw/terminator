@@ -316,8 +316,7 @@ class Concept(models.Model):
         src_translations = self.translation_set.filter(
                 language_id=self.glossary.source_language_id,
         )
-        # TODO: prefer translations with certain attributes (e.g. preferred
-        # terms rather than deprecated terms)
+        src_translations = sorted(src_translations, key=lambda t: t.cmp_key())
         repr_ = ', '.join(t.translation_text for t in src_translations[:4])[:200]
         if repr_:
             self.repr_cache = "#%d: %s" % (self.id, repr_)
@@ -492,6 +491,15 @@ class Translation(models.Model, ConceptLangUrlMixin):
     def save(self, *args, **kwargs):
         super(Translation, self).save(*args, **kwargs)
         self.concept.update_repr_cache()
+
+    def cmp_key(self):
+        # used to sort terms according to their perceived worth
+        keys = {
+                "preferredTerm-admn-sts": 1,
+                "admittedTerm-admn-sts": 2,
+                "deprecatedTerm-admn-sts": 3,
+        }
+        return keys.get(self.administrative_status_id, 4)
 
 
 class Definition(models.Model, ConceptLangUrlMixin):
