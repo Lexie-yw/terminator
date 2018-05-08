@@ -1,7 +1,7 @@
 {% load comments %}
 {% load i18n %}
 
-<div class="rss" title="{% trans "RSS feed with latest comments here" %}"><a href="{% url "terminator_feed_commentthread" concept_id=comments_thread.concept_id language_id=comments_thread.language_id %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" /></a></div>
+<div class="rss" title="{% trans "RSS feed with latest comments here" %}"><a href="{% url "terminator_feed_commentthread" concept_id=comments_thread.concept_id language_id=comments_thread.language_id %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" height="24" /></a></div>
 <h2 id="comment_list">{% trans "Comments" %}</h2>
 
 <div class="comment_block">
