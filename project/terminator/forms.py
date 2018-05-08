@@ -79,10 +79,10 @@ class ImportForm(forms.ModelForm):
 class ExportForm(forms.Form):
     from_glossaries = forms.ModelMultipleChoiceField(queryset=Glossary.objects.all(), label=_("From glossaries"))
     #also_not_finalized_concepts = forms.BooleanField(required=False, label=_("Also not finalized concepts"))
-    export_not_finalized_definitions = forms.BooleanField(required=False, label=_("Export not finalized definitions"))
-    export_admitted_translations = forms.BooleanField(required=False, label=_("Export admitted translations"))
-    export_not_recommended_translations = forms.BooleanField(required=False, label=_("Export not recommended translations"))
-    export_not_finalized_translations = forms.BooleanField(required=False, label=_("Export not finalized translations"))
+    export_not_finalized_definitions = forms.BooleanField(required=False, label=_("Also export non-finalized definitions"))
+    export_admitted_translations = forms.BooleanField(required=False, label=_("Also  export admitted translations"))
+    export_not_recommended_translations = forms.BooleanField(required=False, label=_("Also export not recommended translations"))
+    export_not_finalized_translations = forms.BooleanField(required=False, label=_("Also export non-finalized translations"))
     #TODO In the for_languages field show only the languages present on the
     # chosen glossaries. Perhaps show a cloud of checkboxes?
     for_languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False, label=_("For languages"))
