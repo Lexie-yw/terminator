@@ -496,7 +496,9 @@ class Translation(models.Model, ConceptLangUrlMixin):
     def cmp_key(self):
         # used to sort terms according to their perceived worth
         keys = {
-                "preferredTerm-admn-sts": 1,
+                "preferredTerm-admn-sts": 0,
+                "": 1,
+                None: 1,
                 "admittedTerm-admn-sts": 2,
                 "deprecatedTerm-admn-sts": 3,
         }
