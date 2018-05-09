@@ -512,11 +512,11 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
     admitted = AdministrativeStatus.objects.get(name="Admitted")
     not_recommended = AdministrativeStatus.objects.get(name="Not recommended")
 
-    concept_list = Concept.objects.filter(glossary__in=glossaries).order_by("glossary", "id")
+    concept_qs = Concept.objects.filter(glossary__in=glossaries).order_by("glossary", "id")
 
     #Give template an indication of whether any related concepts are used:
     data["use_related_concepts"] = Concept.objects.filter(
-            related_concepts__id__in=concept_list,
+            related_concepts__id__in=concept_qs,
     ).exists()
 
     translation_filter = Q()
@@ -568,7 +568,7 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
     summaries = SummaryMessage.objects.filter(glossary_filter & summary_filter)
     summary_dict = query_lookup_dict(summaries)
 
-    for concept in concept_list:
+    for concept in concept_qs.iterator():
         concept_data = {'concept': concept, 'languages': []}
 
         for language_code in used_languages:
