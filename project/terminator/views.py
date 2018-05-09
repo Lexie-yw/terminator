@@ -559,6 +559,15 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
             'administrative_status',
             'administrative_status_reason',
     )
+    if "sqlite" in settings.DATABASES['default']['ENGINE']:
+        # SQLite can't handle more than 999 translations (by default). We do it
+        # in batches so that testing with SQLite is still possible.
+        bool(translations)
+        for i in range(0, len(translations), 999):
+            prefetch_related_objects(translations[i:i+999], "corpusexample_set", "contextsentence_set")
+    else:
+        translations = translations.prefetch_related("corpusexample_set", "contextsentence_set")
+
     tr_dict = query_lookup_dict(translations)
     def_dict = query_lookup_dict(definitions)
 
