@@ -599,6 +599,10 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
             if lang_definitions:
                 lang_definition = max(lang_definitions, key=lambda x: x.id)
 
+            if not any((lang_translations, lang_resources, lang_definition, lang_summary_message)):
+                # no real content
+                continue
+
             lang_data = {
                 'iso_code': language_code,
                 'translations': lang_translations,
