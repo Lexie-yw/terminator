@@ -49,7 +49,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                         <xref type="xSource" target="{{ language.definition.source }}">Source of this definition{#<!-- TODO Make this text be in the TBX file main language -->#}</xref>
                     </descripGrp>{% endif %}{% endif %}{% if language.summarymessage %}
                     <note>Summary message: {{ language.summarymessage }}</note>{% endif %}{#<!-- TODO Make this text be in the TBX file main language -->#}{% for resource in language.externalresources %}
-                    <xref type="{{ resource.link_type.tbx_representation }}" target="{{ resource.address }}">{{ resource.description }}</xref>{% endfor %}{% if language.definition or language.externalresources %}{% if language.translations %}
+                    <xref type="{{ resource.link_type_id }}" target="{{ resource.address }}">{{ resource.description }}</xref>{% endfor %}{% if language.definition or language.externalresources %}{% if language.translations %}
                     {% endif %}{% endif %}{% for translation in language.translations %}
                     <tig id="tid-{{ translation.pk }}">
                         <term>{{ translation.translation_text }}</term>{% if translation.part_of_speech %}{% if translation.part_of_speech.tbx_representation == "abbreviation" or translation.part_of_speech.tbx_representation == "acronym" or translation.part_of_speech.tbx_representation == "phraseologicalUnit" %}
