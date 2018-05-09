@@ -577,48 +577,54 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
     summaries = SummaryMessage.objects.filter(glossary_filter & summary_filter)
     summary_dict = query_lookup_dict(summaries)
 
-    for concept in concept_qs.iterator():
-        concept_data = {'concept': concept, 'languages': []}
 
-        for language_code in used_languages:
-            key = (concept.id, language_code)
+    def generate_concepts():
+        #generator so that we don't keep things in memory
+        for concept in concept_qs.iterator():
+            concept_data = {'concept': concept, 'languages': []}
 
-            lang_translations = tr_dict.get(key, [])
-            lang_resources = resource_dict.get(key, [])
+            for language_code in used_languages:
+                key = (concept.id, language_code)
 
-            lang_summary_message = summary_dict.get(key, None)
-            if lang_summary_message:
-                lang_summary_message = lang_summary_message[0].text
+                lang_translations = tr_dict.get(key, [])
+                lang_resources = resource_dict.get(key, [])
 
-            # Get the last definition by id
-            #python 3:
-            #lang_definition = max(def_dict.get(key, []), None, lambda x: x.id)
-            #python 2:
-            lang_definition = None
-            lang_definitions = def_dict.get(key, None)
-            if lang_definitions:
-                lang_definition = max(lang_definitions, key=lambda x: x.id)
+                lang_summary_message = summary_dict.get(key, None)
+                if lang_summary_message:
+                    assert len(lang_summary_message) == 1
+                    lang_summary_message = lang_summary_message[0].text
 
-            if not any((lang_translations, lang_resources, lang_definition, lang_summary_message)):
-                # no real content
-                continue
+                # Get the last definition by id
+                #python 3:
+                #lang_definition = max(def_dict.get(key, []), None, lambda x: x.id)
+                #python 2:
+                lang_definition = None
+                lang_definitions = def_dict.get(key, None)
+                if lang_definitions:
+                    lang_definition = max(lang_definitions, key=lambda x: x.id)
 
-            lang_data = {
-                'iso_code': language_code,
-                'translations': lang_translations,
-                'externalresources': lang_resources,
-                'definition': lang_definition,
-                'summarymessage': lang_summary_message,
-            }
-            concept_data['languages'].append(lang_data)
+                if not any((lang_translations, lang_resources, lang_definition, lang_summary_message)):
+                    # no real content
+                    continue
 
-        # Only append data if we have information for at least one language
-        if concept_data['languages']:
-            data['concepts'].append(concept_data)
+                lang_data = {
+                    'iso_code': language_code,
+                    'translations': lang_translations,
+                    'externalresources': lang_resources,
+                    'definition': lang_definition,
+                    'summarymessage': lang_summary_message,
+                }
+                concept_data['languages'].append(lang_data)
+            if concept_data['languages']:
+                yield concept_data
 
+    data['concepts'] = generate_concepts()
+
+    #TODO:
     # Raise Http404 if there are no concepts in the resulting glossary
-    if not data['concepts']:
-        raise Http404
+    #if not data['concepts']:
+    #    raise Http404
+    # Important enough? Can't easily do with generator.
 
     # Create the HttpResponse object with the appropriate header.
     response = HttpResponse(content_type='application/x-tbx')
