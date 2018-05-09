@@ -547,7 +547,6 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
         return (obj.concept_id, obj.language_id)
 
     def query_lookup_dict(qs):
-        qs = qs.order_by("concept", "language")
         results = {}
         for key, group in itertools.groupby(qs, key_func):
             results[key] = list(group)
