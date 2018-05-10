@@ -191,3 +191,12 @@ FEATURES = {
         'subscription': True,
         'collaboration': True,
 }
+
+
+# Get local overrides
+try:
+    execfile(os.path.dirname(__file__) + '/' + "local_settings.py")
+except:
+    print("Create local_settings.py to provide your configuration options.")
+    print("See the Django documentation about settings.\n")
+    raise
