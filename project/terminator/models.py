@@ -503,7 +503,7 @@ class Translation(models.Model, ConceptLangUrlMixin):
                 "supersededTerm-admn-sts": 3,
                 "deprecatedTerm-admn-sts": 4,
         }
-        return keys.get(self.administrative_status_id, 5)
+        return keys.get(self.administrative_status_id, 1)
 
 
 class Definition(models.Model, ConceptLangUrlMixin):
