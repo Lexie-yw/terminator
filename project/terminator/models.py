@@ -500,9 +500,10 @@ class Translation(models.Model, ConceptLangUrlMixin):
                 "": 1,
                 None: 1,
                 "admittedTerm-admn-sts": 2,
-                "deprecatedTerm-admn-sts": 3,
+                "supersededTerm-admn-sts": 3,
+                "deprecatedTerm-admn-sts": 4,
         }
-        return keys.get(self.administrative_status_id, 4)
+        return keys.get(self.administrative_status_id, 5)
 
 
 class Definition(models.Model, ConceptLangUrlMixin):
