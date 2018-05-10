@@ -22,6 +22,9 @@
 <p>{% blocktrans %}Logged-in users can comment on any entry, even after it has been finalized. Comments and suggestions for terms and definitions are all entered and reviewed in the work area for the concept.{% endblocktrans %}</p>
 
 <h2>{% trans "Import and Export of Data" %}</h2>
-<p>{% blocktrans %}One of the features is the ability to export the data to TBX (TermBase eXchange) format which is used for interchange of terminology among different systems such as translation tools. The export process is configurable to allow exporting of a subset of terms according a number of criteria. Terminator is also capable of automatically generating TBX files to feed the Autoterm feature in the Virtaal translation tool.{% endblocktrans %}</p>
+<p>{% blocktrans %}One of the features is the ability to export the data to TBX (TermBase eXchange) format which is used for interchange of terminology among different systems such as translation tools. The export process is configurable to allow exporting of a subset of terms according a number of criteria.{% endblocktrans %}
+{% if features.autoterm %}
+{% blocktrans %}Terminator can generate TBX files to feed the Autoterm feature in the Virtaal translation tool.{% endblocktrans %}</p>
+{% endif %}
 
 <p>{% blocktrans %}For integrating previous terminology work, Terminator can import files in the TBX format.{% endblocktrans %}</p>
