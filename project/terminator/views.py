@@ -798,7 +798,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                           "to that tag in the TBX file."))
                     raise Exception(excp_msg)
                 try:
-                    # The next line may raise a Language.DoesNotExist exception.
                     language_object = Language.objects.get(pk=xml_lang)
                 except Language.DoesNotExist:
                     excp_msg = (_("\"%s\" tag with code \"%s\" in its \"%s\" "
@@ -846,8 +845,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                     if descrip_tag.parentNode == language_tag:
                         resource_type = xref_tag.getAttribute(u"type")
                         try:
-                            # The next line may raise the
-                            # ExternalLinkType.DoesNotExist exception.
                             resource_link_type = ExternalLinkType.objects.get(pk=resource_type)
                         except ExternalLinkType.DoesNotExist:
                             excp_msg = (_("External Link Type \"%s\", found "
@@ -918,8 +915,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 # the Part of Speech import working.
                                 pos_text = getText(termnote_tag.childNodes)
                                 try:
-                                    # The next line may raise the
-                                    # PartOfSpeech.DoesNotExist exception.
                                     part_of_speech_object = PartOfSpeech.objects.get(tbx_representation__iexact=pos_text)
                                 except PartOfSpeech.DoesNotExist:
                                     raise Exception(_("Part of Speech \"%s\", "
@@ -941,8 +936,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             elif termnote_type == u"grammaticalGender":
                                 gramm_gender_text = getText(termnote_tag.childNodes)
                                 try:
-                                    # The next line may raise the
-                                    # GrammaticalGender.DoesNotExist exception.
                                     grammatical_gender_object = GrammaticalGender.objects.get(tbx_representation__iexact=gramm_gender_text)
                                 except GrammaticalGender.DoesNotExist:
                                     raise Exception(_("Grammatical Gender "
@@ -965,8 +958,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             elif termnote_type == u"grammaticalNumber":
                                 gramm_number_text = getText(termnote_tag.childNodes)
                                 try:
-                                    # The next line may raise the
-                                    # GrammaticalNumber.DoesNotExist exception.
                                     grammatical_number_object = GrammaticalNumber.objects.get(tbx_representation__iexact=gramm_number_text)
                                 except GrammaticalNumber.DoesNotExist:
                                     raise Exception(_("Grammatical Number "
@@ -994,8 +985,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             elif termnote_type == u"administrativeStatus":
                                 admin_status_text = getText(termnote_tag.childNodes)
                                 try:
-                                    # The next line may raise the
-                                    # AdministrativeStatus.DoesNotExist exception.
                                     administrative_status_object = AdministrativeStatus.objects.get(tbx_representation__iexact=admin_status_text)
                                 except AdministrativeStatus.DoesNotExist:
                                     raise Exception(_("Administrative Status "
@@ -1022,9 +1011,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     reason_tag_list = termnote_tag.parentNode.getElementsByTagName(u"note")
                                     if reason_tag_list:
                                         try:
-                                            # The next line may raise the
-                                            # AdministrativeStatusReason.
-                                            # DoesNotExist exception.
                                             reason_object = AdministrativeStatusReason.objects.get(name__iexact=getText(reason_tag_list[0].childNodes))
                                         except AdministrativeStatusReason.DoesNotExist:
                                             pass #TODO Raise an exception
@@ -1036,8 +1022,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 # represented as PartOfSpeech objects.
                                 termtype_text = getText(termnote_tag.childNodes)
                                 try:
-                                    # The next line may raise the
-                                    # PartOfSpeech.DoesNotExist exception.
                                     part_of_speech_object = PartOfSpeech.objects.get(tbx_representation__iexact=termtype_text)
                                 except PartOfSpeech.DoesNotExist:
                                     raise Exception(_("TermType \"%s\", found "
