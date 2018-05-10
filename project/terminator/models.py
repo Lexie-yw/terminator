@@ -503,7 +503,9 @@ class Translation(models.Model, ConceptLangUrlMixin):
                 "supersededTerm-admn-sts": 3,
                 "deprecatedTerm-admn-sts": 4,
         }
-        return keys.get(self.administrative_status_id, 1)
+        # We return a tuple with the "quality" key, and the text to allow
+        # alphabetic sorting for all adminitted terms, for example.
+        return (keys.get(self.administrative_status_id, 1), self.translation_text)
 
 
 class Definition(models.Model, ConceptLangUrlMixin):
