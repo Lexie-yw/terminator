@@ -1,7 +1,11 @@
 /project/local_settings.py
 
+#sqlite development experiments
+/project/*.db
+
 # General
 *~
+*.swp
 *.pyc
 *.pyo
 *.log
@@ -13,3 +17,6 @@
 
 # /docs/
 /docs/_build/
+
+/.cache/
+/project/.coverage
