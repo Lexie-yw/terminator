@@ -177,6 +177,7 @@ a:active {
     float: right;
     text-align: right;
     padding-right: 1em;
+    padding-top: 0.2em;
     font-size: 90%;
     vertical-align: middle;
 }
