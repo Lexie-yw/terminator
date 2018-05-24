@@ -29,7 +29,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
   <ul class="itemlist">
   {% for externalresource in external_resources %}
       {# #TODO if the external resource is an image or a video, embed it instead of showing the link #}
-      <li class="externalresourceitem"><a href="{{ externalresource.address }}">
+      <li class="externalresourceitem"><a href="{{ externalresource.address }}" target="_blank" rel="external noopener">
           {% if externalresource.description %}
             {{ externalresource.description|linebreaksbr }}
           {% else %}

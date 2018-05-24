@@ -135,7 +135,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     
     <div id="footer">
-        <div id="footer_text">{% block footer %}{% blocktrans %}Terminator is licensed under <a href="https://www.gnu.org/copyleft/gpl.html">GNU GPL v3</a>. <a href="https://github.com/translate/terminator/">Get the code</a>.{% endblocktrans %}{% endblock %}
+
+        {% with gpl_url="https://www.gnu.org/copyleft/gpl.html\" target=\"_blank\" rel=\"external noopener" code_url="https://github.com/translate/terminator/\" target=\"_blank\" rel=\"external noopener" %}
+        <div id="footer_text">{% block footer %}{% blocktrans %}Terminator is licensed under <a href="{{ gpl_url }}">GNU GPL v3</a>. <a href="{{ code_url }}">Get the code</a>.{% endblocktrans %}{% endblock %}
+        {% endwith %}
             {% block content_license %}{% blocktrans %}Content is licensed separately.{% endblocktrans %}{% endblock %}</div>
     </div>
 </body>
