@@ -486,8 +486,9 @@ def terminator_index(request):
     return render(request, 'index.html', context)
 
 
-def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_definitions=False, export_terms="all"):
-    # Get the data
+def export_glossaries_to_TBX(glossaries, desired_languages=None, export_all_definitions=False, export_terms="all"):
+    if desired_languages is None:
+        desired_languages = []
     if not glossaries:
         raise Http404
     elif len(glossaries) == 1:
