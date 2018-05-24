@@ -78,36 +78,21 @@ class ImportForm(forms.ModelForm):
 
 class ExportForm(forms.Form):
     from_glossaries = forms.ModelMultipleChoiceField(queryset=Glossary.objects.all(), label=_("From glossaries"))
-    #also_not_finalized_concepts = forms.BooleanField(required=False, label=_("Also not finalized concepts"))
-    export_not_finalized_definitions = forms.BooleanField(required=False, label=_("Also export non-finalized definitions"))
-    export_admitted_translations = forms.BooleanField(required=False, label=_("Also  export admitted terms"))
-    export_not_recommended_translations = forms.BooleanField(required=False, label=_("Also export not recommended terms"))
-    export_not_finalized_translations = forms.BooleanField(required=False, label=_("Export finalized and non-finalized terms"))
+    for_languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False, label=_("For languages"))
     #TODO In the for_languages field show only the languages present on the
     # chosen glossaries. Perhaps show a cloud of checkboxes?
-    for_languages = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), required=False, label=_("For languages"))
-
-    def clean(self):
-        super(forms.Form, self).clean()
-        cleaned_data = self.cleaned_data
-        export_admitted = cleaned_data.get("export_admitted_translations")
-        export_not_recommended = cleaned_data.get("export_not_recommended_translations")
-        export_not_finalized = cleaned_data.get("export_not_finalized_translations")
-
-        if export_not_recommended and not export_admitted:
-            msg = _(u"You cannot export not recommended terms unless you also export admitted terms.")
-            self._errors["export_not_recommended_translations"] = self.error_class([msg])
-            # This field is no longer valid. So remove it from the cleaned data.
-            del cleaned_data["export_not_recommended_translations"]
-
-        if export_not_finalized and (not export_not_recommended or not export_admitted):
-            msg = _(u"You cannot export not finalized terms unless you also export not recommended and admitted terms.")
-            self._errors["export_not_finalized_translations"] = self.error_class([msg])
-            # This field is no longer valid. So remove it from the cleaned data.
-            del cleaned_data["export_not_finalized_translations"]
-
-        # Always return the full collection of cleaned data.
-        return cleaned_data
+    #also_not_finalized_concepts = forms.BooleanField(required=False, label=_("Also not finalized concepts"))
+    export_terms = forms.ChoiceField(
+            required=True,
+            label=_("Terms to export"),
+            choices=(
+                   ('all', _("all terms")),
+                   ('preferred', _("only preferred terms")),
+                   ('preferred+admitted', _("preferred and admitted terms")),
+                   ('preferred+admitted+not_recommended', _("preferred, admitted and not recommended terms")),
+            )
+    )
+    export_not_finalized_definitions = forms.BooleanField(required=False, label=_("Include non-finalized definitions"))
 
 
 class SubscribeForm(forms.Form):

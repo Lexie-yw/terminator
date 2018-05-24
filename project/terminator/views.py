@@ -486,7 +486,7 @@ def terminator_index(request):
     return render(request, 'index.html', context)
 
 
-def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_definitions=False, export_admitted=False, export_not_recommended=False, export_all_translations=False):
+def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_definitions=False, export_terms="all"):
     # Get the data
     if not glossaries:
         raise Http404
@@ -520,13 +520,13 @@ def export_glossaries_to_TBX(glossaries, desired_languages=[], export_all_defini
     ).exists()
 
     translation_filter = Q()
-    if not export_all_translations:
+    if export_terms == 'preferred':
         translation_filter |= Q(administrative_status=preferred)
-        if export_admitted:
-            translation_filter |= Q(administrative_status=admitted)
-        elif export_not_recommended:
-            translation_filter |= Q(administrative_status=admitted)
-            translation_filter |= Q(administrative_status=not_recommended)
+    elif export_terms == 'preferred+admitted':
+        translation_filter |= Q(administrative_status=preferred)
+        translation_filter |= Q(administrative_status=admitted)
+    elif export_terms == 'preferred+admitted+not_recommended':
+        translation_filter |= Q(administrative_status__in=(preferred, admitted, not_recommended))
 
     # Only the finished summary messages are exported
     summary_filter = Q(is_finalized=True)
@@ -668,15 +668,11 @@ def export(request):
             glossaries = export_form.cleaned_data['from_glossaries']
             desired_languages = export_form.cleaned_data['for_languages']
             export_all_definitions = export_form.cleaned_data['export_not_finalized_definitions']
-            export_not_recommended = export_form.cleaned_data['export_not_recommended_translations']
-            export_admitted = export_form.cleaned_data['export_admitted_translations']
-            export_all_translations = export_form.cleaned_data['export_not_finalized_translations']
+            export_terms = export_form.cleaned_data['export_terms']
             #exporting_message = "Exported succesfully."#TODO show export confirmation message
             return export_glossaries_to_TBX(glossaries, desired_languages,
                                             export_all_definitions,
-                                            export_admitted,
-                                            export_not_recommended,
-                                            export_all_translations)
+                                            export_terms)
     else:
         export_form = ExportForm()
     context = {

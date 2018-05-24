@@ -362,39 +362,20 @@ class TBXURLs(TestCase):
         self.login()
         response = self.c.get('/export/', data={"from_glossaries": 1})
         self.assertContains(response, 'Export')
-        response = self.c.post('/export/', data={
-            "from_glossaries": 1,
-        })
-        self.is_tbx(response)
 
         response = self.c.post('/export/', data={
             "from_glossaries": 1,
-            "export_not_finalized_translations": True,
+            "export_terms": "",
         })
-        self.assertFormError(response, "export_form", "export_not_finalized_translations",
-                "You cannot export not finalized terms unless you also export not recommended and admitted terms.")
+        # Not valid..., but could have been the default
         self.assertContains(response, 'Export')
 
-        response = self.c.post('/export/', data={
-            "from_glossaries": 1,
-            "export_not_recommended_translations": True,
-            "export_admitted_translations": True,
-        })
-        self.is_tbx(response)
-
-        response = self.c.post('/export/', data={
-            "from_glossaries": 1,
-            "export_not_finalized_translations": True,
-            "export_admitted_translations": True,
-        })
-        self.assertFormError(response, "export_form", "export_not_finalized_translations",
-                "You cannot export not finalized terms unless you also export not recommended and admitted terms.")
-
-        response = self.c.post('/export/', data={
-            "from_glossaries": 1,
-            "export_admitted_translations": True,
-        })
-        self.is_tbx(response)
+        for export_terms in ("all", "preferred", "preferred+admitted", "preferred+admitted+not_recommended"):
+            response = self.c.post('/export/', data={
+                "from_glossaries": 1,
+                "export_terms": export_terms,
+            })
+            self.is_tbx(response)
 
     def test_tbx_import(self):
         self.login()
