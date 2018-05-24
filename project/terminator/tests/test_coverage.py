@@ -372,7 +372,7 @@ class TBXURLs(TestCase):
             "export_not_finalized_translations": True,
         })
         self.assertFormError(response, "export_form", "export_not_finalized_translations",
-                "You cannot export not finalized translations unless you also export not recommended and admitted translations.")
+                "You cannot export not finalized terms unless you also export not recommended and admitted terms.")
         self.assertContains(response, 'Export')
 
         response = self.c.post('/export/', data={
@@ -388,7 +388,7 @@ class TBXURLs(TestCase):
             "export_admitted_translations": True,
         })
         self.assertFormError(response, "export_form", "export_not_finalized_translations",
-                "You cannot export not finalized translations unless you also export not recommended and admitted translations.")
+                "You cannot export not finalized terms unless you also export not recommended and admitted terms.")
 
         response = self.c.post('/export/', data={
             "from_glossaries": 1,
