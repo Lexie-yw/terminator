@@ -21,12 +21,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% block title %}
-{% blocktrans with user=thisuser %}Profile: {{ user }} — Terminator{% endblocktrans %}
+{% blocktrans with user=thisuser %}User: {{ user }} — Terminator{% endblocktrans %}
 {% endblock %}
 
 
 {% block breadcrumbs %}
-    » <a href="{% url "profiles_profile_list" %}">{% trans "Profiles" %}</a>
+    » <a href="{% url "profiles_profile_list" %}">{% trans "Users" %}</a>
     » <a href="{% url "profiles_profile_detail" username=thisuser %}">{{ thisuser }}</a>
 {% endblock %}
 
