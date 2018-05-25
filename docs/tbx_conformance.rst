@@ -535,10 +535,10 @@ Example of Terminator supported TBX
 
                         <tig>
                             <term>standard</term>
-                            <termGrp><!-- Example of administrative status along with its reason -->
+                            <termNoteGrp><!-- Example of administrative status along with its reason -->
                                 <termNote type="administrativeStatus">deprecatedTerm­admn­sts</termNote>
                                 <note>Razón: anglicismo</note><!-- The translation of the enclosed text is: "Reason: anglicism" -->
-                            </termGrp>
+                            </termNoteGrp>
                         </tig>
                     </langSet>
                 </termEntry>

@@ -59,10 +59,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                         <termNote type="grammaticalNumber">{{ translation.grammatical_number.tbx_representation }}</termNote>{% endif %}{% endif %}{% if not translation.process_status %}
                         <termNote type="processStatus">provisionallyProcessed</termNote>{% else %}
                         <termNote type="processStatus">finalized</termNote>{% endif %}{% if translation.administrative_status_reason %}
-                        <termGrp>
+                        <termNoteGrp>
                             <termNote type="administrativeStatus">{{ translation.administrative_status.tbx_representation }}</termNote>
                             <note>Administrative status reason: {{ translation.administrative_status_reason.name }}</note>{#<!-- TODO Make this text be in the TBX file main language -->#}
-                        </termGrp>{% else %}{% if translation.administrative_status %}
+                        </termNoteGrp>{% else %}{% if translation.administrative_status %}
                         <termNote type="administrativeStatus">{{ translation.administrative_status.tbx_representation }}</termNote>{% endif %}{% endif %}{% for phrase in translation.contextsentence_set.all %}
                         <descrip type="context">{{ phrase.text }}</descrip>{% endfor %}{% for corpus_example in translation.corpusexample_set.all %}
                         <xref type="corpusTrace" target="{{ corpus_example.address }}">{{ corpus_example.description }}</xref>{% endfor %}{% if translation.note %}
