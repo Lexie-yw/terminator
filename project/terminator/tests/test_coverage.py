@@ -616,6 +616,37 @@ class ConceptTest(SharedTests, TestCase):
         self.model.get_list_of_used_languages()
         self.model.get_english_translation()
 
+    def test_repr_cache(self):
+        tr = self.translation
+        tr.translation_text = u"abcd"
+        tr.save()
+        self.model.refresh_from_db()
+        repr_cache = self.model.repr_cache
+        assert repr_cache.startswith('#')
+        assert u' abcd' in repr_cache
+
+        tr = Translation(
+                concept = self.model,
+                language=tr.language,
+                translation_text='xyz',
+                administrative_status_id='preferredTerm-admn-sts',
+        )
+        tr.save()
+        self.model.refresh_from_db()
+        repr_cache = self.model.repr_cache
+        assert repr_cache.startswith('#')
+        assert u' abcd' in repr_cache
+        assert 'xyz, abcd' in repr_cache
+
+        s = AdministrativeStatus(tbx_representation='deprecatedTerm-admn-sts')
+        s.save()
+        tr.administrative_status_id = 'deprecatedTerm-admn-sts'
+        tr.save()
+        self.model.refresh_from_db()
+        repr_cache = self.model.repr_cache
+        assert 'abcd, xyz' in repr_cache
+
+
 class ConceptInLanguageTest(SharedTests, TestCase):
     klass = ConceptInLanguage
     @classmethod
