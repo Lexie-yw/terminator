@@ -495,8 +495,10 @@ class Translation(models.Model, ConceptLangUrlMixin):
         return unicode(_(u"%(translation)s (%(iso_code)s) for %(concept)s") % trans_data)
 
     def save(self, *args, **kwargs):
+        update_repr_cache = kwargs.pop("update_repr_cache", True)
         super(Translation, self).save(*args, **kwargs)
-        self.concept.update_repr_cache()
+        if update_repr_cache:
+            self.concept.update_repr_cache()
 
     def cmp_key(self):
         # used to sort terms according to their perceived worth
