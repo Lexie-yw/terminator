@@ -1109,9 +1109,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
         # relationships and save the concepts. This is done this way since some
         # termEntry refer to termEntries that hasn't being parsed yet.
         try:
-            for concept_key in concept_pool.keys():
-                # Use a variable in order to reduce the following lines length.
-                current = concept_pool[concept_key]
+            for concept_key, current in concept_pool.items():
                 if "subject" in current:
                     try:
                         current["object"].subject_field = concept_pool[current["subject"]]["object"]
