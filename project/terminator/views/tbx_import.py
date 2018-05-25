@@ -248,207 +248,209 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 term_tags = translation_tag.getElementsByTagName(u"term")
                 # Proceed only if there is at least one term tag inside
                 # this tig or ntig tag.
-                if term_tags:
-                    # The next line only works with the first term tag
-                    # skipping other term tags if present.
-                    translation_text = getText(term_tags[0].childNodes)
-                    translation_object = Translation(
-                            concept=concept_object,
-                            language=language_object,
-                            translation_text=translation_text,
-                    )
+                if not term_tags:
+                    continue
 
-                    for termnote_tag in translation_tag.getElementsByTagName(u"termNote"):
-                        termnote_type = termnote_tag.getAttribute(u"type")
-                        #TODO the Parts of Speech, Grammatical Genders,
-                        # Grammatical Numbers, Administrative Statuses and
-                        # Administrative Status Reasons specified in the
-                        # TBX file may not exist in the Terminator
-                        # database, so the import process will fail. Maybe
-                        # it should create those missing entities, but it
-                        # may fill the database with duplicates.
-                        #TODO the Parts of Speech, Grammatical Genders,
-                        # Grammatical Numbers, Administrative Statuses and
-                        # Administrative Status Reasons can only be used
-                        # for certain languages, and the actual importing
-                        # code doesn't respect these constraints.
-                        if termnote_type == u"partOfSpeech":
-                            #TODO Since in some TBX files the Part of
-                            # Speech is capitalized it should be converted
-                            # to lowercase in the next line in order to get
-                            # the Part of Speech import working.
-                            pos_text = getText(termnote_tag.childNodes)
-                            try:
-                                part_of_speech_object = parts_of_speech[pos_text.lower()]
-                            except KeyError:
-                                raise Exception(_("Part of Speech \"%s\", "
-                                                  "found in \"%s\" "
-                                                  "translation for \"%s\" "
-                                                  "language in concept "
-                                                  "\"%s\", doesn't exist "
-                                                  "in Terminator.\n\nIf "
-                                                  "you want to import this"
-                                                  " TBX file, either add "
-                                                  "this Part of Speech to "
-                                                  "Terminator, or change "
-                                                  "this Part of Speech on "
-                                                  "the TBX file.") %
-                                                (pos_text,
-                                                 translation_text,
-                                                 xml_lang, concept_id))
-                            translation_object.part_of_speech = part_of_speech_object
-                        elif termnote_type == u"grammaticalGender":
-                            gramm_gender_text = getText(termnote_tag.childNodes)
-                            try:
-                                grammatical_gender_object = genders[gramm_gender_text.lower()]
-                            except KeyError:
-                                raise Exception(_("Grammatical Gender "
-                                                  "\"%s\", found in \"%s\""
-                                                  " translation for \"%s\""
-                                                  " language in concept "
-                                                  "\"%s\", doesn't exist "
-                                                  "in Terminator.\n\nIf "
-                                                  "you want to import this"
-                                                  " TBX file, either add "
-                                                  "this Grammatical Gender"
-                                                  " to Terminator, or "
-                                                  "change this Grammatical"
-                                                  " Gender on the TBX "
-                                                  "file.") %
-                                                (gramm_gender_text,
-                                                 translation_text,
-                                                 xml_lang, concept_id))
-                            translation_object.grammatical_gender = grammatical_gender_object
-                        elif termnote_type == u"grammaticalNumber":
-                            gramm_number_text = getText(termnote_tag.childNodes)
-                            try:
-                                grammatical_number_object = numbers[gramm_number_text.lower()]
-                            except KeyError:
-                                raise Exception(_("Grammatical Number "
-                                                  "\"%s\", found in \"%s\""
-                                                  " translation for \"%s\""
-                                                  " language in concept "
-                                                  "\"%s\", doesn't exist "
-                                                  "in Terminator.\n\nIf "
-                                                  "you want to import this"
-                                                  " TBX file, either add "
-                                                  "this Grammatical Number"
-                                                  " to Terminator, or "
-                                                  "change this Grammatical"
-                                                  " Number on the TBX "
-                                                  "file.") %
-                                                (gramm_number_text,
-                                                 translation_text,
-                                                 xml_lang, concept_id))
-                            translation_object.grammatical_number = grammatical_number_object
-                        elif termnote_type == u"processStatus":
-                            # Values of processStatus different from
-                            # finalized are ignored.
-                            if getText(termnote_tag.childNodes) == u"finalized":
-                                translation_object.process_status = True
-                        elif termnote_type == u"administrativeStatus":
-                            admin_status_text = getText(termnote_tag.childNodes)
-                            try:
-                                admin_status_object = admin_statusses[admin_status_text.lower()]
-                            except KeyError:
-                                raise Exception(_("Administrative Status "
-                                                  "\"%s\", found in \"%s\""
-                                                  " translation for \"%s\""
-                                                  " language in concept "
-                                                  "\"%s\", doesn't exist "
-                                                  "in Terminator.\n\nIf "
-                                                  "you want to import this"
-                                                  " TBX file, either add "
-                                                  "this Administrative "
-                                                  "Status to Terminator, "
-                                                  "or change this "
-                                                  "Administrative Status "
-                                                  "on the TBX file.") %
-                                                (admin_status_text,
-                                                 translation_text,
-                                                 xml_lang, concept_id))
-                            translation_object.administrative_status = admin_status_object
-                            # If the Administrative Status is inside a
-                            # termGrp tag it may have an Administrative
-                            # Status Reason.
-                            if admin_status_object.allows_administrative_status_reason and termnote_tag.parentNode != translation_tag:
-                                reason_tag_list = termnote_tag.parentNode.getElementsByTagName(u"note")
-                                if reason_tag_list:
-                                    try:
-                                        reason_object = AdministrativeStatusReason.objects.get(name__iexact=getText(reason_tag_list[0].childNodes))
-                                    except AdministrativeStatusReason.DoesNotExist:
-                                        pass #TODO Raise an exception
-                                    else:
-                                        translation_object.administrative_status_reason = reason_object
-                        elif termnote_type == u"termType":
-                            # It might be phraseologicalUnit, acronym or
-                            # abbreviation that in Terminator are internally
-                            # represented as PartOfSpeech objects.
-                            termtype_text = getText(termnote_tag.childNodes)
-                            try:
-                                part_of_speech_object = parts_of_speech[pos_text.lower()]
-                            except KeyError:
-                                raise Exception(_("TermType \"%s\", found "
-                                                  "in \"%s\" translation "
-                                                  "for \"%s\" language in "
-                                                  "concept \"%s\", doesn't"
-                                                  " exist in Terminator.\n"
-                                                  "\nIf you want to import"
-                                                  " this TBX file, either "
-                                                  "add this TermType as "
-                                                  "another Part of Speech "
-                                                  "to Terminator, or "
-                                                  "change this TermType on"
-                                                  " the TBX file.\n\nNote:"
-                                                  " Terminator stores this"
-                                                  " TermType values as "
-                                                  "Part of Speech.") %
-                                                (termtype_text,
-                                                 translation_text,
-                                                 xml_lang, concept_id))
-                            translation_object.part_of_speech = part_of_speech_object
+                # The next line only works with the first term tag
+                # skipping other term tags if present.
+                translation_text = getText(term_tags[0].childNodes)
+                translation_object = Translation(
+                        concept=concept_object,
+                        language=language_object,
+                        translation_text=translation_text,
+                )
 
-                    for note_tag in translation_tag.getElementsByTagName(u"note"):
-                        # Ensure that this note tag is not at lower levels
-                        # inside the translation tag.
-                        if note_tag.parentNode == translation_tag:
-                            note_text = getText(note_tag.childNodes)
-                            if note_text:
-                                translation_object.note = note_text
-                            # Each translation should have at most one
-                            # translation note, so stop looping.
-                            break
+                for termnote_tag in translation_tag.getElementsByTagName(u"termNote"):
+                    termnote_type = termnote_tag.getAttribute(u"type")
+                    #TODO the Parts of Speech, Grammatical Genders,
+                    # Grammatical Numbers, Administrative Statuses and
+                    # Administrative Status Reasons specified in the
+                    # TBX file may not exist in the Terminator
+                    # database, so the import process will fail. Maybe
+                    # it should create those missing entities, but it
+                    # may fill the database with duplicates.
+                    #TODO the Parts of Speech, Grammatical Genders,
+                    # Grammatical Numbers, Administrative Statuses and
+                    # Administrative Status Reasons can only be used
+                    # for certain languages, and the actual importing
+                    # code doesn't respect these constraints.
+                    if termnote_type == u"partOfSpeech":
+                        #TODO Since in some TBX files the Part of
+                        # Speech is capitalized it should be converted
+                        # to lowercase in the next line in order to get
+                        # the Part of Speech import working.
+                        pos_text = getText(termnote_tag.childNodes)
+                        try:
+                            part_of_speech_object = parts_of_speech[pos_text.lower()]
+                        except KeyError:
+                            raise Exception(_("Part of Speech \"%s\", "
+                                              "found in \"%s\" "
+                                              "translation for \"%s\" "
+                                              "language in concept "
+                                              "\"%s\", doesn't exist "
+                                              "in Terminator.\n\nIf "
+                                              "you want to import this"
+                                              " TBX file, either add "
+                                              "this Part of Speech to "
+                                              "Terminator, or change "
+                                              "this Part of Speech on "
+                                              "the TBX file.") %
+                                            (pos_text,
+                                             translation_text,
+                                             xml_lang, concept_id))
+                        translation_object.part_of_speech = part_of_speech_object
+                    elif termnote_type == u"grammaticalGender":
+                        gramm_gender_text = getText(termnote_tag.childNodes)
+                        try:
+                            grammatical_gender_object = genders[gramm_gender_text.lower()]
+                        except KeyError:
+                            raise Exception(_("Grammatical Gender "
+                                              "\"%s\", found in \"%s\""
+                                              " translation for \"%s\""
+                                              " language in concept "
+                                              "\"%s\", doesn't exist "
+                                              "in Terminator.\n\nIf "
+                                              "you want to import this"
+                                              " TBX file, either add "
+                                              "this Grammatical Gender"
+                                              " to Terminator, or "
+                                              "change this Grammatical"
+                                              " Gender on the TBX "
+                                              "file.") %
+                                            (gramm_gender_text,
+                                             translation_text,
+                                             xml_lang, concept_id))
+                        translation_object.grammatical_gender = grammatical_gender_object
+                    elif termnote_type == u"grammaticalNumber":
+                        gramm_number_text = getText(termnote_tag.childNodes)
+                        try:
+                            grammatical_number_object = numbers[gramm_number_text.lower()]
+                        except KeyError:
+                            raise Exception(_("Grammatical Number "
+                                              "\"%s\", found in \"%s\""
+                                              " translation for \"%s\""
+                                              " language in concept "
+                                              "\"%s\", doesn't exist "
+                                              "in Terminator.\n\nIf "
+                                              "you want to import this"
+                                              " TBX file, either add "
+                                              "this Grammatical Number"
+                                              " to Terminator, or "
+                                              "change this Grammatical"
+                                              " Number on the TBX "
+                                              "file.") %
+                                            (gramm_number_text,
+                                             translation_text,
+                                             xml_lang, concept_id))
+                        translation_object.grammatical_number = grammatical_number_object
+                    elif termnote_type == u"processStatus":
+                        # Values of processStatus different from
+                        # finalized are ignored.
+                        if getText(termnote_tag.childNodes) == u"finalized":
+                            translation_object.process_status = True
+                    elif termnote_type == u"administrativeStatus":
+                        admin_status_text = getText(termnote_tag.childNodes)
+                        try:
+                            admin_status_object = admin_statusses[admin_status_text.lower()]
+                        except KeyError:
+                            raise Exception(_("Administrative Status "
+                                              "\"%s\", found in \"%s\""
+                                              " translation for \"%s\""
+                                              " language in concept "
+                                              "\"%s\", doesn't exist "
+                                              "in Terminator.\n\nIf "
+                                              "you want to import this"
+                                              " TBX file, either add "
+                                              "this Administrative "
+                                              "Status to Terminator, "
+                                              "or change this "
+                                              "Administrative Status "
+                                              "on the TBX file.") %
+                                            (admin_status_text,
+                                             translation_text,
+                                             xml_lang, concept_id))
+                        translation_object.administrative_status = admin_status_object
+                        # If the Administrative Status is inside a
+                        # termGrp tag it may have an Administrative
+                        # Status Reason.
+                        if admin_status_object.allows_administrative_status_reason and termnote_tag.parentNode != translation_tag:
+                            reason_tag_list = termnote_tag.parentNode.getElementsByTagName(u"note")
+                            if reason_tag_list:
+                                try:
+                                    reason_object = AdministrativeStatusReason.objects.get(name__iexact=getText(reason_tag_list[0].childNodes))
+                                except AdministrativeStatusReason.DoesNotExist:
+                                    pass #TODO Raise an exception
+                                else:
+                                    translation_object.administrative_status_reason = reason_object
+                    elif termnote_type == u"termType":
+                        # It might be phraseologicalUnit, acronym or
+                        # abbreviation that in Terminator are internally
+                        # represented as PartOfSpeech objects.
+                        termtype_text = getText(termnote_tag.childNodes)
+                        try:
+                            part_of_speech_object = parts_of_speech[pos_text.lower()]
+                        except KeyError:
+                            raise Exception(_("TermType \"%s\", found "
+                                              "in \"%s\" translation "
+                                              "for \"%s\" language in "
+                                              "concept \"%s\", doesn't"
+                                              " exist in Terminator.\n"
+                                              "\nIf you want to import"
+                                              " this TBX file, either "
+                                              "add this TermType as "
+                                              "another Part of Speech "
+                                              "to Terminator, or "
+                                              "change this TermType on"
+                                              " the TBX file.\n\nNote:"
+                                              " Terminator stores this"
+                                              " TermType values as "
+                                              "Part of Speech.") %
+                                            (termtype_text,
+                                             translation_text,
+                                             xml_lang, concept_id))
+                        translation_object.part_of_speech = part_of_speech_object
 
-                    # Remove the gender and number for the translation if
-                    # it doesn't have a Part of Speech.
-                    if (translation_object.grammatical_gender or translation_object.grammatical_number) and not translation_object.part_of_speech:
-                        translation_object.grammatical_gender = None
-                        translation_object.grammatical_number = None
+                for note_tag in translation_tag.getElementsByTagName(u"note"):
+                    # Ensure that this note tag is not at lower levels
+                    # inside the translation tag.
+                    if note_tag.parentNode == translation_tag:
+                        note_text = getText(note_tag.childNodes)
+                        if note_text:
+                            translation_object.note = note_text
+                        # Each translation should have at most one
+                        # translation note, so stop looping.
+                        break
 
-                    # Save the translation because the next tags can create
-                    # objects that will refer to the translation object and
-                    # thus it should have an id set.
-                    translation_object.save()
+                # Remove the gender and number for the translation if
+                # it doesn't have a Part of Speech.
+                if (translation_object.grammatical_gender or translation_object.grammatical_number) and not translation_object.part_of_speech:
+                    translation_object.grammatical_gender = None
+                    translation_object.grammatical_number = None
 
-                    # Get the context phrase for the current translation.
-                    for descrip_tag in translation_tag.getElementsByTagName(u"descrip"):
-                        descrip_type = descrip_tag.getAttribute(u"type")
-                        if descrip_type == u"context":
-                            phrase_object = ContextSentence(
-                                    translation=translation_object,
-                                    text=getText(descrip_tag.childNodes),
-                            )
-                            phrase_object.save()
+                # Save the translation because the next tags can create
+                # objects that will refer to the translation object and
+                # thus it should have an id set.
+                translation_object.save()
 
-                    # Get the corpus examples for the current translation.
-                    for xref_tag in translation_tag.getElementsByTagName(u"xref"):
-                        xref_type = xref_tag.getAttribute(u"type")
-                        if xref_type == u"corpusTrace":
-                            xref_target = xref_tag.getAttribute(u"target")
-                            xref_description = getText(xref_tag.childNodes)
-                            if xref_target and xref_description:
-                                corpus_example_object = CorpusExample(translation=translation_object, address=xref_target, description=xref_description)
-                                corpus_example_object.save()
+                # Get the context phrase for the current translation.
+                for descrip_tag in translation_tag.getElementsByTagName(u"descrip"):
+                    descrip_type = descrip_tag.getAttribute(u"type")
+                    if descrip_type == u"context":
+                        phrase_object = ContextSentence(
+                                translation=translation_object,
+                                text=getText(descrip_tag.childNodes),
+                        )
+                        phrase_object.save()
+
+                # Get the corpus examples for the current translation.
+                for xref_tag in translation_tag.getElementsByTagName(u"xref"):
+                    xref_type = xref_tag.getAttribute(u"type")
+                    if xref_type == u"corpusTrace":
+                        xref_target = xref_tag.getAttribute(u"target")
+                        xref_description = getText(xref_tag.childNodes)
+                        if xref_target and xref_description:
+                            corpus_example_object = CorpusExample(translation=translation_object, address=xref_target, description=xref_description)
+                            corpus_example_object.save()
 
     # Once the file has been completely parsed is time to add the concept
     # relationships and save the concepts. This is done this way since some
