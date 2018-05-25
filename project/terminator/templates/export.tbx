@@ -46,10 +46,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                     <descrip type="definition">{{ language.definition.definition_text }}</descrip>{% else %}
                     <descripGrp>
                         <descrip type="definition">{{ language.definition.definition_text }}</descrip>
-                        <xref type="xSource" target="{{ language.definition.source }}">Source of this definition{#<!-- TODO Make this text be in the TBX file main language -->#}</xref>
+                        <xref type="xSource" target="{{ language.definition.source }}">Source of this definition{#<!-- TODO Make this text be in the TBX file main language -->#}</xref>{# <-- not TBX Basic (only admin allowed, not xref) #}
                     </descripGrp>{% endif %}{% endif %}{% if language.summarymessage %}
                     <note>Summary message: {{ language.summarymessage }}</note>{% endif %}{#<!-- TODO Make this text be in the TBX file main language -->#}{% for resource in language.externalresources %}
-                    <xref type="{{ resource.link_type_id }}" target="{{ resource.address }}">{{ resource.description }}</xref>{% endfor %}{% if language.definition or language.externalresources %}{% if language.translations %}
+                    <xref type="{{ resource.link_type_id }}" target="{{ resource.address }}">{{ resource.description }}</xref>{# <-- not TBX Basic #}{% endfor %}{% if language.definition or language.externalresources %}{% if language.translations %}
                     {% endif %}{% endif %}{% for translation in language.translations %}
                     <tig id="tid-{{ translation.pk }}">
                         <term>{{ translation.translation_text }}</term>{% if translation.part_of_speech %}{% if translation.part_of_speech.tbx_representation in "abbreviation,acronym,phraseologicalUnit" %}
@@ -59,7 +59,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                         <termNote type="grammaticalNumber">{{ translation.grammatical_number.tbx_representation }}</termNote>{% endif %}{% endif %}{% if not translation.process_status %}
                         <termNote type="processStatus">provisionallyProcessed</termNote>{% else %}
                         <termNote type="processStatus">finalized</termNote>{% endif %}{% if translation.administrative_status_reason %}
-                        <termNoteGrp>
+                        <termNoteGrp>{# <-- not TBX #}
                             <termNote type="administrativeStatus">{{ translation.administrative_status.tbx_representation }}</termNote>
                             <note>Administrative status reason: {{ translation.administrative_status_reason.name }}</note>{#<!-- TODO Make this text be in the TBX file main language -->#}
                         </termNoteGrp>{% else %}{% if translation.administrative_status %}
