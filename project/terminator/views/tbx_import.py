@@ -458,7 +458,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
 
     # Once the file has been completely parsed is time to add the concept
     # relationships and save the concepts. This is done this way since some
-    # termEntry refer to termEntries that hasn't being parsed yet.
+    # termEntry refer to termEntries that haven't been parsed yet.
     try:
         for concept_key, current in concept_pool.items():
             if "subject" in current:
