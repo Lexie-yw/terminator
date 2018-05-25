@@ -143,6 +143,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
         # is fully readed.
         concept_pool[concept_id] = concept_pool_entry
 
+        src_translations = []
         for language_tag in concept_tag.getElementsByTagName(u"langSet"):
             lang_id = language_tag.getAttribute(u"xml:lang")
             if not lang_id:
@@ -265,6 +266,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         language_id=lang_id,
                         translation_text=translation_text,
                 )
+                if lang_id == imported_glossary.source_language_id:
+                    src_translations.append(translation_object)
 
                 for termnote_tag in translation_tag.getElementsByTagName(u"termNote"):
                     termnote_type = termnote_tag.getAttribute(u"type")
@@ -437,7 +440,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 # Save the translation because the next tags can create
                 # objects that will refer to the translation object and
                 # thus it should have an id set.
-                translation_object.save()
+                translation_object.save(update_repr_cache=False)
 
                 # Get the context phrase for the current translation.
                 for descrip_tag in translation_tag.getElementsByTagName(u"descrip"):
@@ -462,6 +465,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     description=xref_description,
                             )
                             corpus_example_object.save()
+
+            concept_object.repr_cache = concept_object.repr_from(src_translations)
 
     # Once the file has been completely parsed is time to add the concept
     # relationships and save the concepts. This is done this way since some
