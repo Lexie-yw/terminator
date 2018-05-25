@@ -449,7 +449,11 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         xref_target = xref_tag.getAttribute(u"target")
                         xref_description = getText(xref_tag.childNodes)
                         if xref_target and xref_description:
-                            corpus_example_object = CorpusExample(translation=translation_object, address=xref_target, description=xref_description)
+                            corpus_example_object = CorpusExample(
+                                    translation=translation_object,
+                                    address=xref_target,
+                                    description=xref_description,
+                            )
                             corpus_example_object.save()
 
     # Once the file has been completely parsed is time to add the concept
