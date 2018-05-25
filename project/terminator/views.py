@@ -825,7 +825,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                     if descrip_type == u"definition":
                         definition_text = getText(descrip_tag.childNodes)
                         if definition_text:
-                            definition_object = Definition(concept=concept_object, language=language_object, definition_text=definition_text, is_finalized=True)
+                            definition_object = Definition(
+                                    concept=concept_object,
+                                    language=language_object,
+                                    definition_text=definition_text,
+                                    is_finalized=True,
+                            )
                             # If the definition is inside a descripGrp tag, it
                             # may have a source.
                             if descrip_tag.parentNode.tagName == "descripGrp":
@@ -869,7 +874,13 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         # TODO If resource_description doesn't exist raise an
                         # exception.
                         if resource_target and resource_description:
-                            external_resource_object = ExternalResource(concept=concept_object, language=language_object, address=resource_target, link_type=resource_link_type, description=resource_description)
+                            external_resource_object = ExternalResource(
+                                    concept=concept_object,
+                                    language=language_object,
+                                    address=resource_target,
+                                    link_type=resource_link_type,
+                                    description=resource_description,
+                            )
                             external_resource_object.save()
 
                 # Get the translations and related data for each language.
@@ -896,7 +907,11 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         # The next line only works with the first term tag
                         # skipping other term tags if present.
                         translation_text = getText(term_tags[0].childNodes)
-                        translation_object = Translation(concept=concept_object, language=language_object, translation_text=translation_text)
+                        translation_object = Translation(
+                                concept=concept_object,
+                                language=language_object,
+                                translation_text=translation_text,
+                        )
 
                         for termnote_tag in translation_tag.getElementsByTagName(u"termNote"):
                             termnote_type = termnote_tag.getAttribute(u"type")
@@ -1074,7 +1089,10 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         for descrip_tag in translation_tag.getElementsByTagName(u"descrip"):
                             descrip_type = descrip_tag.getAttribute(u"type")
                             if descrip_type == u"context":
-                                phrase_object = ContextSentence(translation=translation_object, text=getText(descrip_tag.childNodes))
+                                phrase_object = ContextSentence(
+                                        translation=translation_object,
+                                        text=getText(descrip_tag.childNodes),
+                                )
                                 phrase_object.save()
 
                         # Get the corpus examples for the current translation.
