@@ -147,9 +147,10 @@ if settings.FEATURES.get("autoterm"):
 
 # Import URLs
 if settings.FEATURES.get("import_tbx"):
+    from terminator.views import tbx_import
     urlpatterns.append(
         url(r'^import/$',
-            views.import_view,
+            tbx_import.import_view,
             name='terminator_import'),
     )
 
