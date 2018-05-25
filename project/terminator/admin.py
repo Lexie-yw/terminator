@@ -570,6 +570,7 @@ class ExternalResourceAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     list_display = ('address', 'concept', 'language', 'link_type', 'description')
     ordering = ('concept',)
     list_filter = ['language', 'concept__glossary', 'link_type']
+    list_select_related = ('concept', 'language', 'link_type')
     search_fields = ['description', 'address']
     readonly_fields = ('concept',)
     fieldsets = (
