@@ -317,11 +317,16 @@ class Concept(models.Model):
         src_translations = self.translation_set.filter(
                 language_id=self.glossary.source_language_id,
         )
-        src_translations = sorted(src_translations, key=lambda t: t.cmp_key())
-        repr_ = ', '.join(t.translation_text for t in src_translations[:4])[:200]
+        repr_ = self.repr_from(src_translations)
         if repr_:
-            self.repr_cache = "#%d: %s" % (self.id, repr_)
+            self.repr_cache = repr_
             self.save(update_fields=['repr_cache'])
+
+    def repr_from(self, translations):
+        translations = sorted(translations, key=lambda t: t.cmp_key())
+        repr_ = ', '.join(t.translation_text for t in translations[:4])[:200]
+        repr_ = "#%d: %s" % (self.id, repr_)
+        return repr_
 
     def source_language_finalized(self):
         try:
