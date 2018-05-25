@@ -715,6 +715,13 @@ def import_uploaded_file(uploaded_file, imported_glossary):
     #imported_glossary.description = glossary_description
     #imported_glossary.save()
 
+    # Keep all of these in memory for repeated use.
+    languages = dict((o.iso_code, o) for o in Language.objects.all())
+    parts_of_speech = dict((o.tbx_representation.lower(), o) for o in PartOfSpeech.objects.all())
+    admin_statusses = dict((o.tbx_representation.lower(), o) for o in AdministrativeStatus.objects.all())
+    genders = dict((o.tbx_representation.lower(), o) for o in GrammaticalGender.objects.all())
+    numbers = dict((o.tbx_representation.lower(), o) for o in GrammaticalNumber.objects.all())
+    link_types = dict((o.tbx_representation.lower(), o) for o in ExternalLinkType.objects.all())
     concept_pool = {}
     with transaction.atomic():
         for concept_tag in tbx_file.getElementsByTagName(u"termEntry"):
@@ -795,8 +802,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                           "to that tag in the TBX file."))
                     raise Exception(excp_msg)
                 try:
-                    language_object = Language.objects.get(pk=xml_lang)
-                except Language.DoesNotExist:
+                    language_object = languages[xml_lang]
+                except KeyError:
                     excp_msg = (_("\"%s\" tag with code \"%s\" in its \"%s\" "
                                   "attribute, found in concept \"%s\", but "
                                   "there is no Language with that code in "
@@ -842,8 +849,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                     if descrip_tag.parentNode == language_tag:
                         resource_type = xref_tag.getAttribute(u"type")
                         try:
-                            resource_link_type = ExternalLinkType.objects.get(pk=resource_type)
-                        except ExternalLinkType.DoesNotExist:
+                            resource_link_type = link_types[resource_type]
+                        except KeyError:
                             excp_msg = (_("External Link Type \"%s\", found "
                                           "inside a \"%s\" tag in the \"%s\" "
                                           "language in concept \"%s\", doesn't"
@@ -912,8 +919,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 # the Part of Speech import working.
                                 pos_text = getText(termnote_tag.childNodes)
                                 try:
-                                    part_of_speech_object = PartOfSpeech.objects.get(tbx_representation__iexact=pos_text)
-                                except PartOfSpeech.DoesNotExist:
+                                    part_of_speech_object = parts_of_speech[pos_text.lower()]
+                                except KeyError:
                                     raise Exception(_("Part of Speech \"%s\", "
                                                       "found in \"%s\" "
                                                       "translation for \"%s\" "
@@ -933,8 +940,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             elif termnote_type == u"grammaticalGender":
                                 gramm_gender_text = getText(termnote_tag.childNodes)
                                 try:
-                                    grammatical_gender_object = GrammaticalGender.objects.get(tbx_representation__iexact=gramm_gender_text)
-                                except GrammaticalGender.DoesNotExist:
+                                    grammatical_gender_object = genders[gramm_gender_text.lower()]
+                                except KeyError:
                                     raise Exception(_("Grammatical Gender "
                                                       "\"%s\", found in \"%s\""
                                                       " translation for \"%s\""
@@ -955,8 +962,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             elif termnote_type == u"grammaticalNumber":
                                 gramm_number_text = getText(termnote_tag.childNodes)
                                 try:
-                                    grammatical_number_object = GrammaticalNumber.objects.get(tbx_representation__iexact=gramm_number_text)
-                                except GrammaticalNumber.DoesNotExist:
+                                    grammatical_number_object = numbers[gramm_number_text.lower()]
+                                except KeyError:
                                     raise Exception(_("Grammatical Number "
                                                       "\"%s\", found in \"%s\""
                                                       " translation for \"%s\""
@@ -982,8 +989,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             elif termnote_type == u"administrativeStatus":
                                 admin_status_text = getText(termnote_tag.childNodes)
                                 try:
-                                    administrative_status_object = AdministrativeStatus.objects.get(tbx_representation__iexact=admin_status_text)
-                                except AdministrativeStatus.DoesNotExist:
+                                    admin_status_object = admin_statusses[admin_status_text.lower()]
+                                except KeyError:
                                     raise Exception(_("Administrative Status "
                                                       "\"%s\", found in \"%s\""
                                                       " translation for \"%s\""
@@ -1000,11 +1007,11 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                                     (admin_status_text,
                                                      translation_text,
                                                      xml_lang, concept_id))
-                                translation_object.administrative_status = administrative_status_object
+                                translation_object.administrative_status = admin_status_object
                                 # If the Administrative Status is inside a
                                 # termGrp tag it may have an Administrative
                                 # Status Reason.
-                                if administrative_status_object.allows_administrative_status_reason and termnote_tag.parentNode != translation_tag:
+                                if admin_status_object.allows_administrative_status_reason and termnote_tag.parentNode != translation_tag:
                                     reason_tag_list = termnote_tag.parentNode.getElementsByTagName(u"note")
                                     if reason_tag_list:
                                         try:
@@ -1019,8 +1026,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 # represented as PartOfSpeech objects.
                                 termtype_text = getText(termnote_tag.childNodes)
                                 try:
-                                    part_of_speech_object = PartOfSpeech.objects.get(tbx_representation__iexact=termtype_text)
-                                except PartOfSpeech.DoesNotExist:
+                                    part_of_speech_object = parts_of_speech[pos_text.lower()]
+                                except KeyError:
                                     raise Exception(_("TermType \"%s\", found "
                                                       "in \"%s\" translation "
                                                       "for \"%s\" language in "
