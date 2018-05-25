@@ -41,6 +41,13 @@ def getText(nodelist):
     return rc.strip()
 
 
+def lookup_dict(model, values=True):
+    qs = model.objects.all()
+    if values:
+        return dict((x.tbx_representation.lower(), x.pk) for x in qs)
+    return dict((x.tbx_representation.lower(), x) for x in qs)
+
+
 def import_uploaded_file(uploaded_file, imported_glossary):
     #TODO Split this function in several shortest functions. Move the code to
     # another file.
@@ -61,12 +68,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
     #imported_glossary.save()
 
     # Keep all of these in memory for repeated use.
-    languages = dict((o.iso_code, o) for o in Language.objects.all())
-    parts_of_speech = dict((o.tbx_representation.lower(), o) for o in PartOfSpeech.objects.all())
-    admin_statusses = dict((o.tbx_representation.lower(), o) for o in AdministrativeStatus.objects.all())
-    genders = dict((o.tbx_representation.lower(), o) for o in GrammaticalGender.objects.all())
-    numbers = dict((o.tbx_representation.lower(), o) for o in GrammaticalNumber.objects.all())
-    link_types = dict((o.tbx_representation.lower(), o) for o in ExternalLinkType.objects.all())
+    languages = set(Language.objects.all().values_list('iso_code', flat=True))
+    parts_of_speech = lookup_dict(PartOfSpeech)
+    admin_statusses = lookup_dict(AdministrativeStatus, values=False)
+    genders = lookup_dict(GrammaticalGender)
+    numbers = lookup_dict(GrammaticalNumber)
+    link_types = lookup_dict(ExternalLinkType)
 
     concept_pool = {}
     for concept_tag in tbx_file.getElementsByTagName(u"termEntry"):
@@ -137,8 +144,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
         concept_pool[concept_id] = concept_pool_entry
 
         for language_tag in concept_tag.getElementsByTagName(u"langSet"):
-            xml_lang = language_tag.getAttribute(u"xml:lang")
-            if not xml_lang:
+            lang_id = language_tag.getAttribute(u"xml:lang")
+            if not lang_id:
                 excp_msg = (_("\"%s\" tag without \"%s\" attribute in "
                               "concept \"%s\".") %
                             ("langSet", "xml:lang", concept_id))
@@ -146,14 +153,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                       "file you must add that attribute "
                                       "to that tag in the TBX file."))
                 raise Exception(excp_msg)
-            try:
-                language_object = languages[xml_lang]
-            except KeyError:
+            if lang_id not in languages:
                 excp_msg = (_("\"%s\" tag with code \"%s\" in its \"%s\" "
                               "attribute, found in concept \"%s\", but "
                               "there is no Language with that code in "
                               "Terminator.") %
-                            ("langSet", xml_lang, "xml:lang", concept_id))
+                            ("langSet", lang_id, "xml:lang", concept_id))
                 excp_msg += unicode(_("\n\nIf you want to import this TBX "
                                       "file, either add this language to "
                                       "Terminator, or change the \"%s\" "
@@ -172,7 +177,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                     if definition_text:
                         definition_object = Definition(
                                 concept=concept_object,
-                                language=language_object,
+                                language_id=lang_id,
                                 definition_text=definition_text,
                                 is_finalized=True,
                         )
@@ -205,7 +210,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                       "inside a \"%s\" tag in the \"%s\" "
                                       "language in concept \"%s\", doesn't"
                                       " exist in Terminator.") %
-                                    (resource_type, "xref", xml_lang,
+                                    (resource_type, "xref", lang_id,
                                      concept_id))
                         excp_msg += unicode(_("\n\nIf you want to import "
                                               "this TBX file, either add "
@@ -221,7 +226,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                     if resource_target and resource_description:
                         external_resource_object = ExternalResource(
                                 concept=concept_object,
-                                language=language_object,
+                                language_id=lang_id,
                                 address=resource_target,
                                 link_type=resource_link_type,
                                 description=resource_description,
@@ -239,11 +244,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                               "because \"%s\" tags are used instead, but "
                               "unfortunately Terminator is unable to "
                               "import TBX files without \"%s\" tags.") %
-                            ("tig", xml_lang, concept_id, "ntig", "tig"))
+                            ("tig", lang_id, concept_id, "ntig", "tig"))
                 excp_msg += unicode(_("\n\nIf you want to import this TBX "
                                       "file you must make the appropiate"
                                       " changes in the TBX file."))
                 raise Exception(excp_msg)
+
             for translation_tag in tig_tags:
                 term_tags = translation_tag.getElementsByTagName(u"term")
                 # Proceed only if there is at least one term tag inside
@@ -256,7 +262,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 translation_text = getText(term_tags[0].childNodes)
                 translation_object = Translation(
                         concept=concept_object,
-                        language=language_object,
+                        language_id=lang_id,
                         translation_text=translation_text,
                 )
 
@@ -281,7 +287,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         # the Part of Speech import working.
                         pos_text = getText(termnote_tag.childNodes)
                         try:
-                            part_of_speech_object = parts_of_speech[pos_text.lower()]
+                            pos_id = parts_of_speech[pos_text.lower()]
                         except KeyError:
                             raise Exception(_("Part of Speech \"%s\", "
                                               "found in \"%s\" "
@@ -297,12 +303,13 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                               "the TBX file.") %
                                             (pos_text,
                                              translation_text,
-                                             xml_lang, concept_id))
-                        translation_object.part_of_speech = part_of_speech_object
+                                             lang_id, concept_id))
+
+                        translation_object.part_of_speech_id = pos_id
                     elif termnote_type == u"grammaticalGender":
                         gramm_gender_text = getText(termnote_tag.childNodes)
                         try:
-                            grammatical_gender_object = genders[gramm_gender_text.lower()]
+                            gender_id = genders[gramm_gender_text.lower()]
                         except KeyError:
                             raise Exception(_("Grammatical Gender "
                                               "\"%s\", found in \"%s\""
@@ -319,12 +326,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                               "file.") %
                                             (gramm_gender_text,
                                              translation_text,
-                                             xml_lang, concept_id))
-                        translation_object.grammatical_gender = grammatical_gender_object
+                                             lang_id, concept_id))
+                        translation_object.grammatical_gender_id = gender_id
                     elif termnote_type == u"grammaticalNumber":
                         gramm_number_text = getText(termnote_tag.childNodes)
                         try:
-                            grammatical_number_object = numbers[gramm_number_text.lower()]
+                            number_id = numbers[gramm_number_text.lower()]
                         except KeyError:
                             raise Exception(_("Grammatical Number "
                                               "\"%s\", found in \"%s\""
@@ -341,8 +348,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                               "file.") %
                                             (gramm_number_text,
                                              translation_text,
-                                             xml_lang, concept_id))
-                        translation_object.grammatical_number = grammatical_number_object
+                                             lang_id, concept_id))
+                        translation_object.grammatical_number_id = number_id
                     elif termnote_type == u"processStatus":
                         # Values of processStatus different from
                         # finalized are ignored.
@@ -351,7 +358,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                     elif termnote_type == u"administrativeStatus":
                         admin_status_text = getText(termnote_tag.childNodes)
                         try:
-                            admin_status_object = admin_statusses[admin_status_text.lower()]
+                            admin_status = admin_statusses[admin_status_text.lower()]
                         except KeyError:
                             raise Exception(_("Administrative Status "
                                               "\"%s\", found in \"%s\""
@@ -368,12 +375,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                               "on the TBX file.") %
                                             (admin_status_text,
                                              translation_text,
-                                             xml_lang, concept_id))
-                        translation_object.administrative_status = admin_status_object
+                                             lang_id, concept_id))
+                        translation_object.administrative_status = admin_status
                         # If the Administrative Status is inside a
                         # termGrp tag it may have an Administrative
                         # Status Reason.
-                        if admin_status_object.allows_administrative_status_reason and termnote_tag.parentNode != translation_tag:
+                        if admin_status.allows_administrative_status_reason and termnote_tag.parentNode != translation_tag:
                             reason_tag_list = termnote_tag.parentNode.getElementsByTagName(u"note")
                             if reason_tag_list:
                                 try:
@@ -388,7 +395,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         # represented as PartOfSpeech objects.
                         termtype_text = getText(termnote_tag.childNodes)
                         try:
-                            part_of_speech_object = parts_of_speech[pos_text.lower()]
+                            pos_id = parts_of_speech[pos_text.lower()]
                         except KeyError:
                             raise Exception(_("TermType \"%s\", found "
                                               "in \"%s\" translation "
@@ -407,8 +414,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                               "Part of Speech.") %
                                             (termtype_text,
                                              translation_text,
-                                             xml_lang, concept_id))
-                        translation_object.part_of_speech = part_of_speech_object
+                                             lang_id, concept_id))
+                        translation_object.part_of_speech_id = pos_id
 
                 for note_tag in translation_tag.getElementsByTagName(u"note"):
                     # Ensure that this note tag is not at lower levels
@@ -423,7 +430,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
 
                 # Remove the gender and number for the translation if
                 # it doesn't have a Part of Speech.
-                if (translation_object.grammatical_gender or translation_object.grammatical_number) and not translation_object.part_of_speech:
+                if (translation_object.grammatical_gender_id or translation_object.grammatical_number_id) and not translation_object.part_of_speech_id:
                     translation_object.grammatical_gender = None
                     translation_object.grammatical_number = None
 
