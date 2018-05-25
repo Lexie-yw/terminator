@@ -517,7 +517,12 @@ class ProposalAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('term', 'language', 'definition', 'sent_date', 'for_glossary')
     ordering = ('sent_date',)
-    list_filter = ['language', 'for_glossary', 'sent_date', 'user']
+    list_filter = [
+            ('language', admin.RelatedOnlyFieldListFilter),
+            ('for_glossary', admin.RelatedOnlyFieldListFilter),
+            'sent_date',
+            ('user', admin.RelatedOnlyFieldListFilter),
+    ]
     search_fields = ['term', 'definition']
     actions = ['convert_proposals']
 
@@ -569,7 +574,11 @@ class ExternalResourceAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
     list_display = ('address', 'concept', 'language', 'link_type', 'description')
     ordering = ('concept',)
-    list_filter = ['language', 'concept__glossary', 'link_type']
+    list_filter = [
+            ('language', admin.RelatedOnlyFieldListFilter),
+            ('concept__glossary', admin.RelatedOnlyFieldListFilter),
+            ('link_type', admin.RelatedOnlyFieldListFilter),
+    ]
     list_select_related = ('concept', 'language', 'link_type')
     search_fields = ['description', 'address']
     readonly_fields = ('concept',)
