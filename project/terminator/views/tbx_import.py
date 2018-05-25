@@ -29,6 +29,18 @@ from terminator.forms import ImportForm, SearchForm
 from terminator.models import *
 
 
+def getText(nodelist):
+    """
+    Extract the stripped text from all text nodes in a node list.
+    This is used for getting the text from text nodes in TBX files.
+    """
+    rc = u""
+    for node in nodelist:
+        if node.nodeType == node.TEXT_NODE:
+            rc += node.data
+    return rc.strip()
+
+
 def import_uploaded_file(uploaded_file, imported_glossary):
     #TODO Split this function in several shortest functions. Move the code to
     # another file.
@@ -36,17 +48,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
     # file, or even a text file.
     #TODO Perhaps use lxml instead of xml.dom.minidom?
     tbx_file = minidom.parse(uploaded_file)
-
-    def getText(nodelist):
-        """
-        Extract the stripped text from all text nodes in a node list.
-        This is used for getting the text from text nodes in TBX files.
-        """
-        rc = u""
-        for node in nodelist:
-            if node.nodeType == node.TEXT_NODE:
-                rc += node.data
-        return rc.strip()
 
     #TODO Perhaps add the title and description from the TBX file to the
     # glossary instead of using the ones provided in the import form. Or maybe
