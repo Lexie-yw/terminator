@@ -188,7 +188,7 @@ class TerminatorConceptAdminForm(forms.ModelForm):
             # only provide concepts in this glossary
             concepts = Concept.objects.filter(
                     glossary_id=self.instance.glossary_id,
-            ).only("id", "repr_cache").all()
+            ).exclude(pk=self.instance.pk).only("id", "repr_cache").all()
             self.fields['related_concepts'].queryset = concepts
             self.fields['broader_concept'].queryset = concepts
         self.queryset = Concept.objects.all().select_related("glossary")
@@ -215,8 +215,11 @@ class TerminatorConceptAdminForm(forms.ModelForm):
                 # This field is no longer valid. So remove it from the cleaned
                 # data.
                 del cleaned_data["subject_field"]
-            #TODO Filter the case in which the concept sets itself as its
-            # subject_field.
+            elif self.instance and subject_field == self.instance:
+                msg = _(u"You can't set a relationship between a concept and itself.")
+                self._errors["subject_field"] = self.error_class([msg])
+                del cleaned_data["subject_field"]
+
 
         broader_concept = cleaned_data.get("broader_concept")
         if broader_concept and glossary:
@@ -226,8 +229,10 @@ class TerminatorConceptAdminForm(forms.ModelForm):
                 # This field is no longer valid. So remove it from the cleaned
                 # data.
                 del cleaned_data["broader_concept"]
-            #TODO Filter the case in which the concept sets itself as its
-            # broader_concept.
+            elif self.instance and broader_concept.id == self.instance.id:
+                msg = _(u"You can't set a relationship between a concept and itself.")
+                self._errors["broader_concept"] = self.error_class([msg])
+                del cleaned_data["broader_concept"]
 
         related_concepts = cleaned_data.get("related_concepts")
         if related_concepts and glossary:
@@ -238,8 +243,10 @@ class TerminatorConceptAdminForm(forms.ModelForm):
                     # This field is no longer valid. So remove it from the
                     # cleaned data.
                     del cleaned_data["related_concepts"]
-                #TODO Filter the case in which the concept sets itself as one
-                # of its related_concept.
+                elif self.instance and related_concept == self.instance:
+                    msg = _(u"You can't set a relationship between a concept and itself.")
+                    self._errors["related_concept"] = self.error_class([msg])
+                    del cleaned_data["related_concept"]
 
         # Always return the full collection of cleaned data.
         return cleaned_data
