@@ -368,11 +368,23 @@ class CorpusExampleInline(admin.TabularInline):
 class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
     form = TerminatorTranslationAdminForm
-    fields = [
-        'concept', 'language', 'translation_text', 'part_of_speech',
-        'grammatical_gender', 'grammatical_number', 'process_status',
-        'administrative_status', 'administrative_status_reason', 'note'
-    ]
+    # if changing the fieldsets, review get_fieldsets() as well
+    fieldsets = (
+            (None, {
+                'fields': (('concept', 'language'), 'translation_text'),
+            }),
+            (_('Grammatical information'), {
+                'fields': ('part_of_speech', 'grammatical_gender',
+                    'grammatical_number')
+            }),
+            (_("Workflow status"), {
+                'fields': (
+                    'process_status',
+                    ('administrative_status', 'administrative_status_reason'),
+                    'note',
+                ),
+            }),
+    )
     readonly_fields = ('concept', 'language')
     list_display = ('translation_text', 'language', 'concept', 'part_of_speech', 'administrative_status', 'process_status',)
     ordering = ('concept',)
@@ -384,67 +396,15 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     inlines = [ContextSentenceInline, CorpusExampleInline]
     list_select_related = ('language', 'concept', 'part_of_speech', 'administrative_status')
 
-    def get_fields(self, request, obj=None):
-        fields = super(TranslationAdmin, self).get_fields(request, obj)
-        if not obj:
-            return fields
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            # Terms should be handled in the main app, not the admin.
+            return self.readonly_fields + ("translation_text",)
 
-        # simplify by removing fields that can only get invalid values here
-        # (the language relationships first need to be updated)
-        fields = fields[:]
-        language = obj.language
-        if not language.grammatical_genders.exists():
-            fields.remove("grammatical_gender")
-        if not language.grammatical_numbers.exists():
-            fields.remove("grammatical_number")
-        if not language.administrativestatusreason_set.exists():
-            fields.remove("administrative_status_reason")
-
-        return fields
-
-    def get_queryset(self, request):
-        qs = super(TranslationAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        inner_qs = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
-                                        Glossary, False)
-        return qs.filter(concept__glossary__in=inner_qs)
-
-    def response_change(self, request, obj):
-        return HttpResponseRedirect(obj.get_absolute_url())
-
-admin.site.register(Translation, TranslationAdmin)
-
-
-class TranslationOfConceptAdmin(TranslationAdmin):
-    """An simpler form for translations of a concept in a language."""
-    save_on_top = False
-    fields = None
-    fieldsets = (
-            (None, {
-                'fields': (('concept', 'language'), 'translation_text'),
-            }),
-            (_('Grammatical information'), {
-                'fields': ('part_of_speech', 'grammatical_gender',
-                    'grammatical_number')
-            }),
-            (_("Workflow status"), {
-                'fields': ('process_status', ('administrative_status', 'administrative_status_reason'), 'note'),
-            }),
-    )
-    readonly_fields = ('concept', 'language',)
-    list_display = ('translation_text', 'administrative_status', 'process_status',)
-    ordering = ('translation_text',)
-    list_filter = [
-        'process_status', 'administrative_status',
-    ]
-    inlines = [ContextSentenceInline, CorpusExampleInline]
-    show_full_result_count = False
-    actions_selection_counter = False
+        return super(TranslationAdmin, self).get_readonly_fields(request, obj)
 
     def get_fieldsets(self, request, obj=None):
-        fieldsets = super(TranslationOfConceptAdmin, self).get_fieldsets(request, obj)
+        fieldsets = super(TranslationAdmin, self).get_fieldsets(request, obj)
         if not obj:
             return fieldsets
 
@@ -467,8 +427,32 @@ class TranslationOfConceptAdmin(TranslationAdmin):
 
         return fieldsets
 
+    def get_queryset(self, request):
+        qs = super(TranslationAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        inner_qs = get_objects_for_user(request.user,
+                                        ['is_terminologist_in_this_glossary'],
+                                        Glossary, False)
+        return qs.filter(concept__glossary__in=inner_qs)
+
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
+
+admin.site.register(Translation, TranslationAdmin)
+
+
+class TranslationOfConceptAdmin(TranslationAdmin):
+    """An simpler form for translations of a concept in a language."""
+    save_on_top = False
+    list_display = ('translation_text', 'part_of_speech', 'administrative_status', 'process_status',)
+    ordering = ('translation_text',)
+    list_filter = [
+        'process_status', 'administrative_status',
+    ]
+    show_full_result_count = False
+    actions_selection_counter = False
+
 
 
 myadmin = admin.AdminSite(name='myadmin')
