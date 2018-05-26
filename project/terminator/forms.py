@@ -198,6 +198,7 @@ class TerminatorConceptAdminForm(forms.ModelForm):
 
         cleaned_data = self.cleaned_data
         glossary = cleaned_data.get("glossary")
+        glossary = glossary or self.instance.glossary
         subject_field = cleaned_data.get("subject_field")
 
         if subject_field and glossary:
