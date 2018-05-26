@@ -443,7 +443,7 @@ admin.site.register(Translation, TranslationAdmin)
 
 
 class TranslationOfConceptAdmin(TranslationAdmin):
-    """An simpler form for translations of a concept in a language."""
+    """A simpler form for translations of a concept in a language."""
     save_on_top = False
     list_display = ('translation_text', 'part_of_speech', 'administrative_status', 'process_status',)
     ordering = ('translation_text',)
