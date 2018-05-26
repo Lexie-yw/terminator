@@ -452,7 +452,7 @@ class AdminFormTests(TestCase):
             "subject_field": 3,
         })
         self.assertEqual(form.errors, {
-            "subject_field": ["Specify only Subject fields that belong to the chosen glossary available subject fields."],
+            "subject_field": ["Only specify subject fields from the glossary's subject fields."],
         })
         self.assertTrue(not form.is_valid())
         form = TerminatorConceptAdminForm({
@@ -477,7 +477,7 @@ class AdminFormTests(TestCase):
             "broader_concept": 4,
         })
         self.assertEqual(form.errors, {
-            "broader_concept": ["Specify only Broader concepts that belong to the chosen glossary."],
+            "broader_concept": ["Only specify broader concepts from the same glossary."],
         })
         self.assertTrue(not form.is_valid(), str(form))
 
@@ -486,7 +486,7 @@ class AdminFormTests(TestCase):
             "related_concepts": [4],
         })
         self.assertEqual(form.errors, {
-            "related_concepts": ["Specify only Related concepts that belong to the chosen glossary."],
+            "related_concepts": ["Only specify related concepts from the same glossary."],
         })
         self.assertTrue(not form.is_valid(), str(form))
 

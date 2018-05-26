@@ -201,14 +201,15 @@ class TerminatorConceptAdminForm(forms.ModelForm):
         subject_field = cleaned_data.get("subject_field")
 
         if subject_field and glossary:
+            # We only show the right ones, but this is still good validation:
             if not subject_field.glossary == glossary:
-                msg = _(u"Specify only Subject fields that belong to the chosen glossary.")
+                msg = _(u"Only specify subject fields from the same glossary.")
                 self._errors["subject_field"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
                 # data.
                 del cleaned_data["subject_field"]
             elif not subject_field in subject_field.glossary.subject_fields.all():
-                msg = _(u"Specify only Subject fields that belong to the chosen glossary available subject fields.")
+                msg = _(u"Only specify subject fields from the glossary's subject fields.")
                 self._errors["subject_field"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
                 # data.
@@ -219,7 +220,7 @@ class TerminatorConceptAdminForm(forms.ModelForm):
         broader_concept = cleaned_data.get("broader_concept")
         if broader_concept and glossary:
             if not broader_concept.glossary == glossary:
-                msg = _(u"Specify only Broader concepts that belong to the chosen glossary.")
+                msg = _(u"Only specify broader concepts from the same glossary.")
                 self._errors["broader_concept"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
                 # data.
@@ -231,7 +232,7 @@ class TerminatorConceptAdminForm(forms.ModelForm):
         if related_concepts and glossary:
             for related_concept in related_concepts:
                 if not related_concept.glossary == glossary:
-                    msg = _(u"Specify only Related concepts that belong to the chosen glossary.")
+                    msg = _(u"Only specify related concepts from the same glossary.")
                     self._errors["related_concepts"] = self.error_class([msg])
                     # This field is no longer valid. So remove it from the
                     # cleaned data.
