@@ -727,6 +727,20 @@ def search(request):
 
             queryset = queryset.select_related('concept', 'concept__glossary', 'administrative_status')[:limit]
             queryset = queryset.prefetch_related(Prefetch('concept__translation_set', to_attr="others"))
+            queryset = queryset.defer(
+                    'administrative_status_reason',
+                    'administrative_status__description',
+                    'administrative_status__allows_administrative_status_reason',
+                    'part_of_speech',
+                    'grammatical_gender',
+                    'grammatical_number',
+                    'note',
+                    'concept__repr_cache',
+                    'concept__broader_concept',
+                    'concept__subject_field',
+                    'concept__glossary__description',
+                    'concept__glossary__source_language',
+            )
 
             previous_concept = None
 
