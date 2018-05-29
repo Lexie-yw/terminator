@@ -174,13 +174,13 @@ class URLsB(TestCase):
             "filter_by_administrative_status": "preferredTerm-admn-sts",
             "also_show_partial_matches": True,
             })
-        self.assertContains(response, "No results are available")
+        self.assertContains(response, "No results found.")
         response = self.c.get('/advanced_search/', {
             "search_string": "tab",
             "filter_by_glossary": 1,
             "filter_by_language": "en",
             })
-        self.assertNotContains(response, "No results are available")
+        self.assertNotContains(response, "No results found.")
 
     def test_concept(self):
         response = self.c.get('/concepts/1/')
