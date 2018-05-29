@@ -256,10 +256,10 @@ class ConceptSourceView(TerminatorDetailView):
         translations = Translation.objects.filter(concept=concept, language=language)
         initial = {}
         try:
-            definition = Definition.objects.filter(
+            definition = Definition.objects.get(
                     concept=concept,
                     language=language,
-            ).latest()
+            )
         except Definition.DoesNotExist:
             definition = None
         may_edit = False
@@ -297,11 +297,11 @@ class ConceptSourceView(TerminatorDetailView):
                         # load later in the template.
                     elif name == "definition":
                         if definition:
-                            definition.is_finalized = False
-                            definition.save()
-                        model = Definition(definition_text=value)
-                        definition = model
-                        # consider: definition.is_finalized = True
+                            definition.definition_text = value
+                        else:
+                            definition = Definition(definition_text=value)
+                        model = definition
+
                     model.language = language
                     model.concept = concept
                     model.save()
@@ -594,14 +594,10 @@ def export_glossaries_to_TBX(glossaries, desired_languages=None, export_all_defi
                     assert len(lang_summary_message) == 1
                     lang_summary_message = lang_summary_message[0].text
 
-                # Get the last definition by id
-                #python 3:
-                #lang_definition = max(def_dict.get(key, []), None, lambda x: x.id)
-                #python 2:
-                lang_definition = None
-                lang_definitions = def_dict.get(key, None)
-                if lang_definitions:
-                    lang_definition = max(lang_definitions, key=lambda x: x.id)
+                lang_definition = def_dict.get(key, None)
+                if lang_definition:
+                    assert len(lang_definition) == 1
+                    lang_definition = lang_definition[0]
 
                 if not any((lang_translations, lang_resources, lang_definition, lang_summary_message)):
                     # no real content
@@ -727,7 +723,7 @@ def search(request):
             previous_concept = None
             for trans in queryset:# All recovered translations are ordered by concept and then by language
                 try:
-                    definition = Definition.objects.filter(concept_id=trans.concept_id, language_id=trans.language_id).latest()
+                    definition = Definition.objects.get(concept_id=trans.concept_id, language_id=trans.language_id)
                 except Definition.DoesNotExist:
                     definition = None
 

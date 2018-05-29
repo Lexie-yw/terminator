@@ -523,11 +523,9 @@ class Definition(models.Model, ConceptLangUrlMixin):
     source = models.URLField(blank=True, verbose_name=_("source"))
 
     class Meta:
-        get_latest_by = "id"
         verbose_name = _("definition")
         verbose_name_plural = _("definitions")
-        # We allow multiple per (concept, language), but only as history. The
-        # latest (by .id) is considered the current definition.
+        unique_together = ("concept", "language")
 
     def __unicode__(self):
         trans_data = {
