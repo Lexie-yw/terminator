@@ -28,6 +28,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, InvalidPage, Paginator
 from django.db import transaction, DatabaseError
 from django.db.models import Prefetch, Q
+from django.db.models import OuterRef, Subquery
 from django.db.models import prefetch_related_objects
 from django.http import HttpResponse
 from django.shortcuts import (get_object_or_404, render, Http404)
@@ -717,16 +718,19 @@ def search(request):
             limit = 20
             if request.user.is_authenticated:
                 limit = 100
+
+            definition = Definition.objects.filter(
+                    concept=OuterRef('concept'),
+                    language=OuterRef('language'),
+            )
+            queryset = queryset.annotate(definition=Subquery(definition.values('definition_text')))
+
             queryset = queryset.select_related('concept', 'concept__glossary', 'administrative_status')[:limit]
             queryset = queryset.prefetch_related(Prefetch('concept__translation_set', to_attr="others"))
 
             previous_concept = None
-            for trans in queryset:# All recovered translations are ordered by concept and then by language
-                try:
-                    definition = Definition.objects.get(concept_id=trans.concept_id, language_id=trans.language_id)
-                except Definition.DoesNotExist:
-                    definition = None
 
+            for trans in queryset:# All recovered translations are ordered by concept and then by language
                 # If this is the first translation for this concept
                 if previous_concept != trans.concept_id:
                     is_first = True
@@ -738,7 +742,7 @@ def search(request):
 
                 search_results.append({
                     "translation": trans,
-                    "definition": definition,
+                    "definition": trans.definition,
                     "other_translations": other_translations,
                     "is_first": is_first,
                 })

@@ -28,7 +28,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {% endif %}
         {% if not result.translation.process_status %}<span class="not_finalized">{% trans "(Not finalized)" %}</span>{% endif %}
         
-        {% if result.definition %}<div>{{ result.definition.definition_text }}</div>{% endif %}
+        {% if result.definition %}<div>{{ result.definition }}</div>{% endif %}
         
         {% if result.is_first %}
         <div class="other_translations">
