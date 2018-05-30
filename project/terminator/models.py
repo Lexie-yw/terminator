@@ -29,6 +29,7 @@ from django.utils.html import format_html, mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from guardian.shortcuts import assign_perm, get_users_with_perms
+from simple_history.models import HistoricalRecords
 
 import itertools
 import re
@@ -521,6 +522,7 @@ class Definition(models.Model, ConceptLangUrlMixin):
     text = models.TextField(verbose_name=_("definition text"))
     is_finalized = models.BooleanField(default=False, verbose_name=_("is finalized"))
     source = models.URLField(blank=True, verbose_name=_("source"))
+    history = HistoricalRecords()
 
     class Meta:
         verbose_name = _("definition")

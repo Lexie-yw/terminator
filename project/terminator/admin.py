@@ -29,6 +29,7 @@ from django.utils.translation import ugettext_lazy, ungettext, ugettext as _
 from guardian.admin import GuardedModelAdmin
 from guardian.shortcuts import get_objects_for_user
 from guardian.utils import clean_orphan_obj_perms
+from simple_history.admin import SimpleHistoryAdmin
 
 from terminator.forms import (TerminatorConceptAdminForm,
                               TerminatorGlossaryAdminForm,
@@ -459,7 +460,7 @@ myadmin = admin.AdminSite(name='myadmin')
 myadmin.register(Translation, TranslationOfConceptAdmin)
 
 
-class DefinitionAdmin(ConceptLanguageMixin, admin.ModelAdmin):
+class DefinitionAdmin(ConceptLanguageMixin, SimpleHistoryAdmin):
     save_on_top = True
     list_display = ('text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
