@@ -383,7 +383,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         # If the Administrative Status is inside a
                         # termGrp tag it may have an Administrative
                         # Status Reason.
-                        if admin_status.allows_administrative_status_reason and termnote_tag.parentNode != translation_tag:
+                        if admin_status.allows_reason and termnote_tag.parentNode != translation_tag:
                             reason_tag_list = termnote_tag.parentNode.getElementsByTagName(u"note")
                             if reason_tag_list:
                                 try:

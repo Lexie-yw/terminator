@@ -730,7 +730,7 @@ def search(request):
             queryset = queryset.defer(
                     'administrative_status_reason',
                     'administrative_status__description',
-                    'administrative_status__allows_administrative_status_reason',
+                    'administrative_status__allows_reason',
                     'part_of_speech',
                     'grammatical_gender',
                     'grammatical_number',
