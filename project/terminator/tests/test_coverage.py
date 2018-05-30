@@ -354,6 +354,10 @@ class TBXURLs(TestCase):
         assert "tbx" in response['Content-Disposition']
         self.assertContains(response, '<martif type="TBX"')
 
+    def not_tbx(self, response):
+        assert 'Content-Disposition' not in response
+        self.assertNotContains(response, '<martif type="TBX"')
+
     def test_autoterm(self):
         response = self.c.get('/autoterm/gl/', data={})
         self.is_tbx(response)
@@ -369,6 +373,7 @@ class TBXURLs(TestCase):
         })
         # Not valid..., but could have been the default
         self.assertContains(response, 'Export')
+        self.not_tbx(response)
 
         for export_terms in ("all", "preferred", "preferred+admitted", "preferred+admitted+not_recommended"):
             response = self.c.post('/export/', data={
