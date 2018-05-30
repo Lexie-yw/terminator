@@ -277,7 +277,7 @@ class ConceptSourceView(TerminatorDetailView):
             if not may_edit:
                 raise PermissionDenied
             if definition:
-                initial["definition"] = definition.definition_text
+                initial["definition"] = definition.text
             form = ConceptInLanguageForm(self.request.POST, initial=initial)
             if form.is_valid() and form.has_changed():
                 cleaned_data = form.cleaned_data
@@ -298,9 +298,9 @@ class ConceptSourceView(TerminatorDetailView):
                         # load later in the template.
                     elif name == "definition":
                         if definition:
-                            definition.definition_text = value
+                            definition.text = value
                         else:
-                            definition = Definition(definition_text=value)
+                            definition = Definition(text=value)
                         model = definition
 
                     model.language = language
@@ -331,7 +331,7 @@ class ConceptSourceView(TerminatorDetailView):
                 language=language,
         )
         if definition:
-            initial["definition"] = definition.definition_text
+            initial["definition"] = definition.text
         form = ConceptInLanguageForm(initial=initial)
 
         # Customise fields a bit to suit permissions and workflow
@@ -723,7 +723,7 @@ def search(request):
                     concept=OuterRef('concept'),
                     language=OuterRef('language'),
             )
-            queryset = queryset.annotate(definition=Subquery(definition.values('definition_text')))
+            queryset = queryset.annotate(definition=Subquery(definition.values('text')))
 
             queryset = queryset.select_related('concept', 'concept__glossary', 'administrative_status')[:limit]
             queryset = queryset.prefetch_related(Prefetch('concept__translation_set', to_attr="others"))

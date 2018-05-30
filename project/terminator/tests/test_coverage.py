@@ -210,7 +210,7 @@ class URLsB(TestCase):
         translation.part_of_speech = PartOfSpeech.objects.get(tbx_representation="noun")
         translation.process_status = True
         translation.save()
-        definition = Definition(concept=concept, language_id="en", definition_text="xxxx")
+        definition = Definition(concept=concept, language_id="en", text="xxxx")
         definition.save()
         response = self.c.get('/concepts/1/en/')
         self.assertContains(response, "Definition")

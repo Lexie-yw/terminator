@@ -438,13 +438,13 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
             return ""
 
         if definition.is_finalized:
-            return definition.definition_text
+            return definition.text
         else:
             return format_html(
                     _(u"{} <em>(not finalized)</em>"),
-                    definition.definition_text,
+                    definition.text,
             )
-            return _(u"%s (not finalized)") % definition.definition_text
+            return _(u"%s (not finalized)") % definition.text
     definition_html.short_description = _(u"Definition")
 
 
@@ -518,7 +518,7 @@ class Translation(models.Model, ConceptLangUrlMixin):
 class Definition(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
-    definition_text = models.TextField(verbose_name=_("definition text"))
+    text = models.TextField(verbose_name=_("definition text"))
     is_finalized = models.BooleanField(default=False, verbose_name=_("is finalized"))
     source = models.URLField(blank=True, verbose_name=_("source"))
 
@@ -531,9 +531,9 @@ class Definition(models.Model, ConceptLangUrlMixin):
         trans_data = {
             'language': self.language,
             'concept': self.concept,
-            'definition_text': self.definition_text[:200]
+            'text': self.text[:200]
         }
-        return unicode(_(u"Definition in %(language)s for %(concept)s: (%(definition_text)s)") % trans_data)
+        return unicode(_(u"Definition in %(language)s for %(concept)s: (%(text)s)") % trans_data)
 
 
 class ExternalResource(models.Model):

@@ -1456,7 +1456,7 @@
    "fields": {
       "concept": 2,
       "language": "en",
-      "definition_text": "In computing, a window is a visual area containing some kind of user interface. It usually has a rectangular shape that can overlap with the area of other windows. It displays the output of and may allow input to one or more processes.\r\n\r\nWindows are primarily associated with graphical displays, where they can be manipulated with a mouse cursor.\r\n\r\nA graphical user interface (GUI) using windows as one of its main \"metaphors\" is called a windowing system.",
+      "text": "In computing, a window is a visual area containing some kind of user interface. It usually has a rectangular shape that can overlap with the area of other windows. It displays the output of and may allow input to one or more processes.\r\n\r\nWindows are primarily associated with graphical displays, where they can be manipulated with a mouse cursor.\r\n\r\nA graphical user interface (GUI) using windows as one of its main \"metaphors\" is called a windowing system.",
       "is_finalized": true,
       "source": ""
    }
@@ -1467,7 +1467,7 @@
    "fields": {
       "concept": 2,
       "language": "gl",
-      "definition_text": "\u00c1rea visual que cont\u00e9n alg\u00fan tipo de interface de usuario. Normalmente ten unha forma rectangular e poden conter outros elementos como bot\u00f3ns, listas...",
+      "text": "\u00c1rea visual que cont\u00e9n alg\u00fan tipo de interface de usuario. Normalmente ten unha forma rectangular e poden conter outros elementos como bot\u00f3ns, listas...",
       "is_finalized": false,
       "source": ""
    }
@@ -1478,7 +1478,7 @@
    "fields": {
       "concept": 3,
       "language": "gl",
-      "definition_text": "Unha lapela ou separador \u00e9 un implemento gr\u00e1fico que en aplicaci\u00f3ns inform\u00e1ticas permite lembrar outras opci\u00f3ns \u00e1 parte da que est\u00e1 en uso. Isto pode referirse \u00e1s lapelas tanto de p\u00e1xinas web como \u00e1s dos propios navegadores ou outro tipo de programas (son moi com\u00fans en follas de c\u00e1lculo).\r\nNa traduci\u00f3n ao galego do OpenOffice en 2006 e de Windows Vista en 2007-2008 (produto elaborado por Imaxin Software e revisado por Termigal) usouse separador, a\u00ednda que esta \u00e9 a denominaci\u00f3n para un produto comercial e iso non incl\u00fae necesariamente a s\u00faa preferencia xen\u00e9rica.",
+      "text": "Unha lapela ou separador \u00e9 un implemento gr\u00e1fico que en aplicaci\u00f3ns inform\u00e1ticas permite lembrar outras opci\u00f3ns \u00e1 parte da que est\u00e1 en uso. Isto pode referirse \u00e1s lapelas tanto de p\u00e1xinas web como \u00e1s dos propios navegadores ou outro tipo de programas (son moi com\u00fans en follas de c\u00e1lculo).\r\nNa traduci\u00f3n ao galego do OpenOffice en 2006 e de Windows Vista en 2007-2008 (produto elaborado por Imaxin Software e revisado por Termigal) usouse separador, a\u00ednda que esta \u00e9 a denominaci\u00f3n para un produto comercial e iso non incl\u00fae necesariamente a s\u00faa preferencia xen\u00e9rica.",
       "is_finalized": true,
       "source": ""
    }
@@ -1489,7 +1489,7 @@
    "fields": {
       "concept": 3,
       "language": "en",
-      "definition_text": "In the area of graphical user interfaces (GUI), a tabbed document interface (TDI) is one that allows multiple documents to be contained within a single window, using tabs as a navigational widget for switching between sets of documents. It is an interface style most commonly associated with web browsers, web applications, text editors and preference panes.",
+      "text": "In the area of graphical user interfaces (GUI), a tabbed document interface (TDI) is one that allows multiple documents to be contained within a single window, using tabs as a navigational widget for switching between sets of documents. It is an interface style most commonly associated with web browsers, web applications, text editors and preference panes.",
       "is_finalized": true,
       "source": "http://en.wikipedia.org/wiki/Tab_(GUI)"
    }
@@ -1500,7 +1500,7 @@
    "fields": {
       "concept": 14,
       "language": "en",
-      "definition_text": "The act and result of pressing the \"Tab\" key.",
+      "text": "The act and result of pressing the \"Tab\" key.",
       "is_finalized": true,
       "source": ""
    }
@@ -1511,7 +1511,7 @@
    "fields": {
       "concept": 14,
       "language": "gl",
-      "definition_text": "Acci\u00f3n e resultado de premer a tecla \u00abtabulador\u00bb.",
+      "text": "Acci\u00f3n e resultado de premer a tecla \u00abtabulador\u00bb.",
       "is_finalized": true,
       "source": ""
    }
@@ -1522,7 +1522,7 @@
    "fields": {
       "concept": 15,
       "language": "en",
-      "definition_text": "Tab key (abbreviation of tabulator key) on a keyboard is used to advance the cursor to the next tab stop.",
+      "text": "Tab key (abbreviation of tabulator key) on a keyboard is used to advance the cursor to the next tab stop.",
       "is_finalized": true,
       "source": ""
    }
@@ -1533,7 +1533,7 @@
    "fields": {
       "concept": 15,
       "language": "gl",
-      "definition_text": "Tecla do teclado situada normalmente enriba da tecla \u00abMai\u00fasculas\u00bb que insire caracteres de \u00abtabulaci\u00f3n\u00bb.",
+      "text": "Tecla do teclado situada normalmente enriba da tecla \u00abMai\u00fasculas\u00bb que insire caracteres de \u00abtabulaci\u00f3n\u00bb.",
       "is_finalized": true,
       "source": ""
    }

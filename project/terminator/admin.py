@@ -461,14 +461,14 @@ myadmin.register(Translation, TranslationOfConceptAdmin)
 
 class DefinitionAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
-    list_display = ('definition_text', 'concept', 'language', 'is_finalized')
+    list_display = ('text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
     list_filter = ['language', 'concept__glossary', 'is_finalized']
     readonly_fields = ('concept', 'language',)
-    search_fields = ['definition_text']
+    search_fields = ['text']
     fieldsets = (
             (None, {
-                'fields': (('concept', 'language'), 'definition_text', 'source', 'is_finalized'),
+                'fields': (('concept', 'language'), 'text', 'source', 'is_finalized'),
             }),
     )
 
@@ -529,7 +529,7 @@ class ProposalAdmin(admin.ModelAdmin):
             translation.save()
             definition = Definition(concept=concept,
                                     language=proposal.language,
-                                    definition_text=proposal.definition)
+                                    text=proposal.definition)
             definition.save()
             obj_display = force_unicode(proposal)
             self.log_deletion(request, proposal, obj_display)

@@ -179,7 +179,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         definition_object = Definition(
                                 concept=concept_object,
                                 language_id=lang_id,
-                                definition_text=definition_text,
+                                text=definition_text,
                                 is_finalized=True,
                         )
                         # If the definition is inside a descripGrp tag, it

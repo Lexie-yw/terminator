@@ -26,7 +26,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <ul class="itemlist">
         <li class="definitionitem">
         <p{% if not definition.is_finalized %} class="not_finalized_item"{% endif %}>
-        {{ definition.definition_text|linebreaksbr }}
+        {{ definition.text|linebreaksbr }}
         {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
             &nbsp; &nbsp; <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit" %}</a>
         {% endif %}
