@@ -582,7 +582,11 @@ def export_glossaries_to_TBX(glossaries, desired_languages=None, export_all_defi
     def generate_concepts():
         #generator so that we don't keep things in memory
         for concept in concept_qs.iterator():
-            concept_data = {'concept': concept, 'languages': []}
+            concept_data = {
+                'concept': concept,
+                'languages': [],
+                'externalresources': resource_dict.get((concept.id, None), [])
+            }
 
             for language_code in used_languages:
                 key = (concept.id, language_code)

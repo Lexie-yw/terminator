@@ -377,6 +377,24 @@ class TBXURLs(TestCase):
             })
             self.is_tbx(response)
 
+    def test_export_externalresources(self):
+        self.login()
+        response = self.c.post('/export/', data={
+            "from_glossaries": 2,
+            "export_terms": "all",
+        })
+        self.is_tbx(response)
+        self.assertNotContains(response, 'xref')
+
+        r = ExternalResource(concept_id=7, language=None, link_type_id="externalCrossReference")
+        r.save()
+        response = self.c.post('/export/', data={
+            "from_glossaries": 2,
+            "export_terms": "all",
+        })
+        self.is_tbx(response)
+        self.assertContains(response, 'xref')
+
     def test_tbx_import(self):
         self.login()
         response = self.c.post('/import/', data={})
