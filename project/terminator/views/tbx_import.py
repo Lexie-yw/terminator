@@ -357,7 +357,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                         # Values of processStatus different from
                         # finalized are ignored.
                         if getText(termnote_tag.childNodes) == u"finalized":
-                            translation_object.process_status = True
+                            translation_object.is_finalized = True
                     elif termnote_type == u"administrativeStatus":
                         admin_status_text = getText(termnote_tag.childNodes)
                         try:

@@ -699,7 +699,7 @@ def search(request):
                 if search_form.cleaned_data['filter_by_language']:
                     queryset = queryset.filter(language=search_form.cleaned_data['filter_by_language'])
 
-                #TODO add filter by process status
+                #TODO add filter by is_finalized
 
                 if search_form.cleaned_data['filter_by_part_of_speech']:
                     queryset = queryset.filter(part_of_speech=search_form.cleaned_data['filter_by_part_of_speech'])

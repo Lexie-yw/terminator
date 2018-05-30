@@ -56,7 +56,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                         <termNote type="termType">{{ translation.part_of_speech.tbx_representation }}</termNote>{% else %}
                         <termNote type="partOfSpeech">{{ translation.part_of_speech.tbx_representation }}</termNote>{% endif %}{% if translation.grammatical_gender %}
                         <termNote type="grammaticalGender">{{ translation.grammatical_gender.tbx_representation }}</termNote>{% endif %}{% if translation.grammatical_number %}
-                        <termNote type="grammaticalNumber">{{ translation.grammatical_number.tbx_representation }}</termNote>{% endif %}{% endif %}{% if not translation.process_status %}
+                        <termNote type="grammaticalNumber">{{ translation.grammatical_number.tbx_representation }}</termNote>{% endif %}{% endif %}{% if not translation.is_finalized %}
                         <termNote type="processStatus">provisionallyProcessed</termNote>{% else %}
                         <termNote type="processStatus">finalized</termNote>{% endif %}{% if translation.administrative_status_reason %}
                         <termNoteGrp>{# <-- not TBX #}

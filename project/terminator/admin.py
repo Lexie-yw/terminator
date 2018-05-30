@@ -379,17 +379,17 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
             }),
             (_("Workflow status"), {
                 'fields': (
-                    'process_status',
+                    'is_finalized',
                     ('administrative_status', 'administrative_status_reason'),
                     'note',
                 ),
             }),
     )
     readonly_fields = ('concept', 'language')
-    list_display = ('translation_text', 'language', 'concept', 'part_of_speech', 'administrative_status', 'process_status',)
+    list_display = ('translation_text', 'language', 'concept', 'part_of_speech', 'administrative_status', 'is_finalized',)
     ordering = ('concept',)
     list_filter = [
-        'language', 'concept__glossary', 'process_status', 'administrative_status',
+        'language', 'concept__glossary', 'is_finalized', 'administrative_status',
         'part_of_speech'
     ]
     search_fields = ['translation_text']
@@ -423,7 +423,7 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
         if "administrative_status_reason" in fields and \
                 not language.administrativestatusreason_set.exists():
             fields.remove("administrative_status_reason")
-            fieldsets[2][1]['fields'] = ('process_status', fields, 'note')
+            fieldsets[2][1]['fields'] = ('is_finalized', fields, 'note')
 
         return fieldsets
 
@@ -445,10 +445,10 @@ admin.site.register(Translation, TranslationAdmin)
 class TranslationOfConceptAdmin(TranslationAdmin):
     """A simpler form for translations of a concept in a language."""
     save_on_top = False
-    list_display = ('translation_text', 'part_of_speech', 'administrative_status', 'process_status',)
+    list_display = ('translation_text', 'part_of_speech', 'administrative_status', 'is_finalized',)
     ordering = ('translation_text',)
     list_filter = [
-        'process_status', 'administrative_status',
+        'is_finalized', 'administrative_status',
     ]
     show_full_result_count = False
     actions_selection_counter = False

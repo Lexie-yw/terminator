@@ -208,7 +208,7 @@ class URLsB(TestCase):
         sm.save()
         translation = concept.translation_set.get(language_id="en")
         translation.part_of_speech = PartOfSpeech.objects.get(tbx_representation="noun")
-        translation.process_status = True
+        translation.is_finalized = True
         translation.save()
         definition = Definition(concept=concept, language_id="en", text="xxxx")
         definition.save()

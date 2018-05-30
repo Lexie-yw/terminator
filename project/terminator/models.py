@@ -417,10 +417,10 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
         translations = Translation.objects.filter(
                 concept=self.concept,
                 language=self.language,
-        ).order_by("process_status")
+        ).order_by("is_finalized")
         parts = []
         for translation in translations:
-            if translation.process_status:
+            if translation.is_finalized:
                 parts.append(translation.translation_text)
             else:
                 parts.append(format_html(_(u"{} <em>(not finalized)</em>"),
@@ -473,7 +473,7 @@ class Translation(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
     translation_text = models.CharField(max_length=100, verbose_name=_("translation text"))
-    process_status = models.BooleanField(default=False, verbose_name=_("Is finalized"))
+    is_finalized = models.BooleanField(default=False, verbose_name=_("Is finalized"))
     administrative_status = models.ForeignKey(AdministrativeStatus, null=True, blank=True, on_delete=models.SET_NULL, verbose_name=_("administrative status"))
     administrative_status_reason = models.ForeignKey(AdministrativeStatusReason, null=True, blank=True, on_delete=models.SET_NULL, verbose_name=_("administrative status reason"))
     part_of_speech = models.ForeignKey(PartOfSpeech, null=True, blank=True, on_delete=models.SET_NULL, verbose_name=_("part of speech"))

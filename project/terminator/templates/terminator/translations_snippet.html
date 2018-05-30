@@ -24,7 +24,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 <ul class="itemlist">
   {% for translation in translations %}
     <li class="translation_entry">
-    {% if not translation.process_status %}<span class="not_finalized_item">{% endif %}
+    {% if not translation.is_finalized %}<span class="not_finalized_item">{% endif %}
     <h3><b>{{ translation.translation_text }}</b>
     
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
@@ -34,7 +34,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <p>
     <b>{% trans "Status:" %}</b>
-    {% if not translation.process_status %}<span class="not_finalized">{% trans "(Not finalized)" %}</span>{% endif %}
+    {% if not translation.is_finalized %}<span class="not_finalized">{% trans "(Not finalized)" %}</span>{% endif %}
     {% if translation.administrative_status %}{{ translation.administrative_status }}{% endif %}
     {% if translation.administrative_status_reason %}&nbsp; <b>{% trans "Reason:" %}</b> {{ translation.administrative_status_reason }}{% endif %}
     </p>
@@ -76,7 +76,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             </ul>
         </div>
     {% endif %}
-    {% if not translation.process_status %}</span>{% endif %}
+    {% if not translation.is_finalized %}</span>{% endif %}
     </li>
   {% endfor %}
 </ul>
