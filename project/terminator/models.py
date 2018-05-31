@@ -398,6 +398,9 @@ class ConceptLangUrlMixin(object):
 class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.PROTECT)
+    summary = models.TextField(blank=True, verbose_name=_("summary message"))
+    is_finalized = models.BooleanField(default=False, verbose_name=_("is finalized"))
+    date = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ("concept", "language")
