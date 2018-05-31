@@ -62,7 +62,7 @@ class ImportForm(forms.ModelForm):
 
     class Meta:
         model = Glossary
-        exclude = ('subscribers', 'subject_fields')
+        exclude = ('other_languages', 'subscribers', 'subject_fields')
 
     def clean(self):
         super(forms.ModelForm, self).clean()

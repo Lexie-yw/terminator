@@ -172,7 +172,8 @@ class ExternalLinkType(models.Model):
 class Glossary(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name=_("name"))
     description = models.TextField(verbose_name=_("description"))
-    source_language = models.ForeignKey(Language, on_delete=models.PROTECT, default='en', verbose_name=_("source language"))
+    source_language = models.ForeignKey(Language, related_name='+', on_delete=models.PROTECT, default='en', verbose_name=_("source language"))
+    other_languages = models.ManyToManyField(Language, blank=True, related_name='+', verbose_name=_("other languages"))
     subscribers = models.ManyToManyField(User, blank=True, verbose_name=_("subscribers"))
     #main_language #TODO this should be the main language of the glossary. This language is used when exporting the glossary and is also the language in which the glossary name and description are written.
     #accepted_languages #TODO this should be a list of languages that can be used in the glossary. If this is finally used should be restricted for translations, definitions, external resources, proposals, ConceptInLanguage,... in the Glossary.
