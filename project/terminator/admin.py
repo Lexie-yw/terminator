@@ -308,6 +308,9 @@ class ConceptInLanguageAdmin(admin.ModelAdmin):
     can_add = False
     readonly_fields = ("concept", "language", "translations_html", "definition_html")
     fields = (("concept", "language"), "translations_html", "definition_html", "summary", "is_finalized")
+    list_display = ("concept", "language", 'is_finalized', 'date_html')
+    list_filter = ('language', 'concept__glossary', 'is_finalized', 'date')
+    ordering = ('concept', 'language')
 
     def has_delete_permission(self, request, obj=None):
         return False

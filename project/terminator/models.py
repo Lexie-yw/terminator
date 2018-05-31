@@ -451,6 +451,12 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
             return _(u"%s (not finalized)") % definition.text
     definition_html.short_description = _(u"Definition")
 
+    def date_html(self):
+        if self.is_finalized:
+            return self.date
+        return ""
+    date_html.short_description = _(u"Date")
+
 
 class Translation(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
