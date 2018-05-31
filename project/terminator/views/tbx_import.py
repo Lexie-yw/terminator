@@ -529,13 +529,14 @@ def import_uploaded_file(uploaded_file, imported_glossary):
         # the subject_field and broader_concept must be set to None in
         # order to delete all the glossary data because this two fields
         # have on_delete=models.PROTECT
-        for concept_key in concept_pool.keys():
-            concept_pool[concept_key]["object"].subject_field = None
-            concept_pool[concept_key]["object"].broader_concept = None
+        for concept_dict in concept_pool.values():
+            concept = concept_dict["object"]
+            concept.subject_field = None
+            concept.broader_concept = None
             # The next line is unnecessary, but keep it because in the
             # future it might be necessary.
-            #concept_pool[concept_key]["object"].related_concepts.clear()
-            concept_pool[concept_key]["object"].save()
+            #concept.related_concepts.clear()
+            concept.save()
         # Raise the exception again in order to show the error in the UI.
         raise
 
