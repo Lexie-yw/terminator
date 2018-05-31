@@ -134,6 +134,9 @@ class DefinitionInline(admin.TabularInline):
     model = Definition
     extra = 1
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class ConceptAdmin(admin.ModelAdmin):
     save_on_top = True
