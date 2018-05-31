@@ -148,6 +148,9 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
             self.fields['subject_fields'].queryset = Concept.objects.filter(
                     glossary=self.instance,
             )
+            self.fields['other_languages'].queryset = Language.objects.exclude(
+                    iso_code=self.instance.source_language_id,
+            ).order_by('iso_code')
 
     def clean(self):
         super(forms.ModelForm, self).clean()
@@ -155,6 +158,8 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
         cleaned_data = self.cleaned_data
         name = cleaned_data.get("name")
         subject_fields = cleaned_data.get("subject_fields")
+        source_language = cleaned_data.get("source_language")
+        other_languages = cleaned_data.get("other_languages")
 
         if subject_fields and name:
             subject_fields = list(subject_fields)
@@ -171,6 +176,11 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
             # fields for a given glossary make sure that this concept is not
             # the subject field or other concepts in the glossary.
 
+        if other_languages:
+            if source_language in other_languages:
+                msg = _(u"The source language can not be among the other languages.")
+                self._errors['other_languages'] = self.error_class([msg])
+                del cleaned_data["other_languages"]
         # Always return the full collection of cleaned data.
         return cleaned_data
 
