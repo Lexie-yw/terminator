@@ -45,7 +45,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 
     {# TODO: Enforce/suggest work according to ideal workflow + user's prefered language  #}
-    {% with used_languages=concept.get_list_of_used_languages %}
+    {% with used_languages=concept.glossary.other_languages.all|dictsort:"iso_code" %}
       {% if used_languages %}
         <div class="language_link_list align_left_list">
         {% for lang in used_languages %}

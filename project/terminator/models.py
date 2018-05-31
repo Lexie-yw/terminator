@@ -339,14 +339,6 @@ class Concept(models.Model):
         except ConceptInLanguage.DoesNotExist:
             return False
 
-    def get_list_of_used_languages(self):
-        langs = set()
-        for qs in (self.translation_set,
-                   self.externalresource_set,
-                   self.definition_set):
-            langs.update(qs.values_list('language', flat=True).distinct())
-        return Language.objects.filter(iso_code__in=langs).order_by("name")
-
     def get_english_translation(self):
         english_translation = self.translation_set.filter(
                 language_id="en",
