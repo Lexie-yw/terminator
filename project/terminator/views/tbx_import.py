@@ -76,6 +76,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
     link_types = lookup_dict(ExternalLinkType)
 
     concept_pool = {}
+    language_pool = set()
     for concept_tag in tbx_file.getElementsByTagName(u"termEntry"):
         concept_id = concept_tag.getAttribute(u"id")
         if not concept_id:
@@ -168,6 +169,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                     ("xml:lang", "langSet"))
                 raise Exception(excp_msg)
 
+            language_pool.add(lang_id)
             # Get the definition for each language.
             # NOTE: Be careful because the following returns all the
             # descrip tags, and not all of them are definitions.
@@ -467,6 +469,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             corpus_example_object.save()
 
             concept_object.repr_cache = concept_object.repr_from(src_translations)
+
+    #populate glossary.other_languages
+    source_lang = imported_glossary.source_language_id
+    if source_lang in language_pool:
+        language_pool.remove(source_lang)
+    imported_glossary.other_languages.add(*Language.objects.filter(iso_code__in=language_pool))
 
     # Once the file has been completely parsed is time to add the concept
     # relationships and save the concepts. This is done this way since some
