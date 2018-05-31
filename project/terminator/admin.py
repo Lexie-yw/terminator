@@ -163,6 +163,25 @@ class ConceptAdmin(admin.ModelAdmin):
             }),
     )
 
+    def has_add_permission(self, request):
+        allowed = super(ConceptAdmin, self).has_add_permission(request)
+        glossary_id = self._glossary_parameter(request)
+        if glossary_id:
+            return allowed and request.user.has_perm("is_lexicographer_in_this_glossary", glossary_id)
+        return allowed
+
+    def has_change_permission(self, request, obj=None):
+        allowed = super(ConceptAdmin, self).has_change_permission(request, obj)
+        if obj:
+            return allowed and request.user.has_perm("is_lexicographer_in_this_glossary", obj.glossary)
+        return allowed
+
+    def has_delete_permission(self, request, obj=None):
+        allowed = super(ConceptAdmin, self).has_delete_permission(request, obj)
+        if obj:
+            return allowed and request.user.has_perm("is_lexicographer_in_this_glossary", obj.glossary)
+        return allowed
+
     def get_readonly_fields(self, request, obj=None):
         # Glossary should be readonly, except when adding a new model.
         if obj:
