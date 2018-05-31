@@ -138,6 +138,15 @@ class DefinitionInline(admin.TabularInline):
         return False
 
 
+class ExternalResourceInline(admin.TabularInline):
+    model = ExternalResource
+    extra = 1
+    fields =("address", "link_type", "description")
+    def get_queryset(self, request):
+        qs = super(ExternalResourceInline, self).get_queryset(request)
+        qs = qs.filter(language=None)
+        return qs
+
 class ConceptAdmin(admin.ModelAdmin):
     save_on_top = True
     form = TerminatorConceptAdminForm
@@ -146,7 +155,7 @@ class ConceptAdmin(admin.ModelAdmin):
     search_fields = ['id', 'repr_cache']
     ordering = ('id',)
     list_filter = ['glossary']
-    inlines = [DefinitionInline]
+    inlines = [DefinitionInline, ExternalResourceInline]
     readonly_fields = ('glossary',)
     fieldsets = (
             (None, {
