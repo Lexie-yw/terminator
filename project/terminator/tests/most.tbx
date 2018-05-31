@@ -52,7 +52,7 @@
                             <note>Reason for this status is this: bla</note>
                         </termGrp>
                         <descrip type="context">context phrase</descrip>
-                        <!--<xref type="corpusTrace" target="https://zu.wikipedia.org/wiki/Igama">Wikipedia page for "word"</xref> -->
+                        <xref type="corpusTrace" target="https://zu.wikipedia.org/wiki/Igama">Wikipedia page for "word"</xref>
                         <note>A translation note</note>
                     </tig>
                 </langSet>

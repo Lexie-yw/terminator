@@ -204,7 +204,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 # other words, if the xref tag is not inside a descripGrp
                 # tag alongside a definition in order to provide the source
                 # for that definition.
-                if descrip_tag.parentNode == language_tag:
+                if xref_tag.parentNode == language_tag:
                     resource_type = xref_tag.getAttribute(u"type").lower()
                     try:
                         resource_link_type = link_types[resource_type]
@@ -231,7 +231,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 concept=concept_object,
                                 language_id=lang_id,
                                 address=resource_target,
-                                link_type=resource_link_type,
+                                link_type_id=resource_link_type,
                                 description=resource_description,
                         )
                         external_resource_object.save()
