@@ -199,13 +199,13 @@ class URLsB(TestCase):
         self.assertNotContains(response, "Definition")
         self.assertNotContains(response, "External resources")
         concept = Concept.objects.get(id=1)
-        sm = SummaryMessage(
+        concept_in_lang, created = ConceptInLanguage.objects.get_or_create(
                 concept=concept,
                 language_id="en",
-                text="Soomaaariii",
-                is_finalized=True,
         )
-        sm.save()
+        concept_in_lang.summary = "Soomaaariii"
+        concept_in_lang.is_finalized = True
+        concept_in_lang.save()
         translation = concept.translation_set.get(language_id="en")
         translation.part_of_speech = PartOfSpeech.objects.get(tbx_representation="noun")
         translation.is_finalized = True
@@ -679,14 +679,6 @@ class ConceptInLanguageTest(SharedTests, TestCase):
 
     def test_extra_methods(self):
         self.model.get_absolute_url()
-
-class SummaryMessageTest(SharedTests, TestCase):
-    klass = SummaryMessage
-    @classmethod
-    def setUpClass(cls):
-        cls.klass = None
-        super(SummaryMessageTest, cls).setUpClass()
-        cls.model = SummaryMessage(concept=cls.concept, language=cls.language)
 
 class TranslationTest(SharedTests, TestCase):
     klass = Translation

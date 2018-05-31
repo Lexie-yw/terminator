@@ -253,44 +253,10 @@ class TerminatorConceptAdminForm(forms.ModelForm):
 
 
 class ConceptInLanguageAdminForm(forms.ModelForm):
-    summary_text = forms.CharField(min_length=2,
-            label=_("Summary message"),
-            widget=Textarea(),
-    )
-    is_finalized = forms.BooleanField(required=False, label=_("Is finalized"))
 
     class Meta:
         fields = '__all__'
         model = ConceptInLanguage
-
-    def __init__(self, *args, **kwargs):
-        # will we always have an instance passed?
-        instance = kwargs["instance"]
-        try:
-            summary_message = SummaryMessage.objects.get(
-                    concept_id=instance.concept_id,
-                    language_id=instance.language_id,
-            )
-            kwargs['initial'] = {
-                    "summary_text": summary_message.text,
-                    "is_finalized": summary_message.is_finalized,
-            }
-        except SummaryMessage.DoesNotExist:
-            pass
-        super(ConceptInLanguageAdminForm, self).__init__(*args, **kwargs)
-
-    def save(self, commit=True):
-        instance = super(ConceptInLanguageAdminForm, self).save(commit)
-        summary_text = self.cleaned_data.get("summary_text")
-        is_finalized = self.cleaned_data.get("is_finalized")
-        message, created = SummaryMessage.objects.get_or_create(
-                concept=instance.concept,
-                language=instance.language,
-        )
-        message.text = summary_text
-        message.is_finalized = is_finalized
-        message.save()
-        return instance
 
 
 class ConceptInLanguageForm(forms.Form):

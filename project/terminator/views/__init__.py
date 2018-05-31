@@ -211,27 +211,15 @@ class ConceptDetailView(TerminatorDetailView):
             language = Language.objects.get(pk=self.kwargs.get('lang'))
         except Language.DoesNotExist:
             raise Http404
-        context['current_language'] = language
-        context['translations'] = context['concept'].translation_set.filter(
-                language=language)
-        context['comments_thread'], created = ConceptInLanguage.objects.get_or_create(
+        concept_in_language, created = ConceptInLanguage.objects.get_or_create(
                 concept=context['concept'],
                 language=language,
         )
-
-        summary_message = None
-        finalized = False
-        try:
-            if not created:
-                summary_message = SummaryMessage.objects.get(
-                        concept=context['concept'],
-                        language=language,
-                )
-                finalized = summary_message.is_finalized
-        except SummaryMessage.DoesNotExist:
-            pass
-        context['summary_message'] = summary_message
-        context['finalized'] = finalized
+        context['current_language'] = language
+        context['translations'] = context['concept'].translation_set.filter(
+                language=language)
+        context['comments_thread'] = concept_in_language
+        context['finalized'] = concept_in_language.is_finalized
 
         return context
 
@@ -575,9 +563,8 @@ def export_glossaries_to_TBX(glossaries, desired_languages=None, export_all_defi
     resources = ExternalResource.objects.filter(glossary_filter)
     resource_dict = query_lookup_dict(resources)
 
-    summaries = SummaryMessage.objects.filter(glossary_filter & summary_filter)
+    summaries = ConceptInLanguage.objects.filter(glossary_filter & summary_filter).only('summary')
     summary_dict = query_lookup_dict(summaries)
-
 
     def generate_concepts():
         #generator so that we don't keep things in memory
@@ -597,7 +584,7 @@ def export_glossaries_to_TBX(glossaries, desired_languages=None, export_all_defi
                 lang_summary_message = summary_dict.get(key, None)
                 if lang_summary_message:
                     assert len(lang_summary_message) == 1
-                    lang_summary_message = lang_summary_message[0].text
+                    lang_summary_message = lang_summary_message[0].summary
 
                 lang_definition = def_dict.get(key, None)
                 if lang_definition:

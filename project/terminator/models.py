@@ -331,11 +331,11 @@ class Concept(models.Model):
 
     def source_language_finalized(self):
         try:
-            return SummaryMessage.objects.get(
+            return ConceptInLanguage.objects.get(
                     concept=self,
                     language=self.glossary.source_language_id,
             ).is_finalized
-        except SummaryMessage.DoesNotExist:
+        except ConceptInLanguage.DoesNotExist:
             return False
 
     def get_list_of_used_languages(self):
@@ -450,27 +450,6 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
             )
             return _(u"%s (not finalized)") % definition.text
     definition_html.short_description = _(u"Definition")
-
-
-class SummaryMessage(models.Model):
-    concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
-    language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
-    text = models.TextField(verbose_name=_("summary message text"))
-    is_finalized = models.BooleanField(default=False, verbose_name=_("is finalized"))
-    date = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = _("summary message")
-        verbose_name_plural = _("summary messages")
-        unique_together = ("concept", "language")
-
-    def __unicode__(self):
-        trans_data = {
-            'language': self.language,
-            'concept': self.concept,
-            'text': self.text[:200]
-        }
-        return unicode(_(u"Summary message for %(language)s and %(concept)s: (%(text)s)") % trans_data)
 
 
 class Translation(models.Model, ConceptLangUrlMixin):

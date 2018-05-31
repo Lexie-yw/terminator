@@ -303,37 +303,11 @@ class ConceptLanguageMixin(object):
         return super(ConceptLanguageMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
-class SummaryMessageAdmin(ConceptLanguageMixin, admin.ModelAdmin):
-    save_on_top = True
-    list_display = ('text', 'concept', 'language', 'is_finalized')
-    ordering = ('concept',)
-    readonly_fields = ('concept', 'language',)
-    list_filter = ['language', 'concept__glossary', 'is_finalized']
-    search_fields = ['text']
-    fieldsets = (
-            (None, {
-                'fields': (('concept', 'language'), 'text', 'is_finalized'),
-            }),
-    )
-
-    def get_queryset(self, request):
-        qs = super(SummaryMessageAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        inner_qs = get_objects_for_user(request.user,
-                                        ['is_lexicographer_in_this_glossary'],
-                                        Glossary, False)
-        return qs.filter(concept__glossary__in=inner_qs)
-
-
-admin.site.register(SummaryMessage, SummaryMessageAdmin)
-
-
 class ConceptInLanguageAdmin(admin.ModelAdmin):
     form = ConceptInLanguageAdminForm
     can_add = False
     readonly_fields = ("concept", "language", "translations_html", "definition_html")
-    fields = (("concept", "language"), "translations_html", "definition_html", "summary_text", "is_finalized")
+    fields = (("concept", "language"), "translations_html", "definition_html", "summary", "is_finalized")
 
     def has_delete_permission(self, request, obj=None):
         return False

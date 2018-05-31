@@ -20,20 +20,18 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% if current_language %}
-    {% if summary_message %}
+    {% if concept_in_language.is_finalized %}
         <h2>{% trans "Summary message" %}</h2>
         <div class="summary">
-            <p><i>{% blocktrans with submit_date=summary_message.date %}Written on {{ submit_date }}:{% endblocktrans %}</i></p>
-            {% if not summary_message.is_finalized %}<p class="not_finalized">{% trans "(Not finalized)" %}</p>{% endif %}
-            <p{% if not summary_message.is_finalized %} class="not_finalized_item"{% endif %}>{{ summary_message.text|linebreaksbr }}</p>
+            <p><i>{% blocktrans with submit_date=concept_in_language.date %}Finalized on {{ submit_date }}:{% endblocktrans %}</i></p>
+            <p>{{ concept_in_language.summary|linebreaksbr }}</p>
             {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
                 <a href="{% url "admin:terminator_conceptinlanguage_change" comments_thread.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this summary message" %}</a>
             {% endif %}
         </div>
     {% else %}
         {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
-            <h2>{% trans "Summary message" %}</h2>
-            <p><a href="{% url "admin:terminator_summarymessage_add" %}?concept={{ concept.pk }}&language={{ current_language.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% blocktrans with language=current_language %}Add summary message for {{ language }}{% endblocktrans %}</a></p>
+            <p><a href="{% url "admin:terminator_conceptinlanguage_change" comments_thread.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% blocktrans with language=current_language %}Finalize this concept in {{ language }}{% endblocktrans %}</a></p>
         {% endif %}
     {% endif %}
 {% endif %}
