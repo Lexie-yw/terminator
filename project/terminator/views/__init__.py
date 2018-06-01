@@ -193,8 +193,6 @@ class ConceptView(TerminatorDetailView):
         form = ExternalResourceForm()
         context['form'] = form
         context['source_language_finalized'] = self.object.source_language_finalized()
-        # Limit to pre-approved list of languages for this glossary?
-        context['available_languages'] = Language.objects.order_by("pk")
         context['external_resources'] = ExternalResource.objects.filter(
                 concept=self.object,
                 language_id=None,
@@ -203,10 +201,10 @@ class ConceptView(TerminatorDetailView):
 
 
 class ConceptDetailView(TerminatorDetailView):
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ConceptDetailView, self).get_context_data(**kwargs)
-        context['available_languages'] = Language.objects.order_by("pk")
         try:
             language = Language.objects.get(pk=self.kwargs.get('lang'))
         except Language.DoesNotExist:
