@@ -726,9 +726,7 @@ def search(request):
                     'concept__glossary',
                     'administrative_status',
             )[:limit]
-            qs = qs.prefetch_related(Prefetch(
-                    'concept__translation_set', to_attr="others"))
-            qs = qs.defer(
+            deferred_fields = (
                     'administrative_status_reason',
                     'administrative_status__description',
                     'administrative_status__allows_reason',
@@ -742,6 +740,10 @@ def search(request):
                     'concept__glossary__description',
                     'concept__glossary__source_language',
             )
+            inner_qs = Translation.objects.defer()
+            qs = qs.prefetch_related(Prefetch(
+                    'concept__translation_set', queryset=inner_qs, to_attr="others"))
+            qs = qs.defer(*deferred_fields)
 
             previous_concept = None
 
