@@ -49,11 +49,10 @@ def lookup_dict(model, values=True):
 
 
 def import_uploaded_file(uploaded_file, imported_glossary):
-    #TODO Split this function in several shortest functions. Move the code to
-    # another file.
+    #TODO Split this function in several shorter functions.
     #TODO Validate the uploaded file in order to check that it is a valid TBX
     # file, or even a text file.
-    #TODO Perhaps use lxml instead of xml.dom.minidom?
+    #TODO Use lxml/etree instead of xml.dom.minidom.
     tbx_file = minidom.parse(uploaded_file)
 
     #TODO Perhaps add the title and description from the TBX file to the
