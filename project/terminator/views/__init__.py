@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License along with
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
-import itertools
+from itertools import groupby, islice
 import re
 
 from django.conf import settings
@@ -537,7 +537,7 @@ def export_glossaries_to_TBX(glossaries, desired_languages=None, export_all_defi
 
     def query_lookup_dict(qs):
         results = {}
-        for key, group in itertools.groupby(qs, key_func):
+        for key, group in groupby(qs, key_func):
             results[key] = list(group)
         return results
 
@@ -673,7 +673,7 @@ def export(request):
 
 
 def search(request):
-    search_results = None
+    search_results = []
     if request.method == 'GET' and 'search_string' in request.GET:
         if "advanced" in request.path:
             search_form = AdvancedSearchForm(request.GET)
@@ -681,29 +681,34 @@ def search(request):
             search_form = SearchForm(request.GET)
 
         if search_form.is_valid():
-            search_results = []
+            qs = Translation.objects.all()
+            data = search_form.cleaned_data
+            search_string = data['search_string']
             if "advanced" in request.path:
-                queryset = Translation.objects.all()
-                if search_form.cleaned_data['filter_by_glossary']:
-                    queryset = queryset.filter(concept__glossary=search_form.cleaned_data['filter_by_glossary'])
+                glossary_filter = data['filter_by_glossary']
+                language_filter = data['filter_by_language']
+                part_of_speech_filter = data['filter_by_part_of_speech']
+                admin_status_filter = data['filter_by_administrative_status']
+                if glossary_filter:
+                    qs = qs.filter(concept__glossary=glossary_filter)
 
-                if search_form.cleaned_data['filter_by_language']:
-                    queryset = queryset.filter(language=search_form.cleaned_data['filter_by_language'])
+                if language_filter:
+                    qs = qs.filter(language=language_filter)
 
                 #TODO add filter by is_finalized
 
-                if search_form.cleaned_data['filter_by_part_of_speech']:
-                    queryset = queryset.filter(part_of_speech=search_form.cleaned_data['filter_by_part_of_speech'])
+                if part_of_speech_filter:
+                    qs = qs.filter(part_of_speech=part_of_speech_filter)
 
-                if search_form.cleaned_data['filter_by_administrative_status']:
-                    queryset = queryset.filter(administrative_status=search_form.cleaned_data['filter_by_administrative_status'])
+                if admin_status_filter:
+                    qs = qs.filter(administrative_status=admin_status_filter)
 
-                if search_form.cleaned_data['also_show_partial_matches']:
-                    queryset = queryset.filter(translation_text__icontains=search_form.cleaned_data['search_string'])
+                if data['also_show_partial_matches']:
+                    qs = qs.filter(translation_text__icontains=search_string)
                 else:
-                    queryset = queryset.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
+                    qs = qs.filter(translation_text__iexact=search_string)
             else:
-                queryset = Translation.objects.filter(translation_text__iexact=search_form.cleaned_data['search_string'])
+                qs = qs.filter(translation_text__iexact=search_string)
 
             # Limit for better worst-case performance. Consider pager.
             limit = 20
@@ -714,11 +719,16 @@ def search(request):
                     concept=OuterRef('concept'),
                     language=OuterRef('language'),
             )
-            queryset = queryset.annotate(definition=Subquery(definition.values('text')))
+            qs = qs.annotate(definition=Subquery(definition.values('text')))
 
-            queryset = queryset.select_related('concept', 'concept__glossary', 'administrative_status')[:limit]
-            queryset = queryset.prefetch_related(Prefetch('concept__translation_set', to_attr="others"))
-            queryset = queryset.defer(
+            qs = qs.select_related(
+                    'concept',
+                    'concept__glossary',
+                    'administrative_status',
+            )[:limit]
+            qs = qs.prefetch_related(Prefetch(
+                    'concept__translation_set', to_attr="others"))
+            qs = qs.defer(
                     'administrative_status_reason',
                     'administrative_status__description',
                     'administrative_status__allows_reason',
@@ -735,20 +745,21 @@ def search(request):
 
             previous_concept = None
 
-            for trans in queryset:# All recovered translations are ordered by concept and then by language
+            for trans in qs:# Translations are ordered by (concept, language)
                 # If this is the first translation for this concept
                 if previous_concept != trans.concept_id:
                     is_first = True
                     previous_concept = trans.concept_id
-                    other_translations = itertools.islice((c for c in trans.concept.others if c.pk != trans.pk), 7)
+                    others = trans.concept.others
+                    others = islice((c for c in others if c.pk != trans.pk), 7)
                 else:
-                    other_translations = None
+                    others = None
                     is_first = False
 
                 search_results.append({
                     "translation": trans,
                     "definition": trans.definition,
-                    "other_translations": other_translations,
+                    "other_translations": others,
                     "is_first": is_first,
                 })
     elif "advanced" in request.path:
