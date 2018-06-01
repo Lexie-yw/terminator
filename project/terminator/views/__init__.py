@@ -216,7 +216,7 @@ class ConceptDetailView(TerminatorDetailView):
         context['current_language'] = language
         context['translations'] = context['concept'].translation_set.filter(
                 language=language)
-        context['comments_thread'] = concept_in_language
+        context['concept_in_lang'] = concept_in_language
         context['finalized'] = concept_in_language.is_finalized
 
         return context
@@ -312,7 +312,7 @@ class ConceptSourceView(TerminatorDetailView):
         translations = sorted(translations, key=lambda t: t.cmp_key())
         context['translations'] = translations
         context['definition'] = definition
-        context['comments_thread'], _c = ConceptInLanguage.objects.get_or_create(
+        context['concept_in_lang'], _c = ConceptInLanguage.objects.get_or_create(
                 concept=concept,
                 language=language,
         )

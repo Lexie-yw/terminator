@@ -24,7 +24,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 <div class="language_link_list">
 {% for lang in available_languages %}
-    {% if not comments_thread.language_id or lang.iso_code != comments_thread.language_id %}
+    {% if not concept_in_lang.language_id or lang.iso_code != concept_in_lang.language_id %}
         <a href="{% url "terminator_concept_detail_for_language" concept.pk lang.pk %}#comment_list" class="language_link">{{ lang.pk }}</a>
     {% else %}
         <span class="current_language">{{ lang.pk }}</span>
@@ -34,20 +34,20 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 
 <div class="comment_block">
-{% if comments_thread %}
-    {% get_comment_count for comments_thread as comment_count %}
+{% if concept_in_lang %}
+    {% get_comment_count for concept_in_lang as comment_count %}
     <div class="comment_list_header">
         <div class="comment_list_count"><b>{% blocktrans count count=comment_count %}{{ count }} comment{% plural %}{{ count }} comments{% endblocktrans %}</b></div>
         <div class="comment_list_feed">
-            <a href="{% url "terminator_feed_commentthread" concept_id=comments_thread.concept_id language_id=comments_thread.language_id %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" height="24" />{% trans "RSS feed with latest comments" %}</a>
+            <a href="{% url "terminator_feed_commentthread" concept_id=concept_in_lang.concept_id language_id=concept_in_lang.language_id %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" height="24" />{% trans "RSS feed with latest comments" %}</a>
         </div>
     </div>
     
-    {% render_comment_list for comments_thread %}
+    {% render_comment_list for concept_in_lang %}
     
     <div id="comment_form">
     {% if user.is_authenticated %}
-        {% render_comment_form for comments_thread %}
+        {% render_comment_form for concept_in_lang %}
     {% else %}
         {# #TODO redirecting to the comment form doesn't work because when login with a next url, login removes the comment_form anchor from the next url #}
         {% url "login" as login_url %}

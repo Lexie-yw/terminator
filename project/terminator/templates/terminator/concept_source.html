@@ -104,7 +104,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
       <p>
-        <a href="{% url "admin:terminator_conceptinlanguage_change" comments_thread.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise whole entry" %}</a>
+        <a href="{% url "admin:terminator_conceptinlanguage_change" concept_in_lang.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise whole entry" %}</a>
       </p>
     {% endif %}
 
