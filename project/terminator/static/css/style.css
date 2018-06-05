@@ -541,6 +541,16 @@ div.flexcol-reference {
     max-width: 35em;
 }
 
+textarea.definition {
+    vertical-align: middle;
+}
+div.definition-extras {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 10em;
+    color: gray;
+}
+
 div.translation, div.definition {
     border: 1px solid black;
 }
