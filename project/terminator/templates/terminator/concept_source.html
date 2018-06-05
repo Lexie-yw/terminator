@@ -82,7 +82,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                    <div title="{% if definition.is_finalized %}{% trans "The definition marked as final" %}{% elif definition %}{% trans "A suggested definition"%}{% endif %}">
                   {{ form.definition }}
                   {% with last_change=definition.history.latest %}
-                      {% if last_change %}
+                      {% if last_change and last_change.history_user %}
                       <div class="definition-extras" title="{{ last_change.history_date }}">―
                           <a href="{% url "profiles_profile_detail" username=last_change.history_user %}">
                               {{ last_change.history_user }}</a>
