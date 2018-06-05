@@ -35,8 +35,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block content %}
 
 
+    {% block contributions %}
     <h1><img src="{{ STATIC_PREFIX }}images/icon_concept_32.png" />{{ concept }}</h1>
 
+    <div class="flex">
+
+        <div class="flexcol">
     <p {% if message_class %}class="{{ message_class }}"{% endif %}>
         {% if message %}
             {{ message|truncatewords:"20"|truncatechars:"100" }}
@@ -47,8 +51,6 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {%  endif %}
     </p>
 
-    <div class="flex">
-        <div class="flexcol">
             <form method="post" action="">
                 {% csrf_token %}
                 {% for translation in translations %}
@@ -96,9 +98,15 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% endif %}
             </form>
         </div>
+    {% block reference_material %}
+    {% endblock %}
     </div>
 
-    {% include "terminator/prev_next_concept_snippet.html" with concept=concept target="terminator_concept_source" %}
+    {% block prev_next %}
+        {% include "terminator/prev_next_concept_snippet.html" with concept=concept target="terminator_concept_source" %}
+    {% endblock prev_next %}
+
+    {% endblock contributions %}
 
     {% include "terminator/mono_comments_snippet.html" %}
 
