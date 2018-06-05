@@ -236,10 +236,17 @@ class ConceptSourceView(TerminatorDetailView):
     def get_template_names(self):
         return "terminator/concept_source.html"
 
+    def get_language(self):
+        return self.object.glossary.source_language
+
+    def may_edit(self, glossary_perms):
+        return 'is_lexicographer_in_this_glossary' in glossary_perms or \
+                    ('is_terminologist_in_this_glossary' in glossary_perms and \
+                    not concept.source_language_finalized())
     def get_context_data(self, **kwargs):
         context = super(ConceptSourceView, self).get_context_data(**kwargs)
         concept = context['concept']
-        language = concept.glossary.source_language
+        language = self.get_language()
         translations = Translation.objects.filter(concept=concept, language=language)
         initial = {}
         try:
@@ -255,10 +262,7 @@ class ConceptSourceView(TerminatorDetailView):
         user = self.request.user
         glossary_perms = get_perms(user, concept.glossary)
         if user.is_authenticated:
-            if 'is_lexicographer_in_this_glossary' in glossary_perms or \
-                    ('is_terminologist_in_this_glossary' in glossary_perms and \
-                    not concept.source_language_finalized()):
-                may_edit = True
+            may_edit = self.may_edit(glossary_perms)
         if self.request.method == 'POST':
             if not may_edit:
                 raise PermissionDenied
