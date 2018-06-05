@@ -42,11 +42,11 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% if concept.source_language_finalized %}
       {% if finalized %}
         {# TODO: implement terminator_concept_edit for any language #}
-        <p><a href="{% url "terminator_concept_source" pk=concept.pk %}">View work area for this language</a></p>
+        <p><a href="{% url "terminator_concept_target" pk=concept.pk lang=current_language.iso_code %}">View work area for this language</a></p>
       {% else %}
         <p>{% blocktrans %}The entry for this language is still under development.{% endblocktrans %}</p>
         {# TODO: implement terminator_concept_edit for any language #}
-        <p class="important"><a href="{% url "terminator_concept_source" pk=concept.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Go to the work area for this language" %}</a></p>
+        <p class="important"><a href="{% url "terminator_concept_target" pk=concept.pk lang=current_language.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Go to the work area for this language" %}</a></p>
       {% endif %}
 
     {# TODO: Emphasize to the user's preferred languages #}
@@ -58,7 +58,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=lang.pk %}" class="language_link">{{ lang }}</a>
             {% else %}
                 {# TODO: implement terminator_concept_edit for any language #}
-                <span class="current_language"><a href="{% url "terminator_concept_source" pk=concept.pk %}">{{ lang }}</a></span>
+                <span class="current_language"><a href="{% url "terminator_concept_target" pk=concept.pk lang=lang.pk %}">{{ lang }}</a></span>
             {% endif %}
         {% endfor %}
         </div>
