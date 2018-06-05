@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load guardian_tags %}
 {% load i18n %}
+{% load humanize %}
 
 {% comment %}
 Copyright 2011 Leandro Regueiro
@@ -80,6 +81,15 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% if definition or may_edit %}
                    <div title="{% if definition.is_finalized %}{% trans "The definition marked as final" %}{% elif definition %}{% trans "A suggested definition"%}{% endif %}">
                   {{ form.definition }}
+                  {% with last_change=definition.history.latest %}
+                      {% if last_change %}
+                      <div class="definition-extras" title="{{ last_change.history_date }}">―
+                          <a href="{% url "profiles_profile_detail" username=last_change.history_user %}">
+                              {{ last_change.history_user }}</a>
+                          ({{ last_change.history_date|naturalday }})
+                      </div>
+                      {% endif %}
+                  {% endwith %}
                   </div>
                 {% endif %}
                 {% if definition and "is_lexicographer_in_this_glossary" in glossary_perms %}

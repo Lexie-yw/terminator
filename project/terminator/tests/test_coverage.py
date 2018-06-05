@@ -282,6 +282,19 @@ class URLsB(TestCase):
         self.assertContains(response, "already present")
         self.assertContains(response, "SEARCHxxx")
 
+    def test_definition_history(self):
+        self.c.login(username='usuario', password='usuario')
+        response = self.c.get('/concepts_source/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "today")
+        self.assertContains(response, "usuario", count=2) #header
+
+        response = self.c.post('/concepts_source/1/', data={
+            "definition": "Long definition...",
+        })
+        self.assertContains(response, "today")
+        self.assertContains(response, "usuario", count=4) #header + history
+
     def test_concept_target(self):
         # language not added to glossary
         response = self.c.get('/concepts/2/gl/edit')
