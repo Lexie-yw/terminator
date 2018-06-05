@@ -334,6 +334,48 @@ class ConceptSourceView(TerminatorDetailView):
         return context
 
 
+class ConceptTargetView(ConceptSourceView):
+
+    def get_template_names(self):
+        return "terminator/concept_target.html"
+
+    def get_language(self):
+        return self.language
+
+    def may_edit(self, glossary_perms):
+        concept_in_lang, created = ConceptInLanguage.objects.get_or_create(
+                concept=self.object,
+                language=self.language,
+        )
+        return not concept_in_lang.is_finalized and \
+                    'is_terminologist_in_this_glossary' in glossary_perms
+
+    def get_context_data(self, **kwargs):
+        try:
+            self.language = Language.objects.get(pk=self.kwargs.get('lang'))
+        except Language.DoesNotExist:
+            raise Http404
+        context = super(ConceptTargetView, self).get_context_data(**kwargs)
+        translations = Translation.objects.filter(
+                concept=self.object,
+                language_id=self.object.glossary.source_language_id,
+                #TODO: filter by status
+        )
+        translations = translations.select_related('administrative_status')
+        translations = sorted(translations, key=lambda t: t.cmp_key())
+        context['source_terms'] = translations
+        try:
+            #TODO: .get() can't be avoided with template fragment caching
+            source_definition = Definition.objects.get(
+                    concept=self.object,
+                    language_id=self.object.glossary.source_language_id,
+            )
+        except Definition.DoesNotExist:
+            source_definition = None
+        context['source_definition'] = source_definition
+        return context
+
+
 class GlossaryDetailView(TerminatorDetailView):
     def post(self, request, *args, **kwargs):
         if not settings.FEATURES.get('collaboration', True) and \

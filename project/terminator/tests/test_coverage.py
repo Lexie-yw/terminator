@@ -282,6 +282,73 @@ class URLsB(TestCase):
         self.assertContains(response, "already present")
         self.assertContains(response, "SEARCHxxx")
 
+    def test_concept_target(self):
+        response = self.c.get('/concepts/2/gl/edit')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Galician")
+        self.assertContains(response, "xanela")
+        self.assertNotContains(response, "Submit")
+
+        self.login()
+        response = self.c.get('/concepts/2/gl/edit')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Galician")
+        self.assertContains(response, "xanela")
+        # This user has no rights for this Glossary
+        self.assertNotContains(response, "Finalise term information")
+        self.assertNotContains(response, "Submit")
+
+        self.c.login(username='usuario', password='usuario')
+        response = self.c.get('/concepts_source/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Finalise term information")
+        self.assertContains(response, "Add corrected or alternative term")
+        self.assertContains(response, "Submit")
+
+        response = self.c.post('/concepts/2/gl/edit', data={
+            "translation": "SEARCHxxx",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "successnote")
+        self.assertContains(response, "search")
+        self.assertContains(response, "SEARCHxxx")
+
+        response = self.c.post('/concepts/2/gl/edit', data={
+            "translation": "SEARCHyyy",
+            "definition": "definizione uno",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "successnote")
+        self.assertContains(response, "search")
+        self.assertContains(response, "SEARCHxxx")
+        self.assertContains(response, "SEARCHyyy")
+        self.assertContains(response, "definizione uno")
+
+        response = self.c.post('/concepts/2/gl/edit', data={
+            "definition": "newer definition",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "successnote")
+        self.assertContains(response, "newer definition")
+        self.assertNotContains(response, "definizione uno")
+
+        # too long
+        response = self.c.post('/concepts/2/gl/edit', data={
+            "translation": "x"*200,
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "xxxxxxxxxx")
+
+        # duplicate
+        response = self.c.post('/concepts/2/gl/edit', data={
+            "translation": "SEARCHxxx",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "errornote")
+        self.assertContains(response, "already present")
+        self.assertContains(response, "SEARCHxxx")
+
+
     def test_glossaries(self):
         response = self.c.get('/glossaries/1/')
         self.assertContains(response, "Concepts")

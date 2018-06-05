@@ -508,6 +508,15 @@ div.flexcol {
     margin-right: 1em;
 }
 
+div.flexcol-reference {
+    min-width: 20em;
+    flex: auto;
+    width: 20em;
+    max-height: 30em;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .translation, .definition {
     font-family: serif;
     font-weight: bold;
@@ -541,6 +550,20 @@ div.translation, div.definition {
 
 .preferredTerm-admn-sts {
     color: black;
+}
+
+.reference_language {
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin: 4px 0;
+    font-family: serif;
+    max-width: 35em;
+    display: inline-block;
+    vertical-align: top;
+}
+.reference_terms {
+    font-weight: bold;
+    font-size: 16px;
 }
 
 input[type="url"],

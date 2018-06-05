@@ -67,6 +67,13 @@ urlpatterns = [
         ),
         name='terminator_concept_source'),
 
+    url(r'^concepts/(?P<pk>\d+)/(?P<lang>\w+)/edit$',
+        views.ConceptTargetView.as_view(
+            model=Concept,
+        ),
+        name='terminator_concept_target'),
+
+
     # Search URLs
     url(r'^search/$',
         views.search,
