@@ -1,16 +1,26 @@
 {% load i18n %}
-{# provde concept and target (url) #}
+{# provide concept and target (url) #}
 <div class="prevnext">
+    {% url target pk=prev_concept.id lang=lang.iso_code as the_url %}
   {% with prev_concept=concept.prev_concept %}
       {% if prev_concept %}
-        <a href="{% url target pk=prev_concept.id %}"
+        {% url target pk=prev_concept.id as the_url %}
+        {% if not the_url %}
+            {% url target pk=prev_concept.id lang=lang.iso_code as the_url %}
+        {% endif %}
+
+        <a href="{{ the_url }}"
            title=" {{prev_concept }}">{% trans "← Previous concept" %}</a>
       {% endif %}
   {% endwith %}
   {% with next_concept=concept.next_concept %}
       {% if next_concept %}
+        {% url target pk=next_concept.id as the_url %}
+        {% if not the_url %}
+            {% url target pk=next_concept.id lang=lang.iso_code as the_url %}
+        {% endif %}
         <a style="float: right;"
-           href="{% url target pk=next_concept.id %}"
+           href="{{ the_url }}"
            title="{{ next_concept }}">{% trans "Next concept →" %}</a>
       {% endif %}
   {% endwith %}
