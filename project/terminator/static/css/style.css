@@ -836,6 +836,7 @@ h3 {
     padding: 0;
     margin-bottom: 2em;
     background-color: #daf2f2;
+    background-image: radial-gradient(circle, #f7f7f7 0%, #daf2f2 100%);
 }
 
 .comment_list_header {
@@ -872,6 +873,7 @@ h3 {
 #comment_form textarea {
     max-width: 100%;
     width: 100%;
+    max-height: 6em;
 }
 
 .submit {
