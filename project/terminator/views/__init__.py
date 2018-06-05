@@ -31,7 +31,7 @@ from django.db.models import Prefetch, Q
 from django.db.models import OuterRef, Subquery
 from django.db.models import prefetch_related_objects
 from django.http import HttpResponse
-from django.shortcuts import (get_object_or_404, render, Http404)
+from django.shortcuts import (get_object_or_404, render, Http404, redirect)
 from django.template import loader
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
@@ -336,6 +336,19 @@ class ConceptSourceView(TerminatorDetailView):
 
 class ConceptTargetView(ConceptSourceView):
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.source_language_id = self.object.glossary.source_language_id
+        context = self.get_context_data(object=self.object)
+        if self.language.iso_code == self.source_language_id:
+            return redirect('terminator_concept_source', pk=self.object.pk)
+        if not self.object.glossary.other_languages.filter(pk=self.language.iso_code).exists():
+            raise Http404
+        return self.render_to_response(context)
+
+    def post(self, request, *args, **kwargs):
+        return self.get(request, *args, **kwargs)
+
     def get_template_names(self):
         return "terminator/concept_target.html"
 
@@ -358,7 +371,7 @@ class ConceptTargetView(ConceptSourceView):
         context = super(ConceptTargetView, self).get_context_data(**kwargs)
         translations = Translation.objects.filter(
                 concept=self.object,
-                language_id=self.object.glossary.source_language_id,
+                language_id=self.source_language_id,
                 #TODO: filter by status
         )
         translations = translations.select_related('administrative_status')
@@ -368,7 +381,7 @@ class ConceptTargetView(ConceptSourceView):
             #TODO: .get() can't be avoided with template fragment caching
             source_definition = Definition.objects.get(
                     concept=self.object,
-                    language_id=self.object.glossary.source_language_id,
+                    language_id=self.source_language_id,
             )
         except Definition.DoesNotExist:
             source_definition = None

@@ -283,6 +283,13 @@ class URLsB(TestCase):
         self.assertContains(response, "SEARCHxxx")
 
     def test_concept_target(self):
+        # language not added to glossary
+        response = self.c.get('/concepts/2/gl/edit')
+        self.assertEqual(response.status_code, 404)
+        gl = Language.objects.get(iso_code='gl')
+        glossary = Glossary.objects.get(pk=1)
+        glossary.other_languages.add(gl)
+
         response = self.c.get('/concepts/2/gl/edit')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Galician")
