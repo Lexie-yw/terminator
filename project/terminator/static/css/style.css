@@ -186,7 +186,9 @@ a:active {
     height: 1.8em;
 }
 
-#breadcrumbs_links a:link, #breadcrumbs_links a:visited, #footer_text a:link {
+#breadcrumbs_links a:link,
+#breadcrumbs_links a:visited,
+#footer_text a:link {
     color: #666;
     font-style: normal;
     text-decoration: none;
@@ -198,7 +200,10 @@ a:active {
     text-decoration: none;
 }
 
-#breadcrumbs_links a:hover, #breadcrumbs_links a:focus, #footer_text a:hover, #footer_text a:focus {
+#breadcrumbs_links a:hover,
+#breadcrumbs_links a:focus,
+#footer_text a:hover,
+#footer_text a:focus {
     color: #b11;
     font-style: normal;
     text-decoration: underline;
