@@ -224,6 +224,7 @@ a:active {
 #wide_content {
     float: left;
     max-width: calc(100% - 240px);
+    width: 100%;
     margin: 0px;
     margin-left: 2em;
     padding: 0em;
@@ -282,6 +283,7 @@ a > img {
 .prevnext {
     min-height: 1.5em;
     margin-top: 0.5em;
+    max-width: 50em;
 }
 
 .rss {
@@ -500,15 +502,15 @@ div.flex {
 }
 
 div.flexcol {
-    width: 49%;
-    min-width: 25em;
+    min-width: 20em;
+    max-width: 50em;
     flex: auto;
+    margin-right: 1em;
 }
 
 .translation, .definition {
     font-family: serif;
     font-weight: bold;
-    width: 85%;
     padding: 8px;
     margin: 4px 0;
 }
@@ -558,7 +560,8 @@ textarea:enabled {
 
 input[type="text"].translation,
 textarea.definition {
-    padding: 8px;
+    padding: 8px 0 8px 8px;
+    width: calc(100% - 9px);
 }
 
 input:focus[type="text"],
@@ -800,6 +803,12 @@ h3 {
 
 
 /* Comments styles */
+
+.comments {
+    max-width: 40em;
+    padding-top: 0.5em; /* for RSS icon */
+}
+
 .comment_block {
     padding: 0;
     margin-bottom: 2em;

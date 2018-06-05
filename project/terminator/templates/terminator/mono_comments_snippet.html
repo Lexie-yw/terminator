@@ -1,6 +1,7 @@
 {% load comments %}
 {% load i18n %}
 
+<div class="comments">
 <div class="rss" title="{% trans "RSS feed with latest comments here" %}"><a href="{% url "terminator_feed_commentthread" concept_id=concept_in_lang.concept_id language_id=concept_in_lang.language_id %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" height="24" /></a></div>
 <h2 id="comment_list">{% trans "Comments" %}</h2>
 
@@ -24,4 +25,5 @@
         {% blocktrans %}You need to <a href="{{ login_url }}?next={{ next }}#comment_form">log in</a> if you want to comment.{% endblocktrans %}
     {% endif %}
     </div>
+</div>
 </div>
