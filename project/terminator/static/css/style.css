@@ -814,21 +814,15 @@ h3 {
 
 /* Language links styles */
 .language_link_list {
-    padding: 0;
-    margin: 0;
-    margin-right: 6em;
-    height: 2em;
-}
-
-.align_left_list {
-    text-align: right;
+    line-height: 2em;
+    text-align: center;
 }
 
 .language_link {
-    padding: 4px 8px;
-    margin: 0;
-    margin-right: 6px;
+    padding: 4px 2%;
+    margin: 16px;
     background-color: #ddd;
+    white-space: nowrap;
 }
 
 .current_language {

@@ -52,7 +52,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {# TODO: Emphasize to the user's preferred languages #}
     {% with used_languages=concept.glossary.other_languages.all|dictsort:"iso_code" %}
       {% if used_languages %}
-        <div class="language_link_list align_left_list">
+        <div class="language_link_list">
         {% for lang in used_languages %}
             {% if lang.pk != current_language.pk %}
                 <a href="{% url "terminator_concept_detail_for_language" pk=concept.pk lang=lang.pk %}" class="language_link">{{ lang }}</a>
