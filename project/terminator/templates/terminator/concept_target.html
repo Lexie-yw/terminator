@@ -22,6 +22,11 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block reference_material %}
 <div class="flexcol-reference">
     <div class="reference_language">
+      {% with term=source_terms|first %}
+          <span class="reference_source"
+                title="{{ term.language.name }}">({{ term.language.iso_code }})
+          </span>
+      {% endwith %}
       <div class="reference_terms">
         {% for term in source_terms %}
           <span
@@ -37,7 +42,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {{ term.translation_text }}</span>
         {% endfor %}
       </div>
-      <div>
+      <div class="reference_body">
         {{ source_definition.text }}
       </div>
     </div>

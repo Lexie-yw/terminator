@@ -582,6 +582,15 @@ div.translation, div.definition {
     font-weight: bold;
     font-size: 16px;
 }
+.reference_source {
+    float: right;
+    color: gray;
+    font-family: sans;
+    font-size: 70%;
+}
+.reference_body {
+    clear: both;
+}
 
 textarea {
     max-width: 35em;
