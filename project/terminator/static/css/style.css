@@ -1011,6 +1011,12 @@ h3 {
         display: none;
     }
 
+    .halfvertflexlist {
+        max-height: 24em;
+    }
+    .conceptitem {
+        max-width: 30vw;
+    }
     ul {
         padding: 0 0.1% 0 1% !important;
     }
