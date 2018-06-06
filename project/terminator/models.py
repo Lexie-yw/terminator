@@ -22,7 +22,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Field, Transform
-from django.db.models.signals import post_save
+from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.html import format_html, mark_safe
@@ -316,6 +316,9 @@ class Concept(models.Model):
         return unicode(_(u"Concept #%(concept_id)d") % {'concept_id': self.id})
 
     def update_repr_cache(self):
+        if not self.id:
+            # can happen in test teardown and similar situations
+            return
         src_translations = self.translation_set.filter(
                 language_id=self.glossary.source_language_id,
         )
@@ -379,6 +382,12 @@ class Concept(models.Model):
 
     def get_absolute_url(self):
         return reverse('terminator_concept_detail', kwargs={'pk': unicode(self.pk)})
+
+
+def update_repr_cache(sender, **kwargs):
+    translation = kwargs.get('instance')
+    translation.concept.update_repr_cache()
+post_delete.connect(update_repr_cache, sender='terminator.Translation')
 
 
 class ConceptLangUrlMixin(object):
