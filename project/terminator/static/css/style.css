@@ -78,7 +78,6 @@ a:active {
 
 #header_title {
     padding-top: 20px;
-    margin-left: 60px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -105,7 +104,7 @@ a:active {
     margin-top: 1em;
     text-align: right;
     vertical-align: top;
-    width: 50%;
+    max-width: 50%;
 }
 
 #header_language_selection {
@@ -165,9 +164,9 @@ a:active {
 
 #breadcrumbs_links {
     float: left;
-    max-width: calc(100% - 22em);
+    max-width: calc(100% - 22em); /* Firefox is harder to satisfy here */
     margin: 0em;
-    padding-top: 0.5em;
+    padding-top: 0.6em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -817,8 +816,6 @@ h3 {
 }
 
 .language_link {
-/*    border-width: 2px;*/
-/*    border-color: black;*/
     padding: 4px 8px;
     margin: 0;
     margin-right: 6px;
