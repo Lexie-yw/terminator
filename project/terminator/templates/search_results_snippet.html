@@ -21,7 +21,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 {% for result in search_results %}
     <li class="search_result{% if not result.is_first %} nested_result{% endif %}{% if not result.translation.is_finalized %} not_finalized_item{% endif %}">
-        <a href="{% url "terminator_concept_detail" pk=result.translation.concept.pk %}">{{ result.translation.translation_text }} ({{ result.translation.language_id }})</a>
+        <a href="{% url "terminator_concept_detail_for_language" pk=result.translation.concept.pk lang=result.translation.language_id %}">{{ result.translation.translation_text }} ({{ result.translation.language_id }})</a>
         | <a href="{% url "terminator_glossary_detail" pk=result.translation.concept.glossary.pk %}">{{ result.translation.concept.glossary.name }}</a>
         {% if result.translation.administrative_status %}
             <span {% ifequal result.translation.administrative_status.name "Not recommended" %}class="not_recommended"{% endifequal %}{% ifequal result.translation.administrative_status.name "Preferred" %}class="preferred"{% endifequal %}>({{ result.translation.administrative_status.name }})</span>
