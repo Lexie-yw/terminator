@@ -67,7 +67,7 @@ a:active {
     float: left;
     padding: 0em;
     margin: 0em;
-    width: 44%;
+    width: 49%;
 }
 
 #header_logo {
@@ -978,6 +978,9 @@ h3 {
     }
     #header_session_block {
         margin-right: 0.5%;
+    }
+    #header_language_selection * {
+        font-size: 93%;
     }
 
     #breadcrumbs {
