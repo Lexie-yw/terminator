@@ -22,6 +22,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="Content-Language" content="{{ LANGUAGE_CODE }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{{ STATIC_PREFIX }}css/style.css{% endblock %}" />
     <link rel="alternate" type="application/rss+xml" title="{% trans 'Feed for latest changes' %}" href="{% url "terminator_feed_all" %}">
     <title>{% block title %}{% trans "Terminator: terminology management tool" %}{% endblock %}</title>

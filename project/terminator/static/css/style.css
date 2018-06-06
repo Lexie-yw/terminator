@@ -175,7 +175,7 @@ a:active {
 #breadcrumbs_search {
     float: right;
     text-align: right;
-    padding-right: 1em;
+    padding-right: 1%;
     padding-top: 0.2em;
     font-size: 90%;
     vertical-align: middle;
@@ -235,7 +235,9 @@ a:active {
 }
 
 #sidebar {
-    float: right;
+    clear: both;
+    position: absolute;
+    right: 0;
     margin: 0;
     width: 200px;
     background: #d7eef4;
@@ -457,6 +459,7 @@ ul.changelist li, ul.iconlist li, ul.itemlist li {
     margin-bottom: 2em;
     margin-top: 2em;
     padding: 2em 4em 2em 4em;
+    padding: 2em 2% 2em 2%;
     width: auto;
     max-width: 40em;
     background-color: #eee;
@@ -579,6 +582,11 @@ div.translation, div.definition {
 .reference_terms {
     font-weight: bold;
     font-size: 16px;
+}
+
+textarea {
+    max-width: 35em;
+    width: 100%;
 }
 
 input[type="url"],
@@ -737,6 +745,7 @@ ul.errorlist {
 ul.search_results {
     list-style-type: none;
     margin: 0;
+    padding: 4%;
 }
 
 li.search_result {
@@ -952,6 +961,70 @@ h3 {
 .resource_form form:valid input[type="submit"]{
     color: black;
 }
+
+@media screen and (max-width: 1000px) {
+    #container_content {
+        padding: 1%;
+        margin: 1%;
+    }
+    #content, #wide_content {
+        max-width: 97%;
+        margin-left: 2%;
+    }
+
+    #header_logo {
+        padding-left: 1px;
+        transition: padding-left 0.25s ease-in-out;
+    }
+    #header_title > p {
+        display: none;
+    }
+    #header_session_block {
+        margin-right: 0.5%;
+    }
+
+    #breadcrumbs {
+        padding-left: 2px;
+        font-size: smaller;
+    }
+    #breadcrumbs_links >a:first-child {
+        display: none;
+    }
+
+    h1 {
+        font-size: 120% !important;
+    }
+    h2,h3,h4 {
+        font-size: 115% !important;
+    }
+
+    #sidebar {
+        position: static;
+        right: unset;
+        width: unset;
+        border-bottom-left-radius: unset;
+        text-align: center;
+        background-image: radial-gradient(circle, #eff 0%, #d7eef4 100%);
+    }
+    #sidebar > ul > li,
+    #sidebar > ul > li > ul.concept_list > li {
+        display: inline-block;
+        margin-right: 0.5em;
+    }
+    #sidebar > ul > li > ul.concept_list > li > img{
+        display: none;
+    }
+
+    ul {
+        padding: 0 0.1% 0 1% !important;
+    }
+
+    .comment {
+        padding: 2%;
+    }
+
+}
+
 
 /* Garbage to work around IE bugs */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
