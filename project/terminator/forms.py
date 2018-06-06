@@ -83,7 +83,7 @@ class ExportForm(forms.Form):
     # chosen glossaries. Perhaps show a cloud of checkboxes?
     #also_not_finalized_concepts = forms.BooleanField(required=False, label=_("Also not finalized concepts"))
     export_terms = forms.ChoiceField(
-            required=True,
+            required=False,
             label=_("Terms to export"),
             choices=(
                    ('all', _("all terms")),

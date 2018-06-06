@@ -453,16 +453,9 @@ class TBXURLs(TestCase):
         self.login()
         response = self.c.get('/export/', data={"from_glossaries": 1})
         self.assertContains(response, 'Export')
+        self.assertNotContains(response, "This field is required")
 
-        response = self.c.post('/export/', data={
-            "from_glossaries": 1,
-            "export_terms": "",
-        })
-        # Not valid..., but could have been the default
-        self.assertContains(response, 'Export')
-        self.not_tbx(response)
-
-        for export_terms in ("all", "preferred", "preferred+admitted", "preferred+admitted+not_recommended"):
+        for export_terms in ("", "all", "preferred", "preferred+admitted", "preferred+admitted+not_recommended"):
             response = self.c.post('/export/', data={
                 "from_glossaries": 1,
                 "export_terms": export_terms,
