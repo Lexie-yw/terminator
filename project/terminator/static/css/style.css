@@ -251,7 +251,7 @@ a:active {
     text-align: center;
     background: #666;
     background: linear-gradient(#999, #aaa);
-    height: 32px;
+    min-height: 32px;
     padding: 0;
 }
 
