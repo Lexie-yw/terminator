@@ -39,7 +39,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
               {% endif %}
               {% endwith %}
               >
-                {{ term.translation_text }}</span>
+                {{ term.translation_text }}{% if not forloop.last %}{% trans ", " %}{% endif %}</span>
         {% endfor %}
       </div>
       <div class="reference_body">
