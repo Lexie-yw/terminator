@@ -997,8 +997,7 @@ h3 {
 
     #sidebar {
         position: static;
-        right: unset;
-        width: unset;
+        width: 100%;
         border-bottom-left-radius: unset;
         text-align: center;
         background-image: radial-gradient(circle, #eff 0%, #d7eef4 100%);
