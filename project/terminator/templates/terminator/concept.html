@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load guardian_tags %}
 {% load i18n %}
+{% load cache %}
 
 {% comment %}
 Copyright 2011 Leandro Regueiro
@@ -63,7 +64,6 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
 
 
-    {% get_current_language as LANGUAGE_CODE %}
     {% include "terminator/prev_next_concept_snippet.html" with concept=concept target="terminator_concept_detail" %}
 
     {% if concept.subject_field %}
@@ -124,7 +124,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
           {{ form.non_field_errors }}
           <p>{{form.address.errors}}{{ form.address }}
           {{ form.link_type.errors }}
+          {% cache 1000000 link_type_dropdown %}
           {{ form.link_type }}
+          {% endcache %}
           </p>
           <p>{{ form.description }}</p>
           {# TRANSLATORS: button text (verb) #}
@@ -140,7 +142,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     <ul>
         {# #TODO add more links to specific sidebar #}
+        {% cache 600 concept_others concept.pk %}
         {% include "terminator/other_concepts_snippet.html" with concept=concept %}
+        {% endcache %}
         {% if user.is_authenticated %}
           <li><a href="{% url "terminator_glossary_concepts" pk=concept.glossary.pk %}">{% trans "See all glossary concepts" %}</a></li>
         {% endif %}

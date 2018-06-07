@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load cache %}
 
 {% comment %}
 Copyright 2011 Leandro Regueiro
@@ -25,7 +26,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
 {% block container %}
 <div id="container_content">
-    
+
     <div class="search_form">
         <form action="{% url "terminator_search" %}" method="get">
             {% include "search_form_snippet.html" %}
@@ -33,10 +34,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {% url "terminator_advanced_search" as advanced_search_url %}
         {% blocktrans %}You may also try the <a href="{{ advanced_search_url }}">advanced search</a>{% endblocktrans %}.
     </div>
-    
-    
-    
+
+    {% get_current_language as LANGUAGE_CODE %}
     <div class="two_columns_index_row">
+        {% cache 300 index_glossaries perms.terminator.add_glossary LANGUAGE_CODE %}
         <div class="index_left_column">
             <h2><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" /> {% trans "Glossaries" %}</h2>
             <ul class="changelist">
@@ -47,7 +48,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 </li>
             {% empty %}
                 <p>{% trans "No glossaries are available." %}</p>
-                
+
                 {% if perms.terminator.add_glossary %}
                     <p><a href="{% url "admin:terminator_glossary_add" %}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new glossary" %}</a></p>
                 {% endif %}
@@ -59,7 +60,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {% endif %}
             </ul>
         </div>
-        
+        {% endcache %}
+
         <div class="index_right_column">
             <h2><img src="{{ STATIC_PREFIX }}images/icon_help_32.png" /> {% trans "What is Terminator?" %}</h2>
             <p>{% blocktrans %}Terminator is a platform for collaborative terminology development. Look through the glossaries to see what is already available.{% endblocktrans %}</p>
@@ -83,10 +85,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                     
                     <form action="" method="post">
                         {% csrf_token %}
+                        {% cache 600 index_proposal_form LANGUAGE_CODE %}
                         <table>
                             {{ proposal_form.as_table }}
                         </table>
                         <input type="submit" value="{% trans 'Send' %}" />
+                        {% endcache %}
                     </form>
                 {% else %}
                     {% url "login" as login_url %}
@@ -113,11 +117,14 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </div>
     {% endif %}
 
+    {% cache 60 index_translation_changes LANGUAGE_CODE %}
     <div class="two_columns_index_row">
         {% include "terminator/latest_translations_snippet.html" with rss=True changes=latest_translation_changes %}
         {% include "terminator/latest_comments_snippet.html" with rss=True %}
     </div>
+    {% endcache %}
 
+    {% cache 600 index_last_row LANGUAGE_CODE %}
     <div class="two_columns_index_row">
         <div class="index_left_column">
             <div class="rss" title="{% trans "RSS feed with latest changes to glossaries" %}"><a href="{% url "terminator_feed_glossaries" %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" height="24" /></a></div>
@@ -153,6 +160,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             </ul>
         </div>
     </div>
+    {% endcache %}
 
 </div>
 {% endblock %}

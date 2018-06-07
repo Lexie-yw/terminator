@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load guardian_tags %}
 {% load i18n %}
+{% load cache %}
 
 {% comment %}
 Copyright 2011 Leandro Regueiro
@@ -34,6 +35,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block wide_content %}
     
     {% get_obj_perms user for glossary as "glossary_perms" %}
+    {% get_current_language as LANGUAGE_CODE %}
     
     
     <h1><img src="{{ STATIC_PREFIX }}images/icon_glossary_32.png" />{{ glossary.name }}</h1>
@@ -57,7 +59,8 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     <h2><img src="{{ STATIC_PREFIX }}images/icon_concept_24.png" />
             {% blocktrans %}Concepts{% endblocktrans %}</h2>
-    
+
+    {% cache 300 glossary_detail_list glossary.pk user.is_authenticated LANGUAGE_CODE %}
     <ul class="iconlist halfvertflexlist">
     {% for concept in glossary.concept_set.all|slice:":17" %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
@@ -74,19 +77,24 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       {% endfor %}
       </ul>
     {% endif %}
+    {% endcache %}
+
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
         <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
     {% endif %}
-    
+
+    {% cache 60 glossary_detail_recent glossary.pk LANGUAGE_CODE %}
     <div class="two_columns_index_row">
       {% include "terminator/latest_translations_snippet.html" with rss=False changes=glossary.get_recent_translation_changes %}
       {% include "terminator/latest_comments_snippet.html" with rss=False%}
     </div>
+    {% endcache %}
 
     {% if user.is_authenticated %}
+       {% cache 3600 glossary_detail_collaborators glossary.pk LANGUAGE_CODE %}
         <div class="two_columns_index_row">
           <div class="index_double_column">
-        <h2><img src="{{ STATIC_PREFIX }}images/icon_user_24.png" />
+          <h2><img src="{{ STATIC_PREFIX }}images/icon_user_24.png" />
                 {% blocktrans %}Glossary collaborators{% endblocktrans %}</h2>
         {% with glossary.get_collaborators as collaborators %}
             {% if collaborators %}
@@ -104,12 +112,13 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {% endwith %}
           </div>
         </div>
-        
+        {% endcache %}
+
         {% if features.subscription %}
         <p>{% blocktrans %}Do you want to receive e-mail notifications of all comments in this glossary?{% endblocktrans %}</p>
         {% include "glossary_subscribe_form_snippet.html" %}
         {% endif %}
-        
+
         {% if features.collaboration %}
         <p>{% blocktrans %}Do you want to collaborate on this glossary?{% endblocktrans %}</p>
         {% include "glossary_collaboration_request_form_snippet.html" %}

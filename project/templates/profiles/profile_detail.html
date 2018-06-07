@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load cache %}
 
 {% comment %}
 Copyright 2011 Leandro Regueiro
@@ -58,6 +59,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <div class="two_columns_index_row">
         {% include "terminator/latest_translations_snippet.html" with rss=False changes=translation_changes%}
+    {% cache 600 profile_detail_comments thisuser.pk comments.number LANGUAGE_CODE %}
     <div class="index_right_column">
     <h2><img src="{{ STATIC_PREFIX }}images/icon_comment_24.png" />
             {% blocktrans with user=thisuser %}Comments by {{ user }}{% endblocktrans %}</h2>
@@ -88,6 +90,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <p>{% blocktrans with user=thisuser %}{{ user }} didn't post any comments.{% endblocktrans %}</p>
     {% endif %}
     </div>
+    {% endcache %}
     </div>
 
 {% endblock %}

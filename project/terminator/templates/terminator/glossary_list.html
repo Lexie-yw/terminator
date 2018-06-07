@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load cache %}
 
 {% comment %}
 Copyright 2011 Leandro Regueiro
@@ -31,7 +32,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% if perms.terminator.add_glossary %}
         <p><a href="{% url "admin:terminator_glossary_add" %}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new glossary" %}</a></p>
     {% endif %}
-    
+
+    {% get_current_language as LANGUAGE_CODE %}
+    {% cache 600 glossary_list_glossaries user.is_authenticated LANGUAGE_CODE %}
     {% if glossary_list %}
         <div class="iconlist horizflexlist">
         {% for glossary in glossary_list %}
@@ -47,4 +50,5 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% else %}
         <p>{% trans "No glossaries are available." %}</p>
     {% endif %}
+    {% endcache %}
 {% endblock %}

@@ -1,3 +1,4 @@
+{% load cache %}
 {% load i18n %}{% load static %}{% get_static_prefix as STATIC_PREFIX %}{% comment %}
 Copyright 2011 Leandro Regueiro
 
@@ -44,6 +45,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 <form action="{% url "set_language" %}" method="post">
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ next }}" />
+                    {% cache 1000000 base_language_switcher LANGUAGE_CODE %}
                     <select name="language">
                     {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
@@ -52,6 +54,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                     {% endfor %}
                     </select>
                     <input type="submit" value="{% trans 'Go' %}" />
+                    {% endcache %}
                 </form>
             {% endblock %}
             </div>
@@ -77,11 +80,13 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             <a href="{% url "terminator_index" %}"><img src="{{ STATIC_PREFIX }}images/icon_home_16.png" />{% trans "Home" %}</a>{% block breadcrumbs %}{% endblock %}
         </div>
         {% block breadcrumbs_search %}
+        {% cache 1000000 base_search LANGUAGE_CODE %}
         <div id="breadcrumbs_search">
             <form action="{% url "terminator_search" %}" method="get">
             {% include "search_form_snippet.html" %}
             </form>
         </div>
+        {% endcache %}
         {% endblock %}
     </div>
     
@@ -100,6 +105,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <div id="sidebar">
             {% block specificsidebar %}{% endblock %}
             {% block commonsidebar %}
+            {% cache 6000 base_sidebar user LANGUAGE_CODE %}
             <ul>
                 <li><a href="{% url "terminator_help" %}"><img src="{{ STATIC_PREFIX }}images/icon_help_24.png" />{% trans "Help" %}</a></li>
                 {% if features.export_tbx and user.is_authenticated %}
@@ -128,6 +134,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 <li><a href="{% url "admin:auth_user_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_user_24.png" />{% trans "Manage users and permissions" %}</a></li>
                 {% endif %}
             </ul>
+            {% endcache %}
             {% endblock %}
         </div>
     {% endblock %}

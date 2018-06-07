@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load guardian_tags %}
 {% load i18n %}
+{% load cache %}
 
 {% block title %}
     {% blocktrans %}{{ glossary }} — Terminator{% endblocktrans %}
@@ -25,11 +26,14 @@
 
     <h3>{% blocktrans %}Concepts{% endblocktrans %}</h3>
 
+    {% cache 600 glossary_concepts glossary.pk %}
     <ul class="iconlist vertflexlist">
     {% for concept in glossary.concept_set.all %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
     {% endfor %}
     </ul>
+    {% endcache %}
+
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
         <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
     {% endif %}
