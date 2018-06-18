@@ -130,7 +130,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% if user.is_superuser %}
                 
                 <hr />
-                <li><a href="{% url "admin:app_list" "terminator" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage terminator data" %}</a></li>
+                <li><a href="{% url "admin:app_list" "terminator" %}"><img src="{{ STATIC_PREFIX }}images/icon_admin_24.png" />{% trans "Manage platform data" %}</a></li>
                 <li><a href="{% url "admin:auth_user_changelist" %}"><img src="{{ STATIC_PREFIX }}images/icon_user_24.png" />{% trans "Manage users and permissions" %}</a></li>
                 {% endif %}
             </ul>

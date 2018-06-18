@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<p>{% blocktrans %}Terminator is an online multilingual collaborative terminology management platform. Terminator can be used to create terminology for any field. Terminator itself is free software licensed under the <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License version 3</a>.{% endblocktrans %}</p>
+<p>{% blocktrans %}This is an online platform for collaborative multilingual terminology management. It can be used to create terminology for any field.{% endblocktrans %}</p>
 
 <p>{% blocktrans %}This platform can coordinate work on several glossaries with multiple concepts, each having a definition and multiple terms for every configured language. Links to external resources can be added to help in terminology creation, and discussion on every concept in every language enables collaboration.{% endblocktrans %}</p>
 
@@ -8,23 +8,58 @@
 
 <p>{% blocktrans %}All changes are tracked and can be easily viewed by all users. Among the changes tracked are the latest changes to terms, comments, concepts and so on.{% endblocktrans %}</p>
 
-<h2>{% trans "Contributor Roles" %}</h2>
+<h2>{% trans "Contents" %}</h2>
+<ul>
+    <li><a href="#contrib">{% trans "Contributor Roles" %}</a></li>
+    <li><a href="#terminology">{% trans "Terminology of this Platform" %}</a></li>
+    <li><a href="#contrib">{% trans "Workflow" %}</a></li>
+    <li><a href="#tbx">{% trans "Import and Export of Data" %}</a></li>
+    <li><a href="#software">{% trans "About this Platform" %}</a></li>
+</ul>
+
+<h2 id="contrib">{% trans "Contributor Roles" %}</h2>
 <p>{% blocktrans %}Most functionality require you to log in. You can get involved by commenting, or by providing terms and definitions. Logged in users can contribute according to different roles.{% endblocktrans %}
 
 <p>{% blocktrans %}Users are assigned different roles for each glossary, thereby enabling collaboration while ensuring data integrity. Lexicographers have permission to edit more fields. They have the responsibility to review all fields and provide additional information to enrich entries. But feel free to leave your suggestions in the comments!{% endblocktrans %}</p>
 
-<h2>{% trans "Terminology of this Platform" %}</h2>
-<p>{% blocktrans %}A glossary is a collection of related concepts in a subject field. Each concept can be expressed as one or more terms in each language. Whereas a term is usually short (one or more words only), a definition is a fuller explanation of the concept.{% endblocktrans %}</p>
+<p>{% blocktrans %}Subject experts ensure correct understanding and conceptualisation of concepts. They can add links to external websites containing supporting material. They contribute mainly by suggesting terms and definitions.{% endblocktrans %}</p>
 
-<h2>{% trans "Workflow" %}</h2>
-<p>{% blocktrans %}Terms and definitions are collected for the source language first. When there is agreement, the lexicographer can indicate that the concept’s source language is finalized. This indicates that work on additional languages can start. Again terms and definitions are collected.{% endblocktrans %}</p>
+<p>{% blocktrans %}Lexicogaphers assist subject experts with writing good definitions and following the guidelines for good terminology. They can indicate which concepts are related. After consensus is reached about the terms and definition in a language, a lexicogapher can enrich the entries with additional information, such as part of speech, example sentences, usage notes, etc. Feel free to make suggestions to them in the comments!{% endblocktrans %}</p>
+
+<h2 id="terminology">{% trans "Terminology of this Platform" %}</h2>
+<p>{% blocktrans %}A glossary is a collection of related concepts in a subject field. Each concept can be expressed as one or more terms in each language. Whereas a term is usually short (one or a few words only), a definition is a fuller explanation of the concept.{% endblocktrans %}</p>
+
+<p>{% blocktrans %}An external resource is a web page or similar resource that provides additional information. Link to such resources by adding a link. You can specify whether it is an image, audio, video, etc.{% endblocktrans %}</p>
+
+<h2 id="workflow">{% trans "Workflow" %}</h2>
+<p>{% blocktrans %}Terms and definitions are collected for the source language first. When there is agreement, the lexicographer can indicate that the concept’s source language is finalized. This indicates that work on additional languages can start where terms and definitions are collected.{% endblocktrans %}</p>
+
+
+
+{% if features.proposals %}
+<p>{% blocktrans %}If a concept is not in a glossary, a proposal can be made for inclusion in an additional conncept. After a proposed concept is included, the normal workflow is followed.{% endblocktrans %}</p>
+{% endif %}
 
 <p>{% blocktrans %}Logged-in users can comment on any entry, even after it has been finalized. Comments and suggestions for terms and definitions are all entered and reviewed in the work area for the concept.{% endblocktrans %}</p>
 
-<h2>{% trans "Import and Export of Data" %}</h2>
-<p>{% blocktrans %}One of the features is the ability to export the data to TBX (TermBase eXchange) format which is used for interchange of terminology among different systems such as translation tools. The export process is configurable to allow exporting of a subset of terms according a number of criteria.{% endblocktrans %}
-{% if features.autoterm %}
-{% blocktrans %}Terminator can generate TBX files to feed the Autoterm feature in the Virtaal translation tool.{% endblocktrans %}</p>
+
+{% if features.import_tbx or features.export_tbx %}
+<h2 id="tbx">{% trans "Import and Export of Data" %}</h2>
+<p>{% blocktrans %}TBX (TermBase eXchange) is a file format which is used for interchange of terminology among different systems such as translation tools.{% endblocktrans %}
+{% if features.export_tbx %}
+    {% blocktrans %}One of the features of this platform is the ability to export the data to TBX. The export process is configurable to allow exporting of a subset of terms according a number of criteria.{% endblocktrans %}
+    {% if features.autoterm %}
+        {% blocktrans %}Terminator can generate TBX files to feed the Autoterm feature in the Virtaal translation tool.{% endblocktrans %}
+    {% endif %}
+{% endif %}
+</p>
 {% endif %}
 
-<p>{% blocktrans %}For integrating previous terminology work, Terminator can import files in the TBX format.{% endblocktrans %}</p>
+{% if features.import_tbx %}
+<p>{% blocktrans %}For integrating previous terminology work, files in the TBX format can be imported.{% endblocktrans %}</p>
+{% endif %}
+
+<h2 id="software">{% trans "About this Platform" %}</h2>
+{% with gpl_url="https://www.gnu.org/copyleft/gpl.html\" target=\"_blank\" rel=\"external noopener" %}
+<p>{% blocktrans %}This platform is built with Terminator. It is free software licensed under the <a href="{{ gpl_url }}">GNU General Public License version 3</a>.{% endblocktrans %}</p>
+{% endwith %}
