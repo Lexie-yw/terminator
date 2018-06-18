@@ -242,7 +242,7 @@ class ConceptSourceView(TerminatorDetailView):
     def may_edit(self, glossary_perms):
         return 'is_lexicographer_in_this_glossary' in glossary_perms or \
                     ('is_terminologist_in_this_glossary' in glossary_perms and \
-                    not concept.source_language_finalized())
+                    not self.object.source_language_finalized())
     def get_context_data(self, **kwargs):
         context = super(ConceptSourceView, self).get_context_data(**kwargs)
         concept = context['concept']
