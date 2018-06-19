@@ -1014,6 +1014,9 @@ h3 {
         text-align: center;
         background-image: radial-gradient(circle, #eff 0%, #d7eef4 100%);
     }
+    #sidebar > ul {
+        margin: 0px;
+    }
     #sidebar > ul > li,
     #sidebar > ul > li > ul.concept_list > li {
         display: inline-block;
