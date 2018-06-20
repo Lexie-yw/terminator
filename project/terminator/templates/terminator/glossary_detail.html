@@ -85,7 +85,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     {% cache 60 glossary_detail_recent glossary.pk LANGUAGE_CODE %}
     <div class="two_columns_index_row">
-      {% include "terminator/latest_translations_snippet.html" with rss=False changes=glossary.get_recent_translation_changes %}
+      {% include "terminator/latest_translations_snippet.html" with rss=False changes=glossary.get_recent_changes %}
       {% include "terminator/latest_comments_snippet.html" with rss=False%}
     </div>
     {% endcache %}

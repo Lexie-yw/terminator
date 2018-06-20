@@ -119,7 +119,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     {% cache 60 index_translation_changes LANGUAGE_CODE %}
     <div class="two_columns_index_row">
-        {% include "terminator/latest_translations_snippet.html" with rss=True changes=latest_translation_changes %}
+        {% include "terminator/latest_translations_snippet.html" with rss=True changes=latest_changes %}
         {% include "terminator/latest_comments_snippet.html" with rss=True %}
     </div>
     {% endcache %}

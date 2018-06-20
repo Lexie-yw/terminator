@@ -17,7 +17,7 @@
             {% else %}
                 {% trans "Added" %}
             {% endif %}
-            {% if change.translation_concept_id %}<a href="{% url "terminator_concept_detail" pk=change.translation_concept_id %}">{{ change.data.object_repr }}</a>{% endif %}
+            {% if change.concept_id %}<a href="{% url "terminator_concept_detail" pk=change.concept_id %}">{{ change.data.object_repr }}</a>{% endif %}
             <p class="change_ago">{% blocktrans with time_ago=change.data.action_time|timesince %}{{ time_ago }} ago{% endblocktrans %}</p>
         </li>
     {% endfor %}

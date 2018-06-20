@@ -284,17 +284,26 @@ class Glossary(models.Model):
                     collaborators.append({'user': line.user, 'role': role})
         return collaborators
 
-    def get_recent_translation_changes(self):
+    def get_recent_changes(self):
         translation_ctype = ContentType.objects.get_for_model(Translation)
-        return recent_translation_changes(LogEntry.objects.filter(
+        qs = LogEntry.objects.filter(
                 content_type=translation_ctype,
                 #the __integer transform changes the str object_id into an INT
                 #that can be joined by the database
                 object_id__integer__in=Translation.objects.filter(
                     concept__glossary=self,
                 ),
-        ).order_by("-action_time")[:5])
-
+        ).order_by()
+        # UNION with other types
+        for Model in (Definition, ExternalResource):
+            ctype = ContentType.objects.get_for_model(Model)
+            qs = qs.union(LogEntry.objects.filter(
+                content_type=ctype,
+                object_id__integer__in=Model.objects.filter(
+                    concept__glossary=self,
+                ),
+            ).order_by())
+        return process_recent_changes(qs.order_by("-action_time")[:5])
 
 class Concept(models.Model):
     glossary = models.ForeignKey(Glossary, on_delete=models.CASCADE, verbose_name=_("glossary"))
@@ -629,25 +638,33 @@ class IntegerValue(Transform):
         return sql, params
 
 
-def recent_translation_changes(changes):
-    translation_changes = []
-    changes = list(changes) # we need to iterate twice through changes
-    translation_dict = Translation.objects.in_bulk(c.object_id for c in changes)
+def process_recent_changes(changes):
+    """Helper to provide template variables for changes to certain models."""
+    log = []
+    changed_groups = sorted(changes, key=lambda o: o.content_type_id, reverse=True)
+    changed_groups = itertools.groupby(changed_groups, key=lambda o: o.content_type_id)
+    all_objects = {}
 
-    # Some Translations might have been deleted, so we have to check each one.
+    for content_type_id, model_changes in changed_groups:
+        Model = ContentType.objects.get_for_id(content_type_id).model_class()
+        all_objects[content_type_id] = Model.objects.in_bulk(c.object_id for c in model_changes)
+
+    # Some objects might have been deleted, so we have to check each one.
     for logentry in changes:
-        translation = translation_dict.get(int(logentry.object_id), None)
-        if translation is None:
-            # Translation since deleted. Let's try to get the concept.
+        models = all_objects[logentry.content_type_id]
+        obj = models.get(int(logentry.object_id))
+        if obj is None:
+            # object since deleted. Let's try to get the concept.
             change = {"data": logentry}
             match = re.search(r'#([\d]+)', logentry.object_repr)
-            if match and Concept.objects.filter(pk=int(match.group(1))).exists():
-                change["translation_concept_id"] = int(match.group(1))
-            translation_changes.append(change)
+            concept_id = int(match.group(1))
+            if match and Concept.objects.filter(pk=concept_id).exists():
+                change["concept_id"] = concept_id
+            log.append(change)
         else:
-            # Translation there - let's assume it is still the same one.
-            translation_changes.append({
+            # object is there - let's assume it is still the same one.
+            log.append({
                 "data": logentry,
-                "translation_concept_id": translation.concept_id,
+                "concept_id": obj.concept_id,
             })
-    return translation_changes
+    return log

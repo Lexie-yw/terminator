@@ -86,9 +86,9 @@ def terminator_profile_detail(request, username):
         elif checker.has_perm('is_terminologist_in_this_glossary', glossary):
             user_glossaries.append({'glossary': glossary, 'role': _(u"Terminologist")})
 
-    translation_ctype = ContentType.objects.get_for_model(Translation)
-    translation_changes = recent_translation_changes(LogEntry.objects.filter(
-                content_type=translation_ctype,
+    ctypes = ContentType.objects.get_for_models(Translation, Definition, ExternalResource).values()
+    recent_changes = process_recent_changes(LogEntry.objects.filter(
+                content_type__in=ctypes,
                 user=user,
             ).order_by("-action_time")[:10])
 
@@ -99,7 +99,7 @@ def terminator_profile_detail(request, username):
         'comments': comments,
         'search_form': SearchForm(),
         'next': request.get_full_path(),
-        'translation_changes': translation_changes,
+        'recent_changes': recent_changes,
     }
     return render(request, "profiles/profile_detail.html", context)
 
@@ -499,12 +499,15 @@ def terminator_index(request):
     glossary_ctype = ContentType.objects.get_for_model(Glossary)
     concept_ctype = ContentType.objects.get_for_model(Concept)
     cil_ctype = ContentType.objects.get_for_model(ConceptInLanguage)
-    translation_ctype = ContentType.objects.get_for_model(Translation)
+    language_ctypes = ContentType.objects.get_for_models(Translation, Definition, ExternalResource).values()
 
-    translation_changes = LogEntry.objects.filter(
-            content_type=translation_ctype,
+    recent_changes = LogEntry.objects.filter(
+            content_type__in=language_ctypes,
     ).order_by("-action_time")[:8]
 
+    def latest_changes():
+        # A callable to ensure that it is called as late as possible
+        return process_recent_changes(recent_changes)
     context = {
         'search_form': SearchForm(),
         'proposal_form': proposal_form,
@@ -525,7 +528,7 @@ def terminator_index(request):
                 prefetch_related("content_object", "content_object__concept")[:8],
         'latest_glossary_changes': LogEntry.objects.filter(content_type=glossary_ctype).order_by("-action_time")[:8],
         'latest_concept_changes': LogEntry.objects.filter(content_type=concept_ctype).order_by("-action_time")[:8],
-        'latest_translation_changes': recent_translation_changes(translation_changes),
+        'latest_changes': latest_changes,
     }
 
     return render(request, 'index.html', context)
