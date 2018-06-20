@@ -480,7 +480,7 @@ class Translation(models.Model, ConceptLangUrlMixin):
     def __unicode__(self):
         trans_data = {
             'translation': self.translation_text,
-            'iso_code': self.language.iso_code,
+            'iso_code': self.language_id,
             'concept': self.concept
         }
         return unicode(_(u"%(translation)s (%(iso_code)s) for %(concept)s") % trans_data)
