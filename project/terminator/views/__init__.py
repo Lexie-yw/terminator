@@ -282,6 +282,7 @@ class ConceptSourceView(TerminatorDetailView):
                             message = _("This term is already present.")
                             message_class = "errornote"
                             break
+                        flag = ADDITION
                         model = Translation(translation_text=value)
                         translations = Translation.objects.filter(concept=concept, language=language)
                         # model is not saved yet, but the queryset will only
@@ -289,10 +290,11 @@ class ConceptSourceView(TerminatorDetailView):
                     elif name == "definition":
                         if definition:
                             definition.text = value
+                            flag = CHANGE
                         else:
                             definition = Definition(text=value)
+                            flag = ADDITION
                         model = definition
-
                     model.language = language
                     model.concept = concept
                     model.save()
@@ -302,7 +304,7 @@ class ConceptSourceView(TerminatorDetailView):
                         content_type_id=ContentType.objects.get_for_model(model).pk,
                         object_id=model.pk,
                         object_repr=force_unicode(model),
-                        action_flag=ADDITION,
+                        action_flag=flag,
                     )
                     message = _("Your contribution was saved: %s") % value
                     message_class = "successnote"
