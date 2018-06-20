@@ -521,11 +521,11 @@ class Definition(models.Model, ConceptLangUrlMixin):
 
     def __unicode__(self):
         trans_data = {
-            'language': self.language,
+            'iso_code': self.language_id,
             'concept': self.concept,
             'text': self.text[:200]
         }
-        return unicode(_(u"Definition in %(language)s for %(concept)s: (%(text)s)") % trans_data)
+        return unicode(_(u"Definition (%(iso_code)s) for %(concept)s: (%(text)s)") % trans_data)
 
 
 class ExternalResource(models.Model):
