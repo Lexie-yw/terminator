@@ -529,12 +529,18 @@ class Definition(models.Model, ConceptLangUrlMixin):
         unique_together = ("concept", "language")
 
     def __unicode__(self):
+        text = self.text
+        concept = unicode(self.concept)
+        if len(concept) > 50:
+            if len(text) > 150:
+                boundary = min(50, concept.index(","))
+
         trans_data = {
             'iso_code': self.language_id,
-            'concept': self.concept,
-            'text': self.text[:200]
+            'concept': concept,
+            'text': text
         }
-        return unicode(_(u"Definition (%(iso_code)s) for %(concept)s: (%(text)s)") % trans_data)
+        return unicode(_(u"Definition (%(iso_code)s) for %(concept)s: %(text)s") % trans_data)
 
 
 class ExternalResource(models.Model):
