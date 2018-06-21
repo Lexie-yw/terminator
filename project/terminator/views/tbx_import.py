@@ -78,16 +78,6 @@ def import_uploaded_file(uploaded_file, imported_glossary):
     language_pool = set()
     for concept_tag in tbx_file.getElementsByTagName(u"termEntry"):
         concept_id = concept_tag.getAttribute(u"id")
-        if not concept_id:
-            excp_msg = (_("There is a \"%s\" tag without the \"%s\" "
-                          "attribute in the TBX file. It is impossible to "
-                          "provide more information about which particular"
-                          " \"%s\" tag it is in the TBX file.") %
-                        ("termEntry", "id", "termEntry"))
-            excp_msg += unicode(_("\n\nIf you want to import this TBX file"
-                                  " you must add that attribute to that "
-                                  "tag in the TBX file."))
-            raise Exception(excp_msg)
         # The concept id should be unique on all the TBX file.
         if concept_id in concept_pool:
             excp_msg = (_("There is already another \"%s\" tag with an "
@@ -141,7 +131,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
 
         # Save all the concept relations for setting them when the TBX file
         # is fully readed.
-        concept_pool[concept_id] = concept_pool_entry
+        if concept_id:
+            concept_pool[concept_id] = concept_pool_entry
 
         src_translations = []
         for language_tag in concept_tag.getElementsByTagName(u"langSet"):
