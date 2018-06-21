@@ -58,7 +58,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </div>
     
     <div class="two_columns_index_row">
-        {% include "terminator/latest_translations_snippet.html" with rss=False changes=translation_changes%}
+        {% include "terminator/latest_translations_snippet.html" with rss=False changes=recent_changes%}
     {% cache 600 profile_detail_comments thisuser.pk comments.number LANGUAGE_CODE %}
     <div class="index_right_column">
     <h2><img src="{{ STATIC_PREFIX }}images/icon_comment_24.png" />
