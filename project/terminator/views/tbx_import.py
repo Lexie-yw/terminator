@@ -74,6 +74,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
     numbers = lookup_dict(GrammaticalNumber)
     link_types = lookup_dict(ExternalLinkType)
 
+    concept_object = None
+    concept_list = []
     concept_pool = {}
     language_pool = set()
     for concept_tag in tbx_file.getElementsByTagName(u"termEntry"):
@@ -129,6 +131,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
         if not concept_pool_entry["related"]:
             concept_pool_entry.pop("related")
 
+        concept_list.append(concept_object)
         # Save all the concept relations for setting them when the TBX file
         # is fully readed.
         if concept_id:
@@ -517,6 +520,12 @@ def import_uploaded_file(uploaded_file, imported_glossary):
             concept.save()
         # Raise the exception again in order to show the error in the UI.
         raise
+
+    if len(concept_pool) == 0 and concept_object:
+        # Nothing was added to the pool (no IDs?), but there was at least one
+        # concept. We still have to save for the sake of the repr_cache.
+        for concept in concept_list:
+            concept.save()
 
 
 # TODO: need much better permissions checking:
