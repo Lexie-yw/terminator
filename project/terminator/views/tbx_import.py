@@ -177,6 +177,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 text=definition_text,
                                 is_finalized=True,
                         )
+                        definition_object._history_user = None
                         # If the definition is inside a descripGrp tag, it
                         # may have a source.
                         if descrip_tag.parentNode.tagName == "descripGrp":
