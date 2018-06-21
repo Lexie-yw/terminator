@@ -176,10 +176,10 @@ class ConceptView(TerminatorDetailView):
             resource.save()
             LogEntry.objects.log_action(
                 user_id=self.request.user.pk,
-                content_type_id=ContentType.objects.get_for_model(self.object).pk,
-                object_id=self.object.pk,
-                object_repr=force_unicode(self.object),
-                action_flag=CHANGE,
+                content_type_id=ContentType.objects.get_for_model(resource).pk,
+                object_id=resource.pk,
+                object_repr=force_unicode(resource),
+                action_flag=ADDITION,
             )
             form = ExternalResourceForm()
 
