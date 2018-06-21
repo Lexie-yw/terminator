@@ -555,7 +555,15 @@ class ExternalResource(models.Model):
         verbose_name_plural = _("external resources")
 
     def __unicode__(self):
-        return unicode(_(u"%(address)s (#%(concept)s") % {'address': self.address, 'concept': self.concept_id})
+        if self.language_id:
+            template = _(u"%(address)s (%(iso_code)s) for %(concept)s")
+        else:
+            template = _(u"%(address)s for %(concept)s")
+        return unicode(template % {
+            'address': self.address,
+            'iso_code': self.language_id,
+            'concept': self.concept,
+        })
 
 
 class Proposal(models.Model):
