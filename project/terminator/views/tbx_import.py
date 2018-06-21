@@ -243,13 +243,14 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 # The next line only works with the first term tag
                 # skipping other term tags if present.
                 translation_text = getText(term_tags[0].childNodes)
-                translation_object = Translation(
-                        concept=concept_object,
-                        language_id=lang_id,
-                        translation_text=translation_text,
-                )
-                if lang_id == imported_glossary.source_language_id:
-                    src_translations.append(translation_object)
+                if translation_text:
+                    translation_object = Translation(
+                            concept=concept_object,
+                            language_id=lang_id,
+                            translation_text=translation_text,
+                    )
+                    if lang_id == imported_glossary.source_language_id:
+                        src_translations.append(translation_object)
 
                 for termnote_tag in translation_tag.getElementsByTagName(u"termNote"):
                     termnote_type = termnote_tag.getAttribute(u"type")
