@@ -237,20 +237,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
 
             # Get the translations and related data for each language.
             tig_tags = language_tag.getElementsByTagName(u"tig")
-            # Check if there are no tig tags. This may mean that ntig tags
-            # are used instead.
             #TODO Make the import work for ntig tags too.
-            if not tig_tags:
-                excp_msg = (_("There are no \"%s\" tags for \"%s\" "
-                              "language in concept \"%s\".\n\nThis may be "
-                              "because \"%s\" tags are used instead, but "
-                              "unfortunately Terminator is unable to "
-                              "import TBX files without \"%s\" tags.") %
-                            ("tig", lang_id, concept_id, "ntig", "tig"))
-                excp_msg += unicode(_("\n\nIf you want to import this TBX "
-                                      "file you must make the appropiate"
-                                      " changes in the TBX file."))
-                raise Exception(excp_msg)
 
             for translation_tag in tig_tags:
                 term_tags = translation_tag.getElementsByTagName(u"term")
@@ -467,7 +454,8 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                             )
                             corpus_example_object.save()
 
-            concept_object.repr_cache = concept_object.repr_from(src_translations)
+            if src_translations:
+                concept_object.repr_cache = concept_object.repr_from(src_translations)
 
     #populate glossary.other_languages
     source_lang = imported_glossary.source_language_id
