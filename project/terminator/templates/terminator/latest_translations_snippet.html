@@ -6,7 +6,7 @@
       <div class="rss" title="{% trans "RSS feed with latest changes to terms " %}"><a href="{% url "terminator_feed_translations" %}"><img src="{{ STATIC_PREFIX }}images/svg/icon_rss.svg" width="24" height="24" /></a></div>
     {% endif %}
 
-    <h2><img src="{{ STATIC_PREFIX }}images/icon_translation_24.png" />{% trans "Latest Changes to Terms" %}</h2>
+    <h2><img src="{{ STATIC_PREFIX }}images/icon_translation_24.png" />{% trans "Latest Changes" %}</h2>
     <ul class="changelist">
     {% for change in changes %}
         <li class="{% if change.data.is_addition %}addlink{% endif %}{% if change.data.is_change %}changelink{% endif %}{% if change.data.is_deletion %}deletelink{% endif %}">
