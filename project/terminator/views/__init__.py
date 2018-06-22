@@ -202,6 +202,10 @@ class ConceptView(TerminatorDetailView):
 
 class ConceptDetailView(TerminatorDetailView):
 
+    def get_queryset(self):
+        qs = super(ConceptDetailView, self).get_queryset()
+        return qs.select_related('glossary') # always required for permissions
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(ConceptDetailView, self).get_context_data(**kwargs)
