@@ -214,8 +214,11 @@ class ConceptDetailView(TerminatorDetailView):
                 language=language,
         )
         context['current_language'] = language
-        context['translations'] = context['concept'].translation_set.filter(
-                language=language)
+        translations = context['concept'].translation_set.filter(
+                language=language,
+            ).select_related("administrative_status", "part_of_speech"). \
+            prefetch_related("corpusexample_set", "contextsentence_set")
+        context['translations'] = translations
         context['concept_in_lang'] = concept_in_language
         context['finalized'] = concept_in_language.is_finalized
 
