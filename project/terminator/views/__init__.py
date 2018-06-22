@@ -375,8 +375,7 @@ class ConceptTargetView(ConceptSourceView):
                 concept=self.object,
                 language_id=self.source_language_id,
                 #TODO: filter by status
-        )
-        translations = translations.select_related('administrative_status')
+        ).select_related('administrative_status', "language")
         translations = sorted(translations, key=lambda t: t.cmp_key())
         context['source_terms'] = translations
         try:
