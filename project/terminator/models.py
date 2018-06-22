@@ -512,7 +512,9 @@ class Translation(models.Model, ConceptLangUrlMixin):
         }
         # We return a tuple with the "quality" key, and the text to allow
         # alphabetic sorting for all adminitted terms, for example.
-        return (keys.get(self.administrative_status_id, 1), self.translation_text)
+        return (keys.get(self.administrative_status_id, 1), self.translation_text.lower())
+        #TODO: for proper i18n, use locale aware sorting/lowercasing for the
+        #language involved
 
 
 class Definition(models.Model, ConceptLangUrlMixin):
