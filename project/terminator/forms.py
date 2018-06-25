@@ -283,7 +283,7 @@ class ConceptInLanguageForm(forms.Form):
     definition = forms.CharField(label="", required=False, widget=Textarea(
                             attrs={
                                 "placeholder": _("Enter a definition..."),
-                                "rows": 4,
+                                "rows": 7,
                                 "cols": 50,
                                 "class": "definition",
                             })
