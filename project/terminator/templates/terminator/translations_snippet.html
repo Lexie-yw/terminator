@@ -25,7 +25,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
   {% for translation in translations %}
     <li class="translation_entry">
     {% if not translation.is_finalized %}<span class="not_finalized_item">{% endif %}
-    <h3><b>{{ translation.translation_text }}</b>
+    <h3><b lang="{{ translation.language_id }}">{{ translation.translation_text }}</b>
     
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
         &nbsp; &nbsp; <a href="{% url "admin:terminator_translation_change" translation.id %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit term" %}</a>
@@ -52,7 +52,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             <h4>{% trans "Example sentences" %}</h4>
             <ul>
             {% for context_sentence in translation.contextsentence_set.all %}
-                <li class="contextsentenceitem">{{ context_sentence.text }}</li>
+                <li class="contextsentenceitem" lang="{{ translation.language_id }}">{{ context_sentence.text }}</li>
             {% endfor %}
             </ul>
         </div>
@@ -64,7 +64,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             <h4>{% trans "Links to real use examples" %}</h4>
             <ul>
             {% for corpus_example in translation.corpusexample_set.all %}
-                <li class="corpusexampleitem">
+                <li class="corpusexampleitem" lang="{{ translation.language_id }}">
                 <a href="{{ corpus_example.address }}">
                 {% if corpus_example.description %}{{ corpus_example.description }}
                 {% else %}

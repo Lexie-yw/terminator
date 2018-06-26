@@ -332,6 +332,8 @@ class ConceptSourceView(TerminatorDetailView):
         if definition:
             initial["definition"] = definition.text
         form = ConceptInLanguageForm(initial=initial)
+        for field in ('translation', 'definition'):
+            form.fields[field].widget.attrs['lang'] = language.iso_code
 
         # Customise fields a bit to suit permissions and workflow
         if not may_edit and definition:

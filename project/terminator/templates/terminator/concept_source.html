@@ -59,7 +59,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                   {% if translation.administrative_status_id %}
                   <div class="translation {{ translation.administrative_status_id }}" title="{% blocktrans with status=translation.administrative_status %}A term marked “{{ status }}”{% endblocktrans %}">
                   {% else %}
-                    <div class="translation" title="{% trans 'A suggested term' %}">
+                    <div class="translation" title="{% trans 'A suggested term' %}" lang="{{ current_language.iso_code }}">
                   {% endif %}
                         {{ translation.translation_text }}
                     </div>
