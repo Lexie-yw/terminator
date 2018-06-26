@@ -74,7 +74,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% include "terminator/prev_next_concept_snippet.html" with concept=concept target="terminator_concept_detail" %}
     {% if finalized %}
       {% get_current_language as LANGUAGE_CODE %}
-      {% cache 600 concept_detail_details LANGUAGE_CODE %}
+      {% cache 600 concept_detail_details concept.pk current_language.iso_code LANGUAGE_CODE %}
       {% include "terminator/summary_message_snippet.html" %}
       {% include "terminator/translations_snippet.html" %}
       {% include "terminator/definitions_snippet.html" %}
