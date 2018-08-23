@@ -27,6 +27,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% blocktrans with language=current_language %}{{ concept }} — {{ language }} — Terminator{% endblocktrans %}
 {% endblock %}
 
+{% block script_tags %}
+<script src="{{ STATIC_PREFIX }}js/jquery-3.3.1.slim.min.js"></script>
+<script src="{{ STATIC_PREFIX }}js/jquery.are-you-sure.js"></script>
+<script src="{{ STATIC_PREFIX }}js/workarea.js"></script>
+{% endblock %}
+
 {% block breadcrumbs %}
     » <a href="{% url "terminator_glossary_detail" pk=concept.glossary.pk %}">{{ concept.glossary }}</a>
     » <a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a>
@@ -53,7 +59,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         {%  endif %}
     </p>
 
-            <form method="post" action="">
+            <form method="post" action="" class="confirm">
                 {% csrf_token %}
                 {% for translation in translations %}
                   {% if translation.administrative_status_id %}
