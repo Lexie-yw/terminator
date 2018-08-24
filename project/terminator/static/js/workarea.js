@@ -10,8 +10,13 @@ function updateWordCount(textarea) {
     } else {
         words = Math.round((textarea.value.split(/\b/).length) / 2);
     }
-    //TODO: i18n
-    $("p#wordcount").text(words + " words");
+    if (words < 50) {
+        msg = "";
+    } else {
+        //TODO: i18n
+        msg = words + " words";
+    }
+    msg = $("p#wordcount").text(msg);
 }
 
 $(function () {
