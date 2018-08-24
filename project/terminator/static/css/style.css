@@ -540,6 +540,7 @@ div.flexcol-reference {
     font-size: 105%;
     /* consider reducing max-width if a second flexcol is introduced */
     max-width: 35em;
+    max-height: 30em;
 }
 
 textarea.definition {
@@ -901,7 +902,7 @@ h3 {
 #comment_form textarea {
     max-width: 100%;
     width: 100%;
-    max-height: 6em;
+    max-height: 30em;
 }
 
 .submit {
