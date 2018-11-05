@@ -175,7 +175,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                 concept=concept_object,
                                 language_id=lang_id,
                                 text=definition_text,
-                                is_finalized=True,
+                                is_finalized=False,
                         )
                         definition_object._history_user = None
                         # If the definition is inside a descripGrp tag, it
