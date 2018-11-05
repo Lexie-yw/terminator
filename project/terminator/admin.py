@@ -475,6 +475,7 @@ class DefinitionAdmin(ConceptLanguageMixin, SimpleHistoryAdmin):
     list_filter = ['language', 'concept__glossary', 'is_finalized']
     readonly_fields = ('concept', 'language',)
     search_fields = ['text']
+    actions = ['mark_finalized']
     fieldsets = (
             (None, {
                 'fields': (('concept', 'language'), 'text', 'source', 'is_finalized'),
@@ -492,6 +493,10 @@ class DefinitionAdmin(ConceptLanguageMixin, SimpleHistoryAdmin):
 
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
+
+    def mark_finalized(modeladmin, request, queryset):
+        queryset.update(is_finalized=True)
+    mark_finalized.short_description = _(u"Mark selected definitions as finalized")
 
 admin.site.register(Definition, DefinitionAdmin)
 
