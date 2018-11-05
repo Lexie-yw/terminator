@@ -351,17 +351,6 @@ class Concept(models.Model):
         except ConceptInLanguage.DoesNotExist:
             return False
 
-    def get_english_translation(self):
-        english_translation = self.translation_set.filter(
-                language_id="en",
-                administrative_status="preferredTerm-admn-sts",
-        )
-        # If there is no english preferred translation return any english
-        # translation with no Administrative Status set.
-        if len(english_translation):
-            english_translation = self.translation_set.filter(language=english, administrative_status=None)
-        return english_translation
-
     def prev_concept(self):
         """The previous concept in the same glossary."""
         return Concept.objects.filter(

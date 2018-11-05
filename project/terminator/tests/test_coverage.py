@@ -718,9 +718,6 @@ class ConceptTest(SharedTests, TestCase):
         super(ConceptTest, cls).setUpClass()
         cls.model = cls.concept
 
-    def test_extra_methods(self):
-        self.model.get_english_translation()
-
     def test_repr_cache(self):
         tr = self.translation
         tr.translation_text = u"abcd"
