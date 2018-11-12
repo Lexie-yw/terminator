@@ -509,7 +509,12 @@ def terminator_index(request):
     glossary_ctype = ContentType.objects.get_for_model(Glossary)
     concept_ctype = ContentType.objects.get_for_model(Concept)
     cil_ctype = ContentType.objects.get_for_model(ConceptInLanguage)
-    language_ctypes = ContentType.objects.get_for_models(Translation, Definition, ExternalResource).values()
+    language_ctypes = ContentType.objects.get_for_models(
+            Translation,
+            Definition,
+            ExternalResource,
+            ConceptInLanguage,
+    ).values()
 
     recent_changes = LogEntry.objects.filter(
             content_type__in=language_ctypes,

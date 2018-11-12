@@ -295,7 +295,7 @@ class Glossary(models.Model):
                 ),
         ).order_by()
         # UNION with other types
-        for Model in (Definition, ExternalResource):
+        for Model in (Definition, ExternalResource, ConceptInLanguage):
             ctype = ContentType.objects.get_for_model(Model)
             qs = qs.union(LogEntry.objects.filter(
                 content_type=ctype,
