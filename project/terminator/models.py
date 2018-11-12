@@ -285,17 +285,8 @@ class Glossary(models.Model):
         return collaborators
 
     def get_recent_changes(self):
-        translation_ctype = ContentType.objects.get_for_model(Translation)
-        qs = LogEntry.objects.filter(
-                content_type=translation_ctype,
-                #the __integer transform changes the str object_id into an INT
-                #that can be joined by the database
-                object_id__integer__in=Translation.objects.filter(
-                    concept__glossary=self,
-                ),
-        ).order_by()
-        # UNION with other types
-        for Model in (Definition, ExternalResource, ConceptInLanguage):
+        qs = LogEntry.objects.none()
+        for Model in (Translation, Definition, ExternalResource, ConceptInLanguage):
             ctype = ContentType.objects.get_for_model(Model)
             qs = qs.union(LogEntry.objects.filter(
                 content_type=ctype,
