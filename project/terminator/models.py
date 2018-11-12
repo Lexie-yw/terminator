@@ -468,11 +468,11 @@ class Translation(models.Model, ConceptLangUrlMixin):
 
     def __unicode__(self):
         trans_data = {
-            'translation': self.translation_text,
+            'term': self.translation_text,
             'iso_code': self.language_id,
             'concept': self.concept
         }
-        return unicode(_(u"%(translation)s (%(iso_code)s) for %(concept)s") % trans_data)
+        return unicode(_(u"“%(term)s” (%(iso_code)s) for %(concept)s") % trans_data)
 
     def save(self, *args, **kwargs):
         update_repr_cache = kwargs.pop("update_repr_cache", True)
