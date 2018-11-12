@@ -398,7 +398,7 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
 
     def definition(self):
         try:
-            return Definition.objects.filter(concept=self.concept_id, language=self.language_id).last()
+            return Definition.objects.get(concept=self.concept_id, language=self.language_id)
         except Definition.DoesNotExist:
             return None
 
