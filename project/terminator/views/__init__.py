@@ -70,7 +70,6 @@ def terminator_profile_detail(request, username):
     except (EmptyPage, InvalidPage):
         comments = paginator.page(paginator.num_pages)
     prefetch_related_objects(comments.object_list,
-            'content_object__language',
             'content_object__concept',
             'content_object__concept__glossary',
     )
