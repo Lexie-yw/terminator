@@ -245,6 +245,13 @@ class ConceptSourceView(TerminatorDetailView):
     def get_language(self):
         return self.object.glossary.source_language
 
+    def get_concept_in_lang(self):
+        self.concept_in_lang, _c = ConceptInLanguage.objects.get_or_create(
+                concept=self.object,
+                language=self.object.glossary.source_language,
+        )
+        return self.concept_in_lang
+
     def may_edit(self, glossary_perms):
         return 'is_lexicographer_in_this_glossary' in glossary_perms or \
                     ('is_terminologist_in_this_glossary' in glossary_perms and \
@@ -324,10 +331,7 @@ class ConceptSourceView(TerminatorDetailView):
         translations = sorted(translations, key=lambda t: t.cmp_key())
         context['translations'] = translations
         context['definition'] = definition
-        context['concept_in_lang'], _c = ConceptInLanguage.objects.get_or_create(
-                concept=concept,
-                language=language,
-        )
+        context['concept_in_lang'] = self.get_concept_in_lang()
         if definition:
             initial["definition"] = definition.text
         form = ConceptInLanguageForm(initial=initial)
@@ -350,11 +354,15 @@ class ConceptTargetView(ConceptSourceView):
         self.object = self.get_object()
         self.concept_in_lang = None
         self.source_language_id = self.object.glossary.source_language_id
-        context = self.get_context_data(object=self.object)
+        try:
+            self.language = Language.objects.get(pk=self.kwargs.get('lang'))
+        except Language.DoesNotExist:
+            raise Http404
         if self.language.iso_code == self.source_language_id:
             return redirect('terminator_concept_source', pk=self.object.pk)
         if not self.object.glossary.other_languages.filter(pk=self.language.iso_code).exists():
             raise Http404
+        context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
     def post(self, request, *args, **kwargs):
@@ -380,10 +388,6 @@ class ConceptTargetView(ConceptSourceView):
                     'is_terminologist_in_this_glossary' in glossary_perms
 
     def get_context_data(self, **kwargs):
-        try:
-            self.language = Language.objects.get(pk=self.kwargs.get('lang'))
-        except Language.DoesNotExist:
-            raise Http404
         context = super(ConceptTargetView, self).get_context_data(**kwargs)
         other_languages = self.get_concept_in_lang().other_language_data()
         if self.source_language_id in other_languages:
