@@ -22,13 +22,13 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block reference_material %}
 <div class="flexcol-reference">
     <div class="reference_language">
-      {% with term=source_terms|first %}
+      {% with term=source_language.terms|first %}
           <span class="reference_source"
                 title="{{ term.language.name }}">({{ term.language.iso_code }})
           </span>
       {% endwith %}
       <div class="reference_terms">
-        {% for term in source_terms %}
+        {% for term in source_language.terms %}
           <span
               class="{{ term.administrative_status_id }}"
               lang="{{ term.language_id }}"
@@ -43,10 +43,43 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {{ term.translation_text }}{% if not forloop.last %}{% trans ", " %}{% endif %}</span>
         {% endfor %}
       </div>
-      <div class="reference_body" lang="{{ source_definition.language_id }}">
-        {{ source_definition.text }}
+      {% with definition=source_language.definition %}
+      <div class="reference_body" lang="{{ definition.language_id }}">
+        {{ definition.text }}
       </div>
+      {% endwith %}
     </div>
+
+    {% for lang, data in other_languages.items %}
+    <div class="reference_language">
+      {% with term=data.terms|first %}
+          <span class="reference_source"
+                title="{{ term.language.name }}">({{ lang }})
+          </span>
+      {% endwith %}
+      <div class="reference_terms">
+        {% for term in data.terms %}
+          <span
+              class="{{ term.administrative_status_id }}"
+              lang="{{ term.language_id }}"
+              {% with status=term.administrative_status %}
+              {% if status %}
+                  title="{% blocktrans %}A term marked “{{ status }}”{% endblocktrans %}"
+              {% else %}
+                  title="{% blocktrans %}A suggested term{% endblocktrans %}"
+              {% endif %}
+              {% endwith %}
+              >
+                {{ term.translation_text }}{% if not forloop.last %}{% trans ", " %}{% endif %}</span>
+        {% endfor %}
+      </div>
+      {% with definition=data.definition %}
+      <div class="reference_body" lang="{{ definition.language_id }}">
+        {{ definition.text }}
+      </div>
+      {% endwith %}
+    </div>
+    {% endfor %}
 </div>
 {% endblock reference_material %}
 

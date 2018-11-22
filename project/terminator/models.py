@@ -405,6 +405,31 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
     def external_resources(self):
         return ExternalResource.objects.filter(concept=self.concept_id, language=self.language_id)
 
+    def other_language_data(self):
+        """Information on the (other) target languages"""
+        terms = Translation.objects.filter(concept=self.concept_id).exclude(
+                language=self.language_id,
+        ).select_related('administrative_status', 'language')
+
+        def cmp(t):
+            return t.language_id, t.cmp_key()
+        terms = sorted(terms, key=cmp)
+
+        languages = {}
+        for lang, terms in itertools.groupby(terms, lambda t: t.language_id):
+            languages[lang] = {"terms": list(terms)}
+
+        definitions = Definition.objects.filter(concept=self.concept_id).exclude(
+                language=self.language_id,
+        )
+        for definition in definitions:
+            lang = definition.language_id
+            if lang not in languages:
+                languages[lang] = {}
+            languages[lang]["definition"] = definition
+
+        return languages
+
     def __unicode__(self):
         return unicode(_(u"%(concept)s — language code: %(iso_code)s") % {'iso_code': self.language_id, 'concept': self.concept})
 

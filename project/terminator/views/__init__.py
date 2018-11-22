@@ -348,6 +348,7 @@ class ConceptTargetView(ConceptSourceView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+        self.concept_in_lang = None
         self.source_language_id = self.object.glossary.source_language_id
         context = self.get_context_data(object=self.object)
         if self.language.iso_code == self.source_language_id:
@@ -365,12 +366,17 @@ class ConceptTargetView(ConceptSourceView):
     def get_language(self):
         return self.language
 
+    def get_concept_in_lang(self):
+        if not self.concept_in_lang:
+            concept_in_lang, created = ConceptInLanguage.objects.get_or_create(
+                    concept=self.object,
+                    language=self.language,
+            )
+            self.concept_in_lang = concept_in_lang
+        return self.concept_in_lang
+
     def may_edit(self, glossary_perms):
-        concept_in_lang, created = ConceptInLanguage.objects.get_or_create(
-                concept=self.object,
-                language=self.language,
-        )
-        return not concept_in_lang.is_finalized and \
+        return not self.get_concept_in_lang().is_finalized and \
                     'is_terminologist_in_this_glossary' in glossary_perms
 
     def get_context_data(self, **kwargs):
@@ -378,23 +384,12 @@ class ConceptTargetView(ConceptSourceView):
             self.language = Language.objects.get(pk=self.kwargs.get('lang'))
         except Language.DoesNotExist:
             raise Http404
+
         context = super(ConceptTargetView, self).get_context_data(**kwargs)
-        translations = Translation.objects.filter(
-                concept=self.object,
-                language_id=self.source_language_id,
-                #TODO: filter by status
-        ).select_related('administrative_status', "language")
-        translations = sorted(translations, key=lambda t: t.cmp_key())
-        context['source_terms'] = translations
-        try:
-            #TODO: .get() can't be avoided with template fragment caching
-            source_definition = Definition.objects.get(
-                    concept=self.object,
-                    language_id=self.source_language_id,
-            )
-        except Definition.DoesNotExist:
-            source_definition = None
-        context['source_definition'] = source_definition
+        other_languages = self.get_concept_in_lang().other_language_data()
+        context['source_language'] = other_languages[self.source_language_id]
+        del other_languages[self.source_language_id]
+        context['other_languages'] = other_languages
         return context
 
 
