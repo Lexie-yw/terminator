@@ -384,11 +384,13 @@ class ConceptTargetView(ConceptSourceView):
             self.language = Language.objects.get(pk=self.kwargs.get('lang'))
         except Language.DoesNotExist:
             raise Http404
-
         context = super(ConceptTargetView, self).get_context_data(**kwargs)
         other_languages = self.get_concept_in_lang().other_language_data()
-        context['source_language'] = other_languages[self.source_language_id]
-        del other_languages[self.source_language_id]
+        if self.source_language_id in other_languages:
+            # Shouldn't happen, but could be if terms+definition was deleted in
+            # source language and URLs are manipulated. for example.
+            context['source_language'] = other_languages[self.source_language_id]
+            del other_languages[self.source_language_id]
         context['other_languages'] = other_languages
         return context
 
