@@ -33,7 +33,6 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </martifHeader>
     <text>
         <body>
-            
             {% for concept in data.concepts %}
             <termEntry id="cid-{{ concept.concept.pk }}">{% if concept.concept.broader_concept %}
                 <descrip type="broaderConceptGeneric" target="cid-{{ concept.concept.broader_concept_id }}">{# broader concept  <!-- TODO Put a broader concept translation for the TBX file main language -->#}</descrip>{% endif %}{% if concept.concept.subject_field %}
