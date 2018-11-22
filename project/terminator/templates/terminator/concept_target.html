@@ -50,7 +50,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       {% endwith %}
     </div>
 
-    {% for lang, data in other_languages.items %}
+    {% for lang, data in other_languages.items|dictsort:0 %}
     <div class="reference_language">
       {% with term=data.terms|first %}
           <span class="reference_source"
