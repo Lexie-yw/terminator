@@ -347,14 +347,14 @@ class Concept(models.Model):
         return Concept.objects.filter(
                 glossary=self.glossary,
                 id__lt=self.id,
-        ).order_by('-id').first()
+        ).only("id", "repr_cache").order_by('-id').first()
 
     def next_concept(self):
         """The next concept in the same glossary."""
         return Concept.objects.filter(
                 glossary=self.glossary,
                 id__gt=self.id,
-        ).order_by('id').first()
+        ).only("id", "repr_cache").order_by('id').first()
 
     def other_concepts(self):
         """Some surrounding concepts in the glossary."""
