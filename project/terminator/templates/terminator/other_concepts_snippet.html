@@ -4,11 +4,11 @@
     {% for other_concept in concept.other_concepts|slice:":10" %}
         <li><img src="{{ STATIC_PREFIX }}images/icon_concept_16.png" />
           {% if other_concept.pk == concept.pk %}
-            <span title="{{ concept }}">{{ concept|truncatechars:"23" }}</span>
+            <span title="{{ concept }}">{{ concept }}</span>
           {% else %}
             <a href="{% url "terminator_concept_detail" pk=other_concept.pk %}"
                 title="{{ other_concept }}">
-                {{ other_concept|truncatechars:"23" }}
+                {{ other_concept }}
             </a>
           {% endif %}
         </li>

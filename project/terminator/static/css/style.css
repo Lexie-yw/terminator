@@ -306,6 +306,9 @@ a > img {
 
 #sidebar > ul li {
     margin-top: .5em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 hr {
