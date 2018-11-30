@@ -748,7 +748,7 @@ def export(request):
 
 
 def search(request):
-    search_results = []
+    search_results = None
     if request.method == 'GET' and 'search_string' in request.GET:
         if "advanced" in request.path:
             search_form = AdvancedSearchForm(request.GET)
@@ -822,6 +822,7 @@ def search(request):
 
             previous_concept = None
 
+            search_results = []
             for trans in qs:# Translations are ordered by (concept, language)
                 # If this is the first translation for this concept
                 if previous_concept != trans.concept_id:
