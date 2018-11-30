@@ -21,10 +21,23 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 
-{% block title %}{% trans '404 HTTP error page' %}{% endblock %}
+{% block title %}{% trans 'Not found' %}{% endblock %}
 
 {% block container %}
 <div id="container_content">
-    <h1>{% trans '404 HTTP error page' %}</h1>
+    <h1>{% trans "The page couldn't be found" %}</h1>
+    {% url "terminator_search" as search_url %}
+    {% url "terminator_index" as index_url %}
+    {% url "profiles_profile_detail" username=user.username as profile_url %}
+    <p>{% trans "Here are a few ways to find what you are looking for:" %}</p>
+    <ul>
+        <li>{% trans "Go back to the previous page" %}</li>
+        <li><a href="{{ index_url }}">{% trans "Go to the front page" %}</a></li>
+        <li><a href="{{ search_url }}">{% trans "Search for terms" %}</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{{ profile_url }}">{% trans "View your profile" %}</a></li>
+        {% endif %}
+    </ul>
+    <p>{% trans "Technical information: HTTP 404" %}</p>
 </div>
 {% endblock %}
