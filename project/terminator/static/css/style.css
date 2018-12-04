@@ -1035,7 +1035,11 @@ h3 {
         max-height: 24em;
     }
     .conceptitem {
-        max-width: 30vw;
+        min-width: 15em;
+        max-width: 44vw;
+        background: none;
+        background-image: radial-gradient(circle at .4em .65em, #bd9 0%, rgba(255, 255, 255, 0) .8em);
+        padding: 0 4px 2px 0;
     }
     ul {
         padding: 0 0.1% 0 1% !important;
