@@ -1024,6 +1024,7 @@ h3 {
     #sidebar > ul > li,
     #sidebar > ul > li > ul.concept_list > li {
         display: inline-block;
+        white-space: normal;
         margin-right: 0.5em;
     }
     #sidebar > ul > li > ul.concept_list > li > img{
