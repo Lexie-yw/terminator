@@ -1033,6 +1033,7 @@ h3 {
 
     .halfvertflexlist {
         max-height: 24em;
+        max-width: 100vw;
     }
     .conceptitem {
         min-width: 15em;
@@ -1042,7 +1043,7 @@ h3 {
         padding: 0 4px 2px 0;
     }
     ul {
-        padding: 0 0.1% 0 1% !important;
+        padding: 0 0.1% 0 0 !important;
     }
 
     .comment {
