@@ -273,9 +273,11 @@ class ConceptSourceView(TerminatorDetailView):
         message = ""
         message_class = ""
         user = self.request.user
-        glossary_perms = get_perms(user, concept.glossary)
         if user.is_authenticated:
+            glossary_perms = get_perms(user, concept.glossary)
             may_edit = self.may_edit(glossary_perms)
+        else:
+            glossary_perms = []
         if self.request.method == 'POST':
             if not may_edit:
                 raise PermissionDenied
