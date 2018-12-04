@@ -19,9 +19,11 @@
 
 from xml.dom import minidom
 
+from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render
+from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 
@@ -559,6 +561,13 @@ def import_view(request):
                 context['import_message'] = import_message
                 context['glossary_url'] = glossary.get_absolute_url()
                 import_form = ImportForm()
+                LogEntry.objects.log_action(
+                    user_id=request.user.pk,
+                    content_type_id=ContentType.objects.get_for_model(glossary).pk,
+                    object_id=glossary.pk,
+                    object_repr=force_unicode(glossary),
+                    action_flag=ADDITION,
+                )
     else:
         import_form = ImportForm()
     context['import_form'] = import_form
