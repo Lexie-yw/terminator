@@ -597,6 +597,9 @@ div.translation, div.definition {
     font-size: 70%;
 }
 .reference_body {
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
     clear: both;
 }
 
