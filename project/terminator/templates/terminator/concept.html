@@ -77,6 +77,19 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </p>
     {% endif %}
 
+    {% with narrower_concepts=concept.narrower_concepts.all %}
+    {% if narrower_concepts %}
+    <p><b>{% trans "Narrower concepts:" %}</b></p>
+    <ul class="itemlist">
+    {% for narrower_concept in narrower_concepts %}
+        <li class="conceptitem">
+            <a href="{% url "terminator_concept_detail" pk=narrower_concept.pk %}">{{ narrower_concept }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
     {% with related_concepts=concept.related_concepts.all %}
     {% if related_concepts %}
     <p><b>{% trans "Related concepts:" %}</b></p>
