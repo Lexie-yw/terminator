@@ -271,9 +271,8 @@ class Glossary(models.Model):
                 (_("owner"), "is_owner_for_this_glossary"),
                 (_("lexicographer"), "is_lexicographer_in_this_glossary"),
                 (_("terminologist"), "is_terminologist_in_this_glossary")):
-            perm = Permission.objects.get(codename=codename)
             permission_lines = UserObjectPermission.objects.filter(
-                    permission=perm,
+                    permission__codename=codename,
                     content_type=glossary_ctype,
                     object_pk=self.id,
             ).order_by("user__username").select_related("user")
