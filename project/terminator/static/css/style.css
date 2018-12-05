@@ -627,7 +627,8 @@ input:focus[type="text"],
 input:focus[type="url"],
 input:focus[type="password"],
 textarea:focus {
-    transition: box-shadow 0.25s ease-in-out;
+    transition: box-shadow 0.25s ease-in-out,
+                height 0.15s ease-in-out;
     box-shadow: 0 0 5px #09f, inset 1px 1px 2px 0 #707070;
 }
 
