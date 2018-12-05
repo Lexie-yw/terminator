@@ -584,6 +584,20 @@ div.translation, div.definition {
     font-family: serif;
     max-width: 32em;
     display: inline-block;
+    float: left;
+    vertical-align: top;
+}
+.reference_concept{
+    border: 1px dashed #ccc;
+    border-radius: 1em;
+    background-color: #eee;
+    background-image: radial-gradient(circle, #f7f7f7 0%, #eee 100%);
+    padding: 8px;
+    margin: 2px 2px;
+    font-family: serif;
+    max-width: 22em;
+    display: inline-block;
+    float: left;
     vertical-align: top;
 }
 .reference_terms {

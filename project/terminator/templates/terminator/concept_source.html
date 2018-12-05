@@ -117,8 +117,48 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% endif %}
             </form>
         </div>
-    {% block reference_material %}
-    {% endblock %}
+
+
+    <div class="flexcol-reference">
+      {% block reference_material %}
+      {% with others=concept_in_lang.related_concepts_data %}
+      {% if others %}
+        {% for lang, data in others.items|dictsort:0 %}
+        <div class="reference_concept">
+          <div class="reference_terms">
+              <i>{% trans "Related:" %}</i>
+            {% for term in data.terms %}
+              <span
+                  class="{{ term.administrative_status_id }}"
+                  lang="{{ term.language_id }}"
+                  {% with status=term.administrative_status %}
+                  {% if status %}
+                      title="{% blocktrans %}A term marked “{{ status }}”{% endblocktrans %}"
+                  {% else %}
+                      title="{% blocktrans %}A suggested term{% endblocktrans %}"
+                  {% endif %}
+                  {% endwith %}
+                  >
+                    {{ term.translation_text }}{% if not forloop.last %}{% trans ", " %}{% endif %}</span>
+            {% empty %}
+              <i>{{ data.definition.concept }} </i>
+            {% endfor %}
+          </div>
+          {% with definition=data.definition %}
+          <div class="reference_body"
+              lang="{{ definition.language_id }}"
+              title="{{ definition.text }}"
+              >
+            {{ definition.text|truncatechars:"200" }}
+          </div>
+          {% endwith %}
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+    {% endblock reference_material %}
+    </div>
     </div>
 
     {% block prev_next %}

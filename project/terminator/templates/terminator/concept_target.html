@@ -20,7 +20,6 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% block reference_material %}
-<div class="flexcol-reference">
     <div class="reference_language">
       {% with term=source_language.terms|first %}
           <span class="reference_source"
@@ -80,7 +79,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       {% endwith %}
     </div>
     {% endfor %}
-</div>
+
+    {{ block.super }}
+
 {% endblock reference_material %}
 
     {% block prev_next %}

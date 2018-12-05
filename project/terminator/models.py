@@ -430,6 +430,47 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
 
         return languages
 
+    def related_concepts_data(self):
+        """Information on related concepts in the same language."""
+        concept_qs = Concept.objects.filter(
+                id__in=self.concept.related_concepts.all(),
+        ).order_by().union(Concept.objects.filter(
+                id__in=self.concept.narrower_concepts.all(),
+        ).order_by())
+        if self.concept.broader_concept_id:
+            concept_qs = concept_qs.union(Concept.objects.filter(
+                id=self.concept.broader_concept_id,
+        ).order_by())
+
+        terms = Translation.objects.filter(
+            concept__in=concept_qs,
+            language=self.language_id,
+        ).select_related('administrative_status', 'language').order_by()
+
+        def cmp(t):
+            return t.concept_id, t.cmp_key()
+        terms = sorted(terms, key=cmp)
+
+        concepts = {}
+        for concept, terms in itertools.groupby(terms, lambda t: t.concept_id):
+            concepts[concept] = {"terms": list(terms)}
+
+        definitions = Definition.objects.filter(
+            # We join simply with the concepts collected above which results in
+            # a simpler query. This means that we won't collect definitions
+            # without terms.
+            #concept__in=concepts,
+            concept__in=concept_qs,
+            language=self.language_id,
+        )
+        for definition in definitions:
+            concept = definition.concept_id
+            if concept not in concepts:
+                concepts[concept] = {}
+            concepts[concept]["definition"] = definition
+
+        return concepts
+
     def __unicode__(self):
         return unicode(_(u"%(concept)s — language code: %(iso_code)s") % {'iso_code': self.language_id, 'concept': self.concept})
 
