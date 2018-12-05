@@ -116,7 +116,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% if external_resources %}
       <ul class="itemlist">
       {% for externalresource in external_resources %}
-          <li class="externalresourceitem {{ externalresource.link_type }}"><a href="{{ externalresource.address }}" target="_blank" rel="external noopener">
+          <li class="externalresourceitem {{ externalresource.link_type_id }}"><a href="{{ externalresource.address }}" target="_blank" rel="external noopener">
               {% if externalresource.description %}
                 {{ externalresource.description|linebreaksbr }}
               {% else %}
