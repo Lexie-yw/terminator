@@ -329,7 +329,7 @@ class ConceptSourceView(TerminatorDetailView):
         context['message'] = message
         context['message_class'] = message_class
         context['current_language'] = language
-        translations = translations.select_related('administrative_status')
+        translations = translations.select_related('administrative_status').order_by()
         translations = sorted(translations, key=lambda t: t.cmp_key())
         context['translations'] = translations
         context['definition'] = definition
