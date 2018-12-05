@@ -521,7 +521,7 @@ div.flexcol-reference {
     min-width: 20em;
     flex: auto;
     width: 20em;
-    max-height: 30em;
+    max-height: 35em;
     overflow-x: hidden;
     overflow-y: auto;
 }
