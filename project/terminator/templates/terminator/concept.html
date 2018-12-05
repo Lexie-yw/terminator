@@ -77,16 +77,18 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     </p>
     {% endif %}
 
-    {% if concept.related_concepts.all %}
+    {% with related_concepts=concept.related_concepts.all %}
+    {% if related_concepts %}
     <p><b>{% trans "Related concepts:" %}</b></p>
     <ul class="itemlist">
-    {% for related_concept in concept.related_concepts.all %}
+    {% for related_concept in related_concepts %}
         <li class="conceptitem">
             <a href="{% url "terminator_concept_detail" pk=related_concept.pk %}">{{ related_concept }}</a>
         </li>
     {% endfor %}
     </ul>
     {% endif %}
+    {% endwith %}
 
     {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
         <p><a href="{% url "admin:terminator_concept_change" concept.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this concept" %}</a> &nbsp; &nbsp;
