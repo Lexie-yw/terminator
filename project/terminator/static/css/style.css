@@ -577,9 +577,9 @@ div.translation, div.definition {
 .reference_language {
     border: 1px solid #ccc;
     padding: 8px;
-    margin: 4px 0;
+    margin: 2px 2px;
     font-family: serif;
-    max-width: 35em;
+    max-width: 32em;
     display: inline-block;
     vertical-align: top;
 }
