@@ -541,6 +541,7 @@ div.flexcol-reference {
 
 .definition {
     font-size: 105%;
+    color: black;
     /* consider reducing max-width if a second flexcol is introduced */
     max-width: 35em;
     max-height: 30em;
