@@ -249,7 +249,6 @@ class Glossary(models.Model):
 
     def get_collaborators(self):
         from guardian.models import UserObjectPermission
-        from django.contrib.auth.models import Permission
         # This is what we want:
         # user_dict = get_users_with_perms(self, attach_perms=True, with_superusers=True)
         # for user, perms in user_dict: if 'xxx' in perms: ...
