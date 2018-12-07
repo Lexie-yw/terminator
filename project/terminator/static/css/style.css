@@ -590,6 +590,11 @@ div.translation, div.definition {
     float: left;
     vertical-align: top;
 }
+
+.reference_language:first-child {
+    border: 2px solid #000;
+}
+
 .reference_concept{
     border: 1px dashed #ccc;
     border-radius: 1em;
