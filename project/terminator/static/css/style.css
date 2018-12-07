@@ -306,9 +306,6 @@ a > img {
 
 #sidebar > ul li {
     margin-top: .5em;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 
 hr {
@@ -323,6 +320,12 @@ ul.concept_list {
 #sidebar ul.concept_list {
     padding-left: 0;
     font-size: 90%;
+}
+
+#sidebar ul.concept_list li {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /* Styles for latest changes lists */
