@@ -102,6 +102,12 @@ class GlossaryAdmin(GuardedModelAdmin):
             return ["subject_fields"]
         return []
 
+    def has_change_permission(self, request, obj=None):
+        allowed = super(GlossaryAdmin, self).has_change_permission(request, obj)
+        if obj:
+            return allowed and request.user.has_perm("is_owner_for_this_glossary", obj)
+        return allowed
+
     def save_model(self, request, obj, form, change):
         super(GlossaryAdmin, self).save_model(request, obj, form, change)
 
