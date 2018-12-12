@@ -126,6 +126,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     <div class="flexcol-reference">
       {% block reference_material %}
+      {% cache 60 source_others concept_in_lang.pk LANGUAGE_CODE %}
       {% with others=concept_in_lang.related_concepts_data %}
       {% if others %}
         {% for lang, data in others.items|dictsort:0 %}
@@ -162,6 +163,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       {% endif %}
       {% endwith %}
 
+      {% endcache %}
     {% endblock reference_material %}
     </div>
     </div>

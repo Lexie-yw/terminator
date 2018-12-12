@@ -1,5 +1,6 @@
 {% extends "terminator/concept_source.html" %}
 {% load i18n %}
+{% load cache %}
 {% comment %}
 Copyright 2018 F Wolff
 
@@ -20,6 +21,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 {% block reference_material %}
+    {% cache 600 target_source_lang concept_in_lang.pk LANGUAGE_CODE %}
     <div class="reference_language">
       {% with term=source_language.terms|first %}
           <span class="reference_source"
@@ -48,7 +50,9 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       </div>
       {% endwith %}
     </div>
+    {% endcache %}
 
+    {% cache 60 target_other_langs concept_in_lang.pk LANGUAGE_CODE %}
     {% for lang, data in other_languages.items|dictsort:0 %}
     <div class="reference_language">
       {% with term=data.terms|first %}
@@ -79,6 +83,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       {% endwith %}
     </div>
     {% endfor %}
+    {% endcache %}
 
     {{ block.super }}
 
