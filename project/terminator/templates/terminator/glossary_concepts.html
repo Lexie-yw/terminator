@@ -28,9 +28,7 @@
 
     {% cache 600 glossary_concepts glossary.pk %}
     <ul class="iconlist vertflexlist">
-    {% for concept in glossary.concept_set.all %}
-        <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
-    {% endfor %}
+        {% for concept in glossary.concept_set.all %}<li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>{% endfor %}
     </ul>
     {% endcache %}
 
