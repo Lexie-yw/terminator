@@ -1,8 +1,4 @@
 
-// Do this immediately as it may affect layout:
-$('textarea').attr("rows", "3").autosize();
-
-
 $("form.confirm").areYouSure({
     message: "Consider saving before leaving the page."
 });
@@ -33,4 +29,3 @@ $(function () {
 $("#id_definition").on("input", function (e) {
     updateWordCount(e.target);
 });
-
