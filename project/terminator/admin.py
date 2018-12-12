@@ -216,9 +216,11 @@ class ConceptAdmin(admin.ModelAdmin):
         return request.GET.get('glossary', None)
 
     def _glossaries_for(self, request):
-        return get_objects_for_user(request.user,
+        if not "_glossaries_qs" in dir(self):
+            self._glossaries_qs = get_objects_for_user(request.user,
                                         ['is_lexicographer_in_this_glossary'],
                                         Glossary, False)
+        return self._glossaries_qs
 
     def get_queryset(self, request):
         qs = super(ConceptAdmin, self).get_queryset(request)
