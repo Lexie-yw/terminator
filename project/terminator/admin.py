@@ -132,6 +132,9 @@ class GlossaryAdmin(GuardedModelAdmin):
                 fields.remove('subscribers')
         return fields
 
+    def response_change(self, request, obj):
+        return HttpResponseRedirect(obj.get_absolute_url())
+
 
 admin.site.register(Glossary, GlossaryAdmin)
 
