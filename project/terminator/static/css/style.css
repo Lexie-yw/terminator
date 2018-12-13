@@ -227,7 +227,8 @@ a:active {
 
 #wide_content {
     float: left;
-    max-width: calc(100% - 240px);
+    /* more or less: 100% - width of #sidebar - 40px */
+    max-width: calc(97% - 190px);
     width: 100%;
     margin: 0px;
     margin-left: 2em;
@@ -239,7 +240,7 @@ a:active {
     position: absolute;
     right: 0;
     margin: 0;
-    width: 200px;
+    width: calc(150px + 3%);
     background: #d7eef4;
     background: linear-gradient(to right, #d7eef4, #eff);
     opacity: 0.95;
@@ -301,7 +302,8 @@ a > img {
 /* Styles for showing the sidebar links */
 #sidebar > ul {
     list-style-type: none;
-    padding-left: 1em;
+    padding-left: calc(-1.2em + 13%);
+    margin: 0 0 .5em 0;
 }
 
 #sidebar > ul li {
