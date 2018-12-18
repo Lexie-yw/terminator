@@ -21,10 +21,34 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% endcomment %}
 
 
-{% block title %}{% trans '500 HTTP error page' %}{% endblock %}
+{% block title %}{% trans 'Server Error' %}{% endblock %}
 
 {% block container %}
 <div id="container_content">
-    <h1>{% trans '500 HTTP error page' %}</h1>
+    <h1>{% trans 'Internal Server Error' %}</h1>
+    <p>{% trans 'An error occurred on the server. It might be a problem in the server code or configuration — not your mistake.' %}</p>
+    {% url "terminator_search" as search_url %}
+    {% url "terminator_index" as index_url %}
+    <p>{% trans "Here are a few things to try:" %}</p>
+    <ul>
+        <li><a href="javascript:history.back()">{% trans "Go back to the previous page" %}</a></li>
+        <li><a href="{{ index_url }}">{% trans "Go to the front page" %}</a></li>
+        <li><a href="{{ search_url }}">{% trans "Search for terms" %}</a></li>
+    </ul>
+
+    <h4>{% trans "Technical information" %}</h4>
+    <p>{% trans "When contacting your administrator, copy and paste the following information for reference:" %}</p>
+    <div class="login_form" style="font-size: 85%;">
+        <p>HTTP 500</p>
+        {% now "c" as time %}
+        <p>{% trans "Date and time: " %}{{ time }}</p>
+        <p>{% trans "URL: " %}<script>
+            document.write(window.location);
+        </script></p>
+        <p>{% trans "Refering URL: " %}<script>
+            document.write(document.referrer || "-");
+        </script></p>
+    </div>
+
 </div>
 {% endblock %}
