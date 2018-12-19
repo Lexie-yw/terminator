@@ -492,6 +492,15 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        if obj is None:
+            return self.get_queryset(request).exists()
+        # if obj is not None, it exists in get_queryset(), so the user has the
+        # required permission
+        return True
+
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
 
