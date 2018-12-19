@@ -42,12 +42,22 @@ class PartOfSpeechForLanguageInline(admin.TabularInline):
     model = PartOfSpeechForLanguage
     extra = 1
 
+    def get_queryset(self, request):
+        qs = super(PartOfSpeechForLanguageInline, self).get_queryset(request)
+        qs = qs.select_related("part_of_speech")
+        return qs
+
 
 class AdministrativeStatusReasonForLanguageInline(admin.TabularInline):
     model = AdministrativeStatusReason.languages.through
     extra = 1
     verbose_name = _("Administrative status reason for language")
     verbose_name_plural = _("Administrative status reasons for language")
+
+    def get_queryset(self, request):
+        qs = super(AdministrativeStatusReasonForLanguageInline, self).get_queryset(request)
+        qs = qs.select_related("administrativestatusreason")
+        return qs
 
 
 class LanguageAdmin(admin.ModelAdmin):
@@ -223,7 +233,8 @@ class ConceptAdmin(admin.ModelAdmin):
         return self._glossaries_qs
 
     def get_queryset(self, request):
-        qs = super(ConceptAdmin, self).get_queryset(request)
+        qs = super(ConceptAdmin, self).get_queryset(request).select_related(
+               "glossary")
         if request.user.is_superuser:
             return qs
         return qs.filter(glossary__in=self._glossaries_for(request))
