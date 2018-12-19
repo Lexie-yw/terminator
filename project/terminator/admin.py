@@ -186,7 +186,8 @@ class ConceptAdmin(admin.ModelAdmin):
         allowed = super(ConceptAdmin, self).has_add_permission(request)
         glossary_id = self._glossary_parameter(request)
         if glossary_id:
-            return allowed and request.user.has_perm("is_lexicographer_in_this_glossary", glossary_id)
+            glossary = Glossary.objects.get(pk=glossary_id)
+            return allowed and request.user.has_perm("is_lexicographer_in_this_glossary", glossary)
         return allowed
 
     def has_change_permission(self, request, obj=None):
