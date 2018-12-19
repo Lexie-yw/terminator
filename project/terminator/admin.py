@@ -38,6 +38,12 @@ from terminator.forms import (TerminatorConceptAdminForm,
 from terminator.models import *
 
 
+try:
+    from functools import lru_cache
+except ImportError:
+    from django.utils.lru_cache import lru_cache
+
+
 class PartOfSpeechForLanguageInline(admin.TabularInline):
     model = PartOfSpeechForLanguage
     extra = 1
@@ -182,9 +188,11 @@ class ConceptAdmin(admin.ModelAdmin):
             }),
     )
 
+    @lru_cache()
     def user_has_access(self, user, glossary):
         return user.has_perm("is_lexicographer_in_this_glossary", glossary)
 
+    @lru_cache()
     def has_add_permission(self, request):
         allowed = super(ConceptAdmin, self).has_add_permission(request)
         glossary_id = self._glossary_parameter(request)
@@ -483,6 +491,7 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
 
         return fieldsets
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(TranslationAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -492,6 +501,7 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
+    @lru_cache()
     def has_change_permission(self, request, obj=None):
         if request.user.is_superuser:
             return True
