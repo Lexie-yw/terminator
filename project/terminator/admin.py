@@ -163,7 +163,7 @@ class ConceptAdmin(admin.ModelAdmin):
     list_display = ('id', 'glossary', 'repr_cache', 'subject_field', 'broader_concept')
     search_fields = ['id', 'repr_cache']
     ordering = ('id',)
-    list_filter = ['glossary']
+    list_filter = [('glossary', admin.RelatedOnlyFieldListFilter)]
     inlines = [DefinitionInline, ExternalResourceInline]
     readonly_fields = ('glossary',)
     fieldsets = (
@@ -385,6 +385,27 @@ class CorpusExampleInline(admin.TabularInline):
     extra = 1
 
 
+class RelatedGlossaryListFilter(admin.SimpleListFilter):
+    # A list filter for concept__glossary
+    title = _('Glossary')
+    parameter_name = 'glossary'
+
+    def lookups(self, request, model_admin):
+        if request.user.is_superuser:
+            glossaries = Glossary.objects.all()
+        else:
+            glossaries = get_objects_for_user(request.user,
+                                        ['is_terminologist_in_this_glossary'],
+                                        Glossary, False)
+        return [(glossary.pk, glossary.name) for glossary in glossaries]
+
+    def queryset(self, request, queryset):
+        print self.value()
+        if self.value():
+            queryset = queryset.filter(concept__glossary__pk=self.value())
+        return queryset
+
+
 class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
     form = TerminatorTranslationAdminForm
@@ -409,7 +430,7 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     list_display = ('translation_text', 'language', 'concept', 'part_of_speech', 'administrative_status', 'is_finalized',)
     ordering = ('concept',)
     list_filter = [
-        'language', 'concept__glossary', 'is_finalized', 'administrative_status',
+        'language', RelatedGlossaryListFilter, 'is_finalized', 'administrative_status',
         'part_of_speech'
     ]
     search_fields = ['translation_text']
@@ -585,7 +606,7 @@ class ExternalResourceAdmin(ConceptLanguageMixin, admin.ModelAdmin):
     ordering = ('concept',)
     list_filter = [
             ('language', admin.RelatedOnlyFieldListFilter),
-            ('concept__glossary', admin.RelatedOnlyFieldListFilter),
+            RelatedGlossaryListFilter,
             ('link_type', admin.RelatedOnlyFieldListFilter),
     ]
     list_select_related = ('concept', 'language', 'link_type')
