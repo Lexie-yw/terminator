@@ -208,7 +208,12 @@ class TerminatorConceptAdminForm(forms.ModelForm):
 
         cleaned_data = self.cleaned_data
         glossary = cleaned_data.get("glossary")
-        glossary = glossary or self.instance.glossary
+        if not glossary:
+            msg = _(u"Indicate the glossary containing the concept.")
+            self._errors["glossary"] = self.error_class([msg])
+            # We don't delete, since the glossary isn't there
+        if self.instance.glossary_id:
+            glossary = glossary or self.instance.glossary
         subject_field = cleaned_data.get("subject_field")
 
         if subject_field and glossary:
