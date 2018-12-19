@@ -126,7 +126,7 @@ class PartOfSpeechForLanguage(models.Model):
         unique_together = ("language", "part_of_speech")
 
     def __unicode__(self):
-        return unicode(_(u"%(part_of_speech)s (%(language)s)") % {'part_of_speech': self.part_of_speech, 'language': self.language})
+        return unicode(_(u"%(part_of_speech)s (%(language)s)") % {'part_of_speech': self.part_of_speech, 'language': self.language_id})
 
 
 class AdministrativeStatus(models.Model):
