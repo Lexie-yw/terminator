@@ -202,50 +202,12 @@ class Glossary(models.Model):
 
     def assign_terminologist_permissions(self, user):
         assign_perm('is_terminologist_in_this_glossary', user, self)
-        # Assign permissions over translations
-        assign_perm('terminator.add_translation', user)
-        assign_perm('terminator.change_translation', user)
-        assign_perm('terminator.delete_translation', user)
-        # Assign permissions over definitions
-        assign_perm('terminator.add_definition', user)
-        assign_perm('terminator.change_definition', user)
-        assign_perm('terminator.delete_definition', user)
-        # Assign permissions over external resources
-        assign_perm('terminator.add_externalresource', user)
-        assign_perm('terminator.change_externalresource', user)
-        assign_perm('terminator.delete_externalresource', user)
-        # Assign permissions over context sentences
-        assign_perm('terminator.add_contextsentence', user)
-        assign_perm('terminator.change_contextsentence', user)
-        assign_perm('terminator.delete_contextsentence', user)
-        # Assign permissions over corpus examples
-        assign_perm('terminator.add_corpusexample', user)
-        assign_perm('terminator.change_corpusexample', user)
-        assign_perm('terminator.delete_corpusexample', user)
 
     def assign_lexicographer_permissions(self, user):
-        # A lexicographer is also considered a terminologist
         assign_perm('is_lexicographer_in_this_glossary', user, self)
-        # Assign permissions over concepts
-        assign_perm('terminator.add_concept', user)
-        assign_perm('terminator.change_concept', user)
-        assign_perm('terminator.delete_concept', user)
-        # Assign permissions over concepts in language (for summary messages)
-        assign_perm('terminator.change_conceptinlanguage', user)
-        # Assign permissions over proposals
-        assign_perm('terminator.change_proposal', user)
-        assign_perm('terminator.delete_proposal', user)
 
     def assign_owner_permissions(self, user):
-        # An owner is also considered a lexicographer and a terminologist
         assign_perm('is_owner_for_this_glossary', user, self)
-        # Assign permissions over glossaries
-        #assign_perm('terminator.add_glossary', user)
-        assign_perm('terminator.change_glossary', user)
-        assign_perm('terminator.delete_glossary', user)
-        # Assign permissions over collaboration requests
-        assign_perm('terminator.change_collaborationrequest', user)
-        assign_perm('terminator.delete_collaborationrequest', user)
 
     def get_collaborators(self):
         from guardian.models import UserObjectPermission
