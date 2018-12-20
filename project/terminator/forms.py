@@ -17,8 +17,11 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms.widgets import Textarea, TextInput, URLInput, Select
 from django.utils.translation import ugettext_lazy as _
+
+from guardian.models import UserObjectPermission
 
 from terminator.models import *
 
@@ -137,6 +140,25 @@ class ExternalResourceForm(forms.ModelForm):
 
 
 class TerminatorGlossaryAdminForm(forms.ModelForm):
+    terminologists = forms.ModelMultipleChoiceField(
+            widget=FilteredSelectMultiple(_("Terminologists"), False),
+            queryset=User.objects.all().order_by("username"),
+            label=_("Terminologists"),
+            required=False,
+    )
+    lexicographers = forms.ModelMultipleChoiceField(
+            widget=FilteredSelectMultiple(_("Lexicographers"), False),
+            queryset=User.objects.all().order_by("username"),
+            label=_("Lexicographers"),
+            required=False,
+    )
+    owners = forms.ModelMultipleChoiceField(
+            widget=FilteredSelectMultiple(_("Owners"), False),
+            queryset=User.objects.all().order_by("username"),
+            label=_("Owners"),
+            required=False,
+    )
+
     class Meta:
         fields = '__all__'
         model = Glossary
@@ -151,6 +173,46 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
             self.fields['other_languages'].queryset = Language.objects.exclude(
                     iso_code=self.instance.source_language_id,
             ).order_by('iso_code')
+            for name, users in self.get_collaborators().items():
+                self.fields[name].initial = users
+
+    def get_collaborators(self):
+        # This is what we want:
+        # user_dict = get_users_with_perms(self, attach_perms=True, with_group_users=False)
+        # for user, perms in user_dict: if 'xxx' in perms: ...
+        # XXX: attach_perms=True makes this very slow with lots of users
+        # https://github.com/django-guardian/django-guardian/issues/494
+        # Also see terminator.models.Glossary.get_collaborators()
+
+        # Hand-written to use a single query. This is not exactly
+        # equivalent, since we are not checking group permissions.
+        glossary_ctype = ContentType.objects.get_for_model(Glossary)
+        owners = set()
+        lexicographers = set()
+        terminologists = set()
+        permissions = (
+                "is_owner_for_this_glossary",
+                "is_lexicographer_in_this_glossary",
+                "is_terminologist_in_this_glossary",
+        )
+        permission_lines = UserObjectPermission.objects.filter(
+                permission__codename__in=permissions,
+                content_type=glossary_ctype,
+                object_pk=self.instance.id,
+        ).select_related("user", "permission")
+        for line in permission_lines:
+            perm = line.permission.codename
+            if perm == "is_owner_for_this_glossary":
+                owners.add(line.user)
+            elif perm == "is_lexicographer_in_this_glossary":
+                lexicographers.add(line.user)
+            elif perm == "is_terminologist_in_this_glossary":
+                terminologists.add(line.user)
+        return {
+                "owners": owners,
+                "lexicographers": lexicographers,
+                "terminologists": terminologists,
+        }
 
     def clean(self):
         super(forms.ModelForm, self).clean()
@@ -181,6 +243,7 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
                 msg = _(u"The source language can not be among the other languages.")
                 self._errors['other_languages'] = self.error_class([msg])
                 del cleaned_data["other_languages"]
+
         # Always return the full collection of cleaned data.
         return cleaned_data
 

@@ -27,6 +27,8 @@ from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy, ungettext, ugettext as _
 
 from guardian.admin import GuardedModelAdmin
+from guardian.ctypes import get_content_type
+from guardian.models import Permission, UserObjectPermission
 from guardian.shortcuts import get_objects_for_user
 from guardian.utils import clean_orphan_obj_perms
 from simple_history.admin import SimpleHistoryAdmin
@@ -141,6 +143,46 @@ class GlossaryAdmin(ChangePermissionFromQS, GuardedModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super(GlossaryAdmin, self).save_model(request, obj, form, change)
+        if form.is_valid() and form.has_changed():
+            cleaned_data = form.cleaned_data
+            permission_holders = form.get_collaborators()
+            staff_ids = set()
+            # Naive use of guardian shortcuts can cause O(n) queries, so we do
+            # most of this ourselves.
+            ctype = get_content_type(obj)
+            for name, perm_name in [
+                    ("terminologists", "is_terminologist_in_this_glossary"),
+                    ("lexicographers", "is_lexicographer_in_this_glossary"),
+                    ("owners", "is_owner_for_this_glossary"),
+                    ]:
+                if name in form.changed_data:
+                    add_ids = set()
+                    remove_ids = set()
+                    perm = Permission.objects.get(content_type=ctype, codename=perm_name)
+                    old_terminologists = permission_holders[name]
+                    new_terminologists = set(cleaned_data[name])
+                    for user in new_terminologists - old_terminologists:
+                        add_ids.add(user.pk)
+                        if name in ("lexicographers", "owners"):
+                            # terminologists don't need staff status
+                            staff_ids.add(user.pk)
+                    for user in old_terminologists - new_terminologists:
+                        remove_ids.add(user.pk)
+
+                    UserObjectPermission.objects.bulk_create([
+                        UserObjectPermission(
+                            content_type=ctype,
+                            object_pk=obj.pk,
+                            permission=perm,
+                            user_id=_id,
+                    ) for _id in add_ids])
+                    UserObjectPermission.objects.filter(
+                            content_type=ctype,
+                            object_pk=obj.pk,
+                            permission=perm,
+                            user_id__in=remove_ids,
+                    ).delete()
+            User.objects.filter(id__in=staff_ids).update(is_staff=True)
 
         if not change:
             obj.assign_terminologist_permissions(request.user)
@@ -162,6 +204,19 @@ class GlossaryAdmin(ChangePermissionFromQS, GuardedModelAdmin):
                 fields = list(fields)
                 fields.remove('subscribers')
         return fields
+
+    def get_fieldsets(self, request, obj=None):
+        # We want the permissions in a separate section
+        fields = [
+            "terminologists",
+            "lexicographers",
+            "owners",
+        ]
+        fieldsets = super(GlossaryAdmin, self).get_fieldsets(request, obj)
+        for field in fields:
+            fieldsets[0][1]["fields"].remove(field)
+        fieldsets.append((_("Permissions"), {"fields": fields}))
+        return fieldsets
 
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
