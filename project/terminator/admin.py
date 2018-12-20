@@ -115,7 +115,7 @@ class ChangePermissionFromQS(object):
         return True
 
 
-class GlossaryAdmin(GuardedModelAdmin):
+class GlossaryAdmin(ChangePermissionFromQS, GuardedModelAdmin):
     save_on_top = True
     form = TerminatorGlossaryAdminForm
     filter_horizontal = ('subscribers','subject_fields',)
@@ -135,11 +135,6 @@ class GlossaryAdmin(GuardedModelAdmin):
             return ["subject_fields"]
         return []
 
-    def has_change_permission(self, request, obj=None):
-        allowed = super(GlossaryAdmin, self).has_change_permission(request, obj)
-        if obj:
-            return allowed and request.user.has_perm("is_owner_for_this_glossary", obj)
-        return allowed
 
     def save_model(self, request, obj, form, change):
         super(GlossaryAdmin, self).save_model(request, obj, form, change)
@@ -218,7 +213,7 @@ class ExternalResourceInline(admin.TabularInline):
         return False
 
 
-class ConceptAdmin(admin.ModelAdmin):
+class ConceptAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     save_on_top = True
     form = TerminatorConceptAdminForm
     filter_horizontal = ('related_concepts',)
@@ -245,12 +240,6 @@ class ConceptAdmin(admin.ModelAdmin):
         if glossary_id:
             glossary = Glossary.objects.get(pk=glossary_id)
             return allowed and self.user_has_access(request.user, glossary)
-        return allowed
-
-    def has_change_permission(self, request, obj=None):
-        allowed = super(ConceptAdmin, self).has_change_permission(request, obj)
-        if obj:
-            return allowed and self.user_has_access(request.user, obj.glossary)
         return allowed
 
     def has_delete_permission(self, request, obj=None):
@@ -434,7 +423,7 @@ class RelatedGlossaryListFilter(admin.SimpleListFilter):
         return queryset
 
 
-class ConceptInLanguageAdmin(admin.ModelAdmin):
+class ConceptInLanguageAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     form = ConceptInLanguageAdminForm
     can_add = False
     readonly_fields = ("concept", "language", "translations_html", "definition_html")
@@ -474,7 +463,7 @@ class CorpusExampleInline(admin.TabularInline):
     extra = 1
 
 
-class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
+class TranslationAdmin(ChangePermissionFromQS, ConceptLanguageMixin, admin.ModelAdmin):
     save_on_top = True
     form = TerminatorTranslationAdminForm
     # if changing the fieldsets, review get_fieldsets() as well
@@ -546,15 +535,6 @@ class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
-    @lru_cache()
-    def has_change_permission(self, request, obj=None):
-        if request.user.is_superuser:
-            return True
-        if obj is None:
-            return self.get_queryset(request).exists()
-        # if obj is not None, it exists in get_queryset(), so the user has the
-        # required permission
-        return True
 
     def response_change(self, request, obj):
         return HttpResponseRedirect(obj.get_absolute_url())
@@ -579,7 +559,7 @@ myadmin = admin.AdminSite(name='myadmin')
 myadmin.register(Translation, TranslationOfConceptAdmin)
 
 
-class DefinitionAdmin(ConceptLanguageMixin, SimpleHistoryAdmin):
+class DefinitionAdmin(ChangePermissionFromQS, ConceptLanguageMixin, SimpleHistoryAdmin):
     save_on_top = True
     list_display = ('text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
@@ -622,7 +602,7 @@ admin.site.register(AdministrativeStatus, AdministrativeStatusAdmin)
 
 
 
-class ProposalAdmin(admin.ModelAdmin):
+class ProposalAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     save_on_top = True
     list_display = ('term', 'language', 'definition', 'sent_date', 'for_glossary')
     ordering = ('sent_date',)
@@ -779,7 +759,7 @@ admin.site.register(CorpusExample, CorpusExampleAdmin)
 
 
 
-class CollaborationRequestAdmin(admin.ModelAdmin):
+class CollaborationRequestAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     save_on_top = True
     list_display = ('for_glossary', 'user', 'collaboration_role', 'sent_date')
     ordering = ('sent_date',)
