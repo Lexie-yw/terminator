@@ -157,7 +157,13 @@ admin.site.register(Glossary, GlossaryAdmin)
 
 class DefinitionInline(admin.TabularInline):
     model = Definition
-    extra = 1
+    extra = 0
+
+    def has_add_permission(self, request):
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        return True
 
     def has_delete_permission(self, request, obj=None):
         return False
@@ -165,12 +171,23 @@ class DefinitionInline(admin.TabularInline):
 
 class ExternalResourceInline(admin.TabularInline):
     model = ExternalResource
-    extra = 1
+    extra = 0
     fields =("address", "link_type", "description")
+
     def get_queryset(self, request):
         qs = super(ExternalResourceInline, self).get_queryset(request)
         qs = qs.filter(language=None)
         return qs
+
+    def has_add_permission(self, request):
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class ConceptAdmin(admin.ModelAdmin):
     save_on_top = True
