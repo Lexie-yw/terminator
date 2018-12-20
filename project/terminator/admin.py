@@ -183,11 +183,6 @@ class GlossaryAdmin(ChangePermissionFromQS, admin.ModelAdmin):
                     ).delete()
             User.objects.filter(id__in=staff_ids).update(is_staff=True)
 
-        if not change:
-            obj.assign_terminologist_permissions(request.user)
-            obj.assign_lexicographer_permissions(request.user)
-            obj.assign_owner_permissions(request.user)
-
     def delete_model(self, request, obj):
         super(GlossaryAdmin, self).delete_model(request, obj)
         # Remove all orphaned per object permissions after deleting the
