@@ -277,9 +277,10 @@ class TerminatorConceptAdminForm(forms.ModelForm):
             # only provide concepts in this glossary
             concepts = Concept.objects.filter(
                     glossary_id=self.instance.glossary_id,
+                    repr_cache__gt='',
             ).exclude(pk=self.instance.pk).values_list("id", "repr_cache")
             self.fields['related_concepts'].choices = concepts
-            self.fields['broader_concept'].choices = concepts
+            self.fields['broader_concept'].choices = [('', _('None'))] + list(concepts)
 
         self.queryset = Concept.objects.all().select_related("glossary")
 
