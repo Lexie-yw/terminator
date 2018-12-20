@@ -141,16 +141,16 @@ class ExternalResourceForm(forms.ModelForm):
 
 
 class TerminatorGlossaryAdminForm(forms.ModelForm):
+    specialists = forms.ModelMultipleChoiceField(
+            widget=FilteredSelectMultiple(_("Specialists"), False),
+            queryset=User.objects.all().order_by("username"),
+            label=_("Specialists"),
+            required=False,
+    )
     terminologists = forms.ModelMultipleChoiceField(
             widget=FilteredSelectMultiple(_("Terminologists"), False),
             queryset=User.objects.all().order_by("username"),
             label=_("Terminologists"),
-            required=False,
-    )
-    lexicographers = forms.ModelMultipleChoiceField(
-            widget=FilteredSelectMultiple(_("Lexicographers"), False),
-            queryset=User.objects.all().order_by("username"),
-            label=_("Lexicographers"),
             required=False,
     )
     owners = forms.ModelMultipleChoiceField(
@@ -171,8 +171,8 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
         users_qs = User.objects.filter(is_active=True).order_by("username")
         users = [(u.pk, u.username) for u in users_qs]
         fields = [
+                "specialists",
                 "terminologists",
-                "lexicographers",
                 "owners",
                 ]
         if settings.FEATURES.get('subscription', True):
@@ -207,12 +207,12 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
         # equivalent, since we are not checking group permissions.
         glossary_ctype = ContentType.objects.get_for_model(Glossary)
         owners = set()
-        lexicographers = set()
         terminologists = set()
+        specialists = set()
         permissions = (
-                "is_owner_for_this_glossary",
-                "is_lexicographer_in_this_glossary",
-                "is_terminologist_in_this_glossary",
+                "owner",
+                "terminologist",
+                "specialist",
         )
         permission_lines = UserObjectPermission.objects.filter(
                 permission__codename__in=permissions,
@@ -221,16 +221,16 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
         ).select_related("user", "permission")
         for line in permission_lines:
             perm = line.permission.codename
-            if perm == "is_owner_for_this_glossary":
+            if perm == "owner":
                 owners.add(line.user)
-            elif perm == "is_lexicographer_in_this_glossary":
-                lexicographers.add(line.user)
-            elif perm == "is_terminologist_in_this_glossary":
+            elif perm == "terminologist":
                 terminologists.add(line.user)
+            elif perm == "specialist":
+                specialists.add(line.user)
         return {
                 "owners": owners,
-                "lexicographers": lexicographers,
                 "terminologists": terminologists,
+                "specialists": specialists,
         }
 
     def clean(self):

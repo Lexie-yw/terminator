@@ -78,12 +78,12 @@ def terminator_profile_detail(request, username):
     checker = ObjectPermissionChecker(user)
     checker.prefetch_perms(glossary_list)
     for glossary in glossary_list:
-        if checker.has_perm('is_owner_for_this_glossary', glossary):
+        if checker.has_perm('owner', glossary):
             user_glossaries.append({'glossary': glossary, 'role': _(u"Owner")})
-        elif checker.has_perm('is_lexicographer_in_this_glossary', glossary):
-            user_glossaries.append({'glossary': glossary, 'role': _(u"Lexicographer")})
-        elif checker.has_perm('is_terminologist_in_this_glossary', glossary):
+        elif checker.has_perm('terminologist', glossary):
             user_glossaries.append({'glossary': glossary, 'role': _(u"Terminologist")})
+        elif checker.has_perm('specialist', glossary):
+            user_glossaries.append({'glossary': glossary, 'role': _(u"Specialist")})
 
     ctypes = ContentType.objects.get_for_models(Translation, Definition, ExternalResource).values()
     recent_changes = process_recent_changes(LogEntry.objects.filter(
@@ -253,8 +253,8 @@ class ConceptSourceView(TerminatorDetailView):
         return self.concept_in_lang
 
     def may_edit(self, glossary_perms):
-        return 'is_lexicographer_in_this_glossary' in glossary_perms or \
-                    ('is_terminologist_in_this_glossary' in glossary_perms and \
+        return 'terminologist' in glossary_perms or \
+                    ('specialist' in glossary_perms and \
                     not self.object.source_language_finalized())
     def get_context_data(self, **kwargs):
         context = super(ConceptSourceView, self).get_context_data(**kwargs)
@@ -387,7 +387,7 @@ class ConceptTargetView(ConceptSourceView):
 
     def may_edit(self, glossary_perms):
         return not self.get_concept_in_lang().is_finalized and \
-                    'is_terminologist_in_this_glossary' in glossary_perms
+                    'specialist' in glossary_perms
 
     def get_context_data(self, **kwargs):
         context = super(ConceptTargetView, self).get_context_data(**kwargs)

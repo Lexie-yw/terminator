@@ -89,7 +89,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block specificsidebar %}
     
     <ul>
-        {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+        {% if "terminologist" in glossary_perms %}
             <li><a href="{% url "admin:terminator_concept_add" %}?glossary={{ concept.glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "Add new concept" %}</a></li>
         {% endif %}
         {# #TODO add more links to specific sidebar #}

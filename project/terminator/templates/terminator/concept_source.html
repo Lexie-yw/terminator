@@ -79,7 +79,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {% if may_edit %}
                   {{ form.translation }}
                 {% endif %}
-                {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+                {% if "terminologist" in glossary_perms %}
                 <p>
                   {% if translations|length > 1 %}
                   <a href="{% url "myadmin:terminator_translation_changelist" %}?concept__id__exact={{ concept.pk }}&language__iso_code__exact={{ current_language.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise term information" %}</a>
@@ -105,7 +105,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                   {% endwith %}
                   </div>
                 {% endif %}
-                {% if definition and "is_lexicographer_in_this_glossary" in glossary_perms %}
+                {% if definition and "terminologist" in glossary_perms %}
                   <p>
                     {% if definition.is_finalized %}
                       <a href="{% url "admin:terminator_definition_change" definition.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Revise definition" %}</a>
@@ -175,7 +175,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 
     {% include "terminator/mono_comments_snippet.html" %}
 
-    {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+    {% if "terminologist" in glossary_perms %}
       <p>
         <a href="{% url "admin:terminator_conceptinlanguage_change" concept_in_lang.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "Finalise whole entry" %}</a>
       </p>

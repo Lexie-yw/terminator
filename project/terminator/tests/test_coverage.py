@@ -374,7 +374,7 @@ class URLsB(TestCase):
         self.assertContains(response, "Concepts")
 
 #        response = self.c.post('/glossaries/1/', data={
-#            'collaboration_role': 'T', # Terminologist
+#            'collaboration_role': 'S', # Specialist
 #        })
 #        self.assertNotContains(response, "You will receive a message")
 
@@ -390,11 +390,11 @@ class URLsB(TestCase):
 
         if settings.FEATURES.get('collaboration', True):
             response = self.c.post('/glossaries/1/', data={
-                'collaboration_role': 'T', # Terminologist
+                'collaboration_role': 'S', # Specialist
             })
             self.assertContains(response, "You will receive a message")
             response = self.c.post('/glossaries/1/', data={
-                'collaboration_role': 'T',
+                'collaboration_role': 'S',
             })
             self.assertContains(response, "You already sent")
             response = self.c.post('/glossaries/1/', data={
@@ -699,8 +699,8 @@ class GlossaryTest(SharedTests, TestCase):
 #        g.save()
 
     def test_extra_methods(self):
+        self.model.assign_specialist_permissions(self.user)
         self.model.assign_terminologist_permissions(self.user)
-        self.model.assign_lexicographer_permissions(self.user)
         self.model.assign_owner_permissions(self.user)
 
 class ConceptTest(SharedTests, TestCase):

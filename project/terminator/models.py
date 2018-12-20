@@ -189,9 +189,9 @@ class Glossary(models.Model):
         verbose_name = _("glossary")
         verbose_name_plural = _("glossaries")
         permissions = (
-            ('is_terminologist_in_this_glossary', 'Is terminologist in this glossary'),
-            ('is_lexicographer_in_this_glossary', 'Is lexicographer in this glossary'),
-            ('is_owner_for_this_glossary', 'Is owner for this glossary'),
+            ('specialist', 'Specialist for this glossary'),
+            ('terminologist', 'Terminologist for this glossary'),
+            ('owner', 'Owner of this glossary'),
         )
 
     def __unicode__(self):
@@ -200,14 +200,14 @@ class Glossary(models.Model):
     def get_absolute_url(self):
         return reverse('terminator_glossary_detail', kwargs={'pk': unicode(self.pk)})
 
-    def assign_terminologist_permissions(self, user):
-        assign_perm('is_terminologist_in_this_glossary', user, self)
+    def assign_specialist_permissions(self, user):
+        assign_perm('specialist', user, self)
 
-    def assign_lexicographer_permissions(self, user):
-        assign_perm('is_lexicographer_in_this_glossary', user, self)
+    def assign_terminologist_permissions(self, user):
+        assign_perm('terminologist', user, self)
 
     def assign_owner_permissions(self, user):
-        assign_perm('is_owner_for_this_glossary', user, self)
+        assign_perm('owner', user, self)
 
     def get_collaborators(self):
         from guardian.models import UserObjectPermission
@@ -229,9 +229,9 @@ class Glossary(models.Model):
             listed_users.add(user)
             collaborators.append({'user': user, 'role': _("Administrator")})
         for role, codename in (
-                (_("owner"), "is_owner_for_this_glossary"),
-                (_("lexicographer"), "is_lexicographer_in_this_glossary"),
-                (_("terminologist"), "is_terminologist_in_this_glossary")):
+                (_("owner"), "owner"),
+                (_("terminologist"), "terminologist"),
+                (_("specialist"), "specialist")):
             permission_lines = UserObjectPermission.objects.filter(
                     permission__codename=codename,
                     content_type=glossary_ctype,
@@ -628,8 +628,8 @@ class CorpusExample(models.Model):
 class CollaborationRequest(models.Model):
     COLLABORATION_ROLE_CHOICES = (
         (u'O', _(u'Glossary owner')),
-        (u'L', _(u'Lexicographer')),
         (u'T', _(u'Terminologist')),
+        (u'S', _(u'Specialist')),
     )
     collaboration_role = models.CharField(max_length=2, choices=COLLABORATION_ROLE_CHOICES, verbose_name=_("collaboration role"))
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))

@@ -22,7 +22,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% with external_resources=concept_in_lang.external_resources %}
 {% if external_resources %}
   <h4>{% trans "External resources" %}
-  {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+  {% if "terminologist" in glossary_perms %}
       <p><a href="{% url "admin:terminator_externalresource_add" %}?concept={{ concept.pk }}&language={{ current_language.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "new" %}</a></p>
   {% endif %}
   </h4>
@@ -36,14 +36,14 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
             {{ externalresource.address }}
           {% endif %}
         </a>
-      {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+      {% if "terminologist" in glossary_perms %}
           <a href="{% url "admin:terminator_externalresource_change" externalresource.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit" %}</a>
       {% endif %}
       </li>
   {% endfor %}
   </ul>
 {% else %}
-  {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+  {% if "terminologist" in glossary_perms %}
     <p><a href="{% url "admin:terminator_externalresource_add" %}?concept={{ concept.pk }}&language={{ current_language.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "Define an external resource" %}</a></p>
   {% endif %}
 {% endif %}

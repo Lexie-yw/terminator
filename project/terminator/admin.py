@@ -132,7 +132,7 @@ class GlossaryAdmin(ChangePermissionFromQS, admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         return get_objects_for_user(request.user,
-                                    ['is_owner_for_this_glossary'], qs, False)
+                                    ['owner'], qs, False)
 
     def get_exclude(self, request, obj=None):
         if not obj:
@@ -150,9 +150,9 @@ class GlossaryAdmin(ChangePermissionFromQS, admin.ModelAdmin):
             # most of this ourselves.
             ctype = get_content_type(obj)
             for name, perm_name in [
-                    ("terminologists", "is_terminologist_in_this_glossary"),
-                    ("lexicographers", "is_lexicographer_in_this_glossary"),
-                    ("owners", "is_owner_for_this_glossary"),
+                    ("specialists", "specialist"),
+                    ("terminologists", "terminologist"),
+                    ("owners", "owner"),
                     ]:
                 if name in form.changed_data:
                     add_ids = set()
@@ -162,7 +162,7 @@ class GlossaryAdmin(ChangePermissionFromQS, admin.ModelAdmin):
                     new_terminologists = set(cleaned_data[name])
                     for user in new_terminologists - old_terminologists:
                         add_ids.add(user.pk)
-                        if name in ("lexicographers", "owners"):
+                        if name in ("terminologist", "owners"):
                             # terminologists don't need staff status
                             staff_ids.add(user.pk)
                     for user in old_terminologists - new_terminologists:
@@ -202,8 +202,8 @@ class GlossaryAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     def get_fieldsets(self, request, obj=None):
         # We want the permissions in a separate section
         fields = [
+            "specialists",
             "terminologists",
-            "lexicographers",
             "owners",
         ]
         fieldsets = super(GlossaryAdmin, self).get_fieldsets(request, obj)
@@ -285,7 +285,7 @@ class ConceptAdmin(ChangePermissionFromQS, admin.ModelAdmin):
 
     @lru_cache()
     def user_has_access(self, user, glossary):
-        return user.has_perm("is_lexicographer_in_this_glossary", glossary)
+        return user.has_perm("terminologist", glossary)
 
     @lru_cache()
     def has_add_permission(self, request):
@@ -329,7 +329,7 @@ class ConceptAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     def _glossaries_for(self, request):
         if not "_glossaries_qs" in dir(self):
             self._glossaries_qs = get_objects_for_user(request.user,
-                                        ['is_lexicographer_in_this_glossary'],
+                                        ['terminologist'],
                                         Glossary, False)
         return self._glossaries_qs
 
@@ -440,7 +440,7 @@ class ConceptLanguageMixin(object):
             try:
                 qs = Concept.objects.filter(pk=obj_id)
                 concept = qs.first()
-                if request.user.has_perm("is_lexicographer_in_this_glossary", concept.glossary):
+                if request.user.has_perm("terminologist", concept.glossary):
                     return qs
             except Concept.DoesNotExist:
                 raise PermissionDenied
@@ -468,7 +468,7 @@ class RelatedGlossaryListFilter(admin.SimpleListFilter):
             glossaries = Glossary.objects.all()
         else:
             glossaries = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
+                                        ['specialist'],
                                         Glossary, False)
         return [(glossary.pk, glossary.name) for glossary in glossaries]
 
@@ -499,7 +499,7 @@ class ConceptInLanguageAdmin(ChangePermissionFromQS, admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_lexicographer_in_this_glossary'],
+                                        ['terminologist'],
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
@@ -587,7 +587,7 @@ class TranslationAdmin(ChangePermissionFromQS, ConceptLanguageMixin, admin.Model
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
+                                        ['specialist'],
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
@@ -635,7 +635,7 @@ class DefinitionAdmin(ChangePermissionFromQS, ConceptLanguageMixin, SimpleHistor
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
+                                        ['specialist'],
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
@@ -678,7 +678,7 @@ class ProposalAdmin(ChangePermissionFromQS, admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_lexicographer_in_this_glossary'],
+                                        ['terminologist'],
                                         Glossary, False)
         return qs.filter(for_glossary__in=inner_qs)
 
@@ -741,7 +741,7 @@ class ExternalResourceAdmin(ConceptLanguageMixin, admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
+                                        ['specialist'],
                                         Glossary, False)
         return qs.filter(concept__glossary__in=inner_qs)
 
@@ -793,7 +793,7 @@ class ContextSentenceAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
+                                        ['specialist'],
                                         Glossary, False)
         return qs.filter(translation__concept__glossary__in=inner_qs)
 
@@ -818,7 +818,7 @@ class CorpusExampleAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
+                                        ['specialist'],
                                         Glossary, False)
         return qs.filter(translation__concept__glossary__in=inner_qs)
 
@@ -840,7 +840,7 @@ class CollaborationRequestAdmin(ChangePermissionFromQS, admin.ModelAdmin):
         if request.user.is_superuser:
             return qs
         inner_qs = get_objects_for_user(request.user,
-                                        ['is_owner_for_this_glossary'],
+                                        ['owner'],
                                         Glossary, False)
         return qs.filter(for_glossary__in=inner_qs)
 
@@ -880,12 +880,12 @@ class CollaborationRequestAdmin(ChangePermissionFromQS, admin.ModelAdmin):
                                   "definitions, external resources, context "
                                   "sentences and corpus examples inside this "
                                   "glossary.")
-                collaboration_request.for_glossary.assign_terminologist_permissions(collaboration_request.user)
+                collaboration_request.for_glossary.assign_specialist_permissions(collaboration_request.user)
 
             if collaboration_request.collaboration_role  in ("L", "O"):
                 mail_message += _("\n\nAlso you can manage concepts and "
                                   "concept proposals for this glossary.")
-                collaboration_request.for_glossary.assign_lexicographer_permissions(collaboration_request.user)
+                collaboration_request.for_glossary.assign_terminologist_permissions(collaboration_request.user)
 
             if collaboration_request.collaboration_role == "O":
                 mail_message += _("\n\nAs glossary owner you can modify or "

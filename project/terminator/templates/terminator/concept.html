@@ -103,13 +103,13 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% endif %}
     {% endwith %}
 
-    {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+    {% if "terminologist" in glossary_perms %}
         <p><a href="{% url "admin:terminator_concept_change" concept.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this concept" %}</a> &nbsp; &nbsp;
         <a href="{% url "admin:terminator_concept_delete" concept.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_delete_16.png" />{% trans "delete this concept" %}</a></p>
     {% endif %}
 
 
-    {% if external_resources or "is_terminologist_in_this_glossary" in glossary_perms %}
+    {% if external_resources or "specialist" in glossary_perms %}
       <h4>{% trans "External resources" %}</h4>
     {% endif %}
 
@@ -123,7 +123,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
                 {{ externalresource.address }}
               {% endif %}
             </a>
-          {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+          {% if "terminologist" in glossary_perms %}
               <a href="{% url "admin:terminator_externalresource_change" externalresource.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit" %}</a>
           {% endif %}
           </li>
@@ -131,7 +131,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
       </ul>
     {% endif %}
 
-    {% if not source_language_finalized and "is_terminologist_in_this_glossary" in glossary_perms or "is_lexicographer_in_this_glossary" in glossary_perms %}
+    {% if not source_language_finalized and "specialist" in glossary_perms or "terminologist" in glossary_perms %}
       <p><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "Link to an external resource:" %}</p>
       <div class="resource_form">
       <form method="post" action="">

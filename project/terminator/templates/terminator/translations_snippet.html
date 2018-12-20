@@ -27,7 +27,7 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     {% if not translation.is_finalized %}<span class="not_finalized_item">{% endif %}
     <h3><b lang="{{ translation.language_id }}">{{ translation.translation_text }}</b>
     
-    {% if "is_lexicographer_in_this_glossary" in glossary_perms %}
+    {% if "terminologist" in glossary_perms %}
         &nbsp; &nbsp; <a href="{% url "admin:terminator_translation_change" translation.id %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit term" %}</a>
     {% endif %}
     </h3>

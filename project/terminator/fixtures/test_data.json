@@ -68,108 +68,7 @@
       "is_active": true,
       "date_joined": "2011-08-09T18:43:19Z",
       "groups": [],
-      "user_permissions": [
-         [
-            "add_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "change_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "delete_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "add_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "change_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "delete_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "add_concept",
-            "terminator",
-            "concept"
-         ],
-         [
-            "change_concept",
-            "terminator",
-            "concept"
-         ],
-         [
-            "delete_concept",
-            "terminator",
-            "concept"
-         ],
-         [
-            "add_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "change_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "delete_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "add_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "change_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "delete_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "add_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "change_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "delete_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "change_proposal",
-            "terminator",
-            "proposal"
-         ],
-         [
-            "delete_proposal",
-            "terminator",
-            "proposal"
-         ]
-      ]
+      "user_permissions": []
    }
 },
 {
@@ -187,128 +86,7 @@
       "is_active": true,
       "date_joined": "2011-08-09T18:43:27Z",
       "groups": [],
-      "user_permissions": [
-         [
-            "add_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "change_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "delete_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "add_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "change_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "delete_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "change_collaborationrequest",
-            "terminator",
-            "collaborationrequest"
-         ],
-         [
-            "delete_collaborationrequest",
-            "terminator",
-            "collaborationrequest"
-         ],
-         [
-            "add_concept",
-            "terminator",
-            "concept"
-         ],
-         [
-            "change_concept",
-            "terminator",
-            "concept"
-         ],
-         [
-            "delete_concept",
-            "terminator",
-            "concept"
-         ],
-         [
-            "add_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "change_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "delete_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "add_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "change_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "delete_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "add_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "change_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "delete_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "is_lexicographer_in_this_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "is_owner_for_this_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "change_proposal",
-            "terminator",
-            "proposal"
-         ],
-         [
-            "delete_proposal",
-            "terminator",
-            "proposal"
-         ]
-      ]
+      "user_permissions": []
    }
 },
 {
@@ -326,83 +104,7 @@
       "is_active": true,
       "date_joined": "2011-08-09T18:43:34Z",
       "groups": [],
-      "user_permissions": [
-         [
-            "add_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "change_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "delete_administrativestatus",
-            "terminator",
-            "administrativestatus"
-         ],
-         [
-            "add_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "change_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "delete_administrativestatusreason",
-            "terminator",
-            "administrativestatusreason"
-         ],
-         [
-            "add_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "change_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "delete_conceptinlanguage",
-            "terminator",
-            "conceptinlanguage"
-         ],
-         [
-            "add_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "change_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "delete_corpusexample",
-            "terminator",
-            "corpusexample"
-         ],
-         [
-            "add_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "change_glossary",
-            "terminator",
-            "glossary"
-         ],
-         [
-            "delete_glossary",
-            "terminator",
-            "glossary"
-         ]
-      ]
+      "user_permissions": []
    }
 },
 {
@@ -1647,7 +1349,7 @@
    "pk": 1,
    "fields": {
       "permission": [
-         "is_lexicographer_in_this_glossary",
+         "terminologist",
          "terminator",
          "glossary"
       ],
@@ -1666,7 +1368,7 @@
    "pk": 2,
    "fields": {
       "permission": [
-         "is_owner_for_this_glossary",
+         "owner",
          "terminator",
          "glossary"
       ],
@@ -1685,7 +1387,7 @@
    "pk": 3,
    "fields": {
       "permission": [
-         "is_terminologist_in_this_glossary",
+         "specialist",
          "terminator",
          "glossary"
       ],
@@ -1704,7 +1406,7 @@
    "pk": 4,
    "fields": {
       "permission": [
-         "is_lexicographer_in_this_glossary",
+         "terminologist",
          "terminator",
          "glossary"
       ],
@@ -1723,7 +1425,7 @@
    "pk": 5,
    "fields": {
       "permission": [
-         "is_terminologist_in_this_glossary",
+         "specialist",
          "terminator",
          "glossary"
       ],
@@ -1742,7 +1444,7 @@
    "pk": 6,
    "fields": {
       "permission": [
-         "is_terminologist_in_this_glossary",
+         "specialist",
          "terminator",
          "glossary"
       ],
