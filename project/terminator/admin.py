@@ -725,6 +725,9 @@ class ContextSentenceAdmin(admin.ModelAdmin):
     readonly_fields = ('translation',)
     list_filter = ['translation__concept__glossary']
 
+    def has_add_permission(self, request):
+        return False
+
     def get_queryset(self, request):
         qs = super(ContextSentenceAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -745,6 +748,9 @@ class CorpusExampleAdmin(admin.ModelAdmin):
     fields = ('translation', 'address', 'description')
     readonly_fields = ('translation',)
     list_filter = ['translation__concept__glossary']
+
+    def has_add_permission(self, request):
+        return False
 
     def get_queryset(self, request):
         qs = super(CorpusExampleAdmin, self).get_queryset(request)
@@ -775,6 +781,12 @@ class CollaborationRequestAdmin(ChangePermissionFromQS, admin.ModelAdmin):
                                         ['is_owner_for_this_glossary'],
                                         Glossary, False)
         return qs.filter(for_glossary__in=inner_qs)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
 
     #TODO replace the delete admin action with a wrapper around the default one
     # in order to send an email to all the collaboration request users telling
