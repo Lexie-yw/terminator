@@ -239,13 +239,13 @@ class ConceptAdmin(ChangePermissionFromQS, admin.ModelAdmin):
         glossary_id = self._glossary_parameter(request)
         if glossary_id:
             glossary = Glossary.objects.get(pk=glossary_id)
-            return allowed and self.user_has_access(request.user, glossary)
+            return self.user_has_access(request.user, glossary)
         return allowed
 
     def has_delete_permission(self, request, obj=None):
         allowed = super(ConceptAdmin, self).has_delete_permission(request, obj)
         if obj:
-            return allowed and self.user_has_access(request.user, obj.glossary)
+            return self.user_has_access(request.user, obj.glossary)
         return allowed
 
     def get_readonly_fields(self, request, obj=None):
