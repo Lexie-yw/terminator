@@ -875,14 +875,14 @@ class CollaborationRequestAdmin(ChangePermissionFromQS, admin.ModelAdmin):
             collaboration_request.user.is_staff = True # Because we need to ensure this users will can enter the admin site to work
             mail_message = ""
 
-            if collaboration_request.collaboration_role in ("T", "L", "O"):
+            if collaboration_request.collaboration_role in ("S", "T", "O"):
                 mail_message += _("Now you can manage translations, "
                                   "definitions, external resources, context "
                                   "sentences and corpus examples inside this "
                                   "glossary.")
                 collaboration_request.for_glossary.assign_specialist_permissions(collaboration_request.user)
 
-            if collaboration_request.collaboration_role  in ("L", "O"):
+            if collaboration_request.collaboration_role  in ("T", "O"):
                 mail_message += _("\n\nAlso you can manage concepts and "
                                   "concept proposals for this glossary.")
                 collaboration_request.for_glossary.assign_terminologist_permissions(collaboration_request.user)
