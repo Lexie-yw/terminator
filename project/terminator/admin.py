@@ -98,6 +98,23 @@ admin.site.register(AdministrativeStatusReason,
                     AdministrativeStatusReasonAdmin)
 
 
+class ChangePermissionFromQS(object):
+    """A mixin to determine change permission from the queryset.
+
+    You must implement get_queryset() to filter by the appropriate
+    permissions."""
+
+    @lru_cache()
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        if obj is None:
+            return self.get_queryset(request).exists()
+        # if obj is not None, it exists in get_queryset(), so the user has the
+        # required permission
+        return True
+
+
 class GlossaryAdmin(GuardedModelAdmin):
     save_on_top = True
     form = TerminatorGlossaryAdminForm
