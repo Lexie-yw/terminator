@@ -48,6 +48,7 @@ class PartOfSpeechForLanguageInline(admin.TabularInline):
     model = PartOfSpeechForLanguage
     extra = 1
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(PartOfSpeechForLanguageInline, self).get_queryset(request)
         qs = qs.select_related("part_of_speech")
@@ -60,6 +61,7 @@ class AdministrativeStatusReasonForLanguageInline(admin.TabularInline):
     verbose_name = _("Administrative status reason for language")
     verbose_name_plural = _("Administrative status reasons for language")
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(AdministrativeStatusReasonForLanguageInline, self).get_queryset(request)
         qs = qs.select_related("administrativestatusreason")
@@ -123,6 +125,7 @@ class GlossaryAdmin(ChangePermissionFromQS, GuardedModelAdmin):
     ordering = ('name',)
     search_fields = ['name']
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(GlossaryAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -178,6 +181,7 @@ class DefinitionInline(admin.TabularInline):
             return self.readonly_fields + ('language',)
         return self.readonly_fields
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(DefinitionInline, self).get_queryset(request)
         qs = qs.order_by('-is_finalized', 'language_id')
@@ -198,6 +202,7 @@ class ExternalResourceInline(admin.TabularInline):
     extra = 0
     fields =("address", "link_type", "description")
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(ExternalResourceInline, self).get_queryset(request)
         qs = qs.filter(language=None)
@@ -279,6 +284,7 @@ class ConceptAdmin(ChangePermissionFromQS, admin.ModelAdmin):
                                         Glossary, False)
         return self._glossaries_qs
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(ConceptAdmin, self).get_queryset(request).select_related(
                "glossary")
@@ -438,6 +444,7 @@ class ConceptInLanguageAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(ConceptInLanguageAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -573,6 +580,7 @@ class DefinitionAdmin(ChangePermissionFromQS, ConceptLanguageMixin, SimpleHistor
             }),
     )
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(DefinitionAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -615,6 +623,7 @@ class ProposalAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     search_fields = ['term', 'definition']
     actions = ['convert_proposals']
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(ProposalAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -677,6 +686,7 @@ class ExternalResourceAdmin(ConceptLanguageMixin, admin.ModelAdmin):
             }),
     )
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(ExternalResourceAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -728,6 +738,7 @@ class ContextSentenceAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(ContextSentenceAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -752,6 +763,7 @@ class CorpusExampleAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(CorpusExampleAdmin, self).get_queryset(request)
         if request.user.is_superuser:
@@ -773,6 +785,7 @@ class CollaborationRequestAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     search_fields = ['user__username']
     actions = ['accept_collaboration_requests']
 
+    @lru_cache()
     def get_queryset(self, request):
         qs = super(CollaborationRequestAdmin, self).get_queryset(request)
         if request.user.is_superuser:
