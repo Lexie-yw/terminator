@@ -423,7 +423,7 @@ class ConceptInLanguageAdmin(admin.ModelAdmin):
     readonly_fields = ("concept", "language", "translations_html", "definition_html")
     fields = (("concept", "language"), "translations_html", "definition_html", "summary", "is_finalized")
     list_display = ("concept", "language", 'is_finalized', 'date_html')
-    list_filter = ('language', 'concept__glossary', 'is_finalized', 'date')
+    list_filter = ('language', RelatedGlossaryListFilter, 'is_finalized', 'date')
     ordering = ('concept', 'language')
 
     def has_delete_permission(self, request, obj=None):
@@ -566,7 +566,7 @@ class DefinitionAdmin(ConceptLanguageMixin, SimpleHistoryAdmin):
     save_on_top = True
     list_display = ('text', 'concept', 'language', 'is_finalized')
     ordering = ('concept',)
-    list_filter = ['language', 'concept__glossary', 'is_finalized']
+    list_filter = ['language', RelatedGlossaryListFilter, 'is_finalized']
     readonly_fields = ('concept', 'language',)
     search_fields = ['text']
     actions = ['mark_finalized']
@@ -766,7 +766,7 @@ class CollaborationRequestAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ('for_glossary', 'user', 'collaboration_role', 'sent_date')
     ordering = ('sent_date',)
-    list_filter = ['collaboration_role', 'for_glossary', 'sent_date', 'user']
+    list_filter = ['collaboration_role', ('for_glossary', admin.RelatedOnlyFieldListFilter), 'sent_date', 'user'] # many users?
     search_fields = ['user__username']
     actions = ['accept_collaboration_requests']
 
