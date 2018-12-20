@@ -26,7 +26,6 @@ from django.urls import reverse
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy, ungettext, ugettext as _
 
-from guardian.admin import GuardedModelAdmin
 from guardian.ctypes import get_content_type
 from guardian.models import Permission, UserObjectPermission
 from guardian.shortcuts import get_objects_for_user
@@ -119,7 +118,7 @@ class ChangePermissionFromQS(object):
         return True
 
 
-class GlossaryAdmin(ChangePermissionFromQS, GuardedModelAdmin):
+class GlossaryAdmin(ChangePermissionFromQS, admin.ModelAdmin):
     save_on_top = True
     form = TerminatorGlossaryAdminForm
     filter_horizontal = ('subscribers','subject_fields',)
