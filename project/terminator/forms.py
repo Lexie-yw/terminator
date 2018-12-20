@@ -165,16 +165,32 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(TerminatorGlossaryAdminForm, self).__init__(*args, **kwargs)
+
+        # avoid repeated queries
+        users_qs = User.objects.filter(is_active=True).order_by("username")
+        users = [(u.pk, u.username) for u in users_qs]
+        for field in (
+                "subscribers",
+                "terminologists",
+                "lexicographers",
+                "owners",
+                ):
+            self.fields[field].choices = users
+        languages_qs = Language.objects.all().order_by("iso_code")
+        languages = [(l.pk, l.name) for l in languages_qs]
+        self.fields["source_language"].choices = languages
+
         if self.instance.id:
+            source_lang_id = self.instance.source_language_id
+            languages = [l for l in languages if l[0] != source_lang_id]
             # only provide concepts in this glossary
             self.fields['subject_fields'].queryset = Concept.objects.filter(
                     glossary=self.instance,
             )
-            self.fields['other_languages'].queryset = Language.objects.exclude(
-                    iso_code=self.instance.source_language_id,
-            ).order_by('iso_code')
             for name, users in self.get_collaborators().items():
                 self.fields[name].initial = users
+
+        self.fields["other_languages"].choices = languages
 
     def get_collaborators(self):
         # This is what we want:
@@ -261,9 +277,10 @@ class TerminatorConceptAdminForm(forms.ModelForm):
             # only provide concepts in this glossary
             concepts = Concept.objects.filter(
                     glossary_id=self.instance.glossary_id,
-            ).exclude(pk=self.instance.pk).only("id", "repr_cache").all()
-            self.fields['related_concepts'].queryset = concepts
-            self.fields['broader_concept'].queryset = concepts
+            ).exclude(pk=self.instance.pk).values_list("id", "repr_cache")
+            self.fields['related_concepts'].choices = concepts
+            self.fields['broader_concept'].choices = concepts
+
         self.queryset = Concept.objects.all().select_related("glossary")
 
     def clean(self):
