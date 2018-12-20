@@ -397,6 +397,26 @@ class ConceptLanguageMixin(object):
         return super(ConceptLanguageMixin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
+class RelatedGlossaryListFilter(admin.SimpleListFilter):
+    # A list filter for concept__glossary
+    title = _('Glossary')
+    parameter_name = 'glossary'
+
+    def lookups(self, request, model_admin):
+        if request.user.is_superuser:
+            glossaries = Glossary.objects.all()
+        else:
+            glossaries = get_objects_for_user(request.user,
+                                        ['is_terminologist_in_this_glossary'],
+                                        Glossary, False)
+        return [(glossary.pk, glossary.name) for glossary in glossaries]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            queryset = queryset.filter(concept__glossary__pk=self.value())
+        return queryset
+
+
 class ConceptInLanguageAdmin(admin.ModelAdmin):
     form = ConceptInLanguageAdminForm
     can_add = False
@@ -435,27 +455,6 @@ class ContextSentenceInline(admin.TabularInline):
 class CorpusExampleInline(admin.TabularInline):
     model = CorpusExample
     extra = 1
-
-
-class RelatedGlossaryListFilter(admin.SimpleListFilter):
-    # A list filter for concept__glossary
-    title = _('Glossary')
-    parameter_name = 'glossary'
-
-    def lookups(self, request, model_admin):
-        if request.user.is_superuser:
-            glossaries = Glossary.objects.all()
-        else:
-            glossaries = get_objects_for_user(request.user,
-                                        ['is_terminologist_in_this_glossary'],
-                                        Glossary, False)
-        return [(glossary.pk, glossary.name) for glossary in glossaries]
-
-    def queryset(self, request, queryset):
-        print self.value()
-        if self.value():
-            queryset = queryset.filter(concept__glossary__pk=self.value())
-        return queryset
 
 
 class TranslationAdmin(ConceptLanguageMixin, admin.ModelAdmin):
