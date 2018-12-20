@@ -17,6 +17,7 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 from django import forms
+from django.conf import settings
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms.widgets import Textarea, TextInput, URLInput, Select
 from django.utils.translation import ugettext_lazy as _
@@ -169,12 +170,14 @@ class TerminatorGlossaryAdminForm(forms.ModelForm):
         # avoid repeated queries
         users_qs = User.objects.filter(is_active=True).order_by("username")
         users = [(u.pk, u.username) for u in users_qs]
-        for field in (
-                "subscribers",
+        fields = [
                 "terminologists",
                 "lexicographers",
                 "owners",
-                ):
+                ]
+        if settings.FEATURES.get('subscription', True):
+            fields.append("subscribers")
+        for field in fields:
             self.fields[field].choices = users
         languages_qs = Language.objects.all().order_by("iso_code")
         languages = [(l.pk, l.name) for l in languages_qs]
