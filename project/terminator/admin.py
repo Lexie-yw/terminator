@@ -158,6 +158,18 @@ admin.site.register(Glossary, GlossaryAdmin)
 class DefinitionInline(admin.TabularInline):
     model = Definition
     extra = 0
+    fields = ('language', 'text', 'is_finalized', 'source')
+    readonly_fields = ('is_finalized', )
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('language',)
+        return self.readonly_fields
+
+    def get_queryset(self, request):
+        qs = super(DefinitionInline, self).get_queryset(request)
+        qs = qs.order_by('-is_finalized', 'language_id')
+        return qs
 
     def has_add_permission(self, request):
         return True
