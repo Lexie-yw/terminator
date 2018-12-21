@@ -42,16 +42,18 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     
     <p>{{ glossary.description|linebreaks }}</p>
 
-    {% if glossary.subject_fields.exists %}
+    {% with subject_fields=glossary.subject_fields.all %}
+    {% if subject_fields %}
     <p>
-    <b>{% blocktrans count fields=glossary.subject_fields.count %}Subject field:{% plural %}Subject fields:{% endblocktrans %}</b>
+    <b>{% blocktrans count fields=subject_fields|length %}Subject field:{% plural %}Subject fields:{% endblocktrans %}</b>
       <ul class="iconlist">
-      {% for concept in glossary.subject_fields.all %}
+      {% for concept in subject_fields %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
       {% endfor %}
       </ul>
     </p>
     {% endif %}
+    {% endwith %}
 
     {% if "owner" in glossary_perms %}
         <p><a href="{% url "admin:terminator_glossary_change" glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_edit_16.png" />{% trans "edit this glossary" %}</a></p>
@@ -60,24 +62,25 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
     <h2><img src="{{ STATIC_PREFIX }}images/icon_concept_24.png" />
             {% blocktrans %}Concepts{% endblocktrans %}</h2>
 
-    {% cache 300 glossary_detail_list glossary.pk user.is_authenticated LANGUAGE_CODE %}
     <ul class="iconlist halfvertflexlist">
-    {% for concept in glossary.concept_set.all|slice:":17" %}
+    {% with concept_set=glossary.concept_set.all|slice:":21" %}
+    {# force evaluation: #}{% if concept_set %}{% endif %}
+    {% for concept in concept_set|slice:":17" %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
     {% endfor %}
-    {% if glossary.concept_set.all.count > 20 %}
+    {% if concept_set|length > 20 %}
         <li class="conceptitem">...</li>
       </ul>
       {% if user.is_authenticated %}
         <p><b><a href="{% url "terminator_glossary_concepts" pk=glossary.pk %}"><img src="{{ STATIC_PREFIX }}images/icon_glossary_16.png" />{% trans "See all concepts in this glossary" %}</a></b></p>
       {% endif %}
     {% else %}
-      {% for concept in glossary.concept_set.all|slice:"17:20" %}
+      {% for concept in concept_set|slice:"17:20" %}
         <li class="conceptitem"><a href="{% url "terminator_concept_detail" pk=concept.pk %}">{{ concept }}</a></li>
       {% endfor %}
       </ul>
     {% endif %}
-    {% endcache %}
+    {% endwith %}
 
     {% if "terminologist" in glossary_perms %}
         <p><a href="{% url "admin:terminator_concept_add" %}?glossary={{ glossary.pk }}"><img src="{{ STATIC_PREFIX }}images/icon_add_16.png" /> {% trans "add a new concept to this glossary" %}</a></p>
