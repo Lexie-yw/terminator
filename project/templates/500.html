@@ -24,8 +24,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block title %}{% trans 'Server Error' %}{% endblock %}
 
 {% block container %}
-<div id="container_content">
+<div id="wide_content">
     <h1>{% trans 'Internal Server Error' %}</h1>
+    <div class="flex">
+    <div class="flexcol">
     <p>{% trans 'An error occurred on the server. It might be a problem in the server code or configuration — not your mistake.' %}</p>
     {% url "terminator_search" as search_url %}
     {% url "terminator_index" as index_url %}
@@ -35,6 +37,16 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <li><a href="{{ index_url }}">{% trans "Go to the front page" %}</a></li>
         <li><a href="{{ search_url }}">{% trans "Search for terms" %}</a></li>
     </ul>
+    </div>
+
+    <div class="flexcol-reference">
+        <div class="reference_concept">
+            <div class="reference_terms">error (noun)</div>
+            <div class="reference_body" lang="en">A condition where an incorrect or unwanted result is encountered.</div>
+        </div>
+    </div>
+
+    </div>
 
     <h4>{% trans "Technical information" %}</h4>
     <p>{% trans "When contacting your administrator, copy and paste the following information for reference:" %}</p>

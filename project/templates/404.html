@@ -24,8 +24,10 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
 {% block title %}{% trans 'Not found' %}{% endblock %}
 
 {% block container %}
-<div id="container_content">
+<div id="wide_content">
     <h1>{% trans "The page could not be found" %}</h1>
+    <div class="flex">
+    <div class="flexcol">
     {% url "terminator_search" as search_url %}
     {% url "terminator_index" as index_url %}
     {% url "profiles_profile_detail" username=user.username as profile_url %}
@@ -38,6 +40,16 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <li><a href="{{ profile_url }}">{% trans "View your profile" %}</a></li>
         {% endif %}
     </ul>
+    </div>
+
+    <div class="flexcol-reference">
+        <div class="reference_concept">
+            <div class="reference_terms">find (verb)</div>
+            <div class="reference_body" lang="en">Successfully looking or searching for something.</div>
+        </div>
+    </div>
+
+    </div>
 
     <h4>{% trans "Technical information" %}</h4>
     <p>{% trans "When contacting your administrator, copy and paste the following information for reference:" %}</p>
