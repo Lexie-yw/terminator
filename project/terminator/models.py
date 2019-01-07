@@ -294,13 +294,11 @@ class Concept(models.Model):
         return repr_
 
     def source_language_finalized(self):
-        try:
-            return ConceptInLanguage.objects.get(
+        return ConceptInLanguage.objects.filter(
                     concept=self,
                     language=self.glossary.source_language_id,
-            ).is_finalized
-        except ConceptInLanguage.DoesNotExist:
-            return False
+                    is_finalized=True,
+        ).exists()
 
     def prev_concept(self):
         """The previous concept in the same glossary."""
