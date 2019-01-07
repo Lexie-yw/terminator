@@ -31,7 +31,12 @@ along with Terminator.  If not, see <http://www.gnu.org/licenses/>.
         <div class="search_form">
             {% if import_message %}
                 <p class="successnote">
-                    <a href="{{ glossary_url }}">{{ import_message }}</a>
+                    <a href="{{ glossary.get_absolute_url }}">{{ import_message }}</a>
+                </p>
+                <p>
+                    <a href="{% url "admin:terminator_glossary_change" glossary.pk %}">
+                        {% trans "Edit this glossary (including permissions)" %}
+                    </a>
                 </p>
             {% endif %}
             {% if import_error_message %}<p class="errornote">{{ import_error_message|linebreaksbr }}</p>{% endif %}

@@ -553,13 +553,9 @@ def import_view(request):
                 import_error_message += unicode(e.args[0])
                 context['import_error_message'] = import_error_message
             else:
-                # Assign the owner permissions to the file sender
-                glossary.assign_specialist_permissions(request.user)
-                glossary.assign_terminologist_permissions(request.user)
-                glossary.assign_owner_permissions(request.user)
                 import_message = _("TBX file succesfully imported.")
                 context['import_message'] = import_message
-                context['glossary_url'] = glossary.get_absolute_url()
+                context['glossary'] = glossary
                 import_form = ImportForm()
                 LogEntry.objects.log_action(
                     user_id=request.user.pk,
