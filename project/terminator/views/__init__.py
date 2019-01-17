@@ -79,11 +79,11 @@ def terminator_profile_detail(request, username):
     checker.prefetch_perms(glossary_list)
     for glossary in glossary_list:
         if checker.has_perm('owner', glossary):
-            user_glossaries.append({'glossary': glossary, 'role': _(u"Owner")})
+            user_glossaries.append({'glossary': glossary, 'role': _(u"owner")})
         elif checker.has_perm('terminologist', glossary):
-            user_glossaries.append({'glossary': glossary, 'role': _(u"Terminologist")})
+            user_glossaries.append({'glossary': glossary, 'role': _(u"terminologist")})
         elif checker.has_perm('specialist', glossary):
-            user_glossaries.append({'glossary': glossary, 'role': _(u"Specialist")})
+            user_glossaries.append({'glossary': glossary, 'role': _(u"specialist")})
 
     ctypes = ContentType.objects.get_for_models(Translation, Definition, ExternalResource).values()
     recent_changes = process_recent_changes(LogEntry.objects.filter(
