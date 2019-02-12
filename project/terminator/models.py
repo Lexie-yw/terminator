@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License along with
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import unicode_literals
+
 from django.contrib.admin.models import LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -25,6 +27,7 @@ from django.db.models import Field, Transform
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils.encoding import force_text, python_2_unicode_compatible
 from django.utils.html import format_html, mark_safe
 from django.utils.translation import ugettext_lazy as _
 
@@ -34,6 +37,7 @@ from simple_history.models import HistoricalRecords
 import itertools
 import re
 
+@python_2_unicode_compatible
 class PartOfSpeech(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("name"))
     tbx_representation = models.CharField(max_length=100, verbose_name=_("TBX representation"))
@@ -43,7 +47,7 @@ class PartOfSpeech(models.Model):
         verbose_name = _("part of speech")
         verbose_name_plural = _("parts of speech")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def allows_grammatical_gender_for_language(self, language):
@@ -61,6 +65,7 @@ class PartOfSpeech(models.Model):
         return response
 
 
+@python_2_unicode_compatible
 class GrammaticalGender(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("name"))
     tbx_representation = models.CharField(max_length=100, verbose_name=_("TBX representation"))
@@ -70,10 +75,11 @@ class GrammaticalGender(models.Model):
         verbose_name = _("grammatical gender")
         verbose_name_plural = _("grammatical genders")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class GrammaticalNumber(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("name"))
     tbx_representation = models.CharField(max_length=100, verbose_name=_("TBX representation"))
@@ -83,10 +89,11 @@ class GrammaticalNumber(models.Model):
         verbose_name = _("grammatical number")
         verbose_name_plural = _("grammatical numbers")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Language(models.Model):
     iso_code = models.CharField(primary_key=True, max_length=10, verbose_name=_("ISO code"))
     name = models.CharField(max_length=50, verbose_name=_("name"))
@@ -99,8 +106,8 @@ class Language(models.Model):
         verbose_name = _("language")
         verbose_name_plural = _("languages")
 
-    def __unicode__(self):
-        return unicode(_(u"%(language_name)s (%(iso_code)s)") % {'language_name': self.name, 'iso_code': self.iso_code})
+    def __str__(self):
+        return _("%(language_name)s (%(iso_code)s)") % {'language_name': self.name, 'iso_code': self.iso_code}
 
     def allows_part_of_speech(self, part_of_speech):
         return part_of_speech in self.parts_of_speech.all()
@@ -115,6 +122,7 @@ class Language(models.Model):
         return administrative_status_reason in self.administrativestatusreason_set.all()
 
 
+@python_2_unicode_compatible
 class PartOfSpeechForLanguage(models.Model):
     language = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name=_("language"))
     part_of_speech = models.ForeignKey(PartOfSpeech, on_delete=models.CASCADE, verbose_name=_("part of speech"))
@@ -125,10 +133,11 @@ class PartOfSpeechForLanguage(models.Model):
         verbose_name_plural = _("parts of speech for languages")
         unique_together = ("language", "part_of_speech")
 
-    def __unicode__(self):
-        return unicode(_(u"%(part_of_speech)s (%(language)s)") % {'part_of_speech': self.part_of_speech, 'language': self.language_id})
+    def __str__(self):
+        return _("%(part_of_speech)s (%(language)s)") % {'part_of_speech': self.part_of_speech, 'language': self.language_id}
 
 
+@python_2_unicode_compatible
 class AdministrativeStatus(models.Model):
     name = models.CharField(max_length=20, verbose_name=_("name"))
     tbx_representation = models.CharField(primary_key=True, max_length=25, verbose_name=_("TBX representation"))
@@ -139,10 +148,10 @@ class AdministrativeStatus(models.Model):
         verbose_name = _("administrative status")
         verbose_name_plural = _("administrative statuses")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
-
+@python_2_unicode_compatible
 class AdministrativeStatusReason(models.Model):
     languages = models.ManyToManyField(Language, verbose_name=_("languages"))
     name = models.CharField(max_length=40, verbose_name=_("name"))
@@ -152,10 +161,11 @@ class AdministrativeStatusReason(models.Model):
         verbose_name = _("administrative status reason")
         verbose_name_plural = _("administrative status reasons")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class ExternalLinkType(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("name"))
     tbx_representation = models.CharField(primary_key=True, max_length=30, verbose_name=_("TBX representation"))
@@ -165,10 +175,11 @@ class ExternalLinkType(models.Model):
         verbose_name = _("external link type")
         verbose_name_plural = _("external link types")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
+@python_2_unicode_compatible
 class Glossary(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name=_("name"))
     description = models.TextField(verbose_name=_("description"))
@@ -194,11 +205,11 @@ class Glossary(models.Model):
             ('owner', 'Owner of this glossary'),
         )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('terminator_glossary_detail', kwargs={'pk': unicode(self.pk)})
+        return reverse('terminator_glossary_detail', kwargs={'pk': self.pk})
 
     def assign_specialist_permissions(self, user):
         assign_perm('specialist', user, self)
@@ -256,6 +267,7 @@ class Glossary(models.Model):
             ).order_by())
         return process_recent_changes(qs.order_by("-action_time")[:5])
 
+@python_2_unicode_compatible
 class Concept(models.Model):
     glossary = models.ForeignKey(Glossary, on_delete=models.CASCADE, verbose_name=_("glossary"))
     subject_field = models.ForeignKey('self', related_name='concepts_in_subject_field', null=True, blank=True, on_delete=models.PROTECT, verbose_name=_("subject field"))
@@ -270,10 +282,10 @@ class Concept(models.Model):
         verbose_name_plural = _("concepts")
         ordering = ['id']
 
-    def __unicode__(self):
+    def __str__(self):
         if self.repr_cache:
             return self.repr_cache
-        return unicode(_(u"Concept #%(concept_id)d") % {'concept_id': self.id})
+        return _("Concept #%(concept_id)d") % {'concept_id': self.id}
 
     def update_repr_cache(self):
         if not self.id:
@@ -328,7 +340,7 @@ class Concept(models.Model):
         return itertools.chain(reversed(previous_concepts), next_concepts)
 
     def get_absolute_url(self):
-        return reverse('terminator_concept_detail', kwargs={'pk': unicode(self.pk)})
+        return reverse('terminator_concept_detail', kwargs={'pk': self.pk})
 
 
 def update_repr_cache(sender, **kwargs):
@@ -341,9 +353,10 @@ class ConceptLangUrlMixin(object):
     def get_absolute_url(self):
         if self.concept.glossary.source_language_id == self.language_id:
             return reverse("terminator_concept_source", kwargs={'pk': self.concept.pk})
-        return reverse('terminator_concept_detail_for_language', kwargs={'pk': unicode(self.concept.pk), 'lang': self.language.pk})
+        return reverse('terminator_concept_detail_for_language', kwargs={'pk': self.concept.pk, 'lang': self.language.pk})
 
 
+@python_2_unicode_compatible
 class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.PROTECT)
@@ -429,8 +442,8 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
 
         return concepts
 
-    def __unicode__(self):
-        return unicode(_(u"%(concept)s — language code: %(iso_code)s") % {'iso_code': self.language_id, 'concept': self.concept})
+    def __str__(self):
+        return _("#%(concept)s — language code: %(iso_code)s") % {'iso_code': self.language_id, 'concept': self.concept_id}
 
     def translations_html(self):
         translations = Translation.objects.filter(
@@ -442,10 +455,10 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
             if translation.is_finalized:
                 parts.append(translation.translation_text)
             else:
-                parts.append(format_html(_(u"{} <em>(not finalized)</em>"),
+                parts.append(format_html(_("{} <em>(not finalized)</em>"),
                                         translation.translation_text))
         return mark_safe(("<br>").join(parts))
-    translations_html.short_description = _(u"Terms")
+    translations_html.short_description = _("Terms")
 
     def definition_html(self):
         try:
@@ -460,19 +473,20 @@ class ConceptInLanguage(models.Model, ConceptLangUrlMixin):
             return definition.text
         else:
             return format_html(
-                    _(u"{} <em>(not finalized)</em>"),
+                    _("{} <em>(not finalized)</em>"),
                     definition.text,
             )
-            return _(u"%s (not finalized)") % definition.text
-    definition_html.short_description = _(u"Definition")
+            return _("%s (not finalized)") % definition.text
+    definition_html.short_description = _("Definition")
 
     def date_html(self):
         if self.is_finalized:
             return self.date
         return ""
-    date_html.short_description = _(u"Date")
+    date_html.short_description = _("Date")
 
 
+@python_2_unicode_compatible
 class Translation(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
@@ -490,13 +504,13 @@ class Translation(models.Model, ConceptLangUrlMixin):
         verbose_name_plural = _("translations")
         ordering = ['concept', 'language']
 
-    def __unicode__(self):
+    def __str__(self):
         trans_data = {
             'term': self.translation_text,
             'iso_code': self.language_id,
             'concept': self.concept
         }
-        return unicode(_(u"“%(term)s” (%(iso_code)s) for %(concept)s") % trans_data)
+        return _("“%(term)s” (%(iso_code)s) for %(concept)s") % trans_data
 
     def save(self, *args, **kwargs):
         update_repr_cache = kwargs.pop("update_repr_cache", True)
@@ -521,6 +535,7 @@ class Translation(models.Model, ConceptLangUrlMixin):
         #language involved
 
 
+@python_2_unicode_compatible
 class Definition(models.Model, ConceptLangUrlMixin):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
@@ -534,9 +549,9 @@ class Definition(models.Model, ConceptLangUrlMixin):
         verbose_name_plural = _("definitions")
         unique_together = ("concept", "language")
 
-    def __unicode__(self):
+    def __str__(self):
         text = self.text
-        concept = unicode(self.concept)
+        concept = force_text(self.concept)
         if len(concept) > 50:
             if len(text) > 150:
                 boundary = min(50, concept.index(","))
@@ -546,9 +561,10 @@ class Definition(models.Model, ConceptLangUrlMixin):
             'concept': concept,
             'text': text
         }
-        return unicode(_(u"Definition (%(iso_code)s) for %(concept)s: %(text)s") % trans_data)
+        return _("Definition (%(iso_code)s) for %(concept)s: %(text)s") % trans_data
 
 
+@python_2_unicode_compatible
 class ExternalResource(models.Model):
     concept = models.ForeignKey(Concept, on_delete=models.CASCADE, verbose_name=_("concept"))
     language = models.ForeignKey(Language, null=True, blank=True, on_delete=models.PROTECT, verbose_name=_("language"))
@@ -560,18 +576,19 @@ class ExternalResource(models.Model):
         verbose_name = _("external resource")
         verbose_name_plural = _("external resources")
 
-    def __unicode__(self):
+    def __str__(self):
         if self.language_id:
-            template = _(u"%(address)s (%(iso_code)s) for %(concept)s")
+            template = _("%(address)s (%(iso_code)s) for %(concept)s")
         else:
-            template = _(u"%(address)s for %(concept)s")
-        return unicode(template % {
+            template = _("%(address)s for %(concept)s")
+        return template % {
             'address': self.address,
             'iso_code': self.language_id,
             'concept': self.concept,
-        })
+        }
 
 
+@python_2_unicode_compatible
 class Proposal(models.Model):
     language = models.ForeignKey(Language, on_delete=models.PROTECT, verbose_name=_("language"))
     term = models.CharField(max_length=100, verbose_name=_("term"))
@@ -584,10 +601,11 @@ class Proposal(models.Model):
         verbose_name = _("proposal")
         verbose_name_plural = _("proposals")
 
-    def __unicode__(self):
-        return unicode(_(u"%(proposed_term)s (%(language)s)") % {'proposed_term': self.term, 'language': self.language})
+    def __str__(self):
+        return _("%(proposed_term)s (%(language)s)") % {'proposed_term': self.term, 'language': self.language}
 
 
+@python_2_unicode_compatible
 class ContextSentence(models.Model):
     translation = models.ForeignKey(Translation, on_delete=models.CASCADE, verbose_name=_("translation"))
     # NOTE: Changed the text field from TextField to Charfield limited to 250
@@ -600,14 +618,15 @@ class ContextSentence(models.Model):
         verbose_name_plural = _("context sentences")
         unique_together = ("translation", "text")
 
-    def __unicode__(self):
+    def __str__(self):
         trans_data = {
             'sentence': self.text,
             'translation': self.translation
         }
-        return unicode(_(u"%(sentence)s for translation %(translation)s") % trans_data)
+        return _("%(sentence)s for translation %(translation)s") % trans_data
 
 
+@python_2_unicode_compatible
 class CorpusExample(models.Model):
     translation = models.ForeignKey(Translation, on_delete=models.CASCADE, verbose_name=_("translation"))
     address = models.URLField(verbose_name=_("address"))
@@ -618,16 +637,17 @@ class CorpusExample(models.Model):
         verbose_name_plural = _("corpus examples")
         unique_together = ("translation", "address")
 
-    def __unicode__(self):
+    def __str__(self):
         trans_data = {'address': self.address[:80], 'translation': self.translation}
-        return unicode(_(u"%(address)s for translation %(translation)s") % trans_data)
+        return _("%(address)s for translation %(translation)s") % trans_data
 
 
+@python_2_unicode_compatible
 class CollaborationRequest(models.Model):
     COLLABORATION_ROLE_CHOICES = (
-        (u'O', _(u'Glossary owner')),
-        (u'T', _(u'Terminologist')),
-        (u'S', _(u'Specialist')),
+        ('O', _('Glossary owner')),
+        ('T', _('Terminologist')),
+        ('S', _('Specialist')),
     )
     collaboration_role = models.CharField(max_length=2, choices=COLLABORATION_ROLE_CHOICES, verbose_name=_("collaboration role"))
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("user"))
@@ -639,13 +659,13 @@ class CollaborationRequest(models.Model):
         verbose_name_plural = _("collaboration requests")
         unique_together = ("user", "for_glossary", "collaboration_role")
 
-    def __unicode__(self):
+    def __str__(self):
         trans_data = {
             'user': self.user,
             'role': self.get_collaboration_role_display(),
             'glossary': self.for_glossary
         }
-        return unicode(_(u"%(user)s requested %(role)s for %(glossary)s") % trans_data)
+        return _("%(user)s requested %(role)s for %(glossary)s") % trans_data
 
 
 @Field.register_lookup

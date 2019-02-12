@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
+from django.utils import six
 
 from terminator.forms import *
 
@@ -634,8 +635,7 @@ class SharedTests(object):
         Translation.delete(cls.translation)
 
     def test_str(self):
-        text = unicode(self.model)
-        text = str(self.model)
+        text = six.text_type(self.model)
 
     def test_save(self):
         self.model.save()

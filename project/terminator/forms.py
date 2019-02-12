@@ -20,6 +20,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.forms.widgets import Textarea, TextInput, URLInput, Select
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from guardian.models import UserObjectPermission
@@ -438,7 +439,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
             if not part_of_speech.allows_grammatical_gender_for_language(language):
                 msg = _(u"The specified part of speech doesn't allow specifying a grammatical gender for the chosen language.")
             if not language.allows_grammatical_gender(grammatical_gender):
-                msg += unicode(_(u"The chosen language doesn't allow specifying this grammatical gender."))
+                msg += force_text(_(u"The chosen language doesn't allow specifying this grammatical gender."))
             if msg:
                 self._errors["grammatical_gender"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned
@@ -462,7 +463,7 @@ class TerminatorTranslationAdminForm(forms.ModelForm):
             if not part_of_speech.allows_grammatical_number_for_language(language):
                 msg = _(u"The specified part of speech doesn't allow specifying a grammatical number for the chosen language.")
             if not language.allows_grammatical_number(grammatical_number):
-                msg += unicode(_(u"The chosen language doesn't allow specifying this grammatical number."))
+                msg += force_text(_(u"The chosen language doesn't allow specifying this grammatical number."))
             if msg:
                 self._errors["grammatical_number"] = self.error_class([msg])
                 # This field is no longer valid. So remove it from the cleaned

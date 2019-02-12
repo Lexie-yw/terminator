@@ -23,7 +23,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy, ungettext, ugettext as _
 
 from guardian.ctypes import get_content_type
@@ -694,7 +694,7 @@ class ProposalAdmin(ChangePermissionFromQS, admin.ModelAdmin):
                                     language=proposal.language,
                                     text=proposal.definition)
             definition.save()
-            obj_display = force_unicode(proposal)
+            obj_display = force_text(proposal)
             self.log_deletion(request, proposal, obj_display)
             #TODO maybe notify by email the users that sent the proposals
         rows_deleted = len(queryset)
@@ -908,7 +908,7 @@ class CollaborationRequestAdmin(ChangePermissionFromQS, admin.ModelAdmin):
                           'donotreply@donotreply.com',
                           [collaboration_request.user.email],
                           fail_silently=False)
-            obj_display = force_unicode(collaboration_request)
+            obj_display = force_text(collaboration_request)
             self.log_deletion(request, collaboration_request, obj_display)
         rows_deleted = len(queryset)
         queryset.delete()

@@ -33,7 +33,7 @@ from django.db.models import prefetch_related_objects
 from django.http import HttpResponse
 from django.shortcuts import (get_object_or_404, render, Http404, redirect)
 from django.template import loader
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, ListView, TemplateView
@@ -177,7 +177,7 @@ class ConceptView(TerminatorDetailView):
                 user_id=self.request.user.pk,
                 content_type_id=ContentType.objects.get_for_model(resource).pk,
                 object_id=resource.pk,
-                object_repr=force_unicode(resource),
+                object_repr=force_text(resource),
                 action_flag=ADDITION,
             )
             form = ExternalResourceForm()
@@ -318,7 +318,7 @@ class ConceptSourceView(TerminatorDetailView):
                         user_id=self.request.user.pk,
                         content_type_id=ContentType.objects.get_for_model(model).pk,
                         object_id=model.pk,
-                        object_repr=force_unicode(model),
+                        object_repr=force_text(model),
                         action_flag=flag,
                     )
                     message = _("Your contribution was saved: %s") % value
@@ -499,7 +499,7 @@ def terminator_index(request):
                 user_id = request.user.pk,
                 content_type_id = ContentType.objects.get_for_model(new_proposal).pk,
                 object_id = new_proposal.pk,
-                object_repr = force_unicode(new_proposal),
+                object_repr = force_text(new_proposal),
                 action_flag = ADDITION
             )
             new_proposal_message = _("Thank you for sending a new proposal. "

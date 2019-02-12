@@ -23,7 +23,7 @@ from django.contrib.admin.models import LogEntry, ADDITION
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.shortcuts import render
-from django.utils.encoding import force_unicode
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 
@@ -88,7 +88,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                           "\"%s\" attribute with the value \"%s\" in the "
                           "TBX file.") %
                         ("termEntry", "id", concept_id))
-            excp_msg += unicode(_("\n\nIf you want to import this TBX file"
+            excp_msg += force_text(_("\n\nIf you want to import this TBX file"
                                   " you must fix this in the TBX file."))
             raise Exception(excp_msg)
         concept_object = Concept(glossary=imported_glossary)
@@ -146,7 +146,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                 excp_msg = (_("\"%s\" tag without \"%s\" attribute in "
                               "concept \"%s\".") %
                             ("langSet", "xml:lang", concept_id))
-                excp_msg += unicode(_("\n\nIf you want to import this TBX "
+                excp_msg += force_text(_("\n\nIf you want to import this TBX "
                                       "file you must add that attribute "
                                       "to that tag in the TBX file."))
                 raise Exception(excp_msg)
@@ -156,7 +156,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                               "there is no Language with that code in "
                               "Terminator.") %
                             ("langSet", lang_id, "xml:lang", concept_id))
-                excp_msg += unicode(_("\n\nIf you want to import this TBX "
+                excp_msg += force_text(_("\n\nIf you want to import this TBX "
                                       "file, either add this language to "
                                       "Terminator, or change the \"%s\" "
                                       "attribute for this \"%s\" tag in "
@@ -211,7 +211,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                       " exist in Terminator.") %
                                     (resource_type, "xref", lang_id,
                                      concept_id))
-                        excp_msg += unicode(_("\n\nIf you want to import "
+                        excp_msg += force_text(_("\n\nIf you want to import "
                                               "this TBX file, either add "
                                               "this External Link Type to "
                                               "Terminator, or change this "
@@ -475,7 +475,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                   "concept id doesn't exist in the TBX "
                                   "file.") %
                                 (concept_key, current["subject"]))
-                    excp_msg += unicode(_("\n\nIf you want to import this "
+                    excp_msg += force_text(_("\n\nIf you want to import this "
                                           "TBX file you must fix this."))
                     raise Exception(excp_msg)
             if "broader" in current:
@@ -487,7 +487,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                   "that concept id doesn't exist in the "
                                   "TBX file.") %
                                 (concept_key, current["broader"]))
-                    excp_msg += unicode(_("\n\nIf you want to import this "
+                    excp_msg += force_text(_("\n\nIf you want to import this "
                                           "TBX file you must fix this."))
                     raise Exception(excp_msg)
             if "related" in current:
@@ -501,7 +501,7 @@ def import_uploaded_file(uploaded_file, imported_glossary):
                                       "that concept id doesn't exist in "
                                       "the TBX file.") %
                                     (concept_key, related_key))
-                        excp_msg += unicode(_("\n\nIf you want to import "
+                        excp_msg += force_text(_("\n\nIf you want to import "
                                               "this TBX file you must fix "
                                               "this."))
                         raise Exception(excp_msg)
@@ -550,7 +550,7 @@ def import_view(request):
             except Exception as e:
                 glossary.delete()
                 import_error_message = _("The import process failed:\n\n")
-                import_error_message += unicode(e.args[0])
+                import_error_message += force_text(e.args[0])
                 context['import_error_message'] = import_error_message
             else:
                 import_message = _("TBX file succesfully imported.")
@@ -561,7 +561,7 @@ def import_view(request):
                     user_id=request.user.pk,
                     content_type_id=ContentType.objects.get_for_model(glossary).pk,
                     object_id=glossary.pk,
-                    object_repr=force_unicode(glossary),
+                    object_repr=force_text(glossary),
                     action_flag=ADDITION,
                 )
     else:
