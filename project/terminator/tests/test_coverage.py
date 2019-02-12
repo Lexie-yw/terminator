@@ -509,7 +509,7 @@ class TBXURLs(TestCase):
             glossary = Glossary.objects.get(name="test name")
             if filename == 'most.tbx':
                 self.assertEqual(glossary.source_language.iso_code, 'en')
-                self.assertItemsEqual(glossary.other_languages.values_list('iso_code', flat=True), ('zu',))
+                self.assertSequenceEqual(glossary.other_languages.values_list('iso_code', flat=True), ('zu',))
             Glossary.delete(glossary)
 
             with open(os.path.join(os.path.dirname(__file__), 'empty.tbx'), 'r') as f:
