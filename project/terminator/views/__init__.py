@@ -694,8 +694,8 @@ def export_glossaries_to_TBX(glossaries, desired_languages=None, export_all_defi
     # Create the HttpResponse object with the appropriate header.
     response = HttpResponse(content_type='application/x-tbx')
     if len(glossaries) == 1:
-        from urllib import quote
-        encoded_name = b"%s.tbx" % quote(glossaries[0].name.encode('utf-8'))
+        from django.utils.six.moves.urllib_parse import quote
+        encoded_name = b"%s.tbx" % quote(glossaries[0].name).encode('utf-8')
         response['Content-Disposition'] = "attachment; filename=\"%s\"; filename*=UTF-8''%s" % (encoded_name, encoded_name)
         # http://test.greenbytes.de/tech/tc2231/
         # The encoding of filename is wrong, but seems like it will trigger the

@@ -498,7 +498,7 @@ class TBXURLs(TestCase):
                     "source_language": 'en',
                     'imported_file': f
                 })
-            if "no Language with that code" in response.content:
+            if b"no Language with that code" in response.content:
                 # first attempt to import a file with Zulu
                 Language(iso_code="zu").save()
                 self.assertNotContains(response, "succesful")

@@ -198,7 +198,9 @@ FEATURES = {
 
 # Get local overrides
 try:
-    execfile(os.path.dirname(__file__) + '/' + "local_settings.py")
+    with open("local_settings.py") as f:
+        code = compile(f.read(), "local_settings.py", 'exec')
+        exec(code)
 except:
     print("Create local_settings.py to provide your configuration options.")
     print("See the Django documentation about settings.\n")
