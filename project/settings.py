@@ -199,7 +199,9 @@ FEATURES = {
 
 # Get local overrides
 try:
-    with open("local_settings.py") as f:
+    import os.path
+    dirname = os.path.dirname(__file__)
+    with open(os.path.join(dirname, "local_settings.py")) as f:
         code = compile(f.read(), "local_settings.py", 'exec')
         exec(code)
 except:
