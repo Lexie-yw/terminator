@@ -250,6 +250,8 @@ class ConceptSourceView(TerminatorDetailView):
                 concept=self.object,
                 language=self.object.glossary.source_language,
         )
+        # Avoid the query if the template uses concept_in_lang.concept:
+        self.concept_in_lang.concept = self.object
         return self.concept_in_lang
 
     def may_edit(self, glossary_perms):
