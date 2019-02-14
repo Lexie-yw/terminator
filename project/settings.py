@@ -86,6 +86,7 @@ SECRET_KEY = 'e_d&6)l3hqg+336*+j$id*0s_q5i36webcq@hs4+5uztfuzc)b'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'compression_middleware.middleware.CompressionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
