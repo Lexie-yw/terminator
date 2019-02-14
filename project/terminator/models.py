@@ -552,9 +552,15 @@ class Definition(models.Model, ConceptLangUrlMixin):
     def __str__(self):
         text = self.text
         concept = force_text(self.concept)
-        if len(concept) > 50:
-            if len(text) > 150:
-                boundary = min(50, concept.index(","))
+        if len(concept) > 40 and len(text) > 150:
+            # This becomes quite long, and won't serve well in LogEntry. Let's
+            # try to trim multiple terms in the concept:
+            boundary = concept.find(",", 0, 35)
+            if boundary < 0:
+                # comma not found
+                concept = concept[:35] + "…"
+            else:
+                concept = concept[:boundary]
 
         trans_data = {
             'iso_code': self.language_id,
