@@ -10,7 +10,7 @@ The latest Community version is fine.
 
 Make sure you install the ASP.NET workload for web development.
 
-![](screenshots\ASP.NET.png)
+![](screenshots/ASP.NET.png)
 
 Download and install [Python](https://www.python.org/downloads/). Make sure you check the box "Add Python 3.x to PATH."
 
@@ -20,7 +20,7 @@ Download and install [MySQL](https://dev.mysql.com/downloads/installer/).
 
 Use the default settings when configuring Type and Networking.
 
-![](screenshots\MySQL_1.png)
+![](screenshots/MySQL_1.png)
 
 ## Configure Python environment
 
@@ -64,7 +64,7 @@ Start Apache, then start MySQL.
 
 XAMPP should look like this after starting Apache and MySQL.
 
-![](screenshots\XAMPP.png)
+![](screenshots/XAMPP.png)
 
 ## Create a Database
 
@@ -74,7 +74,7 @@ Enter your password.
 
 If successful, you will see a screen like this.
 
-![](screenshots\MySQL_CLI.png)
+![](screenshots/MySQL_CLI.png)
 
 Enter the following to show existing databases:
 
@@ -118,7 +118,7 @@ DATABASES = {
 
 Important: comment out lines 201 to the end of the local_settings.py file.
 
-![](screenshots\local_settings.png)
+![](screenshots/local_settings.png)
 
 ## Migrate Data Structure
 
@@ -136,7 +136,7 @@ python manage.py migrate --noinput
 
 If successful, you should see a screen like this:
 
-![](screenshots\migrated.png)
+![](screenshots/migrated.png)
 
 ## Create a Superuser
 
@@ -162,7 +162,7 @@ Terminator is now running.
 
 Log in with the credentials of the superuser you just created:
 
-![](screenshots\log_in.png)
+![](screenshots/log_in.png)
 
 Add /admin/ to the url to go to the Terminator administration page.
 
