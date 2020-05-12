@@ -14,7 +14,7 @@ Make sure you install the ASP.NET workload for web development.
 
 Download and install [Python](https://www.python.org/downloads/). Make sure you check the box "Add Python 3.x to PATH."
 
-Download and install [XAMPP](https://www.apachefriends.org/download.html).
+Download and install the latest stable version of [XAMPP](https://www.apachefriends.org/download.html).
 
 Download and install [MySQL](https://dev.mysql.com/downloads/installer/).
 
