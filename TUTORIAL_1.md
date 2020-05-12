@@ -91,7 +91,6 @@ mkvirtualenv myTB
 git clone https://github.com/nicklambson/terminator.git
 cd terminator
 pip install -r requirements/base.txt
-pip install mysqlclient
 ```
 
 Remember! All commands should be executed inside the virtual environment! If you close the command line, remember to re-enter the virtual environment by entering this code:
@@ -112,9 +111,7 @@ XAMPP should look like this after starting Apache and MySQL.
 
 ## Create a Database
 
-Open MySQL Command Line Client.
-
-Enter your password.
+Open MySQL Command Line Client. The password is null, so just hit enter without typing in any password.
 
 If successful, you will see a screen like this.
 
