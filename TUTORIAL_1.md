@@ -36,6 +36,30 @@ Use the default settings when configuring Type and Networking.
 
 ![](screenshots/MySQL_1.png)
 
+On the **High Availability** screen, select **Standalone MySQL Server / Classic MySQL Replication**.
+
+![](screenshots/high_availability.png)
+
+On the **Authentication Method** page, select **Use Strong Password Encryption for Authentication (RECOMMENDED)**
+
+![](screenshots/authentication_method.png)
+
+On the **Accounts and Roles** page, add a MySQL root password.
+
+![](screenshots/accounts_and_roles.png)
+
+Click **Add User** to add a new user. The **User Role** should be **DB Admin**.
+
+![](screenshots/my_sql_user_account.png)
+
+On **Windows Service**, uncheck **Configure MySQL Server as a Windows Service**. We will be using XAMPP instead.
+
+![](screenshots/windows_service.png)
+
+On **Apply Configuration** click **Execute**.
+
+![](screenshots/apply_config.png)
+
 ## Configure Python environment
 
 Install virtualenv and virtualenvwrapper.
