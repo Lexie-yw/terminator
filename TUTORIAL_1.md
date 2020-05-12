@@ -60,6 +60,12 @@ On **Apply Configuration** click **Execute**.
 
 ![](screenshots/apply_config.png)
 
+Ignore the options for **MySQL Router Configuration** and just click **Finish**.
+
+On **Connect to Server** enter your password and click **Check**. Then click **Next**.
+
+Finally, on **Apply Configuration**, click **Execute** then **Finish**.
+
 ## Configure Python environment
 
 Install virtualenv and virtualenvwrapper.
