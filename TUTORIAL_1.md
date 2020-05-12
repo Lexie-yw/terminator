@@ -4,7 +4,7 @@ Terminator is an open source terminology management platform built with Django a
 
 ## Download and Install Prerequisites
 
-Download and install [Visual Studio](https://visualstudio.microsoft.com/downloads/)
+Download [Visual Studio](https://visualstudio.microsoft.com/downloads/).
 
 The latest Community version is fine.
 
@@ -16,7 +16,21 @@ Download and install [Python](https://www.python.org/downloads/). Make sure you 
 
 Download and install the latest stable version of [XAMPP](https://www.apachefriends.org/download.html).
 
-Download and install [MySQL](https://dev.mysql.com/downloads/installer/).
+Download and install [MySQL](https://dev.mysql.com/downloads/installer/). Install the software using the **Developer Default** Setup Type.
+
+![](screenshots/developer_default.png)
+
+On the **Check Requirements** page, the installer will try to install any missing requirements automatically. If a requirement cannot be installed automatically, the **Status** may be marked as **Manual**, indicating that you need to install this software manually. Visual Studio must be installed manually.
+
+![](screenshots/check_requirements.png)
+
+Click **Execute** to isntruct the installer to automatically install any missing software. After the installer has finished installing the necessary utilities, you will see a screen like this.
+
+![](screenshots/auto_install_success.png)
+
+On the **Installation** page, click **Execute** to install MYSQL.
+
+![](screenshots/MySQL_installation.png)
 
 Use the default settings when configuring Type and Networking.
 
