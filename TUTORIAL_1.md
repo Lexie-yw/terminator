@@ -84,6 +84,7 @@ pip install virtualenv
 pip install virtualenvwrapper-win
 ```
 
+## Create Virtual Environment and Install Requirements
 In the command line, enter the following commands:
 
 ```
@@ -134,32 +135,6 @@ Verify that the database was created by viewing the databases again:
 ```
 show databases;
 ```
-
-## Modify Settings
-
-Create a copy of the settings.py file in the project folder, and rename it to local_settings.py.
-
-Open local_settings.py.
-
-In DATABASES, match the following settings:
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myTB',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST' : '',
-        'PORT' : '3306',
-        'OPTIONS': {'init_command': 'SET storage_engine=INNODB',}
-    }
-}
-```
-
-Important: comment out lines 201 to the end of the local_settings.py file.
-
-![](screenshots/local_settings.png)
 
 ## Migrate Data Structure
 
