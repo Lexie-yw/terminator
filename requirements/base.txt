@@ -9,4 +9,4 @@ django-contrib-comments==1.7.3
 django-simple-history==2.0
 django-compression-middleware
 
-mysqlclient==1.4.6
+pymysql
