@@ -17,7 +17,8 @@
 # Terminator. If not, see <http://www.gnu.org/licenses/>.
 
 import os.path
-
+import pymysql
+pymysql.install_as_MySQLdb()
 
 DEBUG = True
 
@@ -29,7 +30,7 @@ DATABASES = {
         'PASSWORD': '',
         'HOST' : '',
         'PORT' : '3306',
-        'OPTIONS': {'init_command': 'SET storage_engine=INNODB',}
+        'OPTIONS': {'init_command': 'SET sql_mode="STRICT_TRANS_TABLES", storage_engine=INNODB',}
     }
 }
 
