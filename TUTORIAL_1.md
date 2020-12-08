@@ -9,17 +9,16 @@ Download and install the latest stable version of [XAMPP](https://www.apachefrie
 Download the latest version of [Python 3.8 (32-bit) for Windows](https://www.python.org/ftp/python/3.8.6/python-3.8.6.exe). Note that Python 3.9 is not compatible.
 
 - Double click on the installer to open it.
-
 - Check the box "Install launcher for all users (recommended)
 - Check the box "Add Python 3.x to PATH."
 
 Click **Customize installation**.
 
-![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\python_1.png)
+![](screenshots\python_1.png)
 
 On the **Optional Features** screen, check all the boxes and click **Next**.
 
-![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\python_2.png)
+![](screenshots\python_2.png)
 
 On the **Advanced Options** screen, check the below boxes:
 
@@ -31,7 +30,7 @@ On the **Advanced Options** screen, check the below boxes:
 
 Click **Install**.
 
-![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\python_3.png)
+![](screenshots\python_3.png)
 
 ## Configure Python environment
 
@@ -64,7 +63,7 @@ Click on `Admin` for MySQL in the XAMPP Control Panel. This will open phpMyAdmin
 
 Click `New`. Enter the name of your new database: myTB. Set the encoding to utf8mb4_general_ci. Click `Create`.
 
-![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\phpmyadmin_1.png)
+![](screenshots\phpmyadmin_1.png)
 
 ## Migrate Data Structure
 
