@@ -4,101 +4,49 @@ Terminator is an open source terminology management platform built with Django a
 
 ## Download and Install Prerequisites
 
-Download [Visual Studio](https://visualstudio.microsoft.com/downloads/).
-
-The latest Community version is fine.
-
-Make sure you install the ASP.NET workload for web development.
-
-![](screenshots/ASP.NET.png)
-
-Download and install [Python](https://www.python.org/downloads/). Make sure you check the box "Add Python 3.x to PATH."
-
 Download and install the latest stable version of [XAMPP](https://www.apachefriends.org/download.html).
 
-Download and install [MySQL](https://dev.mysql.com/downloads/installer/). Install the software using the **Developer Default** Setup Type.
+Download the latest version of [Python 3.8 (32-bit) for Windows](https://www.python.org/ftp/python/3.8.6/python-3.8.6.exe). Note that Python 3.9 is not compatible.
 
-![](screenshots/developer_default.png)
+- Double click on the installer to open it.
 
-On the **Check Requirements** page, the installer will try to install any missing requirements automatically. If a requirement cannot be installed automatically, the **Status** may be marked as **Manual**, indicating that you need to install this software manually. Visual Studio must be installed manually.
+- Check the box "Install launcher for all users (recommended)
+- Check the box "Add Python 3.x to PATH."
 
-![](screenshots/check_requirements.png)
+Click **Customize installation**.
 
-Click **Execute** to isntruct the installer to automatically install any missing software. After the installer has finished installing the necessary utilities, you will see a screen like this.
+![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\python_1.png)
 
-![](screenshots/auto_install_success.png)
+On the **Optional Features** screen, check all the boxes and click **Next**.
 
-On the **Installation** page, click **Execute** to install MYSQL.
+![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\python_2.png)
 
-![](screenshots/MySQL_installation.png)
+On the **Advanced Options** screen, check the below boxes:
 
-Use the default settings when configuring Type and Networking.
+ - Check Install for all users
+ - Check Associate files with Python
+ - Check Create shortcuts for installed applications
+ - Check Add Python to environment variables
+ - Check Precompile standard library
 
-![](screenshots/MySQL_1.png)
+Click **Install**.
 
-On the **High Availability** screen, select **Standalone MySQL Server / Classic MySQL Replication**.
-
-![](screenshots/high_availability.png)
-
-On the **Authentication Method** page, select **Use Strong Password Encryption for Authentication (RECOMMENDED)**
-
-![](screenshots/authentication_method.png)
-
-On the **Accounts and Roles** page, add a MySQL root password.
-
-![](screenshots/accounts_and_roles.png)
-
-Click **Add User** to add a new user. The **User Role** should be **DB Admin**.
-
-![](screenshots/my_sql_user_account.png)
-
-On **Windows Service**, uncheck **Configure MySQL Server as a Windows Service**. We will be using XAMPP instead.
-
-![](screenshots/windows_service.png)
-
-On **Apply Configuration** click **Execute**.
-
-![](screenshots/apply_config.png)
-
-Ignore the options for **MySQL Router Configuration** and just click **Finish**.
-
-On **Connect to Server** enter your password and click **Check**. Then click **Next**.
-
-Finally, on **Apply Configuration**, click **Execute** then **Finish**.
+![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\python_3.png)
 
 ## Configure Python environment
 
-Install virtualenv and virtualenvwrapper.
+If you are hosting this server for the public, you must use a virtual environment! This tutorial will not use a virtual environment for the sake of simplicity and ease of use.
 
-If on mac, open the Terminal and type the following:
-
-```python
-pip install virtualenv
-pip install virtualenvwrapper
-```
-
-If on Windows, open the command line and type the following:
-
-```
-pip install virtualenv
-pip install virtualenvwrapper-win
-```
-
-## Create Virtual Environment and Install Requirements
 In the command line, enter the following commands:
 
 ```
-mkvirtualenv myTB
+cd %HOMEPATH%
 git clone https://github.com/nicklambson/terminator.git
 cd terminator
 pip install -r requirements/base.txt
 ```
 
-Remember! All commands should be executed inside the virtual environment! If you close the command line, remember to re-enter the virtual environment by entering this code:
-
-```
-workon myTB
-```
+Leave the command line window open.
 
 ## Start Apache and MySQL
 
@@ -112,29 +60,11 @@ XAMPP should look like this after starting Apache and MySQL.
 
 ## Create a Database
 
-Open MySQL Command Line Client. The password is null, so just hit enter without typing in any password.
+Click on `Admin` for MySQL in the XAMPP Control Panel. This will open phpMyAdmin.
 
-If successful, you will see a screen like this.
+Click `New`. Enter the name of your new database: myTB. Set the encoding to utf8mb4_general_ci. Click `Create`.
 
-![](screenshots/MySQL_CLI.png)
-
-Enter the following to show existing databases:
-
-```
-show databases;
-```
-
-Enter the following to create a new Term Base (TB):
-
-```
-CREATE DATABASE myTB;
-```
-
-Verify that the database was created by viewing the databases again:
-
-```
-show databases;
-```
+![](C:\Users\Nick\Documents\GitHub\terminator\screenshots\phpmyadmin_1.png)
 
 ## Migrate Data Structure
 
@@ -159,7 +89,7 @@ If successful, you should see a screen like this:
 For the purposes of this exercise, we will create a Django superuser from the command line:
 
 ```
-python manage.py createsuperuser --username=joe --email=joe@example.com
+python manage.py createsuperuser --username=jane --email=jane@example.com
 ```
 
 You will be prompted for a password. After you enter a password, the superuser will be created immediately.
