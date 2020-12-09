@@ -1,6 +1,6 @@
 # Terminator Tutorial Part 1
 
-Terminator is an open source terminology management platform built with Django and Python. 
+Terminator is an open source terminology management platform built with Django and Python. This tutorial uses MySQL and Apache but it is compatible with other database types and servers.
 
 ## Download and Install Prerequisites
 
