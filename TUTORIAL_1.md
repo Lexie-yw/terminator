@@ -45,6 +45,10 @@ cd terminator
 pip install -r requirements/base.txt
 ```
 
+If the git command doesn't work, just download Terminator by clicking on **Code** then **Download as ZIP**.
+
+![](screenshots/download_without_git.png)
+
 Leave the command line window open.
 
 ## Start Apache and MySQL
